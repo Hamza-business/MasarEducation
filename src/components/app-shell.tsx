@@ -1,5 +1,6 @@
 import { ModeToggle } from "./mode-toggle"
 import { Container } from "@/components/container"
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
@@ -7,6 +8,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       <header className="p-4 border-b">
         <Container className="flex justify-between items-center">
           <h1 className="text-xl font-bold">MyApp</h1>
+          <LanguageSwitcher />
           <ModeToggle />
         </Container>
       </header>
