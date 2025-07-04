@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import RegionList from '@/components/locations/Region_Manager/RegionList';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { IoIosAdd } from "react-icons/io";
 
 export interface Region {
   id: number;
@@ -72,7 +71,7 @@ export default function RegionManager({
         <Button
           disabled={!notFound || creating}
           onClick={handleAdd}
-          className="bg-[#20B2AA] hover:bg-[#03c1b7] rounded-sm"
+          className="bg-[#20B2AA] hover:bg-[#03c1b7] rounded-sm text-xl px-3 cursor-pointer"
         >+
         </Button>
       </div>

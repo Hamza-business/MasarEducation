@@ -7,19 +7,30 @@ export default function DistrictList({
   loading,
   selectedId,
   onSelect,
-  search
+  search,
+  selectedRegion
 }: {
   districts: District[];
   loading: boolean;
   selectedId: number | null;
   onSelect: (district: District) => void;
   search: string;
+  selectedRegion: Region | null;
 }) {
+
+    if (!selectedRegion) {
+        return (
+            <p className="text-sm text-muted-foreground">
+            No region selected. Please select a region first.
+            </p>
+        );
+    }
+
   if (loading) {
     return (
       <div className="space-y-2">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <Skeleton key={i} className="h-10 rounded-xl" />
+        {Array.from({ length: 6 }).map((_, i) => (
+          <Skeleton key={i} className="h-11 rounded-sm" />
         ))}
       </div>
     );
