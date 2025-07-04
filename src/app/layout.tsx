@@ -6,8 +6,6 @@ import { Providers } from '../components/providers'
 import {NextIntlClientProvider} from 'next-intl';
 import { cookies } from 'next/headers';
 import { Toaster } from "@/components/ui/sonner"; 
-import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
 
 const inter = Inter({ subsets: ['latin'] })
 

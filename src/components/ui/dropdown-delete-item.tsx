@@ -1,4 +1,3 @@
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Trash2 } from "lucide-react";
 import ConfirmDeleteDialog from "@/components/ui/confirm-delete-dialog";
 import { ReactNode } from "react";

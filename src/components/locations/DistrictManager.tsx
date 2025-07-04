@@ -54,6 +54,7 @@ export default function DistrictManager({
       setSelectedId(null);
       setSelectedName('');
     } catch (err) {
+      err;
       toastDistrictDeletionFailed(selectedName);
     }
   };

@@ -4,7 +4,6 @@ import { MoreHorizontal } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import DropdownDeleteItem from "@/components/ui/dropdown-delete-item";

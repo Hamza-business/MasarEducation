@@ -43,7 +43,8 @@ export default function RegionManager({
       clear();
       setSelectedId(null);
       setSelectedName('');
-    } catch (err) {
+    } catch (er) {
+      er;
       toastRegionDeletionFailed(selectedName);
     }
   };

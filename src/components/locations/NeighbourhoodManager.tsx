@@ -58,6 +58,7 @@ export default function NeighbourhoodManager({
       setSelectedId(null);
       setSelectedName('');
     } catch (err) {
+      err;
       toastNeighborhoodDeletionFailed(selectedName);
     }
   };

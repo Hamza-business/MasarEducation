@@ -10,6 +10,7 @@ export default function AreaManagementPage() {
   const [selectedRegion, setSelectedRegion] = useState<Region | null>(null);
   const [selectedDistrict, setSelectedDistrict] = useState<District | null>(null);
   const [selectedNeighbourhood, setSelectedNeighbourhood] = useState<Neighbourhood | null>(null);
+  selectedNeighbourhood;
 
   return (
     <AppShell>
