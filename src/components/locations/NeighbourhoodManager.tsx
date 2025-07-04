@@ -5,19 +5,22 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import NeighbourhoodList from '@/components/locations/Neighbourhood_Manager/NeighbourhoodList';
 import type { District, Neighbourhood, Region } from '@/types/locations';
-import { toastNeighborhoodCreationSuccess, toastNeighborhoodCreationFailed, toastNeighborhoodFetchFailed } from '@/components/notifications/toast';
+import { toastNeighborhoodCreationSuccess, toastNeighborhoodCreationFailed, toastNeighborhoodFetchFailed, toastNeighborhoodDeletionSuccess, toastNeighborhoodDeletionFailed } from '@/components/notifications/toast';
 
 export default function NeighbourhoodManager({
   selectedDistrict,
-  selectedRegion
+  selectedRegion,
+  clear
 }: {
   selectedDistrict: District | null;
   selectedRegion: Region | null;
+  clear: () => void;
 }) {
   const [neighbourhoods, setNeighbourhoods] = useState<Neighbourhood[]>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedName, setSelectedName] = useState<string>("");
   const [creating, setCreating] = useState(false);
 
   useEffect(() => {
@@ -35,6 +38,32 @@ export default function NeighbourhoodManager({
       setNeighbourhoods([]);
     }
   }, [selectedDistrict]);
+
+
+  const handleDeleteNeighbourhood = async (id: number) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this neighbourhood?');
+    if (!confirmDelete) return;
+
+    try {
+      const res = await fetch(`/api/neighbourhoods/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(errorText);
+      }
+
+      toastNeighborhoodDeletionSuccess(selectedName);
+
+      setNeighbourhoods((prev) => prev.filter((r) => r.id !== id));
+      clear();
+      setSelectedId(null);
+      setSelectedName('');
+    } catch (err) {
+      toastNeighborhoodDeletionFailed(selectedName);
+    }
+  };
 
   async function fetchNeighbourhoods() {
     try {
@@ -79,12 +108,12 @@ export default function NeighbourhoodManager({
       }
 
       const newNeighbourhood = await res.json();
+      toastNeighborhoodCreationSuccess( newNeighbourhood.name, selectedDistrict.name);
 
       setNeighbourhoods((prev) => [...prev, newNeighbourhood]);
-      setSearch('');
+      setSelectedName(search);
       setSelectedId(newNeighbourhood.id);
-
-      toastNeighborhoodCreationSuccess( newNeighbourhood.name, selectedDistrict.name);
+      setSearch('');
     } catch (err: any) {
       toastNeighborhoodCreationFailed(search);
     } finally {
@@ -125,7 +154,11 @@ export default function NeighbourhoodManager({
         selectedId={selectedId}
         search={search}
         selectedDistrict={selectedDistrict}
-        onSelect={(neighbourhood) => setSelectedId(neighbourhood.id)}
+        onSelect={(neighbourhood) => {
+          setSelectedId(neighbourhood.id);
+          setSelectedName(neighbourhood.name)
+        }}
+        onDeleteNeighbourhood={handleDeleteNeighbourhood}
       />
     </div>
   );

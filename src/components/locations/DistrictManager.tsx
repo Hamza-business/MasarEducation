@@ -5,24 +5,28 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import DistrictList from '@/components/locations/District_Manager/DistrictList';
 import type { Region, District } from '@/types/locations';
-import { toastDistrictCreationSuccess, toastDistrictCreationFailed, toastDistrictFetchFailed } from '@/components/notifications/toast';
+import { toastDistrictCreationSuccess, toastDistrictCreationFailed, toastDistrictFetchFailed, toastDistrictDeletionSuccess,toastDistrictDeletionFailed } from '@/components/notifications/toast';
 
 export default function DistrictManager({
   selectedRegion,
   onDistrictSelect,
+  clear
 }: {
   selectedRegion: Region | null;
   onDistrictSelect: (district: District) => void;
+  clear: () => void;
 }) {
   const [districts, setDistricts] = useState<District[]>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedName, setSelectedName] = useState<string>("");
   const [creating, setCreating] = useState(false);
 
   useEffect(() => {
     setSelectedId(null);
-    setDistricts([]);
+    setSelectedName('');
+    clear()
     if (selectedRegion) {
       fetchDistricts();
     } else {
@@ -30,6 +34,32 @@ export default function DistrictManager({
       setDistricts([]);
     }
   }, [selectedRegion]);
+
+
+  const handleDeleteDistrict = async (id: number) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this district?');
+    if (!confirmDelete) return;
+
+    try {
+      const res = await fetch(`/api/districts/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(errorText);
+      }
+
+      toastDistrictDeletionSuccess(selectedName);
+
+      setDistricts((prev) => prev.filter((r) => r.id !== id));
+      clear();
+      setSelectedId(null);
+      setSelectedName('');
+    } catch (err) {
+      toastDistrictDeletionFailed(selectedName);
+    }
+  };
 
   async function fetchDistricts() {
     try {
@@ -74,13 +104,13 @@ export default function DistrictManager({
       }
 
       const newDistrict = await res.json();
+      toastDistrictCreationSuccess(selectedName, selectedRegion.name);
 
       setDistricts((prev) => [...prev, newDistrict]);
-      setSearch('');
+      setSelectedName(search);
       setSelectedId(newDistrict.id);
       onDistrictSelect(newDistrict);
-
-      toastDistrictCreationSuccess(search, selectedRegion.name);
+      setSearch('');
     } catch (err: any) {
       toastDistrictCreationFailed(search);
     } finally {
@@ -125,8 +155,10 @@ export default function DistrictManager({
         selectedRegion={selectedRegion}
         onSelect={(district) => {
           setSelectedId(district.id);
+          setSelectedName(district.name)
           onDistrictSelect(district);
         }}
+        onDeleteDistrict={handleDeleteDistrict}
       />
     </div>
   );

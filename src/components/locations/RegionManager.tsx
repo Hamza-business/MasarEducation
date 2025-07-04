@@ -5,22 +5,51 @@ import RegionList from '@/components/locations/Region_Manager/RegionList';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import type { Region } from '@/types/locations';
-import { toastRegionCreationSuccess, toastRegionCreationFailed, toastRegionFetchFailed } from '@/components/notifications/toast';
+import { toastRegionCreationSuccess, toastRegionCreationFailed, toastRegionFetchFailed, toastRegionDeletionSuccess, toastRegionDeletionFailed } from '@/components/notifications/toast';
 
 export default function RegionManager({
   onRegionSelect,
+  clear
 }: {
   onRegionSelect: (region: Region) => void;
+  clear: () => void;
 }) {
   const [regions, setRegions] = useState<Region[]>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedName, setSelectedName] = useState<string>("");
   const [creating, setCreating] = useState(false);
 
   useEffect(() => {
     fetchRegions();
   }, []);
+
+
+  const handleDeleteRegion = async (id: number) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this region?');
+    if (!confirmDelete) return;
+
+    try {
+      const res = await fetch(`/api/regions/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(errorText);
+      }
+
+      toastRegionDeletionSuccess(selectedName);
+
+      setRegions((prev) => prev.filter((r) => r.id !== id));
+      clear();
+      setSelectedId(null);
+      setSelectedName('');
+    } catch (err) {
+      toastRegionDeletionFailed(selectedName);
+    }
+  };
 
   async function fetchRegions() {
     try {
@@ -58,13 +87,13 @@ export default function RegionManager({
       }
 
       const newRegion = await res.json();
+      toastRegionCreationSuccess(selectedName);
 
       setRegions((prev) => [...prev, newRegion]);
-      setSearch('');
+      setSelectedName(search);
       setSelectedId(newRegion.id);
       onRegionSelect(newRegion);
-
-      toastRegionCreationSuccess(search);
+      setSearch('');
     } catch (err: any) {
       toastRegionCreationFailed(search);
     } finally {
@@ -106,8 +135,10 @@ export default function RegionManager({
         search={search}
         onSelect={(region) => {
           setSelectedId(region.id);
+          setSelectedName(region.name)
           onRegionSelect(region);
         }}
+        onDeleteRegion={handleDeleteRegion}
       />
     </div>
   );

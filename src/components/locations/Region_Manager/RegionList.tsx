@@ -2,18 +2,22 @@ import RegionItem from '@/components/locations/Region_Manager/RegionItem';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { Region } from '@/types/locations';
 
+
+
 export default function RegionList({
   regions,
   loading,
   selectedId,
   onSelect,
-  search
+  search,
+  onDeleteRegion
 }: {
   regions: Region[];
   loading: boolean;
   selectedId: number | null;
   onSelect: (region: Region) => void;
   search: string;
+  onDeleteRegion: (id: number) => void;
 }) {
     if (loading) {
       return (
@@ -43,6 +47,7 @@ export default function RegionList({
           region={region}
           selected={region.id === selectedId}
           onClick={() => onSelect(region)}
+          onDelete={() => onDeleteRegion(region.id)}
         />
       ))}
     </div>

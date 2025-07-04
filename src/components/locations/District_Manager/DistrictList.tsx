@@ -8,7 +8,8 @@ export default function DistrictList({
   selectedId,
   onSelect,
   search,
-  selectedRegion
+  selectedRegion,
+  onDeleteDistrict
 }: {
   districts: District[];
   loading: boolean;
@@ -16,6 +17,7 @@ export default function DistrictList({
   onSelect: (district: District) => void;
   search: string;
   selectedRegion: Region | null;
+  onDeleteDistrict: (id: number) => void;
 }) {
 
     if (!selectedRegion) {
@@ -54,6 +56,7 @@ export default function DistrictList({
           district={district}
           selected={district.id === selectedId}
           onClick={() => onSelect(district)}
+          onDelete={() => onDeleteDistrict(district.id)}
         />
       ))}
     </div>

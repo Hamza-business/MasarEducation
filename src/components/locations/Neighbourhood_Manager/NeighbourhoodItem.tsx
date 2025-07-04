@@ -1,4 +1,4 @@
-import { Neighbourhood } from '@/components/locations/NeighbourhoodManager';
+import { Neighbourhood } from '@/types/locations';
 import { Button } from '@/components/ui/button';
 import { MoreHorizontal } from 'lucide-react';
 import {
@@ -12,10 +12,12 @@ export default function NeighbourhoodItem({
   neighbourhood,
   selected,
   onClick,
+  onDelete
 }: {
   neighbourhood: Neighbourhood;
   selected: boolean;
   onClick: () => void;
+  onDelete: () => void;
 }) {
   return (
     <div
@@ -34,7 +36,10 @@ export default function NeighbourhoodItem({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem>Edit name</DropdownMenuItem>
-          <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={onDelete}
+            className="text-red-500"
+          >Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

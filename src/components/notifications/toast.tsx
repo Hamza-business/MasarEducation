@@ -14,6 +14,18 @@ export function toastRegionCreationFailed(regionName: string) {
     icon: <FaTimesCircle />
   });
 }
+export function toastRegionDeletionSuccess(regionName: string) {
+  toast.success("✅ Region Deleted!", {
+    description: `${regionName} region was deleted successfully`,
+    duration: 4000,
+  });
+}
+export function toastRegionDeletionFailed(regionName: string) {
+  toast.success("Failed to delete region!", {
+    description: `Failed to delete ${regionName} region. Please try again.`,
+    duration: 4000,
+  });
+}
 export function toastRegionFetchFailed() {
   toast.success(`Failed to fetch regions`, {
     description: `Failed to fetch regions. Please try again.`,
@@ -22,13 +34,12 @@ export function toastRegionFetchFailed() {
   });
 }
 
+
 export function toastDistrictCreated(districtName: string, regionName: string) {
   toast.success(
     `${districtName} was created as a new district inside ${regionName} region`
   );
 }
-
-
 export function toastDistrictCreationSuccess(districtName: string, regionName: string) {
   toast.success("✅ District created!", {
     description: `${districtName} was created as a new district inside ${regionName} region`,
@@ -40,6 +51,18 @@ export function toastDistrictCreationFailed(districtName: string) {
     description: `Failed to create district <${districtName}>. Please try again.`,
     duration: 4000,
     icon: <FaTimesCircle />
+  });
+}
+export function toastDistrictDeletionSuccess(districtName: string) {
+  toast.success("✅ District Deleted!", {
+    description: `${districtName} district was deleted successfully`,
+    duration: 4000,
+  });
+}
+export function toastDistrictDeletionFailed(districtName: string) {
+  toast.success("Failed to delete district!", {
+    description: `Failed to delete ${districtName} district. Please try again.`,
+    duration: 4000,
   });
 }
 export function toastDistrictFetchFailed() {
@@ -57,11 +80,23 @@ export function toastNeighborhoodCreationSuccess(neighborhoodName: string, distr
     duration: 4000,
   });
 }
-export function toastNeighborhoodCreationFailed(districtName: string) {
+export function toastNeighborhoodCreationFailed(neighborhoodName: string) {
   toast.success("Failed to create neighbourhood!", {
-    description: `Failed to create neighbourhood <${districtName}>. Please try again.`,
+    description: `Failed to create neighbourhood <${neighborhoodName}>. Please try again.`,
     duration: 4000,
     icon: <FaTimesCircle />
+  });
+}
+export function toastNeighborhoodDeletionSuccess(neighborhoodName: string) {
+  toast.success("✅ Neighborhood Deleted!", {
+    description: `${neighborhoodName} neighborhood was deleted successfully`,
+    duration: 4000,
+  });
+}
+export function toastNeighborhoodDeletionFailed(neighborhoodName: string) {
+  toast.success("Failed to delete neighborhood!", {
+    description: `Failed to delete ${neighborhoodName} neighborhood. Please try again.`,
+    duration: 4000,
   });
 }
 export function toastNeighborhoodFetchFailed() {

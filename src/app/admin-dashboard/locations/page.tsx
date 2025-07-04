@@ -20,15 +20,30 @@ export default function AreaManagementPage() {
                     setSelectedDistrict(null);
                     setSelectedNeighbourhood(null);
                 }}
+                clear={()=>{
+                    setSelectedRegion(null);
+                    setSelectedDistrict(null);
+                    setSelectedNeighbourhood(null);
+                }}
             />
             <DistrictManager
                 selectedRegion={selectedRegion}
                 onDistrictSelect={(district) => {
                     setSelectedDistrict(district);
-                    setSelectedNeighbourhood(null); // clear neighbourhood
+                    setSelectedNeighbourhood(null);
+                }}
+                clear={()=>{
+                    setSelectedDistrict(null);
+                    setSelectedNeighbourhood(null);
                 }}
             />
-            <NeighbourhoodManager selectedDistrict={selectedDistrict} selectedRegion={selectedRegion} />
+            <NeighbourhoodManager 
+                selectedDistrict={selectedDistrict}
+                selectedRegion={selectedRegion} 
+                clear={()=>{
+                    setSelectedNeighbourhood(null);
+                }}
+            />
         </div>
     </AppShell>
   );
