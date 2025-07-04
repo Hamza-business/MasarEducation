@@ -20,7 +20,7 @@ export default function DistrictList({
 
     if (!selectedRegion) {
         return (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground text-center">
             No region selected. Please select a region first.
             </p>
         );
@@ -29,7 +29,7 @@ export default function DistrictList({
   if (loading) {
     return (
       <div className="space-y-2">
-        {Array.from({ length: 6 }).map((_, i) => (
+        {Array.from({ length: 7 }).map((_, i) => (
           <Skeleton key={i} className="h-11 rounded-sm" />
         ))}
       </div>
@@ -38,7 +38,7 @@ export default function DistrictList({
 
   if (districts.length === 0) {
     return (
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-muted-foreground text-center">
         {search
           ? `No district found matching "${search}"`
           : 'No districts are added for this region'}
@@ -47,7 +47,7 @@ export default function DistrictList({
   }
 
   return (
-    <div className="max-h-[310px] overflow-y-auto pr-1 space-y-2">
+    <div className="h-[360px] overflow-y-auto pr-1 space-y-2">
       {districts.map((district) => (
         <DistrictItem
           key={district.id}

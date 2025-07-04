@@ -63,7 +63,7 @@ export default function DistrictManager({
   const notFound = search && filtered.length === 0;
 
   return (
-    <div className="p-4 border rounded-md shadow bg-white dark:bg-zinc-900 w-full max-w-sm space-y-4">
+    <div className="p-4 border rounded-md shadow bg-white dark:bg-zinc-900 w-full space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold">Districts</h2>
         <span className="text-sm text-muted-foreground">

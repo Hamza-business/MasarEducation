@@ -13,7 +13,7 @@ export default function AreaManagementPage() {
 
   return (
     <AppShell>
-        <div className="py-5 grid grid-cols-1 md:grid-cols-3 gap-y-6">
+        <div className="py-5 grid grid-cols-1 md:grid-cols-3 w-full gap-7">
             <RegionManager 
                 onRegionSelect={(region)=>{
                     setSelectedRegion(region);

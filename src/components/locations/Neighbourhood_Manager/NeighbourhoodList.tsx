@@ -19,7 +19,7 @@ export default function NeighbourhoodList({
 }) {
   if (!selectedDistrict) {
     return (
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-muted-foreground text-center">
         No district selected. Please select a district first.
       </p>
     );
@@ -28,7 +28,7 @@ export default function NeighbourhoodList({
   if (loading) {
     return (
       <div className="space-y-2">
-        {Array.from({ length: 6 }).map((_, i) => (
+        {Array.from({ length: 7 }).map((_, i) => (
           <Skeleton key={i} className="h-11 rounded-sm" />
         ))}
       </div>
@@ -37,7 +37,7 @@ export default function NeighbourhoodList({
 
   if (neighbourhoods.length === 0) {
     return (
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-muted-foreground text-center">
         {search
           ? `No neighbourhood found matching "${search}"`
           : 'No neighbourhoods are added for this district'}
@@ -46,7 +46,7 @@ export default function NeighbourhoodList({
   }
 
   return (
-    <div className="max-h-[310px] overflow-y-auto pr-1 space-y-2">
+    <div className="h-[360px] overflow-y-auto pr-1 space-y-2">
       {neighbourhoods.map((neighbourhood) => (
         <NeighbourhoodItem
           key={neighbourhood.id}
