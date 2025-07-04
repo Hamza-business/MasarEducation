@@ -1,17 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Region } from './RegionManager';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import DistrictList from '@/components/locations/District_Manager/DistrictList';
-
-export interface District {
-  id: number;
-  name: string;
-  hidden: boolean;
-  region: number;
-}
+import type { Region, District } from '@/types/locations';
 
 export default function DistrictManager({
   selectedRegion,

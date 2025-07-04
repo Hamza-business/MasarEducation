@@ -4,11 +4,12 @@ import DistrictManager from '@/components/locations/DistrictManager';
 import NeighbourhoodManager from '@/components/locations/NeighbourhoodManager';
 import RegionManager from '@/components/locations/RegionManager';
 import { useState } from 'react';
+import type { Region, District, Neighbourhood } from '@/types/locations';
 
 export default function AreaManagementPage() {
   const [selectedRegion, setSelectedRegion] = useState<Region | null>(null);
   const [selectedDistrict, setSelectedDistrict] = useState<District | null>(null);
-  const [selectedNeighborhood, setSelectedNeighborhood] = useState<Neighborhood | null>(null);
+  const [selectedNeighbourhood, setSelectedNeighbourhood] = useState<Neighbourhood | null>(null);
 
   return (
     <AppShell>
@@ -17,14 +18,14 @@ export default function AreaManagementPage() {
                 onRegionSelect={(region)=>{
                     setSelectedRegion(region);
                     setSelectedDistrict(null);
-                    setSelectedNeighborhood(null);
+                    setSelectedNeighbourhood(null);
                 }}
             />
             <DistrictManager
                 selectedRegion={selectedRegion}
                 onDistrictSelect={(district) => {
                     setSelectedDistrict(district);
-                    setSelectedNeighborhood(null); // clear neighborhood
+                    setSelectedNeighbourhood(null); // clear neighbourhood
                 }}
             />
             <NeighbourhoodManager selectedDistrict={selectedDistrict} />

@@ -4,12 +4,7 @@ import { useEffect, useState } from 'react';
 import RegionList from '@/components/locations/Region_Manager/RegionList';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-
-export interface Region {
-  id: number;
-  name: string;
-  hidden: boolean;
-}
+import type { Region } from '@/types/locations';
 
 export default function RegionManager({
   onRegionSelect,

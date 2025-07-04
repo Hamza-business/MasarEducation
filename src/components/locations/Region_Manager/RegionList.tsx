@@ -1,6 +1,6 @@
 import RegionItem from '@/components/locations/Region_Manager/RegionItem';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Region } from '@/components/locations/RegionManager';
+import type { Region } from '@/types/locations';
 
 export default function RegionList({
   regions,

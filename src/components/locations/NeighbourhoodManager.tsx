@@ -4,14 +4,7 @@ import { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import NeighbourhoodList from '@/components/locations/Neighbourhood_Manager/NeighbourhoodList';
-import { District } from '@/components/locations/DistrictManager';
-
-export interface Neighbourhood {
-  id: number;
-  name: string;
-  hidden: boolean;
-  districts: number;
-}
+import type { District, Neighbourhood } from '@/types/locations';
 
 export default function NeighbourhoodManager({
   selectedDistrict,
