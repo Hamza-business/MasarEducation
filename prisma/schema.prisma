@@ -1,15 +1,333 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  schemas  = ["locations", "public"]
+}
+
+model countries {
+  id      Int              @id @default(autoincrement())
+  name    public_countries
+  hidden  Boolean?         @default(false)
+  regions regions[]
+
+  @@unique([name, id], map: "uni")
+  @@schema("locations")
+}
+
+model districts {
+  id                                                 Int              @id @default(autoincrement())
+  region                                             Int
+  name                                               String
+  hidden                                             Boolean?         @default(false)
+  regions                                            regions          @relation(fields: [region], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "region")
+  neighbourhoods_neighbourhoods_districtsTodistricts neighbourhoods[] @relation("neighbourhoods_districtsTodistricts")
+
+  @@schema("locations")
+}
+
+model neighbourhoods {
+  id                                            Int       @id @default(autoincrement())
+  districts                                     Int
+  name                                          String
+  hidden                                        Boolean?  @default(false)
+  districts_neighbourhoods_districtsTodistricts districts @relation("neighbourhoods_districtsTodistricts", fields: [districts], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "districts")
+
+  @@schema("locations")
+}
+
+model regions {
+  id        Int         @id @default(autoincrement())
+  country   Int
+  name      String
+  hidden    Boolean?    @default(false)
+  districts districts[]
+  countries countries   @relation(fields: [country], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "country")
+
+  @@schema("locations")
+}
+
+enum public_countries {
+  Afghanistan
+  Aland_Islands                     @map("Aland Islands")
+  Albania
+  Algeria
+  American_Samoa                    @map("American Samoa")
+  Andorra
+  Angola
+  Anguilla
+  Antarctica
+  Antigua_And_Barbuda               @map("Antigua And Barbuda")
+  Argentina
+  Armenia
+  Aruba
+  Australia
+  Austria
+  Azerbaijan
+  Bahamas
+  Bahrain
+  Bangladesh
+  Barbados
+  Belarus
+  Belgium
+  Belize
+  Benin
+  Bermuda
+  Bhutan
+  Bolivia
+  Bonaire_Sint_Eustatius_Saba       @map("Bonaire Sint Eustatius Saba")
+  Bosnia_And_Herzegovina            @map("Bosnia And Herzegovina")
+  Botswana
+  Bouvet_Island                     @map("Bouvet Island")
+  Brazil
+  British_Indian_Ocean_Territory    @map("British Indian Ocean Territory")
+  Brunei_Darussalam                 @map("Brunei Darussalam")
+  Bulgaria
+  Burkina_Faso                      @map("Burkina Faso")
+  Burundi
+  Cambodia
+  Cameroon
+  Canada
+  Cape_Verde                        @map("Cape Verde")
+  Cayman_Islands                    @map("Cayman Islands")
+  Central_African_Republic          @map("Central African Republic")
+  Chad
+  Chile
+  China
+  Christmas_Island                  @map("Christmas Island")
+  Cocos_Keeling_Islands             @map("Cocos Keeling Islands")
+  Colombia
+  Comoros
+  Congo
+  Congo_Democratic_Republic         @map("Congo Democratic Republic")
+  Cook_Islands                      @map("Cook Islands")
+  Costa_Rica                        @map("Costa Rica")
+  Cote_D_Ivoire                     @map("Cote D Ivoire")
+  Croatia
+  Cuba
+  Curacao
+  Cyprus
+  Czech_Republic                    @map("Czech Republic")
+  Denmark
+  Djibouti
+  Dominica
+  Dominican_Republic                @map("Dominican Republic")
+  Ecuador
+  Egypt
+  ElSalvador
+  Equatorial_Guinea                 @map("Equatorial Guinea")
+  Eritrea
+  Estonia
+  Ethiopia
+  Falkland_Islands                  @map("Falkland Islands")
+  Faroe_Islands                     @map("Faroe Islands")
+  Fiji
+  Finland
+  France
+  French_Guiana                     @map("French Guiana")
+  French_Polynesia                  @map("French Polynesia")
+  French_Southern_Territories       @map("French Southern Territories")
+  Gabon
+  Gambia
+  Georgia
+  Germany
+  Ghana
+  Gibraltar
+  Greece
+  Greenland
+  Grenada
+  Guadeloupe
+  Guam
+  Guatemala
+  Guernsey
+  Guinea
+  Guinea_Bissau                     @map("Guinea Bissau")
+  Guyana
+  Haiti
+  Heard_Island_Mcdonald_Islands     @map("Heard Island Mcdonald Islands")
+  Holy_See_Vatican_City_State       @map("Holy See Vatican City State")
+  Honduras
+  Hong_Kong                         @map("Hong Kong")
+  Hungary
+  Iceland
+  India
+  Indonesia
+  Iran
+  Iraq
+  Ireland
+  IsleOfMan
+  Other
+  Italy
+  Jamaica
+  Japan
+  Jersey
+  Jordan
+  Kazakhstan
+  Kenya
+  Kiribati
+  Korea
+  Korea_Democratic_Peoples_Republic @map("Korea Democratic Peoples Republic")
+  Kuwait
+  Kyrgyzstan
+  Lao_Peoples_Democratic_Republic   @map("Lao Peoples Democratic Republic")
+  Latvia
+  Lebanon
+  Lesotho
+  Liberia
+  Libyan_Arab_Jamahiriya            @map("Libyan Arab Jamahiriya")
+  Liechtenstein
+  Lithuania
+  Luxembourg
+  Macao
+  Macedonia
+  Madagascar
+  Malawi
+  Malaysia
+  Maldives
+  Mali
+  Malta
+  Marshall_Islands                  @map("Marshall Islands")
+  Martinique
+  Mauritania
+  Mauritius
+  Mayotte
+  Mexico
+  Micronesia
+  Moldova
+  Monaco
+  Mongolia
+  Montenegro
+  Montserrat
+  Morocco
+  Mozambique
+  Myanmar
+  Namibia
+  Nauru
+  Nepal
+  Netherlands
+  New_Caledonia                     @map("New Caledonia")
+  New_Zealand                       @map("New Zealand")
+  Nicaragua
+  Niger
+  Nigeria
+  Niue
+  Norfolk_Island                    @map("Norfolk Island")
+  Northern_Mariana_Islands          @map("Northern Mariana Islands")
+  Norway
+  Oman
+  Pakistan
+  Palau
+  Palestine
+  Panama
+  Papua_New_Guinea                  @map("Papua New Guinea")
+  Paraguay
+  Peru
+  Philippines
+  Pitcairn
+  Poland
+  Portugal
+  PuertoRico
+  Qatar
+  Reunion
+  Romania
+  Russian_Federation                @map("Russian Federation")
+  Rwanda
+  Saint_Barthelemy                  @map("Saint Barthelemy")
+  Saint_Helena                      @map("Saint Helena")
+  Saint_Kitts_AndNevis              @map("Saint Kitts AndNevis")
+  Saint_Lucia                       @map("Saint Lucia")
+  Saint_Martin                      @map("Saint Martin")
+  Saint_Pierre_And_Miquelon         @map("Saint Pierre And Miquelon")
+  Saint_Vincent_And_Grenadines      @map("Saint Vincent And Grenadines")
+  Samoa
+  San_Marino                        @map("San Marino")
+  Sao_Tome_And_Principe             @map("Sao Tome And Principe")
+  Saudi_Arabia                      @map("Saudi Arabia")
+  Senegal
+  Serbia
+  Seychelles
+  SierraLeone
+  Singapore
+  Sint_Maarten                      @map("Sint Maarten")
+  Slovakia
+  Slovenia
+  Solomon_Islands                   @map("Solomon Islands")
+  Somalia
+  South_Africa                      @map("South Africa")
+  South_Georgia_And_SandwichIsl     @map("South Georgia And SandwichIsl")
+  South_Sudan                       @map("South Sudan")
+  Spain
+  Sri_Lanka                         @map("Sri Lanka")
+  Sudan
+  Suriname
+  Svalbard_And_JanMayen             @map("Svalbard And JanMayen")
+  Swaziland
+  Sweden
+  Switzerland
+  Syrian_Arab_Republic              @map("Syrian Arab Republic")
+  Taiwan
+  Tajikistan
+  Tanzania
+  Thailand
+  Timor_Leste                       @map("Timor Leste")
+  Togo
+  Tokelau
+  Tonga
+  Trinidad_And_Tobago               @map("Trinidad And Tobago")
+  Tunisia
+  Turkey
+  Turkmenistan
+  TurksAndCaicosIslands
+  Tuvalu
+  Uganda
+  Ukraine
+  United_Arab_Emirates              @map("United Arab Emirates")
+  United_Kingdom                    @map("United Kingdom")
+  United_States                     @map("United States")
+  United_States_Outlying_Islands    @map("United States Outlying Islands")
+  Uruguay
+  Uzbekistan
+  Vanuatu
+  Venezuela
+  Vietnam
+  Virgin_Islands_British            @map("Virgin Islands British")
+  Virgin_Islands_US                 @map("Virgin Islands US")
+  Wallis_And_Futuna                 @map("Wallis And Futuna")
+  Western_Sahara                    @map("Western Sahara")
+  Yemen
+  Zambia
+  Zimbabwe
+
+  @@map("countries")
+  @@schema("public")
+}
+
+enum mimeTypes {
+  png
+  jpg
+  pdf
+
+  @@schema("public")
+}
+
+enum orderStatus {
+  pending
+  under_review @map("under review")
+  completed
+  rejected
+
+  @@schema("public")
+}
+
+enum period {
+  day
+  week
+  month
+  year
+
+  @@schema("public")
 }
