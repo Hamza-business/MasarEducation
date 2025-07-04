@@ -18,8 +18,8 @@ export default function RegionList({
     if (loading) {
       return (
         <div className="space-y-2">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="h-12 rounded-md" />
+          {Array.from({ length: 6 }).map((_, i) => (
+            <Skeleton key={i} className="h-11 rounded-sm" />
           ))}
         </div>
       );
@@ -36,7 +36,7 @@ export default function RegionList({
     }
 
   return (
-    <div className="max-h-[280px] overflow-y-auto pr-1 space-y-2">
+    <div className="max-h-[310px] overflow-y-auto pr-1 space-y-2">
       {regions.map((region) => (
         <RegionItem
           key={region.id}

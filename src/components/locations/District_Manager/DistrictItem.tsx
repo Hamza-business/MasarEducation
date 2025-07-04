@@ -1,4 +1,4 @@
-import { Region } from '@/components/locations/RegionManager';
+import { District } from '@/components/locations/DistrictManager';
 import { Button } from '@/components/ui/button';
 import { MoreHorizontal } from 'lucide-react';
 import {
@@ -8,23 +8,23 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-export default function RegionItem({
-  region,
+export default function DistrictItem({
+  district,
   selected,
   onClick,
 }: {
-  region: Region;
+  district: District;
   selected: boolean;
   onClick: () => void;
 }) {
   return (
     <div
       onClick={onClick}
-      className={`flex items-center justify-between px-4 py-4 rounded-sm border cursor-pointer transition-all h-11 ${
+      className={`flex items-center justify-between px-4 py-4 rounded-md border cursor-pointer transition-all h-11 ${
         selected ? 'bg-muted' : 'hover:bg-accent'
       }`}
     >
-      <span className="truncate text-sm font-normal">{region.name}</span>
+      <span className="truncate text-sm font-normal">{district.name}</span>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
