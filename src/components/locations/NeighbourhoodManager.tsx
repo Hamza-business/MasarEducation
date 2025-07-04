@@ -41,9 +41,6 @@ export default function NeighbourhoodManager({
 
 
   const handleDeleteNeighbourhood = async (id: number) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this neighbourhood?');
-    if (!confirmDelete) return;
-
     try {
       const res = await fetch(`/api/neighbourhoods/${id}`, {
         method: 'DELETE',

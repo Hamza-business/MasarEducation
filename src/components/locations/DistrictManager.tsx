@@ -37,9 +37,6 @@ export default function DistrictManager({
 
 
   const handleDeleteDistrict = async (id: number) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this district?');
-    if (!confirmDelete) return;
-
     try {
       const res = await fetch(`/api/districts/${id}`, {
         method: 'DELETE',

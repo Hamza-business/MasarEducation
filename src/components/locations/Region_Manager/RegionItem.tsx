@@ -7,6 +7,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import DropdownDeleteItem from "@/components/ui/dropdown-delete-item";
+import DropdownEditItem from '@/components/ui/dropdown-edit-item';
 
 export default function RegionItem({
   region,
@@ -35,11 +37,8 @@ export default function RegionItem({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem>Edit name</DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={onDelete}
-            className="text-red-500"
-          >Delete</DropdownMenuItem>
+          <DropdownEditItem onClick={onDelete} />
+          <DropdownDeleteItem onConfirm={onDelete} />
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

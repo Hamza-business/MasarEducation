@@ -27,9 +27,6 @@ export default function RegionManager({
 
 
   const handleDeleteRegion = async (id: number) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this region?');
-    if (!confirmDelete) return;
-
     try {
       const res = await fetch(`/api/regions/${id}`, {
         method: 'DELETE',
