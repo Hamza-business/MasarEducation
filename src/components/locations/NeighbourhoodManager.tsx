@@ -4,12 +4,15 @@ import { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import NeighbourhoodList from '@/components/locations/Neighbourhood_Manager/NeighbourhoodList';
-import type { District, Neighbourhood } from '@/types/locations';
+import type { District, Neighbourhood, Region } from '@/types/locations';
+import { toastNeighborhoodCreationSuccess, toastNeighborhoodCreationFailed, toastNeighborhoodFetchFailed } from '@/components/notifications/toast';
 
 export default function NeighbourhoodManager({
   selectedDistrict,
+  selectedRegion
 }: {
   selectedDistrict: District | null;
+  selectedRegion: Region | null;
 }) {
   const [neighbourhoods, setNeighbourhoods] = useState<Neighbourhood[]>([]);
   const [search, setSearch] = useState('');
@@ -34,29 +37,59 @@ export default function NeighbourhoodManager({
   }, [selectedDistrict]);
 
   async function fetchNeighbourhoods() {
-    setLoading(true);
-    const res = await fetch(`/api/neighbourhoods?district=${selectedDistrict?.id}`);
-    const data = await res.json();
-    setNeighbourhoods(data);
-    setLoading(false);
+    try {
+      if (!selectedDistrict) return;
+
+      setLoading(true);
+
+      const res = await fetch(`/api/neighbourhoods?district=${selectedDistrict.id}`);
+
+      if (!res.ok) {
+        const errorBody = await res.text();
+        throw new Error(`Failed to fetch neighborhoods: ${errorBody}`);
+      }
+
+      const data = await res.json();
+      setNeighbourhoods(data);
+    } catch (err: any) {
+      toastNeighborhoodFetchFailed();
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleAdd() {
-    if (!selectedDistrict) return;
-    setCreating(true);
-    const res = await fetch('/api/neighbourhoods', {
-      method: 'POST',
-      body: JSON.stringify({
-        name: search,
-        districts: selectedDistrict.id,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    });
-    const newNeighbourhood = await res.json();
-    setNeighbourhoods((prev) => [...prev, newNeighbourhood]);
-    setSearch('');
-    setCreating(false);
-    setSelectedId(newNeighbourhood.id);
+    if (!selectedDistrict || !selectedRegion) return;
+
+    try {
+      setCreating(true);
+
+      const res = await fetch('/api/neighbourhoods', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: search,
+          districts: selectedDistrict.id,
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!res.ok) {
+        const errorBody = await res.text();
+        throw new Error(`Failed to create neighborhood: ${errorBody}`);
+      }
+
+      const newNeighbourhood = await res.json();
+
+      setNeighbourhoods((prev) => [...prev, newNeighbourhood]);
+      setSearch('');
+      setSelectedId(newNeighbourhood.id);
+
+      toastNeighborhoodCreationSuccess( newNeighbourhood.name, selectedDistrict.name);
+    } catch (err: any) {
+      toastNeighborhoodCreationFailed(search);
+    } finally {
+      setCreating(false);
+    }
   }
 
   const filtered = neighbourhoods.filter((n) =>

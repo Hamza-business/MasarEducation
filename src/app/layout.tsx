@@ -5,6 +5,9 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { Providers } from '../components/providers'
 import {NextIntlClientProvider} from 'next-intl';
 import { cookies } from 'next/headers';
+import { Toaster } from "@/components/ui/sonner"; 
+import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,6 +28,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Providers>
             <NextIntlClientProvider locale={locale}>
               {children}
+              <Toaster />
             </NextIntlClientProvider>
           </Providers>
         </ThemeProvider>

@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import DistrictList from '@/components/locations/District_Manager/DistrictList';
 import type { Region, District } from '@/types/locations';
+import { toastDistrictCreationSuccess, toastDistrictCreationFailed, toastDistrictFetchFailed } from '@/components/notifications/toast';
 
 export default function DistrictManager({
   selectedRegion,
@@ -31,30 +32,60 @@ export default function DistrictManager({
   }, [selectedRegion]);
 
   async function fetchDistricts() {
-    setLoading(true);
-    const res = await fetch(`/api/districts?region=${selectedRegion?.id}`);
-    const data = await res.json();
-    setDistricts(data);
-    setLoading(false);
+    try {
+      if (!selectedRegion) return;
+
+      setLoading(true);
+
+      const res = await fetch(`/api/districts?region=${selectedRegion.id}`);
+
+      if (!res.ok) {
+        const errorBody = await res.text();
+        throw new Error(`Failed to fetch districts: ${errorBody}`);
+      }
+
+      const data = await res.json();
+      setDistricts(data);
+    } catch (err: any) {
+      toastDistrictFetchFailed();
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleAdd() {
     if (!selectedRegion) return;
-    setCreating(true);
-    const res = await fetch('/api/districts', {
-      method: 'POST',
-      body: JSON.stringify({
-        name: search,
-        region: selectedRegion.id,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    });
-    const newDistrict = await res.json();
-    setDistricts((prev) => [...prev, newDistrict]);
-    setSearch('');
-    setCreating(false);
-    setSelectedId(newDistrict.id);
-    onDistrictSelect(newDistrict);
+
+    try {
+      setCreating(true);
+
+      const res = await fetch('/api/districts', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: search,
+          region: selectedRegion.id,
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!res.ok) {
+        const errorBody = await res.text();
+        throw new Error(`Failed to create district: ${errorBody}`);
+      }
+
+      const newDistrict = await res.json();
+
+      setDistricts((prev) => [...prev, newDistrict]);
+      setSearch('');
+      setSelectedId(newDistrict.id);
+      onDistrictSelect(newDistrict);
+
+      toastDistrictCreationSuccess(search, selectedRegion.name);
+    } catch (err: any) {
+      toastDistrictCreationFailed(search);
+    } finally {
+      setCreating(false);
+    }
   }
 
   const filtered = districts.filter((d) =>

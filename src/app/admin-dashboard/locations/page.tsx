@@ -13,7 +13,7 @@ export default function AreaManagementPage() {
 
   return (
     <AppShell>
-        <div className="py-5 grid grid-cols-1 md:grid-cols-3 w-full gap-7">
+        <div className="py-5 grid grid-cols-1 md:grid-cols-3 w-full gap-6">
             <RegionManager 
                 onRegionSelect={(region)=>{
                     setSelectedRegion(region);
@@ -28,7 +28,7 @@ export default function AreaManagementPage() {
                     setSelectedNeighbourhood(null); // clear neighbourhood
                 }}
             />
-            <NeighbourhoodManager selectedDistrict={selectedDistrict} />
+            <NeighbourhoodManager selectedDistrict={selectedDistrict} selectedRegion={selectedRegion} />
         </div>
     </AppShell>
   );

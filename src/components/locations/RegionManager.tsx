@@ -5,6 +5,7 @@ import RegionList from '@/components/locations/Region_Manager/RegionList';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import type { Region } from '@/types/locations';
+import { toastRegionCreationSuccess, toastRegionCreationFailed, toastRegionFetchFailed } from '@/components/notifications/toast';
 
 export default function RegionManager({
   onRegionSelect,
@@ -22,26 +23,53 @@ export default function RegionManager({
   }, []);
 
   async function fetchRegions() {
-    setLoading(true);
-    const res = await fetch('/api/regions');
-    const data = await res.json();
-    setRegions(data);
-    setLoading(false);
+    try {
+      setLoading(true);
+
+      const res = await fetch('/api/regions');
+
+      if (!res.ok) {
+        const errorBody = await res.text();
+        throw new Error(`Failed to fetch regions: ${errorBody}`);
+      }
+
+      const data = await res.json();
+      setRegions(data);
+    } catch (err: any) {
+      toastRegionFetchFailed();
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleAdd() {
-    setCreating(true);
-    const res = await fetch('/api/regions', {
-      method: 'POST',
-      body: JSON.stringify({ country:1, name: search }),
-      headers: { 'Content-Type': 'application/json' },
-    });
-    const newRegion = await res.json();
-    setRegions((prev) => [...prev, newRegion]);
-    setSearch('');
-    setCreating(false);
-    setSelectedId(newRegion.id);
-    onRegionSelect(newRegion);
+    try {
+      setCreating(true);
+
+      const res = await fetch('/api/regions', {
+        method: 'POST',
+        body: JSON.stringify({ country: 1, name: search }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!res.ok) {
+        const errorBody = await res.text();
+        throw new Error(`Failed to create region: ${errorBody}`);
+      }
+
+      const newRegion = await res.json();
+
+      setRegions((prev) => [...prev, newRegion]);
+      setSearch('');
+      setSelectedId(newRegion.id);
+      onRegionSelect(newRegion);
+
+      toastRegionCreationSuccess(search);
+    } catch (err: any) {
+      toastRegionCreationFailed(search);
+    } finally {
+      setCreating(false);
+    }
   }
 
   const filtered = regions.filter((r) =>
