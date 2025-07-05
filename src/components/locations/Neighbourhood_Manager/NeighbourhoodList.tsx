@@ -9,7 +9,8 @@ export default function NeighbourhoodList({
   onSelect,
   search,
   selectedDistrict,
-  onDeleteNeighbourhood
+  onDeleteNeighbourhood,
+  onRenameNeighbourhood
 }: {
   neighbourhoods: Neighbourhood[];
   loading: boolean;
@@ -18,6 +19,7 @@ export default function NeighbourhoodList({
   search: string;
   selectedDistrict: District | null;
   onDeleteNeighbourhood: (id: number) => void;
+  onRenameNeighbourhood: (id: number, newName: string) => void;
 }) {
   if (!selectedDistrict) {
     return (
@@ -56,6 +58,7 @@ export default function NeighbourhoodList({
           selected={neighbourhood.id === selectedId}
           onClick={() => onSelect(neighbourhood)}
           onDelete={() => onDeleteNeighbourhood(neighbourhood.id)}
+          onRename={(newName) => onRenameNeighbourhood(neighbourhood.id, newName)}
         />
       ))}
     </div>

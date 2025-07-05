@@ -13,12 +13,14 @@ export default function RegionItem({
   region,
   selected,
   onClick,
-  onDelete
+  onDelete,
+  onRename 
 }: {
   region: Region;
   selected: boolean;
   onClick: () => void;
   onDelete: () => void;
+  onRename: (newName: string) => void;
 }) {
   return (
     <div
@@ -36,7 +38,11 @@ export default function RegionItem({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownEditItem onClick={onDelete} />
+          <DropdownEditItem
+            currentName={region.name}
+            itemName="region"
+            onEdit={onRename}
+          />
           <DropdownDeleteItem onConfirm={onDelete} />
         </DropdownMenuContent>
       </DropdownMenu>

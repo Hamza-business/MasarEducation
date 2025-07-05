@@ -13,12 +13,14 @@ export default function DistrictItem({
   district,
   selected,
   onClick,
-  onDelete
+  onDelete,
+  onRename
 }: {
   district: District;
   selected: boolean;
   onClick: () => void;
   onDelete: () => void;
+  onRename: (newName: string) => void;
 }) {
   return (
     <div
@@ -36,7 +38,11 @@ export default function DistrictItem({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownEditItem onClick={onDelete} />
+          <DropdownEditItem
+            currentName={district.name}
+            itemName="district"
+            onEdit={onRename}
+          />
           <DropdownDeleteItem onConfirm={onDelete} />
         </DropdownMenuContent>
       </DropdownMenu>

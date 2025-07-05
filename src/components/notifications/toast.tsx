@@ -26,6 +26,18 @@ export function toastRegionDeletionFailed(regionName: string) {
     duration: 4000,
   });
 }
+export function toastRegionUpdateSuccess(regionName: string) {
+  toast.success("✅ Region Updated!", {
+    description: `${regionName} region was updated successfully`,
+    duration: 4000,
+  });
+}
+export function toastRegionUpdateFailed(regionName: string) {
+  toast.success("Failed to update region!", {
+    description: `Failed to update ${regionName} region. Please try again.`,
+    duration: 4000,
+  });
+}
 export function toastRegionFetchFailed() {
   toast.success(`Failed to fetch regions`, {
     description: `Failed to fetch regions. Please try again.`,
@@ -65,6 +77,18 @@ export function toastDistrictDeletionFailed(districtName: string) {
     duration: 4000,
   });
 }
+export function toastDistrictUpdateSuccess(districtName: string) {
+  toast.success("✅ District Updated!", {
+    description: `${districtName} district was updated successfully`,
+    duration: 4000,
+  });
+}
+export function toastDistrictUpdateFailed(districtName: string) {
+  toast.success("Failed to update district!", {
+    description: `Failed to update ${districtName} district. Please try again.`,
+    duration: 4000,
+  });
+}
 export function toastDistrictFetchFailed() {
   toast.success(`Failed to fetch districts`, {
     description: `Failed to fetch districts. Please try again.`,
@@ -96,6 +120,18 @@ export function toastNeighborhoodDeletionSuccess(neighborhoodName: string) {
 export function toastNeighborhoodDeletionFailed(neighborhoodName: string) {
   toast.success("Failed to delete neighborhood!", {
     description: `Failed to delete ${neighborhoodName} neighborhood. Please try again.`,
+    duration: 4000,
+  });
+}
+export function toastNeighborhoodUpdateSuccess(neighborhoodName: string) {
+  toast.success("✅ Neighborhood Updated!", {
+    description: `${neighborhoodName} neighborhood was updated successfully`,
+    duration: 4000,
+  });
+}
+export function toastNeighborhoodUpdateFailed(neighborhoodName: string) {
+  toast.success("Failed to update neighborhood!", {
+    description: `Failed to update ${neighborhoodName} neighborhood. Please try again.`,
     duration: 4000,
   });
 }

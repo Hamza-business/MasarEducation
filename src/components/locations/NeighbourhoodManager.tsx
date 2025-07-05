@@ -5,7 +5,15 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import NeighbourhoodList from '@/components/locations/Neighbourhood_Manager/NeighbourhoodList';
 import type { District, Neighbourhood, Region } from '@/types/locations';
-import { toastNeighborhoodCreationSuccess, toastNeighborhoodCreationFailed, toastNeighborhoodFetchFailed, toastNeighborhoodDeletionSuccess, toastNeighborhoodDeletionFailed } from '@/components/notifications/toast';
+import { 
+  toastNeighborhoodCreationSuccess, 
+  toastNeighborhoodCreationFailed, 
+  toastNeighborhoodFetchFailed, 
+  toastNeighborhoodDeletionSuccess, 
+  toastNeighborhoodDeletionFailed,
+  toastNeighborhoodUpdateSuccess,
+  toastNeighborhoodUpdateFailed
+} from '@/components/notifications/toast';
 
 export default function NeighbourhoodManager({
   selectedDistrict,
@@ -38,6 +46,30 @@ export default function NeighbourhoodManager({
       setNeighbourhoods([]);
     }
   }, [selectedDistrict]);
+
+
+  
+    async function handleRenameNeighbourhood(id: number, newName: string) {
+      try {
+        const res = await fetch(`/api/neighbourhoods/${id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: newName }),
+        });
+  
+        if (!res.ok) throw new Error("Rename failed");
+  
+        toastNeighborhoodUpdateSuccess(selectedName);
+  
+        setSelectedName(newName);
+  
+        setNeighbourhoods((prev) =>
+          prev.map((r) => (r.id === id ? { ...r, name: newName } : r))
+        );
+      } catch {
+        toastNeighborhoodUpdateFailed(selectedName);
+      }
+    }
 
 
   const handleDeleteNeighbourhood = async (id: number) => {
@@ -157,6 +189,7 @@ export default function NeighbourhoodManager({
           setSelectedName(neighbourhood.name)
         }}
         onDeleteNeighbourhood={handleDeleteNeighbourhood}
+        onRenameNeighbourhood={handleRenameNeighbourhood}
       />
     </div>
   );

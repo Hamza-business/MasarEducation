@@ -9,7 +9,8 @@ export default function DistrictList({
   onSelect,
   search,
   selectedRegion,
-  onDeleteDistrict
+  onDeleteDistrict,
+  onRenameDistrict
 }: {
   districts: District[];
   loading: boolean;
@@ -18,6 +19,7 @@ export default function DistrictList({
   search: string;
   selectedRegion: Region | null;
   onDeleteDistrict: (id: number) => void;
+  onRenameDistrict: (id: number, newName: string) => void;
 }) {
 
     if (!selectedRegion) {
@@ -57,6 +59,7 @@ export default function DistrictList({
           selected={district.id === selectedId}
           onClick={() => onSelect(district)}
           onDelete={() => onDeleteDistrict(district.id)}
+          onRename={(newName) => onRenameDistrict(district.id, newName)}
         />
       ))}
     </div>
