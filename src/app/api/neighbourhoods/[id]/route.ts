@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: any
 ) {
   const neighbourhoodId = Number(params.id);
 
@@ -22,7 +22,7 @@ export async function DELETE(
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: any
 ) {
   const neighbourhoodId = Number(params.id);
   try {
