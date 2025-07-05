@@ -5,7 +5,15 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import DistrictList from '@/components/locations/District_Manager/DistrictList';
 import type { Region, District } from '@/types/locations';
-import { toastDistrictCreationSuccess, toastDistrictCreationFailed, toastDistrictFetchFailed, toastDistrictDeletionSuccess,toastDistrictDeletionFailed } from '@/components/notifications/toast';
+import { 
+  toastDistrictCreationSuccess, 
+  toastDistrictCreationFailed, 
+  toastDistrictFetchFailed, 
+  toastDistrictDeletionSuccess,
+  toastDistrictDeletionFailed,
+  toastDistrictUpdateSuccess,
+  toastDistrictUpdateFailed
+} from '@/components/notifications/toast';
 
 export default function DistrictManager({
   selectedRegion,
@@ -36,6 +44,29 @@ export default function DistrictManager({
   }, [selectedRegion]);
 
 
+  async function handleRenameDistrict(id: number, newName: string) {
+    try {
+      const res = await fetch(`/api/districts/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newName }),
+      });
+
+      if (!res.ok) throw new Error("Rename failed");
+
+      toastDistrictUpdateSuccess(selectedName);
+
+      setSelectedName(newName);
+
+      setDistricts((prev) =>
+        prev.map((r) => (r.id === id ? { ...r, name: newName } : r))
+      );
+    } catch {
+      toastDistrictUpdateFailed(selectedName);
+    }
+  }
+
+
   const handleDeleteDistrict = async (id: number) => {
     try {
       const res = await fetch(`/api/districts/${id}`, {
@@ -54,6 +85,7 @@ export default function DistrictManager({
       setSelectedId(null);
       setSelectedName('');
     } catch (err) {
+      err;
       toastDistrictDeletionFailed(selectedName);
     }
   };
@@ -156,6 +188,7 @@ export default function DistrictManager({
           onDistrictSelect(district);
         }}
         onDeleteDistrict={handleDeleteDistrict}
+        onRenameDistrict={handleRenameDistrict}
       />
     </div>
   );

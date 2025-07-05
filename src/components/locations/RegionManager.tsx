@@ -5,7 +5,15 @@ import RegionList from '@/components/locations/Region_Manager/RegionList';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import type { Region } from '@/types/locations';
-import { toastRegionCreationSuccess, toastRegionCreationFailed, toastRegionFetchFailed, toastRegionDeletionSuccess, toastRegionDeletionFailed } from '@/components/notifications/toast';
+import { 
+  toastRegionCreationSuccess, 
+  toastRegionCreationFailed, 
+  toastRegionFetchFailed, 
+  toastRegionDeletionSuccess, 
+  toastRegionDeletionFailed,
+  toastRegionUpdateSuccess,
+  toastRegionUpdateFailed
+} from '@/components/notifications/toast';
 
 export default function RegionManager({
   onRegionSelect,
@@ -26,6 +34,30 @@ export default function RegionManager({
   }, []);
 
 
+  async function handleRenameRegion(id: number, newName: string) {
+    try {
+      const res = await fetch(`/api/regions/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newName }),
+      });
+
+      if (!res.ok) throw new Error("Rename failed");
+
+      toastRegionUpdateSuccess(selectedName);
+
+      setSelectedName(newName);
+
+      setRegions((prev) =>
+        prev.map((r) => (r.id === id ? { ...r, name: newName } : r))
+      );
+    } catch {
+      toastRegionUpdateFailed(selectedName);
+    }
+  }
+
+
+
   const handleDeleteRegion = async (id: number) => {
     try {
       const res = await fetch(`/api/regions/${id}`, {
@@ -43,7 +75,8 @@ export default function RegionManager({
       clear();
       setSelectedId(null);
       setSelectedName('');
-    } catch (err) {
+    } catch (er) {
+      er;
       toastRegionDeletionFailed(selectedName);
     }
   };
@@ -136,6 +169,7 @@ export default function RegionManager({
           onRegionSelect(region);
         }}
         onDeleteRegion={handleDeleteRegion}
+        onRenameRegion={handleRenameRegion}
       />
     </div>
   );

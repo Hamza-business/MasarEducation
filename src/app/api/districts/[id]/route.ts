@@ -15,6 +15,29 @@ export async function DELETE(
 
     return NextResponse.json({ success: true });
   } catch (err) {
+    err;
     return new NextResponse('Internal server error', { status: 500 });
+  }
+}
+
+
+export async function PATCH(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const districtId = Number(params.id);
+  try {
+    const body = await request.json();
+    const { name } = body;
+
+    const updatedDistrict = await prisma.districts.update({
+      where: { id: districtId },
+      data: { name:name },
+    });
+
+    return NextResponse.json(updatedDistrict);
+  } catch (err) {
+    err;
+    return NextResponse.json({ error: "Failed to update district" }, { status: 500 });
   }
 }

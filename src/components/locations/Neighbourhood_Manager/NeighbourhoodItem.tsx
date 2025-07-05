@@ -4,7 +4,6 @@ import { MoreHorizontal } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import DropdownDeleteItem from '@/components/ui/dropdown-delete-item';
@@ -14,12 +13,14 @@ export default function NeighbourhoodItem({
   neighbourhood,
   selected,
   onClick,
-  onDelete
+  onDelete,
+  onRename
 }: {
   neighbourhood: Neighbourhood;
   selected: boolean;
   onClick: () => void;
   onDelete: () => void;
+  onRename: (newName: string) => void;
 }) {
   return (
     <div
@@ -37,7 +38,11 @@ export default function NeighbourhoodItem({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownEditItem onClick={onDelete} />
+          <DropdownEditItem
+            currentName={neighbourhood.name}
+            itemName="neighbourhood"
+            onEdit={onRename}
+          />
           <DropdownDeleteItem onConfirm={onDelete} />
         </DropdownMenuContent>
       </DropdownMenu>

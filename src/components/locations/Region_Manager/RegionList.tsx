@@ -10,7 +10,8 @@ export default function RegionList({
   selectedId,
   onSelect,
   search,
-  onDeleteRegion
+  onDeleteRegion,
+  onRenameRegion
 }: {
   regions: Region[];
   loading: boolean;
@@ -18,6 +19,7 @@ export default function RegionList({
   onSelect: (region: Region) => void;
   search: string;
   onDeleteRegion: (id: number) => void;
+  onRenameRegion: (id: number, newName: string) => void;
 }) {
     if (loading) {
       return (
@@ -48,6 +50,7 @@ export default function RegionList({
           selected={region.id === selectedId}
           onClick={() => onSelect(region)}
           onDelete={() => onDeleteRegion(region.id)}
+          onRename={(newName) => onRenameRegion(region.id, newName)}
         />
       ))}
     </div>
