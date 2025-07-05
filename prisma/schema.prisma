@@ -6,7 +6,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  schemas  = ["locations", "public"]
+  schemas  = ["files", "insurances", "locations", "public", "services"]
 }
 
 model countries {
@@ -24,7 +24,7 @@ model districts {
   region                                             Int
   name                                               String
   hidden                                             Boolean?         @default(false)
-  regions                                            regions          @relation(fields: [region], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "region")
+  regions                                            regions          @relation(fields: [region], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "region")
   neighbourhoods_neighbourhoods_districtsTodistricts neighbourhoods[] @relation("neighbourhoods_districtsTodistricts")
 
   @@schema("locations")
@@ -35,7 +35,7 @@ model neighbourhoods {
   districts                                     Int
   name                                          String
   hidden                                        Boolean?  @default(false)
-  districts_neighbourhoods_districtsTodistricts districts @relation("neighbourhoods_districtsTodistricts", fields: [districts], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "districts")
+  districts_neighbourhoods_districtsTodistricts districts @relation("neighbourhoods_districtsTodistricts", fields: [districts], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "districts")
 
   @@schema("locations")
 }
@@ -46,9 +46,57 @@ model regions {
   name      String
   hidden    Boolean?    @default(false)
   districts districts[]
-  countries countries   @relation(fields: [country], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "country")
+  countries countries   @relation(fields: [country], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "country")
 
   @@schema("locations")
+}
+
+model insurance_reports {
+  id       Int       @id @default(autoincrement())
+  name     String
+  mimetype mimeTypes
+  data     String
+
+  @@schema("files")
+}
+
+model passports {
+  id         Int          @id @default(autoincrement())
+  name       String
+  mimetype   mimeTypes
+  data       String
+  personinfo personinfo[]
+
+  @@schema("files")
+}
+
+model receipts {
+  id       Int       @id @default(autoincrement())
+  name     String
+  mimetype mimeTypes
+  data     String
+
+  @@schema("files")
+}
+
+model personinfo {
+  id        Int       @id @default(autoincrement())
+  nat       String
+  dob       DateTime  @db.Date
+  passport  Int
+  passports passports @relation(fields: [passport], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "passport")
+
+  @@schema("insurances")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model insurance {
+  id     Int    @id @default(autoincrement())
+  price  Int
+  unit   Int
+  period period
+
+  @@schema("services")
 }
 
 enum public_countries {
