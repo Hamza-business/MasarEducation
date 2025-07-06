@@ -4,6 +4,7 @@ import { Trash2 } from "lucide-react";
 import ConfirmDeleteDialog from "../custom/confirm-delete-dialog";
 import { BiEdit, BiHide, BiShow, BiSolidHide } from "react-icons/bi";
 import ConfirmActionDialog from "../custom/confirm-action-dialog";
+import { IoMdPricetag } from "react-icons/io";
 
 type Props = {
   pkg: any;
@@ -24,10 +25,10 @@ export default function InsuranceItem({ pkg, onEdit, onDelete, onToggleActive }:
         </p>
       </div>
 
-      <ul className="text-sm space-y-1 text-zinc-700 dark:text-zinc-300">
+      <ul className="text-sm space-y-1 text-zinc-700 dark:text-zinc-300 h-22 overflow-y-auto pr-1">
         {pkg.prices.map((p:any, idx:any) => (
-          <li key={idx}>
-            • {p.minAge} – {p.maxAge} years: {p.price} EGP
+          <li key={idx} className="mb-0.5">
+            <span className="inline-flex gap-1 justify-center items-center"><IoMdPricetag /> {p.minAge} – {p.maxAge} years: {p.price} TL</span>
           </li>
         ))}
       </ul>
@@ -49,7 +50,16 @@ export default function InsuranceItem({ pkg, onEdit, onDelete, onToggleActive }:
         {onDelete && !pkg.active && (
           <ConfirmDeleteDialog
             onConfirm={()=>{onDelete(pkg.id)}}
-            description="Are you sure you want to delete this item? This action cannot be undone."
+            description={
+              <>
+                <strong className="mb-1">Are you sure you want to delete this plan?</strong>
+                <ul className="px-2 mb-2">
+                  <li className="mb-1">• Deleting a plan is not the best option, it may effect other components of the system like causing problem with old orders which used this plan!</li>
+                  <li className="mb-1">• This action cannot be undone.</li>
+                </ul>
+                <strong>If you want to hide this plan just remain it deactivated.</strong>
+              </>
+            }
           >
             <Button
                 variant="outline"
@@ -65,7 +75,7 @@ export default function InsuranceItem({ pkg, onEdit, onDelete, onToggleActive }:
             variant="outline"
             onClick={onEdit}
             className="text-sm flex-1"
-          ><BiEdit /> Edit information and prices
+          ><BiEdit /> Edit Price Plan
           </Button>
         )}
         { !pkg.active && (

@@ -6,12 +6,15 @@ import { CgAddR } from "react-icons/cg";
 import InsuranceFormDialog from "./InsuranceFormDialog";
 import InsuranceList from "./InsuranceList";
 import { InsurancePackage, PriceRange } from "@/types/insurance";
+import InsuranceCardSkeleton from "./InsuranceCardSkeleton";
+
 
 export default function InsuranceManager() {
   const [packages, setPackages] = useState<InsurancePackage[]>([]);
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<"create" | "edit">("create");
   const [selectedPackage, setSelectedPackage] = useState<InsurancePackage | null>(null);
+  const [loading, setLoading] = useState(true);
 
   // Fetch existing insurance packages
   useEffect(() => {
@@ -22,6 +25,8 @@ export default function InsuranceManager() {
         setPackages(data);
       } catch (err) {
         console.error("Failed to load insurance packages", err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchPackages();
@@ -120,23 +125,50 @@ export default function InsuranceManager() {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Active Insurance Plans</h1>
+        <h1 className="text-2xl font-bold">Active Insurance Price Plans</h1>
         <Button onClick={handleCreateClick}>
           <CgAddR className="mr-2" />
-          Add New Package
+          Add New Price Plan
         </Button>
       </div>
 
-      <InsuranceList packages={packages} onEdit={handleEditClick} onDelete={handleDelete} onToggleActive={handleToggleActive} status={true} />
-
+      {loading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <InsuranceCardSkeleton key={i} />
+          ))}
+        </div>
+      ) : (
+        <InsuranceList
+          packages={packages}
+          onEdit={handleEditClick}
+          onDelete={handleDelete}
+          onToggleActive={handleToggleActive}
+          status={true}
+        />
+      )}
       <hr className="my-8"/>
 
 
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Unactive Insurance Plans</h1>
+        <h1 className="text-2xl font-bold">Unactive Insurance Price Plans</h1>
       </div>
 
-      <InsuranceList packages={packages} onEdit={handleEditClick} onDelete={handleDelete} onToggleActive={handleToggleActive} status={false} />
+      {loading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <InsuranceCardSkeleton key={i} />
+          ))}
+        </div>
+      ) : (
+        <InsuranceList
+          packages={packages}
+          onEdit={handleEditClick}
+          onDelete={handleDelete}
+          onToggleActive={handleToggleActive}
+          status={false}
+        />
+      )}
 
 
       <InsuranceFormDialog

@@ -15,7 +15,7 @@ import { ReactNode } from "react";
 type Props = {
   children: ReactNode;
   title?: string;
-  description?: string;
+  description?: ReactNode | string;
   confirmText?: string;
   onConfirm: () => void;
 };
@@ -42,8 +42,7 @@ export default function ConfirmDeleteDialog({
           <AlertDialogAction
             className="bg-red-600 hover:bg-red-700 text-white"
             onClick={onConfirm}
-          >
-            {confirmText}
+          >{confirmText}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

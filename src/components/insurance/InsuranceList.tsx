@@ -14,7 +14,7 @@ export default function InsuranceList({ packages, onEdit, onDelete, onToggleActi
 
   if (arr.length === 0) {
     return <p className="text-muted-foreground">
-      {status ? "No Active insurance plans are available." : "No Disabled insurance plans are available."}
+      {status ? "No Active insurance price plans are available." : "No Disabled insurance price plans are available."}
     </p>;
   }
 
