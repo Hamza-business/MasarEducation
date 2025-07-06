@@ -2,7 +2,7 @@
 "use client";
 
 import { Pencil } from "lucide-react";
-import EditDialog from "@/components/ui/confirm-edit-dialog";
+import EditDialog from "@/components/custom/confirm-edit-dialog";
 import { Button } from "@/components/ui/button";
 
 type Props = {

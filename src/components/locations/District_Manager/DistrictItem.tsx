@@ -6,8 +6,8 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import DropdownDeleteItem from '@/components/ui/dropdown-delete-item';
-import DropdownEditItem from '@/components/ui/dropdown-edit-item';
+import DropdownDeleteItem from '@/components/custom/dropdown-delete-item';
+import DropdownEditItem from '@/components/custom/dropdown-edit-item';
 
 export default function DistrictItem({
   district,
