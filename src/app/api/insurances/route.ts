@@ -22,7 +22,7 @@ export async function GET() {
 
     return NextResponse.json(result);
   } catch (error) {
-    return NextResponse.json([]);
+    return new NextResponse('Internal Server Error', { status: 500 });
   }
 }
 

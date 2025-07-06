@@ -142,3 +142,57 @@ export function toastNeighborhoodFetchFailed() {
     icon: <FaTimesCircle />
   });
 }
+
+
+export function planStoreSuccess(name:string) {
+  toast.success(`✅ Price Plan Stored!`, {
+    description: `${name} Price plan was stored successfully`,
+    duration: 4000,
+  });
+}
+export function planStoreFailed(name:string) {
+  toast.success(`Failed to store price plan`, {
+    description: `Failed to store ${name} price plan. Please try again.`,
+    duration: 4000,
+  });
+}
+export function planActivationToggleSuccess(status:boolean) {
+  toast.success(`✅ Price Plan ${status?"reActivated" : "DeActivated"}!`, {
+    description: `Price plan was ${status?"reActivated" : "DeActivated"} successfully`,
+    duration: 4000,
+  });
+}
+export function planActivationToggleFailed(status:boolean) {
+  toast.success(`Failed to ${status?"reActivate" : "DeActivate"} Price Plan!`, {
+    description: `Failed to ${status?"reActivated" : "DeActivated"} price plan. Please try again.`,
+    duration: 4000,
+  });
+}
+export function planDeletionSuccess() {
+  toast.success("✅ Price Plan Deleted!", {
+    description: `Price plan was deleted successfully`,
+    duration: 4000,
+  });
+}
+export function planDeletionFailed() {
+  toast.success("Failed to delete Price Plan!", {
+    description: `Failed to delete price plan. Please try again.`,
+    duration: 4000,
+  });
+}
+export function planFetchFailed() {
+  toast.success(`Failed to fetch price plans`, {
+    description: `Failed to fetch price plans. Please try again.`,
+    duration: 4000,
+    icon: <FaTimesCircle />
+  });
+}
+
+export function toastValidationErorr(msg:string) {
+  toast.success(`Unvalid Data`, {
+    description: msg,
+    duration: 8000,
+    icon: <FaTimesCircle />
+  });
+}
+

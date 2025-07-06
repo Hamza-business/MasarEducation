@@ -8,6 +8,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { InsurancePackage, PriceRange } from "@/types/insurance"; // Define these types
 import TabNavigation from "./InsuranceFormTabs/TabNavigation";
 import {validateInsurancePackage} from "@/components/insurance/validations/validateInsurancePackage";
+import { toastValidationErorr } from "../notifications/toast";
 
 
 type Props = {
@@ -48,7 +49,7 @@ export default function InsuranceFormDialog({
   const handleFinalSubmit = () => {
    const validationError = validateInsurancePackage({name, unit, period, prices});
     if (validationError.length > 0) {
-      alert(validationError);
+      toastValidationErorr(validationError[0]);
       return;
     }
 
