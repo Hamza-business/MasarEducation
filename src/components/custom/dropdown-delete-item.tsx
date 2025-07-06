@@ -1,7 +1,7 @@
 import { Trash2 } from "lucide-react";
-import ConfirmDeleteDialog from "@/components/ui/confirm-delete-dialog";
+import ConfirmDeleteDialog from "@/components/custom/confirm-delete-dialog";
 import { ReactNode } from "react";
-import { Button } from "./button";
+import { Button } from "../ui/button";
 
 type Props = {
   onConfirm: () => void;

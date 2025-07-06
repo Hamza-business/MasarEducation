@@ -9,48 +9,6 @@ datasource db {
   schemas  = ["files", "insurances", "locations", "public", "services"]
 }
 
-model countries {
-  id      Int              @id @default(autoincrement())
-  name    public_countries
-  hidden  Boolean?         @default(false)
-  regions regions[]
-
-  @@unique([name, id], map: "uni")
-  @@schema("locations")
-}
-
-model districts {
-  id                                                 Int              @id @default(autoincrement())
-  region                                             Int
-  name                                               String
-  hidden                                             Boolean?         @default(false)
-  regions                                            regions          @relation(fields: [region], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "region")
-  neighbourhoods_neighbourhoods_districtsTodistricts neighbourhoods[] @relation("neighbourhoods_districtsTodistricts")
-
-  @@schema("locations")
-}
-
-model neighbourhoods {
-  id                                            Int       @id @default(autoincrement())
-  districts                                     Int
-  name                                          String
-  hidden                                        Boolean?  @default(false)
-  districts_neighbourhoods_districtsTodistricts districts @relation("neighbourhoods_districtsTodistricts", fields: [districts], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "districts")
-
-  @@schema("locations")
-}
-
-model regions {
-  id        Int         @id @default(autoincrement())
-  country   Int
-  name      String
-  hidden    Boolean?    @default(false)
-  districts districts[]
-  countries countries   @relation(fields: [country], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "country")
-
-  @@schema("locations")
-}
-
 model insurance_reports {
   id       Int       @id @default(autoincrement())
   name     String
@@ -89,13 +47,71 @@ model personinfo {
   @@schema("insurances")
 }
 
+model locations_countries {
+  id      Int              @id @default(autoincrement())
+  name    public_countries
+  hidden  Boolean?         @default(false)
+  regions regions[]
+
+  @@unique([name, id], map: "uni")
+  @@map("countries")
+  @@schema("locations")
+}
+
+model districts {
+  id                                                 Int              @id @default(autoincrement())
+  region                                             Int
+  name                                               String
+  hidden                                             Boolean?         @default(false)
+  regions                                            regions          @relation(fields: [region], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "region")
+  neighbourhoods_neighbourhoods_districtsTodistricts neighbourhoods[] @relation("neighbourhoods_districtsTodistricts")
+
+  @@schema("locations")
+}
+
+model neighbourhoods {
+  id                                            Int       @id @default(autoincrement())
+  districts                                     Int
+  name                                          String
+  hidden                                        Boolean?  @default(false)
+  districts_neighbourhoods_districtsTodistricts districts @relation("neighbourhoods_districtsTodistricts", fields: [districts], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "districts")
+
+  @@schema("locations")
+}
+
+model regions {
+  id        Int                 @id @default(autoincrement())
+  country   Int
+  name      String
+  hidden    Boolean?            @default(false)
+  districts districts[]
+  countries locations_countries @relation(fields: [country], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "country")
+
+  @@schema("locations")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model insurancePrice {
+  id         Int        @id @default(autoincrement())
+  insurance  Int
+  minAge     Int
+  maxAge     Int
+  price      Int
+  insurances insurances @relation(fields: [insurance], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "insurance")
+
+  @@map("insurance_prices")
+  @@schema("services")
+}
+
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model insurance {
-  id     Int    @id @default(autoincrement())
-  price  Int
-  unit   Int
-  period period
+  id               Int                @id @default(autoincrement())
+  name             String
+  unit             Int
+  period           period
+  insurance_prices insurance_prices[]
 
+  @@map("insurances")
   @@schema("services")
 }
 
