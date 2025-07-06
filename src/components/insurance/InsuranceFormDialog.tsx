@@ -85,7 +85,7 @@ export default function InsuranceFormDialog({
       <DialogContent className="!max-w-xl !w-full">
         <DialogHeader>
           <DialogTitle>
-            {mode === "create" ? "Add New Insurance Package" : "Edit Insurance Package"}
+            {mode === "create" ? "Add New Insurance Plan" : "Edit Insurance Package"}
           </DialogTitle>
         </DialogHeader>
 
