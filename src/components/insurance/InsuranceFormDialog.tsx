@@ -7,6 +7,8 @@ import PriceRangesTab from "./InsuranceFormTabs/PriceRangesTab";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { InsurancePackage, PriceRange } from "@/types/insurance"; // Define these types
 import TabNavigation from "./InsuranceFormTabs/TabNavigation";
+import {validateInsurancePackage} from "@/components/insurance/validations/validateInsurancePackage";
+
 
 type Props = {
   open: boolean;
@@ -44,9 +46,9 @@ export default function InsuranceFormDialog({
   };
 
   const handleFinalSubmit = () => {
-    // Simple final validation
-    if (!name || !unit || !period || prices.length === 0) {
-      alert("Please fill all required fields and add at least one price range.");
+   const validationError = validateInsurancePackage({name, unit, period, prices});
+    if (validationError.length > 0) {
+      alert(validationError);
       return;
     }
 
