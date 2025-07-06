@@ -10,7 +10,7 @@ type Props = {
 };
 
 export default function InsuranceList({ packages, onEdit, onDelete, onToggleActive, status}: Props) {
-  let arr = packages.filter(pkg => pkg.active == status);
+  const arr = packages.filter(pkg => pkg.active == status);
 
   if (arr.length === 0) {
     return <p className="text-muted-foreground">
