@@ -6,7 +6,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  schemas  = ["files", "insurances", "locations", "public", "services"]
+  schemas  = ["files", "insurances", "locations", "public"]
 }
 
 model insurance_reports {
@@ -88,31 +88,6 @@ model regions {
   countries locations_countries @relation(fields: [country], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "country")
 
   @@schema("locations")
-}
-
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-model insurancePrice {
-  id         Int        @id @default(autoincrement())
-  insurance  Int
-  minAge     Int
-  maxAge     Int
-  price      Int
-  insurances insurances @relation(fields: [insurance], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "insurance")
-
-  @@map("insurance_prices")
-  @@schema("services")
-}
-
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-model insurance {
-  id               Int                @id @default(autoincrement())
-  name             String
-  unit             Int
-  period           period
-  insurance_prices insurance_prices[]
-
-  @@map("insurances")
-  @@schema("services")
 }
 
 enum public_countries {
