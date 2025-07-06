@@ -32,10 +32,10 @@ export default function PriceRangeRow({ index, data, onChange, onDelete }: Props
         onChange={(e) => onChange(index, "price", Number(e.target.value))}
       />
       <Button
-        variant="destructive"
+        variant="outline"
         type="button"
         onClick={() => onDelete(index)}
-        className="ml-2"
+        className="text-white bg-red-500 hover:bg-red-600 hover:text-white dark:text-red-500 dark:hover:text-white border border-red-500 py-2 rounded-md meow"
       ><Trash2/>
       </Button>
     </div>

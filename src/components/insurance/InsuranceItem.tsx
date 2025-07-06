@@ -15,7 +15,7 @@ type Props = {
 
 export default function InsuranceItem({ pkg, onEdit, onDelete, onToggleActive }: Props) {
   return (
-    <div className="bg-white dark:bg-zinc-900 rounded-lg p-4 shadow-sm border dark:border-zinc-800 transition-colors">
+    <div className="bg-white dark:bg-zinc-900 rounded-sm p-4 shadow-sm border dark:border-zinc-800 transition-colors">
       <div className="mb-2">
         <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
           {pkg.name}

@@ -3,6 +3,7 @@ import PriceRangeRow from "./PriceRangeRow";
 import type { PriceRange } from "@/types/insurance";
 import { IoIosArrowBack, IoMdDoneAll } from "react-icons/io";
 import { CgAddR } from "react-icons/cg";
+import { Label } from "@/components/ui/label";
 
 type Props = {
   prices: PriceRange[];
@@ -38,6 +39,11 @@ export default function PriceRangesTab({
 
   return (
     <div className="space-y-4">
+      <div className="flex items-center">
+        <Label className="flex-1">Minimum Age</Label>
+        <Label className="flex-1">Maximum Age</Label>
+        <Label className="flex-1">Price</Label>
+      </div>
       {prices.map((range, index) => (
         <PriceRangeRow
           key={index}
