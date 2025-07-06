@@ -25,7 +25,7 @@ export function validatePriceRanges(ranges: PriceRange[]): string[] {
       const prev = sorted[i - 1];
       if (current.minAge <= prev.maxAge) {
         errors.push(
-          `Age ranges overlap or are not separated properly between range ${i} and ${i + 1}.`
+          `Age ranges overlap or are inclusive fully or partially in other price rangem Check ranges ${i} and ${i + 1}.`
         );
       }
 

@@ -7,6 +7,7 @@ import InsuranceFormDialog from "./InsuranceFormDialog";
 import InsuranceList from "./InsuranceList";
 import { InsurancePackage, PriceRange } from "@/types/insurance";
 import InsuranceCardSkeleton from "./InsuranceCardSkeleton";
+import { planActivationToggleFailed, planActivationToggleSuccess, planDeletionFailed, planDeletionSuccess, planFetchFailed, planStoreFailed, planStoreSuccess } from "../notifications/toast";
 
 
 export default function InsuranceManager() {
@@ -24,7 +25,7 @@ export default function InsuranceManager() {
         const data = await res.json();
         setPackages(data);
       } catch (err) {
-        console.error("Failed to load insurance packages", err);
+        planFetchFailed();
       } finally {
         setLoading(false);
       }
@@ -55,14 +56,14 @@ export default function InsuranceManager() {
       });
 
       if (!res.ok) throw new Error('Failed to update active status');
+      planActivationToggleSuccess(desiredState);
 
       const updatedPkg = await res.json();
-
       setPackages((prev) =>
-        prev.map((p) => (p.id === id ? updatedPkg : p))
+        prev.map((pkg) => (pkg.id === id ? updatedPkg : pkg))
       );
     } catch (error) {
-      console.error(error);
+      planActivationToggleFailed(desiredState);
     }
   };
 
@@ -72,9 +73,10 @@ export default function InsuranceManager() {
       if (!res.ok) throw new Error("Failed to delete");
 
       setPackages((prev) => prev.filter((p) => p.id !== id));
+      planDeletionSuccess();
     } catch (err) {
-      console.error(err);
-      alert("Error deleting package");
+      err;
+      planDeletionFailed();
     }
   };
 
@@ -94,6 +96,8 @@ export default function InsuranceManager() {
                   throw new Error(errText);
               }
 
+              setOpen(false);
+
               const saved = await res.json();
               setPackages((prev) => [...prev, saved]);
           } else {
@@ -110,14 +114,17 @@ export default function InsuranceManager() {
                   throw new Error(errText);
               }
 
-              const updated = await res.json();
-              setPackages((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
-          }
+              setOpen(false);
 
-          setOpen(false);
+              const updated = await res.json();
+              
+              setPackages((prev) =>
+                prev.map((p) => (p.id === updated.id ? updated : p))
+              );
+          }
+          planStoreSuccess(newPkg.name);
       } catch (err) {
-          console.error("Error saving insurance package:", err);
-          alert("Failed to save the insurance package. Please try again.");
+          planStoreFailed(newPkg.name);
       }
   };
 
@@ -169,7 +176,6 @@ export default function InsuranceManager() {
           status={false}
         />
       )}
-
 
       <InsuranceFormDialog
         open={open}

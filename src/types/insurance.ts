@@ -1,7 +1,7 @@
 export type InsurancePackage = {
   id?: number;            // optional for newly created packages
   name: string;
-  unit: "day" | "week" | "month" | "year";
+  timeUnit: "day" | "week" | "month" | "year";
   period: number;
   prices: PriceRange[];
 };

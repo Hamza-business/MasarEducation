@@ -1,14 +1,14 @@
 "use client";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PackageInfoTab from "./InsuranceFormTabs/PackageInfoTab";
 import PriceRangesTab from "./InsuranceFormTabs/PriceRangesTab";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { InsurancePackage, PriceRange } from "@/types/insurance"; // Define these types
+import { Tabs} from "@/components/ui/tabs";
+import type { InsurancePackage, PriceRange } from "@/types/insurance";
 import TabNavigation from "./InsuranceFormTabs/TabNavigation";
-import {validateInsurancePackage} from "@/components/insurance/validations/validateInsurancePackage";
-
+import { validateInsurancePackage } from "@/components/insurance/validations/validateInsurancePackage";
+import { toastValidationErorr } from "../notifications/toast";
 
 type Props = {
   open: boolean;
@@ -27,15 +27,32 @@ export default function InsuranceFormDialog({
 }: Props) {
   const [currentTab, setCurrentTab] = useState<"info" | "prices">("info");
 
-  const [name, setName] = useState(defaultValues?.name ?? "");
-  const [unit, setUnit] = useState<"day" | "week" | "month" | "year">(defaultValues?.unit ?? "day");
-  const [period, setPeriod] = useState(defaultValues?.period ?? 1);
-  const [prices, setPrices] = useState<PriceRange[]>(defaultValues?.prices ?? []);
+  const [name, setName] = useState("");
+  const [period, setPeriod] = useState<number>(1);
+  const [timeUnit, setTimeUnit] = useState<"day" | "week" | "month" | "year">("day");
+  const [prices, setPrices] = useState<PriceRange[]>([]);
+
+  useEffect(() => {
+    if (open) {
+      if (defaultValues) {
+        setName(defaultValues.name);
+        setPeriod(defaultValues.period);
+        setTimeUnit(defaultValues.timeUnit);
+        setPrices(defaultValues.prices ?? []);
+      } else {
+        setName("");
+        setPeriod(1);
+        setTimeUnit("day");
+        setPrices([]);
+      }
+      setCurrentTab("info");
+    }
+  }, [open, defaultValues]);
 
   const handleReset = () => {
     setName(defaultValues?.name ?? "");
-    setUnit(defaultValues?.unit ?? "day");
     setPeriod(defaultValues?.period ?? 1);
+    setTimeUnit(defaultValues?.timeUnit ?? "day");
     setPrices(defaultValues?.prices ?? []);
     setCurrentTab("info");
   };
@@ -46,17 +63,17 @@ export default function InsuranceFormDialog({
   };
 
   const handleFinalSubmit = () => {
-   const validationError = validateInsurancePackage({name, unit, period, prices});
+    const validationError = validateInsurancePackage({ name, period, timeUnit, prices });
     if (validationError.length > 0) {
-      alert(validationError);
+      toastValidationErorr(validationError[0]);
       return;
     }
 
     onSubmit({
       id: defaultValues?.id,
       name,
-      unit,
       period,
+      timeUnit,
       prices,
     });
 
@@ -68,21 +85,21 @@ export default function InsuranceFormDialog({
       <DialogContent className="!max-w-xl !w-full">
         <DialogHeader>
           <DialogTitle>
-            {mode === "create" ? "Add New Insurance Package" : "Edit Insurance Package"}
+            {mode === "create" ? "Add New Insurance Plan" : "Edit Insurance Package"}
           </DialogTitle>
         </DialogHeader>
 
         <TabNavigation currentTab={currentTab} onChange={setCurrentTab} />
-        
+
         <Tabs value={currentTab} onValueChange={(v) => setCurrentTab(v as any)}>
           {currentTab === "info" && (
             <PackageInfoTab
               name={name}
-              unit={unit}
               period={period}
+              timeUnit={timeUnit}
               onChangeName={setName}
-              onChangeUnit={setUnit}
               onChangePeriod={setPeriod}
+              onChangeTimeUnit={setTimeUnit}
               onCancel={handleCancel}
               onNext={() => setCurrentTab("prices")}
             />

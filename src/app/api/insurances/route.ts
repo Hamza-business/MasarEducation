@@ -22,23 +22,24 @@ export async function GET() {
 
     return NextResponse.json(result);
   } catch (error) {
-    return NextResponse.json([]);
+    return new NextResponse('Internal Server Error', { status: 500 });
   }
 }
 
 // POST /api/insurances
 export async function POST(req: Request) {
   try {
+    await sql`BEGIN`;
     const body = await req.json();
-    const { name, unit, period, prices } = body;
+    const { name, period, timeUnit, prices } = body;
 
-    if (!name || !unit || !period || !Array.isArray(prices) || prices.length === 0) {
+    if (!name || !period || !timeUnit || !Array.isArray(prices) || prices.length === 0) {
       return NextResponse.json({ error: "Invalid input" }, { status: 400 });
     }
 
     const [insurance] = await sql`
-      INSERT INTO services.insurances (name, unit, period)
-      VALUES (${name}, ${period}, ${unit})
+      INSERT INTO services.insurances (name, period, "timeUnit")
+      VALUES (${name}, ${period}, ${timeUnit})
       RETURNING *
     `;
 
@@ -50,9 +51,18 @@ export async function POST(req: Request) {
         VALUES (${insurance.id}, ${minAge}, ${maxAge}, ${value})
       `;
     }
+    await sql`COMMIT`;
 
-    return NextResponse.json(insurance);
+    // Fetch inserted prices and return with the insurance
+    const insertedPrices = await sql`
+      SELECT * FROM services.insurance_prices
+      WHERE insurance = ${insurance.id}
+      ORDER BY "minAge"
+    `;
+
+    return NextResponse.json({ ...insurance, prices: insertedPrices });
   } catch (error) {
+    await sql`ROLLBACK`;
     console.error("POST /api/insurances:", error);
     return NextResponse.json({ error: "Failed to create insurance." }, { status: 500 });
   }

@@ -15,7 +15,7 @@ import { ReactNode } from "react";
 type Props = {
   children: ReactNode;
   title?: string;
-  description?: string;
+  description?: ReactNode | string;
   confirmText?: string;
   onConfirm: () => void;
 };

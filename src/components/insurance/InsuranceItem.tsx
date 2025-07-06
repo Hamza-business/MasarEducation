@@ -15,13 +15,13 @@ type Props = {
 
 export default function InsuranceItem({ pkg, onEdit, onDelete, onToggleActive }: Props) {
   return (
-    <div className="bg-white dark:bg-zinc-900 rounded-lg p-4 shadow-sm border dark:border-zinc-800 transition-colors">
+    <div className="bg-white dark:bg-zinc-900 rounded-sm p-4 shadow-sm border dark:border-zinc-800 transition-colors">
       <div className="mb-2">
         <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
           {pkg.name}
         </h2>
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          Unit: {pkg.unit} | Period: {pkg.period}
+          Period: {pkg.period} | Time Unit: {pkg.timeUnit}
         </p>
       </div>
 
@@ -37,7 +37,14 @@ export default function InsuranceItem({ pkg, onEdit, onDelete, onToggleActive }:
         { pkg.active && (
           <ConfirmDeleteDialog
             onConfirm={()=>{onToggleActive(pkg.id, !pkg.active)}}
-            description="Are you sure you want to Deactivate this item? Deactivating will cause this plan to not appear for users and they won't be able to choose this plan in future orders."
+            description={
+              <>
+                <strong className="mb-1">Are you sure you want to Deactivate this Plan?</strong>
+                <span className="px-2 mb-2 block">
+                  • Deactivating will cause this plan to not appear for users and they won't be able to choose this plan in future orders.
+                </span>
+              </>
+            }
             confirmText="Deactivate This Plan"
           >
             <Button
@@ -53,17 +60,19 @@ export default function InsuranceItem({ pkg, onEdit, onDelete, onToggleActive }:
             description={
               <>
                 <strong className="mb-1">Are you sure you want to delete this plan?</strong>
-                <ul className="px-2 mb-2">
-                  <li className="mb-1">• Deleting a plan is not the best option, it may effect other components of the system like causing problem with old orders which used this plan!</li>
-                  <li className="mb-1">• This action cannot be undone.</li>
-                </ul>
+                <span className="px-2 mb-2 block">
+                  • Deleting a plan is not the best option, it may effect other components of the system like causing problem with old orders which used this plan!
+                </span>
+                <span className="px-2 mb-2 block">
+                  • This action cannot be undone.
+                </span>
                 <strong>If you want to hide this plan just remain it deactivated.</strong>
               </>
             }
           >
             <Button
                 variant="outline"
-                className={`text-white bg-red-500 hover:bg-red-600 hover:text-white border border-red-500 py-2 rounded-md meow
+                className={`text-white bg-red-500 hover:bg-red-600 hover:text-white dark:text-red-500 dark:hover:text-white border border-red-500 py-2 rounded-md meow
                   ${pkg.active ? "w-15" : "w-20"}
                   `}
               ><Trash2 />
@@ -81,7 +90,14 @@ export default function InsuranceItem({ pkg, onEdit, onDelete, onToggleActive }:
         { !pkg.active && (
           <ConfirmActionDialog
             onConfirm={()=>{onToggleActive(pkg.id, !pkg.active)}}
-            description="Are you sure you want to Activate this item? Activating it will cause this plan to appear again for users and will allow them to choose this plan for future orders."
+            description={
+              <>
+                <strong className="mb-1">Are you sure you want to Activate this Plan?</strong>
+                <span className="px-2 mb-2 block">
+                  • Activating it will cause this plan to appear again for users and will allow them to choose this plan for future orders.
+                </span>
+              </>
+            }
             confirmText="Activate This Plan"
           >
             <Button
