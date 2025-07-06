@@ -362,7 +362,7 @@ enum orderStatus {
   @@schema("public")
 }
 
-enum period {
+enum timeunits {
   day
   week
   month

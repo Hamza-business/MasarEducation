@@ -31,15 +31,15 @@ export async function POST(req: Request) {
   try {
     await sql`BEGIN`;
     const body = await req.json();
-    const { name, unit, period, prices } = body;
+    const { name, period, timeUnit, prices } = body;
 
-    if (!name || !unit || !period || !Array.isArray(prices) || prices.length === 0) {
+    if (!name || !period || !timeUnit || !Array.isArray(prices) || prices.length === 0) {
       return NextResponse.json({ error: "Invalid input" }, { status: 400 });
     }
 
     const [insurance] = await sql`
-      INSERT INTO services.insurances (name, unit, period)
-      VALUES (${name}, ${period}, ${unit})
+      INSERT INTO services.insurances (name, period, "timeUnit")
+      VALUES (${name}, ${period}, ${timeUnit})
       RETURNING *
     `;
 

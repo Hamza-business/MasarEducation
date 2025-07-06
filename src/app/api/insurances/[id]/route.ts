@@ -6,15 +6,15 @@ export async function PUT(req: Request, { params }: any) {
     await sql`BEGIN`;
     const id = Number(await params.id);
     const body = await req.json();
-    const { name, unit, period, prices } = body;
+    const { name, period, timeUnit, prices } = body;
 
-    if (!id || !name || !unit || !period || !Array.isArray(prices) || prices.length === 0) {
+    if (!id || !name|| !period || !timeUnit  || !Array.isArray(prices) || prices.length === 0) {
       return NextResponse.json({ error: "Invalid input" }, { status: 400 });
     }
 
     await sql`
       UPDATE services.insurances
-      SET name = ${name}, unit = ${period}, period = ${unit}
+      SET name = ${name}, period = ${period}, "timeUnit" = ${timeUnit}
       WHERE id = ${id}
     `;
 

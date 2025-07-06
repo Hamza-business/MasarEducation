@@ -21,7 +21,7 @@ export default function InsuranceItem({ pkg, onEdit, onDelete, onToggleActive }:
           {pkg.name}
         </h2>
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          Unit: {pkg.unit} | Period: {pkg.period}
+          Period: {pkg.period} | Time Unit: {pkg.timeUnit}
         </p>
       </div>
 

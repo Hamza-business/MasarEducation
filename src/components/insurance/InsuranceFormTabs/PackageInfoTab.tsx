@@ -8,22 +8,22 @@ import { MdNavigateNext } from "react-icons/md";
 
 type Props = {
   name: string;
-  unit: "day" | "week" | "month" | "year";
   period: number;
+  timeUnit: "day" | "week" | "month" | "year";
   onChangeName: (value: string) => void;
-  onChangeUnit: (value: "day" | "week" | "month" | "year") => void;
   onChangePeriod: (value: number) => void;
+  onChangeTimeUnit: (value: "day" | "week" | "month" | "year") => void;
   onNext: () => void;
   onCancel: () => void;
 };
 
 export default function PackageInfoTab({
   name,
-  unit,
   period,
+  timeUnit,
   onChangeName,
-  onChangeUnit,
   onChangePeriod,
+  onChangeTimeUnit,
   onNext,
   onCancel,
 }: Props) {
@@ -40,8 +40,8 @@ export default function PackageInfoTab({
       </div>
 
       <div className="mb-4">
-        <Label htmlFor="unit" className="mb-2">Time Unit</Label>
-        <Select value={unit} onValueChange={(val) => onChangeUnit(val as any)}>
+        <Label htmlFor="timeUnit" className="mb-2">Time Unit</Label>
+        <Select value={timeUnit} onValueChange={(val) => onChangeTimeUnit(val as any)}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select a unit" />
           </SelectTrigger>
