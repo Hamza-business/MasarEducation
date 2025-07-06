@@ -29,6 +29,7 @@ export async function GET() {
 // POST /api/insurances
 export async function POST(req: Request) {
   try {
+    await sql`BEGIN`;
     const body = await req.json();
     const { name, unit, period, prices } = body;
 
@@ -50,9 +51,18 @@ export async function POST(req: Request) {
         VALUES (${insurance.id}, ${minAge}, ${maxAge}, ${value})
       `;
     }
+    await sql`COMMIT`;
 
-    return NextResponse.json(insurance);
+    // Fetch inserted prices and return with the insurance
+    const insertedPrices = await sql`
+      SELECT * FROM services.insurance_prices
+      WHERE insurance = ${insurance.id}
+      ORDER BY "minAge"
+    `;
+
+    return NextResponse.json({ ...insurance, prices: insertedPrices });
   } catch (error) {
+    await sql`ROLLBACK`;
     console.error("POST /api/insurances:", error);
     return NextResponse.json({ error: "Failed to create insurance." }, { status: 500 });
   }

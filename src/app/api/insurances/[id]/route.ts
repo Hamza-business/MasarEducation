@@ -2,7 +2,6 @@ import sql from "@/lib/db";
 import { NextResponse } from "next/server";
 
 export async function PUT(req: Request, { params }: any) {
-    console.log("Meoow")
   try {
     await sql`BEGIN`;
     const id = Number(await params.id);
@@ -34,13 +33,22 @@ export async function PUT(req: Request, { params }: any) {
 
     await sql`COMMIT`;
 
-    return NextResponse.json({ success: true });
+    const [insurance] = await sql`
+      SELECT * FROM services.insurances WHERE id = ${id}
+    `;
+
+    const priceRanges = await sql`
+      SELECT * FROM services.insurance_prices WHERE insurance = ${id} ORDER BY "minAge"
+    `;
+
+    return NextResponse.json({ ...insurance, prices: priceRanges });
   } catch (error) {
     await sql`ROLLBACK`;
     console.error(`PUT /api/insurances/${params.id}:`, error);
     return NextResponse.json({ error: "Failed to update insurance." }, { status: 500 });
   }
 }
+
 
 export async function DELETE(req: Request, { params }: any) {
   const id = Number(await params.id);

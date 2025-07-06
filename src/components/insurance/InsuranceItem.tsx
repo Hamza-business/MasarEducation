@@ -37,7 +37,14 @@ export default function InsuranceItem({ pkg, onEdit, onDelete, onToggleActive }:
         { pkg.active && (
           <ConfirmDeleteDialog
             onConfirm={()=>{onToggleActive(pkg.id, !pkg.active)}}
-            description="Are you sure you want to Deactivate this item? Deactivating will cause this plan to not appear for users and they won't be able to choose this plan in future orders."
+            description={
+              <>
+                <strong className="mb-1">Are you sure you want to Deactivate this Plan?</strong>
+                <span className="px-2 mb-2 block">
+                  • Deactivating will cause this plan to not appear for users and they won't be able to choose this plan in future orders.
+                </span>
+              </>
+            }
             confirmText="Deactivate This Plan"
           >
             <Button
@@ -83,7 +90,14 @@ export default function InsuranceItem({ pkg, onEdit, onDelete, onToggleActive }:
         { !pkg.active && (
           <ConfirmActionDialog
             onConfirm={()=>{onToggleActive(pkg.id, !pkg.active)}}
-            description="Are you sure you want to Activate this item? Activating it will cause this plan to appear again for users and will allow them to choose this plan for future orders."
+            description={
+              <>
+                <strong className="mb-1">Are you sure you want to Activate this Plan?</strong>
+                <span className="px-2 mb-2 block">
+                  • Activating it will cause this plan to appear again for users and will allow them to choose this plan for future orders.
+                </span>
+              </>
+            }
             confirmText="Activate This Plan"
           >
             <Button

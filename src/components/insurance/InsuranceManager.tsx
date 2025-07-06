@@ -59,9 +59,8 @@ export default function InsuranceManager() {
       planActivationToggleSuccess(desiredState);
 
       const updatedPkg = await res.json();
-
       setPackages((prev) =>
-        prev.map((p) => (p.id === id ? updatedPkg : p))
+        prev.map((pkg) => (pkg.id === id ? updatedPkg : pkg))
       );
     } catch (error) {
       planActivationToggleFailed(desiredState);
@@ -97,8 +96,10 @@ export default function InsuranceManager() {
                   throw new Error(errText);
               }
 
+              setOpen(false);
+
               const saved = await res.json();
-              // setPackages((prev) => [...prev, saved]);
+              setPackages((prev) => [...prev, saved]);
           } else {
               const res = await fetch(`/api/insurances/${newPkg.id}`, {
                   method: "PUT",
@@ -113,10 +114,15 @@ export default function InsuranceManager() {
                   throw new Error(errText);
               }
 
-              // setPackages((prev) => prev.map((p) => (p.id === (await res.json()).id ? await res.json() : p)));
+              setOpen(false);
+
+              const updated = await res.json();
+              
+              setPackages((prev) =>
+                prev.map((p) => (p.id === updated.id ? updated : p))
+              );
           }
           planStoreSuccess(newPkg.name);
-          setOpen(false);
       } catch (err) {
           planStoreFailed(newPkg.name);
       }
@@ -170,7 +176,6 @@ export default function InsuranceManager() {
           status={false}
         />
       )}
-
 
       <InsuranceFormDialog
         open={open}
