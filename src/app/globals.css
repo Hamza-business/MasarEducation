@@ -124,3 +124,9 @@
   padding-left: 8px !important;
   padding-right: 8px !important;
 }
+.dark .meow:hover{
+  background-color:var(--chart-5) !important;
+}
+.light .meow:hover{
+  background-color:var(--destructive) !important;
+}
