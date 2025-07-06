@@ -41,7 +41,7 @@ export default function InsuranceItem({ pkg, onEdit, onDelete, onToggleActive }:
               <>
                 <strong className="mb-1">Are you sure you want to Deactivate this Plan?</strong>
                 <span className="px-2 mb-2 block">
-                  • Deactivating will cause this plan to not appear for users and they won't be able to choose this plan in future orders.
+                  • Deactivating will cause this plan to not appear for users and they will not be able to choose this plan in future orders.
                 </span>
               </>
             }
