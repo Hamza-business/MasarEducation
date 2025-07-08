@@ -29,8 +29,8 @@ export default function PlanSelector({ plans, application, setApplication }: Pro
               className={cn(
                 "cursor-pointer rounded-lg border p-4 text-center transition hover:shadow-sm",
                 isSelected
-                  ? "border-blue-500 bg-blue-50 shadow"
-                  : "border-gray-200 bg-white"
+                  ? "border-blue-500 bg-blue-50 shadow dark:bg-gray-900 dark:border-blue-400"
+                  : "border-gray-200 bg-white dark:bg-zinc-900 dark:border-zinc-700"
               )}
               onClick={() => handleSelect(plan)}
             >

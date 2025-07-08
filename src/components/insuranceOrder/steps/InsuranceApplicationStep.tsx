@@ -9,63 +9,19 @@ import { Button } from "@/components/ui/button";
 import { validateInsuranceApplication } from "@/components/validations/validateInsuranceOrder";
 import PlanSelector from "../elements/planSelector";
 
-
-function calculateAge(dob: Date): number {
-  const now = new Date();
-  const birthDate = new Date(dob);
-  let age = now.getFullYear() - birthDate.getFullYear();
-  const m = now.getMonth() - birthDate.getMonth();
-
-  if (m < 0 || (m === 0 && now.getDate() < birthDate.getDate())) {
-    age--;
-  }
-
-  return age;
-}
-
-
 type Props = {
   personInfo: PersonInfo;
   application: InsuranceApplication;
+  regions: { id: number; name: string }[];
+  availablePlans: PlanWithPrice[];
   setApplication: (app: InsuranceApplication) => void;
   onNext: (validate?: () => string[]) => void;
   onBack: () => void;
 };
 
-export default function InsuranceApplicationStep({ personInfo, application, setApplication, onBack, onNext }: Props) {
-  const [regions, setRegions] = useState<{ id: number; name: string }[]>([]);
+export default function InsuranceApplicationStep({ personInfo, application, regions, availablePlans, setApplication, onBack, onNext }: Props) {
   const [districts, setDistricts] = useState<{ id: number; name: string }[]>([]);
   const [neighbourhoods, setNeighbourhoods] = useState<{ id: number; name: string }[]>([]);
-  const [availablePlans, setAvailablePlans] = useState<PlanWithPrice[]>([]);
-
-  useEffect(() => {
-    const fetchPlans = async () => {
-        if (!personInfo.dob) return;
-
-        const age = calculateAge(personInfo.dob); // Implement this function
-        const res = await fetch(`/api/insurances/plans-with-prices?age=${age}`);
-
-        if (!res.ok) {
-        console.error("Failed to fetch plans");
-        return;
-        }
-
-        const data: PlanWithPrice[] = await res.json();
-        setAvailablePlans(data);
-    };
-
-    fetchPlans();
-  }, [personInfo.dob]); // Refetch plans when DOB changes
-
-
-
-  // Load regions once
-  useEffect(() => {
-    fetch("/api/regions")
-      .then((res) => res.json())
-      .then(setRegions)
-      .catch(console.error);
-  }, []);
 
   // Load districts on region change, reset downstream
   useEffect(() => {
@@ -200,7 +156,6 @@ export default function InsuranceApplicationStep({ personInfo, application, setA
         application={application}
         setApplication={setApplication}
       />
-
 
       {/* Navigation */}
       <div className="flex justify-between">

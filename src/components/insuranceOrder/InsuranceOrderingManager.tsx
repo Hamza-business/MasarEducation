@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { PassportFile, ReceiptFile, PersonInfo, InsuranceApplication, Country, BankInfo } from '@/types/all';
+import { PassportFile, ReceiptFile, PersonInfo, InsuranceApplication, Country, BankInfo, PlanWithPrice } from '@/types/all';
 import PersonalInfoStep from './steps/PersonalInfoStep';
 import InsuranceApplicationStep from './steps/InsuranceApplicationStep';
 import BankInfoStep from './steps/BankInfoStep';
@@ -10,7 +10,7 @@ import BankInfoStep from './steps/BankInfoStep';
 const TOTAL_STEPS = 5;
 
 export default function InsuranceOrderingPage() {
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(2);
 
   // Shared state across steps
   const [personInfo, setPersonInfo] = useState<PersonInfo | any>({
@@ -32,12 +32,21 @@ export default function InsuranceOrderingPage() {
   const [receiptFile, setReceiptFile] = useState<ReceiptFile | null>(null);
   const [trackCode, setTrackCode] = useState<string | null>(null);
   const [bankInfo, setBankInfo] = useState<BankInfo | null>(null);
+  const [regions, setRegions] = useState<{ id: number; name: string }[]>([]);
+  const [availablePlans, setAvailablePlans] = useState<PlanWithPrice[]>([]);
 
   useEffect(() => {
     fetch("/api/bank-info")
       .then(res => res.json())
       .then(data => setBankInfo(data))
       .catch(err => console.error("Failed to load bank info", err));
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/regions")
+      .then((res) => res.json())
+      .then(setRegions)
+      .catch(console.error);
   }, []);
 
   const goNext = (validate?: () => string[]) => {
@@ -64,6 +73,8 @@ export default function InsuranceOrderingPage() {
 
       {step === 1 && (
         <PersonalInfoStep
+          availablePlans={availablePlans}
+          setAvailablePlans={setAvailablePlans}
           personInfo={personInfo}
           setPersonInfo={setPersonInfo}
           passportFile={passportFile}
@@ -76,6 +87,8 @@ export default function InsuranceOrderingPage() {
         <InsuranceApplicationStep
           personInfo={personInfo}
           application={application}
+          regions={regions}
+          availablePlans={availablePlans}
           setApplication={setApplication}
           onBack={goBack}
           onNext={goNext}

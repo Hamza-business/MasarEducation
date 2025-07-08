@@ -35,14 +35,14 @@ export function DateOfBirthPicker({ value, onChange }: Props) {
             id="date"
             className="w-full justify-between font-normal"
           >
-            {date ? date.toLocaleDateString() : "Select date"}
+            {value ? value.toLocaleDateString() : "Select date"}
             <ChevronDownIcon />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto overflow-hidden p-0" align="start">
           <Calendar
             mode="single"
-            selected={date}
+            selected={date || undefined}
             captionLayout="dropdown"
             startMonth={new Date(1940,0)}
             endMonth={new Date(new Date().getFullYear(), new Date().getMonth())}

@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Country, PassportFile, PersonInfo } from "@/types/all";
+import { Country, PassportFile, PersonInfo, PlanWithPrice } from "@/types/all";
 import {
   Select,
   SelectContent,
@@ -15,16 +15,34 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { DateOfBirthPicker } from "@/components/custom/dob";
 import { validatePersonalInfo } from "@/components/validations/validateInsuranceOrder";
+import FileUploadBox from "../elements/passportUpload";
+
+function calculateAge(dob: Date): number {
+  const now = new Date();
+  const birthDate = new Date(dob);
+  let age = now.getFullYear() - birthDate.getFullYear();
+  const m = now.getMonth() - birthDate.getMonth();
+
+  if (m < 0 || (m === 0 && now.getDate() < birthDate.getDate())) {
+    age--;
+  }
+
+  return age;
+}
 
 type Props = {
+  availablePlans: PlanWithPrice[];
   personInfo: PersonInfo;
-  setPersonInfo:  (info: PersonInfo) => void;
+  setAvailablePlans: (plans: PlanWithPrice[]) => void;
+  setPersonInfo: (info: PersonInfo) => void;
   passportFile: PassportFile | null;
   setPassportFile: (file: PassportFile | null) => void;
   onNext: (validate?: () => string[]) => void;
 };
 
 export default function PersonalInfoStep({
+  availablePlans,
+  setAvailablePlans,
   personInfo,
   setPersonInfo,
   passportFile,
@@ -32,6 +50,26 @@ export default function PersonalInfoStep({
   onNext,
 }: Props) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    console.log("Meow");
+    const fetchPlans = async () => {
+        if (!personInfo.dob) return;
+
+        const age = calculateAge(personInfo.dob); // Implement this function
+        const res = await fetch(`/api/insurances/plans-with-prices?age=${age}`);
+
+        if (!res.ok) {
+        console.error("Failed to fetch plans");
+        return;
+        }
+
+        const data: PlanWithPrice[] = await res.json();
+        setAvailablePlans(data);
+    };
+
+    fetchPlans();
+  }, [personInfo.dob]); // Refetch plans when DOB changes
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -96,31 +134,17 @@ export default function PersonalInfoStep({
       {/* Date of Birth */}
       <div>
         <DateOfBirthPicker
-            value={personInfo.dob}
+            value={personInfo.dob == null ? null :new Date(personInfo.dob)}
             onChange={(newDate) => setPersonInfo({ ...personInfo, dob: newDate })}
         />
       </div>
 
       {/* Passport Upload */}
-      <div>
-        <Label htmlFor="passport" className="mb-2">Passport File</Label>
-        <Input
-          ref={fileInputRef}
-          id="passport"
-          type="file"
-          accept=".png,.jpg,.jpeg,.pdf"
-          onChange={handleFileChange}
-        />
-        <p className="text-xs text-muted-foreground mt-1">
-          Accepted formats: PDF, PNG, JPG. File is validated using its signature.
-        </p>
-
-        {passportFile && (
-          <p className="text-sm text-green-600 mt-1">
-            ✅ File selected: {passportFile.name}
-          </p>
-        )}
-      </div>
+      <FileUploadBox
+        passportFile={passportFile}
+        handleFileChange={handleFileChange}
+      />
+      
 
       <div className="flex justify-end">
         <Button onClick={()=>{onNext(() => validatePersonalInfo(personInfo, passportFile))}}>Next</Button>
