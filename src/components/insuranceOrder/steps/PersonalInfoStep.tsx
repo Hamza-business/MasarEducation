@@ -78,9 +78,9 @@ export default function PersonalInfoStep({
   return (
     <div className="space-y-6">
       <div>
-        <Label>Nationality</Label>
+        <Label className="mb-2">Nationality</Label>
         <Select value={personInfo.nat} onValueChange={(val) => setPersonInfo({ ...personInfo, nat: val as Country })}>
-          <SelectTrigger className="w-full mt-1">
+          <SelectTrigger className="w-full">
             <SelectValue placeholder="Select country" />
           </SelectTrigger>
           <SelectContent>
@@ -103,14 +103,13 @@ export default function PersonalInfoStep({
 
       {/* Passport Upload */}
       <div>
-        <Label htmlFor="passport">Passport File</Label>
+        <Label htmlFor="passport" className="mb-2">Passport File</Label>
         <Input
           ref={fileInputRef}
           id="passport"
           type="file"
           accept=".png,.jpg,.jpeg,.pdf"
           onChange={handleFileChange}
-          className="mt-2"
         />
         <p className="text-xs text-muted-foreground mt-1">
           Accepted formats: PDF, PNG, JPG. File is validated using its signature.

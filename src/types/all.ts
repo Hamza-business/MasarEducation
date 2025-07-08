@@ -317,14 +317,14 @@ export type PersonInfo = {
 }
 
 export type InsuranceApplication = {
-  region: number; // ID of Region, taken from select box
-  district: number; // ID of district, taken from select box
-  neighbourhood: number; // ID of neighbourhood, taken from select box
+  region: number | null; // ID of Region, taken from select box
+  district: number | null; // ID of district, taken from select box
+  neighbourhood: number | null; // ID of neighbourhood, taken from select box
   street: string; // Taken from user input
   building: string; // Taken from user input
   appartment: string; // Taken from user input
   plan: string; // Taken from user input
-  price: number; // Taken from user input
+  price: number | null; // Taken from user input
 }
 
 export type InsuranceOrder = {

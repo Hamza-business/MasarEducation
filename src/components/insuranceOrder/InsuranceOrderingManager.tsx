@@ -3,12 +3,13 @@
 import { useState } from 'react';
 import { PassportFile, ReceiptFile, PersonInfo, InsuranceApplication, Country } from '@/types/all';
 import PersonalInfoStep from './steps/PersonalInfoStep';
+import InsuranceApplicationStep from './steps/InsuranceApplicationStep';
 
 // Constants
 const TOTAL_STEPS = 5;
 
 export default function InsuranceOrderingPage() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
 
   // Shared state across steps
   const [personInfo, setPersonInfo] = useState<PersonInfo | any>({
@@ -16,7 +17,16 @@ export default function InsuranceOrderingPage() {
     dob: null,
     passport: 0,
   });
-  const [application, setApplication] = useState<InsuranceApplication | null>(null);
+  const [application, setApplication] = useState<InsuranceApplication>({
+    region: null,
+    district: null,
+    neighbourhood: null,
+    street: "",
+    building: "",
+    appartment: "",
+    plan: "",
+    price: null
+  });
   const [passportFile, setPassportFile] = useState<PassportFile | null>(null);
   const [receiptFile, setReceiptFile] = useState<ReceiptFile | null>(null);
   const [trackCode, setTrackCode] = useState<string | null>(null);
@@ -52,16 +62,17 @@ export default function InsuranceOrderingPage() {
           onNext={goNext}
         />
       )}
-      {/* Conditional rendering of each step
 
       {step === 2 && (
         <InsuranceApplicationStep
-          data={application}
-          setData={setApplication}
-          back={goBack}
-          next={goNext}
+          application={application}
+          setApplication={setApplication}
+          onBack={goBack}
+          onNext={goNext}
         />
       )}
+      {/* validateInsuranceApplication(application) */}
+      {/* Conditional rendering of each step
 
       {step === 3 && (
         <BankInfoStep

@@ -82,7 +82,7 @@ export default function InsuranceFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && handleCancel()}>
-      <DialogContent className="!max-w-xl !w-full">
+      <DialogContent className="!max-w-xl !w-full overflow-auto" style={{ maxHeight: "calc(100% - 40px)" }}>
         <DialogHeader>
           <DialogTitle>
             {mode === "create" ? "Add New Insurance Plan" : "Edit Insurance Package"}

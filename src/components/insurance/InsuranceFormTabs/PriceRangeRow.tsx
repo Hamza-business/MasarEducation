@@ -12,7 +12,7 @@ type Props = {
 
 export default function PriceRangeRow({ index, data, onChange, onDelete }: Props) {
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-2 items-center mb-2">
       <Input
         type="number"
         placeholder="Min Age"
