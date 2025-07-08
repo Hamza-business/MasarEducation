@@ -9,7 +9,7 @@ import InsuranceApplicationStep from './steps/InsuranceApplicationStep';
 const TOTAL_STEPS = 5;
 
 export default function InsuranceOrderingPage() {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
 
   // Shared state across steps
   const [personInfo, setPersonInfo] = useState<PersonInfo | any>({
@@ -65,6 +65,7 @@ export default function InsuranceOrderingPage() {
 
       {step === 2 && (
         <InsuranceApplicationStep
+          personInfo={personInfo}
           application={application}
           setApplication={setApplication}
           onBack={goBack}

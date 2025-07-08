@@ -50,6 +50,14 @@ export function validateInsuranceApplication(
     errors.push("Appartment No is required.");
   }
 
+  if (application.plan.length == 0) {
+    errors.push("You must choose one of our packages");
+  }
+
+  if (application.plan == null) {
+    errors.push("Problem with price");
+  }
+
 
   return errors;
 }

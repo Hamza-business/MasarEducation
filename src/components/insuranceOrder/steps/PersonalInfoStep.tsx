@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
 import { DateOfBirthPicker } from "@/components/custom/dob";
-import { validatePersonalInfo } from "@/components/validations/validatePersonalInfo";
+import { validatePersonalInfo } from "@/components/validations/validateInsuranceOrder";
 
 type Props = {
   personInfo: PersonInfo;

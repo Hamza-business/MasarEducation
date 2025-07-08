@@ -333,3 +333,11 @@ export type InsuranceOrder = {
   insuranceApplication: number; // ID of InsuranceApplication, Will be added after storing InsuranceApplication into DB
   receipt: number; // ID of ReceiptFile, Will be added after storing Receipt file into DB
 }
+
+export type PlanWithPrice = {
+  id: number;
+  name: string;
+  timeUnit: "day" | "week" | "month" | "year";
+  period: number;
+  price: number | null; // null if no matching price for age
+};
