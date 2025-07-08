@@ -341,3 +341,18 @@ export type PlanWithPrice = {
   period: number;
   price: number | null; // null if no matching price for age
 };
+
+
+
+
+
+
+
+export type BankInfo = {
+  id: number;
+  name: string;
+  bank: string;
+  tiban: string;
+  diban: string;
+  eiban: string;
+};

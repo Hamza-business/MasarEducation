@@ -1,15 +1,16 @@
 'use client';
 
-import { useState } from 'react';
-import { PassportFile, ReceiptFile, PersonInfo, InsuranceApplication, Country } from '@/types/all';
+import { useEffect, useState } from 'react';
+import { PassportFile, ReceiptFile, PersonInfo, InsuranceApplication, Country, BankInfo } from '@/types/all';
 import PersonalInfoStep from './steps/PersonalInfoStep';
 import InsuranceApplicationStep from './steps/InsuranceApplicationStep';
+import BankInfoStep from './steps/BankInfoStep';
 
 // Constants
 const TOTAL_STEPS = 5;
 
 export default function InsuranceOrderingPage() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(3);
 
   // Shared state across steps
   const [personInfo, setPersonInfo] = useState<PersonInfo | any>({
@@ -30,17 +31,25 @@ export default function InsuranceOrderingPage() {
   const [passportFile, setPassportFile] = useState<PassportFile | null>(null);
   const [receiptFile, setReceiptFile] = useState<ReceiptFile | null>(null);
   const [trackCode, setTrackCode] = useState<string | null>(null);
+  const [bankInfo, setBankInfo] = useState<BankInfo | null>(null);
 
-    const goNext = (validate?: () => string[]) => {
-        const errors = validate?.() ?? [];
+  useEffect(() => {
+    fetch("/api/bank-info")
+      .then(res => res.json())
+      .then(data => setBankInfo(data))
+      .catch(err => console.error("Failed to load bank info", err));
+  }, []);
 
-        if (errors.length > 0) {
-            alert(errors.join("\n")); // You can use a toast instead
-            return;
-        }
+  const goNext = (validate?: () => string[]) => {
+      const errors = validate?.() ?? [];
 
-        if (step < TOTAL_STEPS) setStep(step + 1);
-    };
+      if (errors.length > 0) {
+          alert(errors.join("\n"));
+          return;
+      }
+
+      if (step < TOTAL_STEPS) setStep(step + 1);
+  };
 
   const goBack = () => {
     if (step > 1) setStep(step - 1);
@@ -72,15 +81,18 @@ export default function InsuranceOrderingPage() {
           onNext={goNext}
         />
       )}
-      {/* validateInsuranceApplication(application) */}
-      {/* Conditional rendering of each step
 
       {step === 3 && (
         <BankInfoStep
-          back={goBack}
-          next={goNext}
+          bankInfo={bankInfo}
+          application={application}
+          onBack={goBack}
+          onNext={goNext}
         />
       )}
+
+      {/* validateInsuranceApplication(application) */}
+      {/* Conditional rendering of each step
 
       {step === 4 && (
         <ReceiptUploadStep

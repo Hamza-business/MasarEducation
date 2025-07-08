@@ -140,6 +140,17 @@ model insurance_order {
   @@schema("insurances")
 }
 
+model bank {
+  id    Int    @id @default(autoincrement())
+  name  String
+  bank  String
+  tiban String
+  diban String
+  eiban String
+
+  @@schema("public")
+}
+
 enum public_countries {
   Afghanistan
   Aland_Islands                     @map("Aland Islands")
