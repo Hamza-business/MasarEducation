@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { BankInfo } from "@/types/all";
 import { InsuranceApplication } from "@/types/all";
+import { GrFormNext } from "react-icons/gr";
+import { IoChevronBackOutline } from "react-icons/io5";
 
 type Props = {
   bankInfo: BankInfo | null;
@@ -52,8 +54,8 @@ export default function BankInfoStep({ bankInfo, application, onNext, onBack }: 
             </div>
         </div>
         <div className="flex justify-between">
-            <Button variant="outline" onClick={onBack}>Back</Button>
-            <Button onClick={()=>{onNext()}}>Next</Button>
+            <Button variant="outline" onClick={onBack} className="text-base w-30 h-10"><IoChevronBackOutline />Back</Button>
+            <Button onClick={()=>{onNext()}} className="text-base w-30 h-10">Next<GrFormNext /></Button>
         </div>
     </div>
   );

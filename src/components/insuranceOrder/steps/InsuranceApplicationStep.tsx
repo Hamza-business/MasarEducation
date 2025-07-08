@@ -8,6 +8,8 @@ import { InsuranceApplication, PersonInfo, PlanWithPrice } from "@/types/all";
 import { Button } from "@/components/ui/button";
 import { validateInsuranceApplication } from "@/components/validations/validateInsuranceOrder";
 import PlanSelector from "../elements/planSelector";
+import { GrFormNext } from "react-icons/gr";
+import { IoChevronBackOutline } from "react-icons/io5";
 
 type Props = {
   personInfo: PersonInfo;
@@ -159,8 +161,8 @@ export default function InsuranceApplicationStep({ personInfo, application, regi
 
       {/* Navigation */}
       <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack}>Back</Button>
-        <Button onClick={()=>{onNext(() => validateInsuranceApplication(application))}}>Next</Button>
+        <Button variant="outline" onClick={onBack} className="text-base w-30 h-10"><IoChevronBackOutline />Back</Button>
+        <Button onClick={()=>{onNext(() => validateInsuranceApplication(application))}} className="text-base w-30 h-10">Next<GrFormNext /></Button>
       </div>
     </div>
   );

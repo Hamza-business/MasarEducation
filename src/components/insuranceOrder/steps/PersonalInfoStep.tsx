@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Country, PassportFile, PersonInfo, PlanWithPrice } from "@/types/all";
+import { GrFormNext } from "react-icons/gr";
 import {
   Select,
   SelectContent,
@@ -147,7 +148,7 @@ export default function PersonalInfoStep({
       
 
       <div className="flex justify-end">
-        <Button onClick={()=>{onNext(() => validatePersonalInfo(personInfo, passportFile))}}>Next</Button>
+        <Button onClick={()=>{onNext(() => validatePersonalInfo(personInfo, passportFile))}} className="text-base w-30 h-10">Next<GrFormNext /></Button>
       </div>
     </div>
   );

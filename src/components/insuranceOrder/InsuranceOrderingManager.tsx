@@ -10,7 +10,7 @@ import BankInfoStep from './steps/BankInfoStep';
 const TOTAL_STEPS = 5;
 
 export default function InsuranceOrderingPage() {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
 
   // Shared state across steps
   const [personInfo, setPersonInfo] = useState<PersonInfo | any>({
