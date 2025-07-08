@@ -1,4 +1,4 @@
-import { PersonInfo, PassportFile, InsuranceApplication } from "@/types/all";
+import { PersonInfo, PassportFile, InsuranceApplication, ReceiptFile } from "@/types/all";
 
 export function validatePersonalInfo(
   personInfo: PersonInfo,
@@ -58,6 +58,19 @@ export function validateInsuranceApplication(
     errors.push("Problem with price");
   }
 
+
+  return errors;
+}
+
+
+export function validateReceipt(
+  receiptFile: ReceiptFile | null
+): string[] {
+  const errors: string[] = [];
+
+  if (!receiptFile) {
+    errors.push("Payment Receipt file must be uploaded.");
+  }
 
   return errors;
 }

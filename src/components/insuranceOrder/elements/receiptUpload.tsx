@@ -1,14 +1,14 @@
 import { useRef } from "react";
 import { UploadIcon } from "lucide-react"; // or any icon you prefer
 import { Label } from "@/components/ui/label";
-import { PassportFile } from "@/types/all";
+import { ReceiptFile } from "@/types/all";
 
 type Props = {
-  passportFile: PassportFile | null;
+  receiptFile: ReceiptFile | null;
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function FileUploadBox({ passportFile, handleFileChange }: Props) {
+export default function ReceiptFileUploadBox({ receiptFile, handleFileChange }: Props) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const triggerFileInput = () => {
@@ -17,17 +17,17 @@ export default function FileUploadBox({ passportFile, handleFileChange }: Props)
 
   return (
     <div>
-      <Label htmlFor="passport" className="mb-2">Passport File</Label>
+      <Label htmlFor="passport" className="mb-2">Payment Receipt</Label>
 
       <div
         onClick={triggerFileInput}
         className="cursor-pointer border-2 border-dashed rounded-md px-4 py-8 flex flex-col items-center justify-center text-sm text-muted-foreground hover:bg-accent transition"
       >
         <UploadIcon className="mb-2 h-6 w-6" />
-        {passportFile ? (
-          <span className="text-blue-500 font-medium">{passportFile.name}</span>
+        {receiptFile ? (
+          <span className="text-blue-500 font-medium">{receiptFile.name}</span>
         ) : (
-          <span>Tap here to upload your Passport</span>
+          <span>Tap here to upload your Receipt</span>
         )}
       </div>
 

@@ -5,6 +5,7 @@ import { PassportFile, ReceiptFile, PersonInfo, InsuranceApplication, Country, B
 import PersonalInfoStep from './steps/PersonalInfoStep';
 import InsuranceApplicationStep from './steps/InsuranceApplicationStep';
 import BankInfoStep from './steps/BankInfoStep';
+import ReceiptUploadStep from './steps/ReceiptUploadStep';
 
 // Constants
 const TOTAL_STEPS = 5;
@@ -104,19 +105,17 @@ export default function InsuranceOrderingPage() {
         />
       )}
 
-      {/* validateInsuranceApplication(application) */}
-      {/* Conditional rendering of each step
-
       {step === 4 && (
         <ReceiptUploadStep
-          passportFile={passportFile}
           receiptFile={receiptFile}
-          setPassportFile={setPassportFile}
           setReceiptFile={setReceiptFile}
-          back={goBack}
-          next={goNext}
+          onBack={goBack}
+          onNext={goNext}
         />
       )}
+
+      {/* validateInsuranceApplication(application) */}
+      {/* Conditional rendering of each step
 
       {step === 5 && (
         <SubmitStep

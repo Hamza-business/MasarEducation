@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Country, PassportFile, PersonInfo, PlanWithPrice } from "@/types/all";
 import { GrFormNext } from "react-icons/gr";
@@ -13,7 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar";
 import { DateOfBirthPicker } from "@/components/custom/dob";
 import { validatePersonalInfo } from "@/components/validations/validateInsuranceOrder";
 import FileUploadBox from "../elements/passportUpload";
@@ -53,7 +51,6 @@ export default function PersonalInfoStep({
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    console.log("Meow");
     const fetchPlans = async () => {
         if (!personInfo.dob) return;
 
