@@ -1,4 +1,4 @@
-import type { Region } from '@/types/locations';
+import type { Region } from '@/types/all';
 import { Button } from '@/components/ui/button';
 import { MoreHorizontal } from 'lucide-react';
 import {

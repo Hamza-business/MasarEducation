@@ -1,5 +1,5 @@
 import { Skeleton } from '@/components/ui/skeleton';
-import type { Region, District } from '@/types/locations';
+import type { Region, District } from '@/types/all';
 import DistrictItem from '@/components/locations/District_Manager/DistrictItem';
 
 export default function DistrictList({

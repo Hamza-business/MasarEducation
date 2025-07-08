@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import NeighbourhoodList from '@/components/locations/Neighbourhood_Manager/NeighbourhoodList';
-import type { District, Neighbourhood, Region } from '@/types/locations';
+import type { District, Neighbourhood, Region } from '@/types/all';
 import { 
   toastNeighborhoodCreationSuccess, 
   toastNeighborhoodCreationFailed, 

@@ -1,4 +1,4 @@
-import { PriceRange } from '@/types/insurance';
+import { PriceRange } from '@/types/all';
 
 export function validatePriceRanges(ranges: PriceRange[]): string[] {
   const errors: string[] = [];

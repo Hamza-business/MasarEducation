@@ -1,6 +1,6 @@
 import RegionItem from '@/components/locations/Region_Manager/RegionItem';
 import { Skeleton } from '@/components/ui/skeleton';
-import type { Region } from '@/types/locations';
+import type { Region } from '@/types/all';
 
 
 

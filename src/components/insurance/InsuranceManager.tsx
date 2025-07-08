@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { CgAddR } from "react-icons/cg";
 import InsuranceFormDialog from "./InsuranceFormDialog";
 import InsuranceList from "./InsuranceList";
-import { InsurancePackage, PriceRange } from "@/types/insurance";
+import { InsurancePackage, PriceRange } from "@/types/all";
 import InsuranceCardSkeleton from "./InsuranceCardSkeleton";
 import { planActivationToggleFailed, planActivationToggleSuccess, planDeletionFailed, planDeletionSuccess, planFetchFailed, planStoreFailed, planStoreSuccess } from "../notifications/toast";
 

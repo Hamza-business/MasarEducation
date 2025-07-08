@@ -1,4 +1,4 @@
-import { InsurancePackage, PriceRange } from '@/types/insurance';
+import { InsurancePackage, PriceRange } from '@/types/all';
 import { validatePriceRanges } from './validatePriceRanges';
 
 export function validateInsurancePackage(pkg: {

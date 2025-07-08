@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import PriceRangeRow from "./PriceRangeRow";
-import type { PriceRange } from "@/types/insurance";
+import type { PriceRange } from "@/types/all";
 import { IoIosArrowBack, IoMdDoneAll } from "react-icons/io";
 import { CgAddR } from "react-icons/cg";
 import { Label } from "@/components/ui/label";

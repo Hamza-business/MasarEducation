@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import type { PriceRange } from "@/types/insurance";
+import type { PriceRange } from "@/types/all";
 import { Trash2 } from "lucide-react";
 
 type Props = {

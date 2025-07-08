@@ -1,4 +1,4 @@
-import { Neighbourhood } from '@/types/locations';
+import { Neighbourhood } from '@/types/all';
 import { Button } from '@/components/ui/button';
 import { MoreHorizontal } from 'lucide-react';
 import {

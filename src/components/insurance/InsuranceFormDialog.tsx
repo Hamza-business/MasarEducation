@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import PackageInfoTab from "./InsuranceFormTabs/PackageInfoTab";
 import PriceRangesTab from "./InsuranceFormTabs/PriceRangesTab";
 import { Tabs} from "@/components/ui/tabs";
-import type { InsurancePackage, PriceRange } from "@/types/insurance";
+import type { InsurancePackage, PriceRange } from "@/types/all";
 import TabNavigation from "./InsuranceFormTabs/TabNavigation";
-import { validateInsurancePackage } from "@/components/insurance/validations/validateInsurancePackage";
+import { validateInsurancePackage } from "@/components/validations/validateInsurancePackage";
 import { toastValidationErorr } from "../notifications/toast";
 
 type Props = {
