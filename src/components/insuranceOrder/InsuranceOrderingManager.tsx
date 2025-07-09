@@ -85,7 +85,14 @@ export default function InsuranceOrderingPage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto py-10 space-y-6">
+    <div className="max-w-3xl mx-auto py-2 space-y-6">
+      <div className="w-full">
+        <img
+          src="/logo.png" // replace with your image path
+          alt="Banner"
+          className="w-full object-cover rounded-sm"
+        />
+      </div>
       <div className="text-center font-semibold text-xl mb-3 flex justify-between items-center">
         <span className='flex justify-center gap-1 items-center text-blue-500'>
           {step === 1 && (

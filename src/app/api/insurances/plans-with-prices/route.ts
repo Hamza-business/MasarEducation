@@ -26,6 +26,7 @@ export async function GET(req: Request) {
           AND "maxAge" >= ${age}
         LIMIT 1
       ) p ON true
+      WHERE ins.active = true 
     `;
 
     console.log("Fetched plans:", plans);
