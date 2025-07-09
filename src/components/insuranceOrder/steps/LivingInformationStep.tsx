@@ -22,7 +22,7 @@ type Props = {
   onBack: () => void;
 };
 
-export default function InsuranceApplicationStep({ personInfo, application, regions, fn, availablePlans, setApplication, onBack, onNext }: Props) {
+export default function LivinginformationStep({ personInfo, application, regions, fn, availablePlans, setApplication, onBack, onNext }: Props) {
   const [districts, setDistricts] = useState<{ id: number; name: string }[]>([]);
   const [neighbourhoods, setNeighbourhoods] = useState<{ id: number; name: string }[]>([]);
 
@@ -68,68 +68,67 @@ export default function InsuranceApplicationStep({ personInfo, application, regi
 
   return (
     <div className="space-y-6">
-      {/* Region */}
-      <div>
-        <Label className="mb-2">Region *</Label>
-        <Select
-          value={application.region?.toString() ?? ""}
-          onValueChange={(val) => handleRegionChange(Number(val))}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select region" />
-          </SelectTrigger>
-          <SelectContent>
-            {regions.map((r) => (
-              <SelectItem key={r.id} value={r.id.toString()}>
-                {r.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Region */}
+          <div>
+            <Label className="mb-2">Region *</Label>
+            <Select
+              value={application.region?.toString() ?? ""}
+              onValueChange={(val) => handleRegionChange(Number(val))}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select region" />
+              </SelectTrigger>
+              <SelectContent>
+                {regions.map((r) => (
+                  <SelectItem key={r.id} value={r.id.toString()}>
+                    {r.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          {/* District */}
+          <div>
+              <Label className="mb-2">District *</Label>
+              <Select
+                  value={application.district?.toString() ?? ""}
+                  onValueChange={(val) => handleDistrictChange(Number(val))}
+                  disabled={!application.region}
+              >
+                  <SelectTrigger className="w-full">
+                      <SelectValue placeholder={application.region ? "Select district" : "Select region first"} />
+                  </SelectTrigger>
+                  <SelectContent>
+                      {districts.map((d) => (
+                      <SelectItem key={d.id} value={d.id.toString()}>
+                          {d.name}
+                      </SelectItem>
+                      ))}
+                  </SelectContent>
+              </Select>
+          </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* District */}
-            <div>
-                <Label className="mb-2">District *</Label>
-                <Select
-                    value={application.district?.toString() ?? ""}
-                    onValueChange={(val) => handleDistrictChange(Number(val))}
-                    disabled={!application.region}
-                >
-                    <SelectTrigger className="w-full">
-                        <SelectValue placeholder={application.region ? "Select district" : "Select region first"} />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {districts.map((d) => (
-                        <SelectItem key={d.id} value={d.id.toString()}>
-                            {d.name}
-                        </SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-            </div>
-
-            {/* Neighbourhood */}
-            <div>
-                <Label className="mb-2">Neighbourhood *</Label>
-                <Select
-                    value={application.neighbourhood?.toString() ?? ""}
-                    onValueChange={(val) => handleNeighbourhoodChange(Number(val))}
-                    disabled={!application.district}
-                >
-                    <SelectTrigger className="w-full">
-                        <SelectValue placeholder={application.district ? "Select neighbourhood" : "Select district first"} />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {neighbourhoods.map((n) => (
-                        <SelectItem key={n.id} value={n.id.toString()}>
-                            {n.name}
-                        </SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-            </div>
+          {/* Neighbourhood */}
+          <div>
+              <Label className="mb-2">Neighbourhood *</Label>
+              <Select
+                  value={application.neighbourhood?.toString() ?? ""}
+                  onValueChange={(val) => handleNeighbourhoodChange(Number(val))}
+                  disabled={!application.district}
+              >
+                  <SelectTrigger className="w-full">
+                      <SelectValue placeholder={application.district ? "Select neighbourhood" : "Select district first"} />
+                  </SelectTrigger>
+                  <SelectContent>
+                      {neighbourhoods.map((n) => (
+                      <SelectItem key={n.id} value={n.id.toString()}>
+                          {n.name}
+                      </SelectItem>
+                      ))}
+                  </SelectContent>
+              </Select>
+          </div>
       </div>
 
       {/* Address Fields */}
@@ -157,13 +156,7 @@ export default function InsuranceApplicationStep({ personInfo, application, regi
             />
         </div>
       </div>
-
-      <PlanSelector
-        plans={availablePlans}
-        application={application}
-        setApplication={setApplication}
-      />
-
+      
       {/* Navigation */}
       <div className="flex justify-between">
         <Button variant="outline" onClick={onBack} className="text-base w-30 h-10"><IoChevronBackOutline />Back</Button>

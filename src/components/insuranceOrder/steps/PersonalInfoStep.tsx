@@ -37,8 +37,6 @@ type Props = {
   setPersonInfo: (info: PersonInfo) => void;
   application: InsuranceApplication;
   setApplication: (data: InsuranceApplication) => void;
-  passportFile: PassportFile | null;
-  setPassportFile: (file: PassportFile | null) => void;
   onNext: (validate?: () => string[]) => void;
 };
 
@@ -49,8 +47,6 @@ export default function PersonalInfoStep({
   setPersonInfo,
   application,
   setApplication,
-  passportFile,
-  setPassportFile,
   onNext,
 }: Props) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -74,48 +70,6 @@ export default function PersonalInfoStep({
 
     fetchPlans();
   }, [personInfo.dob]); // Refetch plans when DOB changes
-
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    // Step 1: Clear previous file
-    setPassportFile(null);
-
-    // Step 2: Read first 4 bytes for magic number signature
-    const buffer = await file.slice(0, 4).arrayBuffer();
-    const signature = Array.from(new Uint8Array(buffer))
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join("")
-      .toUpperCase();
-
-    const allowedSignatures = {
-      pdf: "25504446", // %PDF
-      png: "89504E47", // PNG
-      jpg: "FFD8FF",   // JPG
-    };
-
-    const isValid = Object.values(allowedSignatures).some((sig) =>
-      signature.startsWith(sig)
-    );
-
-    if (!isValid) {
-      alert("Invalid file type. Only PDF, PNG, JPG files are allowed.");
-      return;
-    }
-
-    // Step 3: Convert to Base64 and store
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = (reader.result as string).split(",")[1];
-      setPassportFile({
-        name: file.name,
-        mimetype: file.type,
-        data: base64,
-      });
-    };
-    reader.readAsDataURL(file);
-  };
 
   return (
     <div className="space-y-6">
@@ -170,7 +124,6 @@ export default function PersonalInfoStep({
         </Select>
       </div>
 
-      {/* Date of Birth */}
       <div>
         <DateOfBirthPicker
             value={personInfo.dob == null ? null :new Date(personInfo.dob)}
@@ -181,15 +134,8 @@ export default function PersonalInfoStep({
         />
       </div>
 
-      {/* Passport Upload */}
-      <FileUploadBox
-        passportFile={passportFile}
-        handleFileChange={handleFileChange}
-      />
-      
-
       <div className="flex justify-end">
-        <Button onClick={()=>{onNext(() => validatePersonalInfo(personInfo, passportFile))}} className="text-base w-30 h-10">Next<GrFormNext /></Button>
+        <Button onClick={()=>{onNext(() => validatePersonalInfo(personInfo))}} className="text-base w-30 h-10">Next<GrFormNext /></Button>
       </div>
     </div>
   );
