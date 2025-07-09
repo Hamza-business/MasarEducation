@@ -46,6 +46,9 @@ export default function PreviewSubmitStep({
   const isValid =
     personInfo.nat &&
     personInfo.dob &&
+    personInfo.phone &&
+    personInfo.email &&
+    personInfo.name &&
     passportFile &&
     application.region &&
     application.district &&

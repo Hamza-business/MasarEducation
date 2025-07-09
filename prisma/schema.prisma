@@ -43,6 +43,9 @@ model personinfo {
   nat                                                    String
   dob                                                    DateTime          @db.Date
   passport                                               Int
+  name                                                   String
+  email                                                  String
+  phone                                                  String
   insurance_order_insurance_order_personinfoTopersoninfo insurance_order[] @relation("insurance_order_personinfoTopersoninfo")
   passports                                              passports         @relation(fields: [passport], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "passport")
 

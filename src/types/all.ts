@@ -314,6 +314,9 @@ export type PersonInfo = {
   nat: Country; // Taken from user input
   dob: Date; // Taken from user input
   passport: number;  // ID of passport file, Will be added after storing the file into DB
+  name: string,
+  email: string,
+  phone: string
 }
 
 export type InsuranceApplication = {

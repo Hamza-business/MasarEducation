@@ -7,6 +7,9 @@ function isValidPersonInfo(info: any): info is PersonInfo {
     typeof info === "object" &&
     typeof info.nat === "string" &&
     typeof info.dob === "string" &&
+    typeof info.email === "string" &&
+    typeof info.phone === "string" &&
+    typeof info.name === "string" &&
     typeof info.passport === "number"
   );
 }
@@ -24,6 +27,9 @@ export async function POST(req: NextRequest) {
         nat: body.nat as Country,
         dob: new Date(body.dob),
         passport: body.passport,
+        name: body.name,
+        phone: body.phone,
+        email: body.email,
       },
       select: { id: true },
     });

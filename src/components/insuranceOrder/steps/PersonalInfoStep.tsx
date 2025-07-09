@@ -15,6 +15,7 @@ import {
 import { DateOfBirthPicker } from "@/components/custom/dob";
 import { validatePersonalInfo } from "@/components/validations/validateInsuranceOrder";
 import FileUploadBox from "../elements/passportUpload";
+import { Input } from "@/components/ui/input";
 
 function calculateAge(dob: Date): number {
   const now = new Date();
@@ -113,6 +114,40 @@ export default function PersonalInfoStep({
 
   return (
     <div className="space-y-6">
+      <div>
+          <Label className="mb-2">Full Name</Label>
+          <Input
+            value={personInfo.name || ""}
+            onChange={(e) =>
+              setPersonInfo({ ...personInfo, name: e.target.value })
+            }
+            placeholder="Enter your full name"
+          />
+      </div>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div>
+          <Label className="mb-2">Email Address</Label>
+          <Input
+            type="email"
+            value={personInfo.email || ""}
+            onChange={(e) =>
+              setPersonInfo({ ...personInfo, email: e.target.value })
+            }
+            placeholder="Enter your email"
+          />
+        </div>
+        <div>
+          <Label className="mb-2">Phone Number</Label>
+          <Input
+            type="tel"
+            value={personInfo.phone || ""}
+            onChange={(e) =>
+              setPersonInfo({ ...personInfo, phone: e.target.value })
+            }
+            placeholder="Enter your phone number"
+          />
+        </div>
+      </div>
       <div>
         <Label className="mb-2">Nationality</Label>
         <Select value={personInfo.nat} onValueChange={(val) => setPersonInfo({ ...personInfo, nat: val as Country })}>

@@ -1,4 +1,5 @@
 import { PersonInfo, PassportFile, InsuranceApplication, ReceiptFile } from "@/types/all";
+import isEmail from 'validator/lib/isEmail';
 
 export function validatePersonalInfo(
   personInfo: PersonInfo,
@@ -8,6 +9,18 @@ export function validatePersonalInfo(
 
   if (!personInfo.nat) {
     errors.push("Nationality is required.");
+  }
+
+  if (personInfo.name == "") {
+    errors.push("Name is required.");
+  }
+
+  if (!isEmail(personInfo.email)) {
+    errors.push("A valid Email is required.");
+  }
+
+  if (personInfo.phone == "") {
+    errors.push("Phone is required.");
   }
 
   if (!personInfo.dob) {
