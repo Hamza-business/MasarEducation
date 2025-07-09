@@ -87,7 +87,7 @@ export default function PlanSelector({ personInfo, availablePlans, application, 
           </div>
         ) : availablePlans.length === 0 ? (
           <div className="bg-yellow-50 dark:bg-neutral-800 dark:text-gray-200 p-4 rounded-md text-sm text-gray-800 border border-yellow-300 dark:border-yellow-600">
-            😔 We're sorry, but there are no available packages for your age group right now.
+            😔 We are sorry, but there are no available packages for your age group right now.
             <br />
             Please contact our <a href="/support" className="underline font-medium">Support Team</a> for help.
           </div>
