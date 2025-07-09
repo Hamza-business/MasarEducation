@@ -48,7 +48,7 @@ export default function ReceiptUploadStep({
     );
 
     if (!isValid) {
-      alert("Invalid file type. Only PDF, PNG, JPG files are allowed.");
+      altoastValidationErorrert("Invalid file type. Only PDF, PNG, JPG files are allowed.");
       return;
     }
 
@@ -83,3 +83,7 @@ export default function ReceiptUploadStep({
     </div>
   );
 }
+function altoastValidationErorrert(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+

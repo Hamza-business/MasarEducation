@@ -7,6 +7,7 @@ import { GrFormNext } from "react-icons/gr";
 import { validatePassport } from "@/components/validations/validateInsuranceOrder";
 import FileUploadBox from "../elements/passportUpload";
 import { IoChevronBackOutline } from "react-icons/io5";
+import { toastValidationErorr } from "@/components/notifications/toast";
 
 type Props = {
   passportFile: PassportFile | null;
@@ -54,7 +55,7 @@ export default function PassportUploadStep({
     );
 
     if (!isValid) {
-      alert("Invalid file type. Only PDF, PNG, JPG files are allowed.");
+      toastValidationErorr("Invalid file type. Only PDF, PNG, JPG files are allowed.");
       return;
     }
 

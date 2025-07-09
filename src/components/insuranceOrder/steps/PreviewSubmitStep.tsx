@@ -8,7 +8,7 @@ import { PersonInfo, InsuranceApplication, PassportFile, ReceiptFile, InsuranceO
 import { generateUniqueTrackCode, storeApplicationToDB, storeInsuranceOrderToDB, storePersonInfoToDB, uploadPassportToDB, uploadReceiptToDB } from "@/lib/submit";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { LuSend } from "react-icons/lu";
-import { somethingWentWrong } from "@/components/notifications/toast";
+import { somethingWentWrong, toastMissingErorr } from "@/components/notifications/toast";
 
 type Props = {
   personInfo: PersonInfo;
@@ -62,7 +62,7 @@ export default function PreviewSubmitStep({
 
   const handleSubmit = async () => {
     if (!isValid) {
-      alert("Please complete all required steps before submitting.");
+      toastMissingErorr("Please complete all required steps before submitting.");
       return;
     }
 
