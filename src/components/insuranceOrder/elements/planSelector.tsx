@@ -50,14 +50,12 @@ export default function PlanSelector({ personInfo, availablePlans, application, 
               planFetchFailed();
               return;
             }
-            console.log("ssd")
             const data: PlanWithPrice[] = await res.json();
             setAvailablePlans(data);
-
+            setLoading(false);
         } catch (err) {
             planFetchFailed();
-        } finally{
-            setLoading(false);
+            setLoading(true);
         }
     };
 
