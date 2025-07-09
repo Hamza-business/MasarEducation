@@ -145,7 +145,7 @@ export default function InsuranceOrderingPage() {
       )}
 
       {trackCode && step === 6 && (
-        <div className="mt-10 p-6 border border-blue-400 bg-blue-50 dark:bg-gray-900 dark:border-blue-400 rounded-sm text-center shadow-sm space-y-4 w-2xl mx-auto">
+        <div className="mt-10 p-6 border border-blue-400 bg-blue-50 dark:bg-gray-900 dark:border-blue-400 rounded-sm text-center shadow-sm space-y-4 max-w-2xl mx-auto">
           <h2 className="text-2xl font-semibold">
             🎉 Your Insurance Order Has Been Submitted!
           </h2>
