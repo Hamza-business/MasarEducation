@@ -15,7 +15,7 @@ import { FaLocationArrow } from 'react-icons/fa';
 const TOTAL_STEPS = 6;
 
 export default function InsuranceOrderingPage() {
-  const [step, setStep] = useState(6);
+  const [step, setStep] = useState(1);
 
   // Shared state across steps
   const [insuranceOrder, setInsuranceOrder] = useState<InsuranceOrder>({
@@ -28,6 +28,9 @@ export default function InsuranceOrderingPage() {
     nat: Country.Turkey,
     dob: null,
     passport: 0,
+    name: "",
+    email: "",
+    phone: ""
   });
   const [application, setApplication] = useState<InsuranceApplication>({
     region: null,
