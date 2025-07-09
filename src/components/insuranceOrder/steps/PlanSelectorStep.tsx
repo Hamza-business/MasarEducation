@@ -10,20 +10,6 @@ import { IoChevronBackOutline } from "react-icons/io5";
 import { planFetchFailed } from "@/components/notifications/toast";
 
 
-function calculateAge(dob: Date): number {
-  const now = new Date();
-  const birthDate = new Date(dob);
-  let age = now.getFullYear() - birthDate.getFullYear();
-  const m = now.getMonth() - birthDate.getMonth();
-
-  if (m < 0 || (m === 0 && now.getDate() < birthDate.getDate())) {
-    age--;
-  }
-
-  return age;
-}
-
-
 type Props = {
   application: InsuranceApplication;
   setApplication: (app: InsuranceApplication) => void;
@@ -41,35 +27,15 @@ export default function PlanSelectorStep({ application, setApplication, availabl
       fn();
     }, [])
 
-    useEffect(() => {
-      const fetchPlans = async () => {
-          setApplication({...application, plan: "", price: null})
-          if (!personInfo.dob) return;
-  
-          const age = calculateAge(personInfo.dob); // Implement this function
-          const res = await fetch(`/api/insurances/plans-with-prices?age=${age}`);
-  
-          if (!res.ok) {
-            planFetchFailed();
-            return;
-          }
-  
-          const data: PlanWithPrice[] = await res.json();
-          setAvailablePlans(data);
-      };
-
-      if(availablePlans.length==0){
-        fetchPlans();
-      }
-    }, [personInfo.dob]); // Refetch plans when DOB changes
-
   return (
     <div className="space-y-6">
 
       <PlanSelector
-        plans={availablePlans}
+        availablePlans={availablePlans}
+        setAvailablePlans={setAvailablePlans}
         application={application}
         setApplication={setApplication}
+        personInfo={personInfo}
       />
 
       {/* Navigation */}

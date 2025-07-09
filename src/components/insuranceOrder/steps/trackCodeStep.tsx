@@ -48,7 +48,7 @@ export default function TrackCodeStep({
           </p>
 
           <Button className="text-base px-5 py-6 mt-2">
-              <a href={`/services/track/insurance=?${trackCode}`} className="flex justify-between items-center gap-2 h-100 w-full">
+              <a href={`/services/track/insurance=?${trackCode}`} className="flex justify-between items-center gap-2 h-18 w-full">
                 <TbProgressCheck /> Track Your Order <FaLocationArrow />
               </a>
           </Button>

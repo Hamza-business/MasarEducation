@@ -18,7 +18,7 @@ export async function GET(req: Request) {
         ins.period,
         p.price
       FROM services.insurances ins
-      LEFT JOIN LATERAL (
+      INNER JOIN LATERAL (
         SELECT price
         FROM services.insurance_prices
         WHERE insurance = ins.id
@@ -26,8 +26,9 @@ export async function GET(req: Request) {
           AND "maxAge" >= ${age}
         LIMIT 1
       ) p ON true
-      WHERE ins.active = true 
+      WHERE ins.active = true
     `;
+
 
     console.log("Fetched plans:", plans);
 

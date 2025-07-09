@@ -129,6 +129,7 @@ export default function PersonalInfoStep({
             onChange={(newDate) => {
               setAvailablePlans([]);
               setPersonInfo({ ...personInfo, dob: newDate })
+              setApplication({...application, plan: "", price: null})
             }}
         />
       </div>
