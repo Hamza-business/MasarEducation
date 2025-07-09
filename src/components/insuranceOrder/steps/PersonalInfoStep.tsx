@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Country, PassportFile, PersonInfo, PlanWithPrice } from "@/types/all";
+import { Country, InsuranceApplication, PassportFile, PersonInfo, PlanWithPrice } from "@/types/all";
 import { GrFormNext } from "react-icons/gr";
 import {
   Select,
@@ -35,8 +35,8 @@ type Props = {
   personInfo: PersonInfo;
   setAvailablePlans: (plans: PlanWithPrice[]) => void;
   setPersonInfo: (info: PersonInfo) => void;
-  passportFile: PassportFile | null;
-  setPassportFile: (file: PassportFile | null) => void;
+  application: InsuranceApplication;
+  setApplication: (data: InsuranceApplication) => void;
   onNext: (validate?: () => string[]) => void;
 };
 
@@ -45,22 +45,22 @@ export default function PersonalInfoStep({
   setAvailablePlans,
   personInfo,
   setPersonInfo,
-  passportFile,
-  setPassportFile,
+  application,
+  setApplication,
   onNext,
 }: Props) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const fetchPlans = async () => {
+        setApplication({...application, plan: "", price: null})
         if (!personInfo.dob) return;
 
         const age = calculateAge(personInfo.dob); // Implement this function
         const res = await fetch(`/api/insurances/plans-with-prices?age=${age}`);
 
         if (!res.ok) {
-        console.error("Failed to fetch plans");
-        return;
+          return;
         }
 
         const data: PlanWithPrice[] = await res.json();
@@ -70,52 +70,10 @@ export default function PersonalInfoStep({
     fetchPlans();
   }, [personInfo.dob]); // Refetch plans when DOB changes
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    // Step 1: Clear previous file
-    setPassportFile(null);
-
-    // Step 2: Read first 4 bytes for magic number signature
-    const buffer = await file.slice(0, 4).arrayBuffer();
-    const signature = Array.from(new Uint8Array(buffer))
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join("")
-      .toUpperCase();
-
-    const allowedSignatures = {
-      pdf: "25504446", // %PDF
-      png: "89504E47", // PNG
-      jpg: "FFD8FF",   // JPG
-    };
-
-    const isValid = Object.values(allowedSignatures).some((sig) =>
-      signature.startsWith(sig)
-    );
-
-    if (!isValid) {
-      alert("Invalid file type. Only PDF, PNG, JPG files are allowed.");
-      return;
-    }
-
-    // Step 3: Convert to Base64 and store
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = (reader.result as string).split(",")[1];
-      setPassportFile({
-        name: file.name,
-        mimetype: file.type,
-        data: base64,
-      });
-    };
-    reader.readAsDataURL(file);
-  };
-
   return (
     <div className="space-y-6">
       <div>
-          <Label className="mb-2">Full Name</Label>
+          <Label className="mb-2">Full Name *</Label>
           <Input
             value={personInfo.name || ""}
             onChange={(e) =>
@@ -126,7 +84,7 @@ export default function PersonalInfoStep({
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <Label className="mb-2">Email Address</Label>
+          <Label className="mb-2">Email Address *</Label>
           <Input
             type="email"
             value={personInfo.email || ""}
@@ -137,19 +95,20 @@ export default function PersonalInfoStep({
           />
         </div>
         <div>
-          <Label className="mb-2">Phone Number</Label>
+          <Label className="mb-2">Phone Number *</Label>
           <Input
             type="tel"
             value={personInfo.phone || ""}
             onChange={(e) =>
               setPersonInfo({ ...personInfo, phone: e.target.value })
             }
+            pattern="[0-9]"
             placeholder="Enter your phone number"
           />
         </div>
       </div>
       <div>
-        <Label className="mb-2">Nationality</Label>
+        <Label className="mb-2">Nationality *</Label>
         <Select value={personInfo.nat} onValueChange={(val) => setPersonInfo({ ...personInfo, nat: val as Country })}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select country" />
@@ -164,23 +123,18 @@ export default function PersonalInfoStep({
         </Select>
       </div>
 
-      {/* Date of Birth */}
       <div>
         <DateOfBirthPicker
             value={personInfo.dob == null ? null :new Date(personInfo.dob)}
-            onChange={(newDate) => setPersonInfo({ ...personInfo, dob: newDate })}
+            onChange={(newDate) => {
+              setAvailablePlans([]);
+              setPersonInfo({ ...personInfo, dob: newDate })
+            }}
         />
       </div>
 
-      {/* Passport Upload */}
-      <FileUploadBox
-        passportFile={passportFile}
-        handleFileChange={handleFileChange}
-      />
-      
-
       <div className="flex justify-end">
-        <Button onClick={()=>{onNext(() => validatePersonalInfo(personInfo, passportFile))}} className="text-base w-30 h-10">Next<GrFormNext /></Button>
+        <Button onClick={()=>{onNext(() => validatePersonalInfo(personInfo))}} className="text-base w-30 h-10">Next<GrFormNext /></Button>
       </div>
     </div>
   );

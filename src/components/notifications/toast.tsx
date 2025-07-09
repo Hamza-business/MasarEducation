@@ -1,5 +1,6 @@
 import { toast } from "sonner";
 import { FaTimesCircle } from "react-icons/fa";
+import { IoWarningOutline } from "react-icons/io5";
 
 export function toastRegionCreationSuccess(regionName: string) {
   toast.success("✅ Region created!", {
@@ -195,4 +196,19 @@ export function toastValidationErorr(msg:string) {
     icon: <FaTimesCircle />
   });
 }
+export function toastMissingErorr(msg:string) {
+  toast.success(`Some Required Feilds are missing`, {
+    description: msg,
+    duration: 8000,
+    icon: <IoWarningOutline className="text-yellow-400 h-9 w-9"/>
+  });
+}
+export function somethingWentWrong(msg:string) {
+  toast.success(`something Went Wrong`, {
+    description: msg,
+    duration: 8000,
+    icon: <FaTimesCircle className="text-red-500 h-9 w-9"/>
+  });
+}
+
 

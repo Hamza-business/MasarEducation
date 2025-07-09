@@ -26,7 +26,7 @@ export function DateOfBirthPicker({ value, onChange }: Props) {
   return (
     <div className="flex flex-col gap-3">
       <Label htmlFor="date" className="px-1 mb-2">
-        Date of birth
+        Date of birth *
       </Label>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>

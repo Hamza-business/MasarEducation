@@ -130,3 +130,8 @@
 .light .meow:hover{
   background-color:var(--destructive) !important;
 }
+
+[data-content]{
+  padding-left: 20px;
+  font-size: 14.5px;
+}

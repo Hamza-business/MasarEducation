@@ -8,13 +8,14 @@ import { PersonInfo, InsuranceApplication, PassportFile, ReceiptFile, InsuranceO
 import { generateUniqueTrackCode, storeApplicationToDB, storeInsuranceOrderToDB, storePersonInfoToDB, uploadPassportToDB, uploadReceiptToDB } from "@/lib/submit";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { LuSend } from "react-icons/lu";
+import { somethingWentWrong, toastMissingErorr } from "@/components/notifications/toast";
 
 type Props = {
   personInfo: PersonInfo;
   application: InsuranceApplication;
   passportFile: PassportFile | null;
   receiptFile: ReceiptFile | null;
-//   insuranceOrder: InsuranceOrder;
+  insuranceOrder: InsuranceOrder;
 //   onSubmitSuccess: (trackCode: string) => void;
   step: number;
   setStep: (stp: number) => void;
@@ -29,8 +30,7 @@ export default function PreviewSubmitStep({
   application,
   passportFile,
   receiptFile,
-//   insuranceOrder,
-//   onSubmitSuccess,
+  insuranceOrder,
   step,
   setStep,
   setPersonInfo,
@@ -62,7 +62,7 @@ export default function PreviewSubmitStep({
 
   const handleSubmit = async () => {
     if (!isValid) {
-      alert("Please complete all required steps before submitting.");
+      toastMissingErorr("Please complete all required steps before submitting.");
       return;
     }
 
@@ -72,21 +72,34 @@ export default function PreviewSubmitStep({
 
     try {
         setIsSubmittingDialogOpen(true)
-        // Placeholder steps
         const trackCode = await generateUniqueTrackCode();
         setTrackCode(trackCode);
 
-        setSubmitStep("Uploading Passport");
-        const passportId = await uploadPassportToDB(passportFile);
+        let passportId = personInfo.passport
+        if(!passportId){
+          setSubmitStep("Uploading Passport");
+          passportId = await uploadPassportToDB(passportFile);
+        }
         setPersonInfo({ ...personInfo, passport: passportId });
 
-        setSubmitStep("Uploading Receipt");
-        const receiptId = await uploadReceiptToDB(receiptFile);
+
+        let receiptId = insuranceOrder.receipt;
+        if(!receiptId){
+          setSubmitStep("Uploading Receipt");
+          receiptId = await uploadReceiptToDB(receiptFile);
+        }
 
         setSubmitStep("Storing Data");
-        const personInfoId = await storePersonInfoToDB({ ...personInfo, passport: passportId });
-        const applicationId = await storeApplicationToDB(application);
+        let personInfoId = insuranceOrder.personInfo;
+        if(!personInfoId){
+          personInfoId = await storePersonInfoToDB({ ...personInfo, passport: passportId });
+        }
 
+        let applicationId = insuranceOrder.insuranceApplication;
+        if(!applicationId){
+          applicationId = await storeApplicationToDB(application);
+        }
+        
         const newOrder: InsuranceOrder = {
             trackCode,
             personInfo: personInfoId,
@@ -101,8 +114,9 @@ export default function PreviewSubmitStep({
         setIsSubmitting(false);
         setStep(step+1);
     } catch (err) {
-      console.error(err);
+      setIsSubmittingDialogOpen(false)
       setError("Something went wrong. Please try again.");
+      somethingWentWrong("Something went wrong. Please try again.");
       setIsSubmitting(false);
     }
   };
@@ -160,7 +174,7 @@ export default function PreviewSubmitStep({
 
       {/* ERROR MESSAGE */}
       {error && (
-        <p className="text-sm text-red-600 text-center mt-4">
+        <p className="text-base text-red-600 text-center mt-0">
           {error}
         </p>
       )}

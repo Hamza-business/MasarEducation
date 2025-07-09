@@ -1,21 +1,27 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { PassportFile, ReceiptFile, PersonInfo, InsuranceApplication, Country, BankInfo, PlanWithPrice, InsuranceOrder } from '@/types/all';
 import PersonalInfoStep from './steps/PersonalInfoStep';
-import InsuranceApplicationStep from './steps/InsuranceApplicationStep';
+import LivinginformationStep from './steps/LivingInformationStep';
 import BankInfoStep from './steps/BankInfoStep';
 import ReceiptUploadStep from './steps/ReceiptUploadStep';
 import PreviewSubmitStep from './steps/PreviewSubmitStep';
-import { Button } from '../ui/button';
-import { TbProgressCheck } from 'react-icons/tb';
-import { FaLocationArrow } from 'react-icons/fa';
+import TrackCodeStep from './steps/trackCodeStep';
+import { TbInfoSquareRounded, TbPackages, TbReceipt2 } from 'react-icons/tb';
+import { AiTwotoneHome } from "react-icons/ai";
+import { GiPassport } from "react-icons/gi";
+import { CiBank } from "react-icons/ci";
+import { FaFire } from 'react-icons/fa';
+import PassportUploadStep from './steps/PassportUploadStep';
+import PlanSelectorStep from './steps/PlanSelectorStep';
+import { toastMissingErorr } from '../notifications/toast';
 
 // Constants
-const TOTAL_STEPS = 6;
+const TOTAL_STEPS = 7;
 
 export default function InsuranceOrderingPage() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState<number>(1);
 
   // Shared state across steps
   const [insuranceOrder, setInsuranceOrder] = useState<InsuranceOrder>({
@@ -49,26 +55,25 @@ export default function InsuranceOrderingPage() {
   const [regions, setRegions] = useState<{ id: number; name: string }[]>([]);
   const [availablePlans, setAvailablePlans] = useState<PlanWithPrice[]>([]);
   
-
   useEffect(() => {
     fetch("/api/bank-info")
       .then(res => res.json())
       .then(data => setBankInfo(data))
-      .catch(err => console.error("Failed to load bank info", err));
+      .catch(err => {});
   }, []);
 
   useEffect(() => {
     fetch("/api/regions")
       .then((res) => res.json())
       .then(setRegions)
-      .catch(console.error);
+      .catch(err => {});
   }, []);
 
   const goNext = (validate?: () => string[]) => {
       const errors = validate?.() ?? [];
 
       if (errors.length > 0) {
-          alert(errors.join("\n"));
+          toastMissingErorr(errors[0]);
           return;
       }
 
@@ -80,46 +85,144 @@ export default function InsuranceOrderingPage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto py-10 space-y-6">
-      {/* Optional: Step indicator */}
-      <div className="text-center font-semibold text-lg">
-        Step {step} of {TOTAL_STEPS}
+    <div className="max-w-3xl mx-auto py-2 space-y-6">
+      <div className="w-full">
+        <img
+          src="/logo.png"
+          alt="Banner"
+          className="w-full object-cover rounded-sm min-h-30"
+        />
+      </div>
+      <div className="text-center font-semibold text-xl mb-3 flex justify-between items-center">
+        <span className='flex justify-center gap-1 items-center text-blue-500'>
+          {step === 1 && (
+            <>
+              <TbInfoSquareRounded/> Personal Infomration
+            </>
+          )}
+          {step === 2 && (
+            <>
+              <GiPassport /> Passport Upload
+            </>
+          )}
+          {step === 3 && (
+            <>
+              <AiTwotoneHome /> Living Information
+            </>
+          )}
+          {step === 4 && (
+            <>
+              <TbPackages /> Package
+            </>
+          )}
+          {step === 5 && (
+            <>
+              <CiBank /> IBAN Details
+            </>
+          )}
+          {step === 6 && (
+            <>
+              <TbReceipt2 /> Receipt Upload
+            </>
+          )}
+          {step === 7 && (
+            <>
+              <FaFire /> Final Step
+            </>
+          )}
+          {step === 8 && (<>🏁 Order Placed</>)}
+        </span>
+        <p className="text-center font-semibold text-sm mb-1 text-blue-400">
+          { step<=TOTAL_STEPS &&(
+            <>
+              Step {step} / {TOTAL_STEPS}
+            </>
+          )}
+          { step>TOTAL_STEPS &&(
+            <>
+              Finsih 🏁
+            </>
+          )}
+        </p>
+      </div>
+      <div className="w-full bg-gray-200 dark:bg-gray-800 h-2 rounded overflow-hidden mt-2">
+        <div
+          className="bg-blue-500 h-full transition-all duration-300"
+          style={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
+        />
       </div>
 
       {step === 1 && (
         <PersonalInfoStep
           availablePlans={availablePlans}
           setAvailablePlans={setAvailablePlans}
+          application={application}
+          setApplication={setApplication}
           personInfo={personInfo}
           setPersonInfo={setPersonInfo}
-          passportFile={passportFile}
-          setPassportFile={setPassportFile}
           onNext={goNext}
         />
       )}
 
       {step === 2 && (
-        <InsuranceApplicationStep
-          personInfo={personInfo}
-          application={application}
-          regions={regions}
-          availablePlans={availablePlans}
-          setApplication={setApplication}
+        <PassportUploadStep
+          passportFile={passportFile}
+          setPassportFile={setPassportFile}
+          fn={async ()=>{
+              if(regions.length==0){
+                  fetch("/api/regions")
+                  .then((res) => res.json())
+                  .then(setRegions)
+                  .catch((error)=>{});
+              }
+          }}
           onBack={goBack}
           onNext={goNext}
         />
       )}
 
       {step === 3 && (
-        <BankInfoStep
-          bankInfo={bankInfo}
+        <LivinginformationStep
           application={application}
+          regions={regions}
+          setRegions={setRegions}
+          setApplication={setApplication}
           onBack={goBack}
           onNext={goNext}
         />
       )}
 
       {step === 4 && (
+        <PlanSelectorStep
+          application={application}
+          setApplication={setApplication}
+          availablePlans={availablePlans}
+          setAvailablePlans={setAvailablePlans}
+          personInfo={personInfo}
+          onBack={goBack}
+          onNext={goNext}
+          fn={async ()=>{
+              if(!bankInfo){
+                  fetch("/api/bank-info")
+                  .then(res => res.json())
+                  .then(data => setBankInfo(data))
+                  .catch((error)=>{});
+              }
+          }}
+        />
+      )}
+
+      {step === 5 && (
+        <BankInfoStep
+          bankInfo={bankInfo}
+          setBankInfo={setBankInfo}
+          application={application}
+          onBack={goBack}
+          onNext={goNext}
+        />
+      )}
+
+      {step === 6 && (
         <ReceiptUploadStep
           receiptFile={receiptFile}
           setReceiptFile={setReceiptFile}
@@ -128,13 +231,13 @@ export default function InsuranceOrderingPage() {
         />
       )}
 
-      {step === 5 && (
+      {step === 7 && (
         <PreviewSubmitStep
           personInfo={personInfo}
           application={application}
           passportFile={passportFile}
           receiptFile={receiptFile}
-          // insuranceOrder={insuranceOrder}
+          insuranceOrder={insuranceOrder}
           setInsuranceOrder={setInsuranceOrder}
           setPersonInfo={setPersonInfo}
           setTrackCode={setTrackCode}
@@ -144,30 +247,10 @@ export default function InsuranceOrderingPage() {
         />
       )}
 
-      {trackCode && step === 6 && (
-        <div className="mt-10 p-6 border border-blue-400 bg-blue-50 dark:bg-gray-900 dark:border-blue-400 rounded-sm text-center shadow-sm space-y-4 w-2xl mx-auto">
-          <h2 className="text-2xl font-semibold">
-            🎉 Your Insurance Order Has Been Submitted!
-          </h2>
-          <p className="text-xl px-4 font-semibold">
-            This is your tracking code:
-          </p>
-
-          <div className="text-5xl font-mono font-bold tracking-widest">
-            {trackCode}
-          </div>
-
-          <p className="text-base px-4">
-            Please keep it safe – you’ll need it to check your insurance status or claim it.
-          </p>
-          
-
-          <Button className='text-base px-5 py-6 mt-2'>
-            <a href="/track" className='flex justify-between items-center gap-2'><TbProgressCheck /> Track Your Order <FaLocationArrow /></a>
-          </Button>
-
-          
-        </div>
+      {trackCode && step === 8 && (
+        <TrackCodeStep
+          trackCode={trackCode}
+        />
       )}
 
     </div>

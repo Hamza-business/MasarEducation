@@ -2,8 +2,7 @@ import { PersonInfo, PassportFile, InsuranceApplication, ReceiptFile } from "@/t
 import isEmail from 'validator/lib/isEmail';
 
 export function validatePersonalInfo(
-  personInfo: PersonInfo,
-  passportFile: PassportFile | null
+  personInfo: PersonInfo
 ): string[] {
   const errors: string[] = [];
 
@@ -27,12 +26,21 @@ export function validatePersonalInfo(
     errors.push("Date of birth is required.");
   }
 
+  return errors;
+}
+
+export function validatePassport(
+  passportFile: PassportFile | null
+): string[] {
+  const errors: string[] = [];
+
   if (!passportFile) {
     errors.push("Passport file must be uploaded.");
   }
 
   return errors;
 }
+
 
 export function validateInsuranceApplication(
   application: InsuranceApplication,
@@ -63,14 +71,21 @@ export function validateInsuranceApplication(
     errors.push("Appartment No is required.");
   }
 
+  return errors;
+}
+
+export function validatePackage(
+  application: InsuranceApplication,
+): string[] {
+  const errors: string[] = [];
+
   if (application.plan.length == 0) {
     errors.push("You must choose one of our packages");
   }
 
-  if (application.plan == null) {
+  if (application.price == null) {
     errors.push("Problem with price");
   }
-
 
   return errors;
 }
