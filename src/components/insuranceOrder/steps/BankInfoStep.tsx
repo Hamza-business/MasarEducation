@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { BankInfo } from "@/types/all";
 import { InsuranceApplication } from "@/types/all";
+import { useEffect } from "react";
 import { GrFormNext } from "react-icons/gr";
 import { IoChevronBackOutline } from "react-icons/io5";
 
@@ -9,13 +10,19 @@ type Props = {
   application: InsuranceApplication;
   onNext: (validate?: () => string[]) => void;
   onBack: () => void;
+  fn: () => void;
 };
 
 function formatIban(iban: string): string {
   return iban.replace(/(.{4})/g, "$1 ").trim();
 }
 
-export default function BankInfoStep({ bankInfo, application, onNext, onBack }: Props) {
+export default function BankInfoStep({ bankInfo, application, onNext, onBack, fn }: Props) {
+
+  useEffect(() => {
+    fn();
+  }, [])
+
   if (!bankInfo) return <p>Loading bank information...</p>;
 
   return (

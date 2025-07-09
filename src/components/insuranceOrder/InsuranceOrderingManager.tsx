@@ -7,9 +7,7 @@ import InsuranceApplicationStep from './steps/InsuranceApplicationStep';
 import BankInfoStep from './steps/BankInfoStep';
 import ReceiptUploadStep from './steps/ReceiptUploadStep';
 import PreviewSubmitStep from './steps/PreviewSubmitStep';
-import { Button } from '../ui/button';
-import { TbProgressCheck } from 'react-icons/tb';
-import { FaLocationArrow } from 'react-icons/fa';
+import TrackCodeStep from './steps/trackCodeStep';
 
 // Constants
 const TOTAL_STEPS = 6;
@@ -105,6 +103,15 @@ export default function InsuranceOrderingPage() {
           personInfo={personInfo}
           application={application}
           regions={regions}
+          fn={async ()=>{
+                if(regions.length==0){
+                    fetch("/api/regions")
+                    .then((res) => res.json())
+                    .then(setRegions)
+                    .catch(console.error);
+                }
+            }
+          }
           availablePlans={availablePlans}
           setApplication={setApplication}
           onBack={goBack}
@@ -118,6 +125,15 @@ export default function InsuranceOrderingPage() {
           application={application}
           onBack={goBack}
           onNext={goNext}
+          fn={async ()=>{
+                if(!bankInfo){
+                    fetch("/api/bank-info")
+                    .then(res => res.json())
+                    .then(data => setBankInfo(data))
+                    .catch(err => console.error("Failed to load bank info", err));
+                }
+            }
+          }
         />
       )}
 
@@ -147,29 +163,9 @@ export default function InsuranceOrderingPage() {
       )}
 
       {trackCode && step === 6 && (
-        <div className="mt-10 p-6 border border-blue-400 bg-blue-50 dark:bg-gray-900 dark:border-blue-400 rounded-sm text-center shadow-sm space-y-4 max-w-2xl mx-auto">
-          <h2 className="text-2xl font-semibold">
-            🎉 Your Insurance Order Has Been Submitted!
-          </h2>
-          <p className="text-xl px-4 font-semibold">
-            This is your tracking code:
-          </p>
-
-          <div className="text-5xl font-mono font-bold tracking-widest">
-            {trackCode}
-          </div>
-
-          <p className="text-base px-4">
-            Please keep it safe – you’ll need it to check your insurance status or claim it.
-          </p>
-          
-
-          <Button className='text-base px-5 py-6 mt-2'>
-            <a href="/track" className='flex justify-between items-center gap-2'><TbProgressCheck /> Track Your Order <FaLocationArrow /></a>
-          </Button>
-
-          
-        </div>
+        <TrackCodeStep
+          trackCode={trackCode}
+        />
       )}
 
     </div>

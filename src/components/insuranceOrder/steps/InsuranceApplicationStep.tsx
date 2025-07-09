@@ -15,15 +15,20 @@ type Props = {
   personInfo: PersonInfo;
   application: InsuranceApplication;
   regions: { id: number; name: string }[];
+  fn: () => void;
   availablePlans: PlanWithPrice[];
   setApplication: (app: InsuranceApplication) => void;
   onNext: (validate?: () => string[]) => void;
   onBack: () => void;
 };
 
-export default function InsuranceApplicationStep({ personInfo, application, regions, availablePlans, setApplication, onBack, onNext }: Props) {
+export default function InsuranceApplicationStep({ personInfo, application, regions, fn, availablePlans, setApplication, onBack, onNext }: Props) {
   const [districts, setDistricts] = useState<{ id: number; name: string }[]>([]);
   const [neighbourhoods, setNeighbourhoods] = useState<{ id: number; name: string }[]>([]);
+
+  useEffect(() => {
+    fn();
+  }, [])
 
   // Load districts on region change, reset downstream
   useEffect(() => {
