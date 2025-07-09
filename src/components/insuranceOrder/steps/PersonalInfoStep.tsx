@@ -144,6 +144,7 @@ export default function PersonalInfoStep({
             onChange={(e) =>
               setPersonInfo({ ...personInfo, phone: e.target.value })
             }
+            pattern="[0-9]"
             placeholder="Enter your phone number"
           />
         </div>

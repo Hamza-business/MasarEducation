@@ -134,7 +134,7 @@ export default function InsuranceOrderingPage() {
           application={application}
           passportFile={passportFile}
           receiptFile={receiptFile}
-          // insuranceOrder={insuranceOrder}
+          insuranceOrder={insuranceOrder}
           setInsuranceOrder={setInsuranceOrder}
           setPersonInfo={setPersonInfo}
           setTrackCode={setTrackCode}

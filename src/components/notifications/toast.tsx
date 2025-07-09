@@ -195,4 +195,12 @@ export function toastValidationErorr(msg:string) {
     icon: <FaTimesCircle />
   });
 }
+export function somethingWentWrong(msg:string) {
+  toast.success(`something Went Wrong`, {
+    description: msg,
+    duration: 8000,
+    icon: <FaTimesCircle />
+  });
+}
+
 
