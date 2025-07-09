@@ -7,6 +7,7 @@ import { validateInsuranceApplication, validatePackage } from "@/components/vali
 import PlanSelector from "../elements/planSelector";
 import { GrFormNext } from "react-icons/gr";
 import { IoChevronBackOutline } from "react-icons/io5";
+import { planFetchFailed } from "@/components/notifications/toast";
 
 
 function calculateAge(dob: Date): number {
@@ -49,8 +50,8 @@ export default function PlanSelectorStep({ application, setApplication, availabl
           const res = await fetch(`/api/insurances/plans-with-prices?age=${age}`);
   
           if (!res.ok) {
-          console.error("Failed to fetch plans");
-          return;
+            planFetchFailed();
+            return;
           }
   
           const data: PlanWithPrice[] = await res.json();

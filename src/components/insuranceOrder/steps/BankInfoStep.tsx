@@ -1,3 +1,4 @@
+import { somethingWentWrong } from "@/components/notifications/toast";
 import { Button } from "@/components/ui/button";
 import { BankInfo } from "@/types/all";
 import { InsuranceApplication } from "@/types/all";
@@ -7,20 +8,25 @@ import { IoChevronBackOutline } from "react-icons/io5";
 
 type Props = {
   bankInfo: BankInfo | null;
+  setBankInfo: (setBankInfo:BankInfo)=> void;
   application: InsuranceApplication;
   onNext: (validate?: () => string[]) => void;
   onBack: () => void;
-  fn: () => void;
 };
 
 function formatIban(iban: string): string {
   return iban.replace(/(.{4})/g, "$1 ").trim();
 }
 
-export default function BankInfoStep({ bankInfo, application, onNext, onBack, fn }: Props) {
+export default function BankInfoStep({ bankInfo, setBankInfo, application, onNext, onBack }: Props) {
 
   useEffect(() => {
-    fn();
+    fetch("/api/bank-info")
+    .then(res => res.json())
+    .then(data => setBankInfo(data))
+    .catch((error)=>{
+      somethingWentWrong("Failed to load Bank info, Please try again.");
+    });
   }, [])
 
   if (!bankInfo) return <p>Loading bank information...</p>;

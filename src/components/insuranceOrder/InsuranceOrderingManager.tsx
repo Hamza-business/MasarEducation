@@ -54,19 +54,18 @@ export default function InsuranceOrderingPage() {
   const [regions, setRegions] = useState<{ id: number; name: string }[]>([]);
   const [availablePlans, setAvailablePlans] = useState<PlanWithPrice[]>([]);
   
-
   useEffect(() => {
     fetch("/api/bank-info")
       .then(res => res.json())
       .then(data => setBankInfo(data))
-      .catch(err => console.error("Failed to load bank info", err));
+      .catch(err => {});
   }, []);
 
   useEffect(() => {
     fetch("/api/regions")
       .then((res) => res.json())
       .then(setRegions)
-      .catch(console.error);
+      .catch(err => {});
   }, []);
 
   const goNext = (validate?: () => string[]) => {
@@ -88,9 +87,9 @@ export default function InsuranceOrderingPage() {
     <div className="max-w-3xl mx-auto py-2 space-y-6">
       <div className="w-full">
         <img
-          src="/logo.png" // replace with your image path
+          src="/logo.png"
           alt="Banner"
-          className="w-full object-cover rounded-sm"
+          className="w-full object-cover rounded-sm min-h-30"
         />
       </div>
       <div className="text-center font-semibold text-xl mb-3 flex justify-between items-center">
@@ -173,7 +172,7 @@ export default function InsuranceOrderingPage() {
                   fetch("/api/regions")
                   .then((res) => res.json())
                   .then(setRegions)
-                  .catch(console.error);
+                  .catch((error)=>{});
               }
           }}
           onBack={goBack}
@@ -183,18 +182,9 @@ export default function InsuranceOrderingPage() {
 
       {step === 3 && (
         <LivinginformationStep
-          personInfo={personInfo}
           application={application}
           regions={regions}
-          fn={async ()=>{
-              if(regions.length==0){
-                  fetch("/api/regions")
-                  .then((res) => res.json())
-                  .then(setRegions)
-                  .catch(console.error);
-              }
-          }}
-          availablePlans={availablePlans}
+          setRegions={setRegions}
           setApplication={setApplication}
           onBack={goBack}
           onNext={goNext}
@@ -215,7 +205,7 @@ export default function InsuranceOrderingPage() {
                   fetch("/api/bank-info")
                   .then(res => res.json())
                   .then(data => setBankInfo(data))
-                  .catch(err => console.error("Failed to load bank info", err));
+                  .catch((error)=>{});
               }
           }}
         />
@@ -224,18 +214,10 @@ export default function InsuranceOrderingPage() {
       {step === 5 && (
         <BankInfoStep
           bankInfo={bankInfo}
+          setBankInfo={setBankInfo}
           application={application}
           onBack={goBack}
           onNext={goNext}
-          fn={async ()=>{
-                if(!bankInfo){
-                    fetch("/api/bank-info")
-                    .then(res => res.json())
-                    .then(data => setBankInfo(data))
-                    .catch(err => console.error("Failed to load bank info", err));
-                }
-            }
-          }
         />
       )}
 

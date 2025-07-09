@@ -60,8 +60,7 @@ export default function PersonalInfoStep({
         const res = await fetch(`/api/insurances/plans-with-prices?age=${age}`);
 
         if (!res.ok) {
-        console.error("Failed to fetch plans");
-        return;
+          return;
         }
 
         const data: PlanWithPrice[] = await res.json();

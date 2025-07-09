@@ -10,24 +10,30 @@ import { validateInsuranceApplication } from "@/components/validations/validateI
 import PlanSelector from "../elements/planSelector";
 import { GrFormNext } from "react-icons/gr";
 import { IoChevronBackOutline } from "react-icons/io5";
+import { toastDistrictFetchFailed, toastNeighborhoodFetchFailed, toastRegionFetchFailed } from "@/components/notifications/toast";
 
 type Props = {
-  personInfo: PersonInfo;
   application: InsuranceApplication;
   regions: { id: number; name: string }[];
-  fn: () => void;
-  availablePlans: PlanWithPrice[];
+  setRegions: (regions:{ id: number; name: string }[])=> void;
   setApplication: (app: InsuranceApplication) => void;
   onNext: (validate?: () => string[]) => void;
   onBack: () => void;
 };
 
-export default function LivinginformationStep({ personInfo, application, regions, fn, availablePlans, setApplication, onBack, onNext }: Props) {
+export default function LivinginformationStep({application, regions, setRegions, setApplication, onBack, onNext }: Props) {
   const [districts, setDistricts] = useState<{ id: number; name: string }[]>([]);
   const [neighbourhoods, setNeighbourhoods] = useState<{ id: number; name: string }[]>([]);
 
   useEffect(() => {
-    fn();
+      if(regions.length==0){
+          fetch("/api/regions")
+          .then((res) => res.json())
+          .then(setRegions)
+          .catch((error)=>{
+            toastRegionFetchFailed();
+          });
+      }
   }, [])
 
   // Load districts on region change, reset downstream
@@ -39,7 +45,9 @@ export default function LivinginformationStep({ personInfo, application, regions
       .then((list) => {
         setDistricts(list);
       })
-      .catch(console.error);
+      .catch((error)=>{
+        toastDistrictFetchFailed();
+      });
   }, [application.region]);
 
   // Load neighbourhoods on district change
@@ -51,7 +59,9 @@ export default function LivinginformationStep({ personInfo, application, regions
       .then((list) => {
         setNeighbourhoods(list);
       })
-      .catch(console.error);
+      .catch((error)=>{
+        toastNeighborhoodFetchFailed();
+      });
   }, [application.district]);
 
   const handleRegionChange = (id: number) => {

@@ -31,7 +31,6 @@ export default function PreviewSubmitStep({
   passportFile,
   receiptFile,
   insuranceOrder,
-//   onSubmitSuccess,
   step,
   setStep,
   setPersonInfo,
@@ -116,6 +115,7 @@ export default function PreviewSubmitStep({
         setStep(step+1);
     } catch (err) {
       setIsSubmittingDialogOpen(false)
+      setError("Something went wrong. Please try again.");
       somethingWentWrong("Something went wrong. Please try again.");
       setIsSubmitting(false);
     }
@@ -174,7 +174,7 @@ export default function PreviewSubmitStep({
 
       {/* ERROR MESSAGE */}
       {error && (
-        <p className="text-sm text-red-600 text-center mt-4">
+        <p className="text-base text-red-600 text-center mt-0">
           {error}
         </p>
       )}
