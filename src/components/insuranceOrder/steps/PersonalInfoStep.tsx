@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Country, PassportFile, PersonInfo, PlanWithPrice } from "@/types/all";
+import { Country, InsuranceApplication, PassportFile, PersonInfo, PlanWithPrice } from "@/types/all";
 import { GrFormNext } from "react-icons/gr";
 import {
   Select,
@@ -35,6 +35,8 @@ type Props = {
   personInfo: PersonInfo;
   setAvailablePlans: (plans: PlanWithPrice[]) => void;
   setPersonInfo: (info: PersonInfo) => void;
+  application: InsuranceApplication;
+  setApplication: (data: InsuranceApplication) => void;
   passportFile: PassportFile | null;
   setPassportFile: (file: PassportFile | null) => void;
   onNext: (validate?: () => string[]) => void;
@@ -45,6 +47,8 @@ export default function PersonalInfoStep({
   setAvailablePlans,
   personInfo,
   setPersonInfo,
+  application,
+  setApplication,
   passportFile,
   setPassportFile,
   onNext,
@@ -53,6 +57,7 @@ export default function PersonalInfoStep({
 
   useEffect(() => {
     const fetchPlans = async () => {
+        setApplication({...application, plan: "", price: null})
         if (!personInfo.dob) return;
 
         const age = calculateAge(personInfo.dob); // Implement this function
@@ -169,7 +174,10 @@ export default function PersonalInfoStep({
       <div>
         <DateOfBirthPicker
             value={personInfo.dob == null ? null :new Date(personInfo.dob)}
-            onChange={(newDate) => setPersonInfo({ ...personInfo, dob: newDate })}
+            onChange={(newDate) => {
+              setAvailablePlans([]);
+              setPersonInfo({ ...personInfo, dob: newDate })
+            }}
         />
       </div>
 

@@ -90,6 +90,8 @@ export default function InsuranceOrderingPage() {
         <PersonalInfoStep
           availablePlans={availablePlans}
           setAvailablePlans={setAvailablePlans}
+          application={application}
+          setApplication={setApplication}
           personInfo={personInfo}
           setPersonInfo={setPersonInfo}
           passportFile={passportFile}
