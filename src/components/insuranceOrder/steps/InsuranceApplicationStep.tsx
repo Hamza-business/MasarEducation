@@ -65,7 +65,7 @@ export default function InsuranceApplicationStep({ personInfo, application, regi
     <div className="space-y-6">
       {/* Region */}
       <div>
-        <Label className="mb-2">Region</Label>
+        <Label className="mb-2">Region *</Label>
         <Select
           value={application.region?.toString() ?? ""}
           onValueChange={(val) => handleRegionChange(Number(val))}
@@ -86,7 +86,7 @@ export default function InsuranceApplicationStep({ personInfo, application, regi
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* District */}
             <div>
-                <Label className="mb-2">District</Label>
+                <Label className="mb-2">District *</Label>
                 <Select
                     value={application.district?.toString() ?? ""}
                     onValueChange={(val) => handleDistrictChange(Number(val))}
@@ -107,7 +107,7 @@ export default function InsuranceApplicationStep({ personInfo, application, regi
 
             {/* Neighbourhood */}
             <div>
-                <Label className="mb-2">Neighbourhood</Label>
+                <Label className="mb-2">Neighbourhood *</Label>
                 <Select
                     value={application.neighbourhood?.toString() ?? ""}
                     onValueChange={(val) => handleNeighbourhoodChange(Number(val))}
@@ -129,7 +129,7 @@ export default function InsuranceApplicationStep({ personInfo, application, regi
 
       {/* Address Fields */}
       <div>
-        <Label className="mb-2">Street</Label>
+        <Label className="mb-2">Street *</Label>
         <Input
           value={application.street}
           onChange={(e) => setApplication({ ...application, street: e.target.value })}
@@ -138,14 +138,14 @@ export default function InsuranceApplicationStep({ personInfo, application, regi
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-            <Label className="mb-2">Building No.</Label>
+            <Label className="mb-2">Building No. *</Label>
             <Input
             value={application.building}
             onChange={(e) => setApplication({ ...application, building: e.target.value })}
             />
         </div>
         <div>
-            <Label className="mb-2">Apartment No.</Label>
+            <Label className="mb-2">Apartment No. *</Label>
             <Input
             value={application.appartment}
             onChange={(e) => setApplication({ ...application, appartment: e.target.value })}

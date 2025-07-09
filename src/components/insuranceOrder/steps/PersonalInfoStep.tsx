@@ -115,7 +115,7 @@ export default function PersonalInfoStep({
   return (
     <div className="space-y-6">
       <div>
-          <Label className="mb-2">Full Name</Label>
+          <Label className="mb-2">Full Name *</Label>
           <Input
             value={personInfo.name || ""}
             onChange={(e) =>
@@ -126,7 +126,7 @@ export default function PersonalInfoStep({
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <Label className="mb-2">Email Address</Label>
+          <Label className="mb-2">Email Address *</Label>
           <Input
             type="email"
             value={personInfo.email || ""}
@@ -137,7 +137,7 @@ export default function PersonalInfoStep({
           />
         </div>
         <div>
-          <Label className="mb-2">Phone Number</Label>
+          <Label className="mb-2">Phone Number *</Label>
           <Input
             type="tel"
             value={personInfo.phone || ""}
@@ -149,7 +149,7 @@ export default function PersonalInfoStep({
         </div>
       </div>
       <div>
-        <Label className="mb-2">Nationality</Label>
+        <Label className="mb-2">Nationality *</Label>
         <Select value={personInfo.nat} onValueChange={(val) => setPersonInfo({ ...personInfo, nat: val as Country })}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select country" />

@@ -17,7 +17,7 @@ export default function FileUploadBox({ passportFile, handleFileChange }: Props)
 
   return (
     <div>
-      <Label htmlFor="passport" className="mb-2">Passport File</Label>
+      <Label htmlFor="passport" className="mb-2">Passport File *</Label>
 
       <div
         onClick={triggerFileInput}
