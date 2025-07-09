@@ -15,6 +15,7 @@ import { CiBank } from "react-icons/ci";
 import { FaFire } from 'react-icons/fa';
 import PassportUploadStep from './steps/PassportUploadStep';
 import PlanSelectorStep from './steps/PlanSelectorStep';
+import { toastMissingErorr } from '../notifications/toast';
 
 // Constants
 const TOTAL_STEPS = 7;
@@ -72,7 +73,7 @@ export default function InsuranceOrderingPage() {
       const errors = validate?.() ?? [];
 
       if (errors.length > 0) {
-          alert(errors.join("\n"));
+          toastMissingErorr(errors[0]);
           return;
       }
 
