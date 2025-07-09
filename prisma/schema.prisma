@@ -10,9 +10,9 @@ datasource db {
 }
 
 model insurance_reports {
-  id       Int       @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
   name     String
-  mimetype mimeTypes
+  mimetype String
   data     String
 
   @@schema("files")
@@ -21,7 +21,7 @@ model insurance_reports {
 model passports {
   id         Int          @id @default(autoincrement())
   name       String
-  mimetype   mimeTypes
+  mimetype   String
   data       String
   personinfo personinfo[]
 
@@ -31,7 +31,7 @@ model passports {
 model receipts {
   id              Int               @id @default(autoincrement())
   name            String
-  mimetype        mimeTypes
+  mimetype        String
   data            String
   insurance_order insurance_order[]
 
@@ -99,7 +99,7 @@ model insurance_files {
   id              Int             @id @default(autoincrement())
   order           Int
   name            String
-  mimetype        mimeTypes
+  mimetype        String
   data            String
   insurance_order insurance_order @relation(fields: [order], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "order")
 
