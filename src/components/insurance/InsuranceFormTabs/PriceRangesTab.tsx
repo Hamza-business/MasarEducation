@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import PriceRangeRow from "./PriceRangeRow";
-import type { PriceRange } from "@/types/insurance";
+import type { PriceRange } from "@/types/all";
 import { IoIosArrowBack, IoMdDoneAll } from "react-icons/io";
 import { CgAddR } from "react-icons/cg";
 import { Label } from "@/components/ui/label";
@@ -44,15 +44,17 @@ export default function PriceRangesTab({
         <Label className="flex-1">Maximum Age</Label>
         <Label className="flex-1">Price</Label>
       </div>
-      {prices.map((range, index) => (
-        <PriceRangeRow
-          key={index}
-          index={index}
-          data={range}
-          onChange={handleChange}
-          onDelete={handleDelete}
-        />
-      ))}
+      <div className="max-h-[300px] overflow-y-auto pr-2">
+        {prices.map((range, index) => (
+          <PriceRangeRow
+            key={index}
+            index={index}
+            data={range}
+            onChange={handleChange}
+            onDelete={handleDelete}
+          />
+        ))}
+      </div>
 
       <Button variant="outline" onClick={handleAdd}>
         <CgAddR /> Add Price Range

@@ -4,7 +4,7 @@ import DistrictManager from '@/components/locations/DistrictManager';
 import NeighbourhoodManager from '@/components/locations/NeighbourhoodManager';
 import RegionManager from '@/components/locations/RegionManager';
 import { useState } from 'react';
-import type { Region, District, Neighbourhood } from '@/types/locations';
+import type { Region, District, Neighbourhood } from '@/types/all';
 
 export default function AreaManagementPage() {
   const [selectedRegion, setSelectedRegion] = useState<Region | null>(null);

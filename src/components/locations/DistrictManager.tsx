@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import DistrictList from '@/components/locations/District_Manager/DistrictList';
-import type { Region, District } from '@/types/locations';
+import type { Region, District } from '@/types/all';
 import { 
   toastDistrictCreationSuccess, 
   toastDistrictCreationFailed, 

@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/skeleton';
 import NeighbourhoodItem from '@/components/locations/Neighbourhood_Manager/NeighbourhoodItem';
-import type { District, Neighbourhood } from '@/types/locations';
+import type { District, Neighbourhood } from '@/types/all';
 
 export default function NeighbourhoodList({
   neighbourhoods,

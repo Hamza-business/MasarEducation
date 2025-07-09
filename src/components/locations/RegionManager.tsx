@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import RegionList from '@/components/locations/Region_Manager/RegionList';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import type { Region } from '@/types/locations';
+import type { Region } from '@/types/all';
 import { 
   toastRegionCreationSuccess, 
   toastRegionCreationFailed, 

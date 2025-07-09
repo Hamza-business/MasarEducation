@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import type { PriceRange } from "@/types/insurance";
+import type { PriceRange } from "@/types/all";
 import { Trash2 } from "lucide-react";
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 
 export default function PriceRangeRow({ index, data, onChange, onDelete }: Props) {
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-2 items-center mb-2">
       <Input
         type="number"
         placeholder="Min Age"
