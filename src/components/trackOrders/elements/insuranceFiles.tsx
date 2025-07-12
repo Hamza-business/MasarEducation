@@ -1,5 +1,6 @@
 import { FaDownload } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 
 type ReportFile = {
   id: number;
@@ -37,10 +38,12 @@ export default function InsuranceFiles({orderId}:{orderId:number}) {
                 </div>
             ) : files.length > 0 ? (
                 <div className="flex flex-col sm:flex-row gap-3">
-                    {files.map((file) => (
-                        <a key={file.id} href={`/api/order/reports/insurance/${file.id}`} download={file.name}
-                        className="inline-flex items-center gap-2 px-4 py-2 border rounded-md bg-blue-50 hover:bg-blue-100 text-sm"
-                        >Insurance <FaDownload className="text-blue-600" /></a>
+                    {files.map((file, i) => (
+                        <Button className="text-sm px-4 py-4 mt-2">
+                            <a key={file.id} href={`/api/order/reports/insurance/${file.id}`} download={file.name} className="flex justify-between items-center gap-2 w-full">
+                                {file.label || "Insurance"} {i+1} <FaDownload />
+                            </a>
+                        </Button>
                     ))}
                 </div>
             ) : (
