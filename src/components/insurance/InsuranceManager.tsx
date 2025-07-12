@@ -8,6 +8,7 @@ import InsuranceList from "./InsuranceList";
 import { InsurancePackage, PriceRange } from "@/types/all";
 import InsuranceCardSkeleton from "./InsuranceCardSkeleton";
 import { planActivationToggleFailed, planActivationToggleSuccess, planDeletionFailed, planDeletionSuccess, planFetchFailed, planStoreFailed, planStoreSuccess } from "../notifications/toast";
+import { Container } from "../container";
 
 
 export default function InsuranceManager() {

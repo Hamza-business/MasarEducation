@@ -1,3 +1,5 @@
+import { Timestamp } from "next/dist/server/lib/cache-handlers/types";
+
 export interface Region {
   id: number;
   name: string;
@@ -345,7 +347,16 @@ export type PlanWithPrice = {
   price: number | null; // null if no matching price for age
 };
 
-
+export type InsuranceOrderDetails = {
+  id: number; // insurance_order table
+  trackCode: string; // insurance_order table
+  status: string; // insurance_order table
+  price: number | null; // insurance_application table
+  plan: string; // insurance_application table
+  finish_date?: string; // insurance_order table
+  msg?: string; // insurance_order table
+  created_at: Timestamp; // insurance_order table
+}
 
 
 
