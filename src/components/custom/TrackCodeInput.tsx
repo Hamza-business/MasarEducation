@@ -38,7 +38,8 @@ export default function TrackCodeInput({ onSubmit }: Props) {
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     isPasting.current = true;
 
-    const pasted = e.clipboardData.getData("Text").replace(/\D/g, "").slice(0, 6);
+    // const pasted = e.clipboardData.getData("Text").replace(/\D/g, "").slice(0, 6); // for digit codes only
+    const pasted = e.clipboardData.getData("Text").toUpperCase().slice(0, 6);
     if (pasted.length === 6) {
       fillCode(pasted);
     }
@@ -49,9 +50,9 @@ export default function TrackCodeInput({ onSubmit }: Props) {
   };
 
   const handleChange = (index: number, value: string) => {
-    if (isPasting.current) return; // 👈 Skip change during paste
+    if (isPasting.current) return;
 
-    if (!/^\d$/.test(value)) return;
+    // if (!/^\d$/.test(value)) return; // for Digit codes only
 
     const newDigits = [...digits];
     newDigits[index] = value;
@@ -79,38 +80,38 @@ export default function TrackCodeInput({ onSubmit }: Props) {
   const isComplete = code.length === 6;
 
   return (
-    <div className="max-w-md mx-auto p-6 rounded border bg-white dark:bg-zinc-900 shadow">
-      <h2 className="text-xl font-semibold mb-4 text-center">Track Your Insurance Order</h2>
+      <div className="grid gap-4 border border-gray-200 rounded-sm p-6 dark:border-gray-800">
+        <h2 className="text-2xl font-semibold mb-2 text-center">Track Your Insurance Order</h2>
 
-      <div className="flex justify-center gap-2 mb-6">
-        {digits.map((digit, idx) => (
-          <Input
-            key={idx}
-            type="text"
-            inputMode="numeric"
-            maxLength={1}
-            value={digit}
-            onChange={(e) => handleChange(idx, e.target.value.slice(-1))}
-            onPaste={handlePaste}
-            onKeyDown={(e) => handleKeyDown(e, idx)}
-            ref={(el) => {
-              inputsRef.current[idx] = el;
-            }}
-            className="w-12 h-12 text-center text-lg font-mono"
-            onFocus={() => {
-              inputsRef.current[idx]?.select();
-            }}
-          />
-        ))}
+        <div className="flex justify-center gap-2 mb-4">
+          {digits.map((digit, idx) => (
+            <Input
+              key={idx}
+              type="text"
+              inputMode="numeric"
+              maxLength={1}
+              value={digit}
+              onChange={(e) => handleChange(idx, e.target.value.slice(-1))}
+              onPaste={handlePaste}
+              onKeyDown={(e) => handleKeyDown(e, idx)}
+              ref={(el) => {
+                inputsRef.current[idx] = el;
+              }}
+              className="w-1/6 h-12 text-center text-lg font-mono rounded-sm"
+              onFocus={() => {
+                inputsRef.current[idx]?.select();
+              }}
+            />
+          ))}
+        </div>
+
+        <Button
+          className="w-full flex items-center justify-center gap-2 rounded-sm py-5 text-base"
+          disabled={!isComplete}
+          onClick={() => onSubmit(code)}
+        >
+          <LuPackageSearch /> Track Order
+        </Button>
       </div>
-
-      <Button
-        className="w-full flex items-center justify-center gap-2"
-        disabled={!isComplete}
-        onClick={() => onSubmit(code)}
-      >
-        <LuPackageSearch /> Track Code
-      </Button>
-    </div>
   );
 }
