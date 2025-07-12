@@ -16,18 +16,20 @@ export default function TrackCodeInput({ onSubmit }: Props) {
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
   const searchParams = useSearchParams();
   const isPasting = useRef(false); // 👈 Used to suppress handleChange during paste
-
+  const [disabled, setDisabled] = useState(false);
 
   // Autofill from URL
   useEffect(() => {
     const trackCode = searchParams.get("code");
     if (trackCode && trackCode.length === 6) {
-      fillCode(trackCode);
+      fillCode(trackCode.toUpperCase());
+      onSubmit(trackCode.toUpperCase());
+      setDisabled(true);
     }
   }, [searchParams]);
 
   const fillCode = (code: string) => {
-    const arr = code.slice(0, 6).split("");
+    const arr = code.toUpperCase().slice(0, 6).split("");
     setDigits(arr);
 
     setTimeout(() => {
@@ -41,6 +43,7 @@ export default function TrackCodeInput({ onSubmit }: Props) {
     // const pasted = e.clipboardData.getData("Text").replace(/\D/g, "").slice(0, 6); // for digit codes only
     const pasted = e.clipboardData.getData("Text").toUpperCase().slice(0, 6);
     if (pasted.length === 6) {
+      setDisabled(false);
       fillCode(pasted);
     }
 
@@ -55,7 +58,8 @@ export default function TrackCodeInput({ onSubmit }: Props) {
     // if (!/^\d$/.test(value)) return; // for Digit codes only
 
     const newDigits = [...digits];
-    newDigits[index] = value;
+    newDigits[index] = value.toUpperCase();
+    setDisabled(false);
     setDigits(newDigits);
 
     if (index < 5) {
@@ -80,7 +84,7 @@ export default function TrackCodeInput({ onSubmit }: Props) {
   const isComplete = code.length === 6;
 
   return (
-      <div className="grid gap-4 border border-gray-200 rounded-sm p-6 dark:border-gray-800">
+      <div className="grid gap-4 border border-gray-200 rounded-sm p-6 dark:border-gray-800 dark:bg-neutral-900 bg-stone-50 ">
         <h2 className="text-2xl font-semibold mb-2 text-center">Track Your Insurance Order</h2>
 
         <div className="flex justify-center gap-2 mb-4">
@@ -107,7 +111,7 @@ export default function TrackCodeInput({ onSubmit }: Props) {
 
         <Button
           className="w-full flex items-center justify-center gap-2 rounded-sm py-5 text-base"
-          disabled={!isComplete}
+          disabled={!isComplete || disabled}
           onClick={() => onSubmit(code)}
         >
           <LuPackageSearch /> Track Order

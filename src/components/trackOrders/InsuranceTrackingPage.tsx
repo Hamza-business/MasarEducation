@@ -31,13 +31,6 @@ export default function InsuranceTrackingPage() {
   }
 
   return (
-    // <div className="w-full max-w-3xl mx-auto min-h-screen grid place-items-center px-4">
-    //   <div className="grid gap-6 w-full">
-    //     <TrackCodeInput onSubmit={(code) => fetchOrder(code)} />
-    //     {/* <Component /> */}
-    //   </div>
-    // </div>
-
     <main className="flex-1 flex items-center justify-center px-4">
         <div className="grid gap-6 max-w-2xl">
           {/* <Component /> */}

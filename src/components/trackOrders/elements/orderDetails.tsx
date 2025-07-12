@@ -11,10 +11,10 @@ import InsuranceFiles from "./insuranceFiles";
 import { Timestamp } from "next/dist/server/lib/cache-handlers/types";
 
 const statusMap: Record<oredrStatus, { label: string; color: string, stl:string, icon: ReactNode }> = {
-  "pending": { label: "Pending", color: "bg-gray-200 text-gray-700", stl:"bg-gray-100 text-gray-800 border-gray-500", icon: <LuPackageOpen className="h-7 w-7"/>},
+  "pending": { label: "Pending", color: "bg-gray-300 text-gray-700", stl:"bg-gray-200 text-gray-800 border-gray-500", icon: <LuPackageOpen className="h-7 w-7"/>},
   "under review": { label: "Under Review", color: "bg-yellow-100 text-yellow-900", stl:"bg-yellow-100 text-yellow-800 border-yellow-500", icon: <PiPackageDuotone className="h-7 w-7"/>},
-  "completed": { label: "Completed", color: "bg-green-100 text-green-800", stl:"bg-green-100 text-green-800 border-green-800", icon: <LuPackageCheck className="h-7 w-7"/> },
-  "rejected": { label: "Rejected", color: "bg-red-100 text-red-800", stl:"bg-red-100 text-red-800 border-red-500", icon: <LuPackageX className="h-7 w-7"/> },
+  "completed": { label: "Completed", color: "bg-green-200 text-green-800", stl:"bg-green-100 text-green-800 border-green-800", icon: <LuPackageCheck className="h-7 w-7"/> },
+  "rejected": { label: "Rejected", color: "bg-red-200 text-red-800", stl:"bg-red-100 text-red-800 border-red-500", icon: <LuPackageX className="h-7 w-7"/> },
 };
 
 function convertDate(dt:Timestamp|Date|string):string{
@@ -29,7 +29,7 @@ function convertDate(dt:Timestamp|Date|string):string{
 export default function OrderDetails({orderdetails}:{orderdetails:InsuranceOrderDetails}) {
     
   return (
-    <div className="grid gap-4 border border-gray-200 rounded-sm p-6 dark:border-gray-800">
+    <div className="grid gap-4 border border-gray-200 rounded-sm p-6 dark:border-gray-800 dark:bg-neutral-900 bg-white ">
         <div className="flex items-center justify-between stack-on-xs">
             <div className="flex items-center gap-4">
                 <div className={cn("rounded-sm flex items-center justify-center aspect-square w-12 border-1", statusMap[orderdetails.status as oredrStatus].stl)}>
@@ -59,7 +59,7 @@ export default function OrderDetails({orderdetails}:{orderdetails:InsuranceOrder
                         <p className="text-base font-medium">{orderdetails?.finish_date && (convertDate(orderdetails?.finish_date))}</p>
                     </div>
                     <div className="flex justify-between flex-col">
-                        <h3 className="text-sm text-muted-foreground mb-2">Insurance Files</h3>
+                        <h3 className="text-sm text-muted-foreground mb-0">Insurance Files</h3>
                         <InsuranceFiles orderId={orderdetails.id}/>
                     </div>
                 </>
@@ -81,9 +81,9 @@ export default function OrderDetails({orderdetails}:{orderdetails:InsuranceOrder
                 </>
             )}
             {(orderdetails.status as oredrStatus !== "rejected") && (orderdetails.status as oredrStatus !== "completed") && (
-                <p className="text-sm italic text-muted-foreground">
+                <div className="bg-blue-50 dark:bg-neutral-800 dark:text-gray-200 p-4 rounded-md text-sm text-gray-800">
                     Your Insurance files will be available after completion.
-                </p>
+                </div>
             )}
         </div>
     </div>

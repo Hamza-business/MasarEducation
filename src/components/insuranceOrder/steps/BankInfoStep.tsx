@@ -33,7 +33,7 @@ export default function BankInfoStep({ bankInfo, setBankInfo, application, onNex
 
   return (
     <div className="space-y-6">
-      <div className="bg-blue-50 p-4 rounded-md text-sm text-gray-800">
+      <div className="bg-blue-50 dark:bg-neutral-800 dark:text-gray-200 p-4 rounded-md text-sm text-gray-800">
         Complete your insurance by transferring the selected amount{" "}
         <span className="font-semibold text-black text-base">
           {application.price} TL
