@@ -37,7 +37,7 @@ export default function InsuranceFiles({orderId}:{orderId:number}) {
                     ))}
                 </div>
             ) : files.length > 0 ? (
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-x-3 gap-y-0">
                     {files.map((file, i) => (
                         <Button key={file.id} className="text-sm px-4 py-4 mt-2">
                             <a href={`/api/order/reports/insurance/${file.id}`} download={file.name} className="flex justify-between items-center gap-2 w-full">

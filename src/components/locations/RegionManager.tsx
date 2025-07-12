@@ -36,7 +36,7 @@ export default function RegionManager({
 
   async function handleRenameRegion(id: number, newName: string) {
     try {
-      const res = await fetch(`/api/regions/${id}`, {
+      const res = await fetch(`/api/locations/regions/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: newName }),
@@ -60,7 +60,7 @@ export default function RegionManager({
 
   const handleDeleteRegion = async (id: number) => {
     try {
-      const res = await fetch(`/api/regions/${id}`, {
+      const res = await fetch(`/api/locations/regions/${id}`, {
         method: 'DELETE',
       });
 
@@ -85,7 +85,7 @@ export default function RegionManager({
     try {
       setLoading(true);
 
-      const res = await fetch('/api/regions');
+      const res = await fetch('/api/locations/regions');
 
       if (!res.ok) {
         const errorBody = await res.text();
@@ -105,7 +105,7 @@ export default function RegionManager({
     try {
       setCreating(true);
 
-      const res = await fetch('/api/regions', {
+      const res = await fetch('/api/locations/regions', {
         method: 'POST',
         body: JSON.stringify({ country: 1, name: search }),
         headers: { 'Content-Type': 'application/json' },

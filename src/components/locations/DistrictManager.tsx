@@ -46,7 +46,7 @@ export default function DistrictManager({
 
   async function handleRenameDistrict(id: number, newName: string) {
     try {
-      const res = await fetch(`/api/districts/${id}`, {
+      const res = await fetch(`/api/locations/districts/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: newName }),
@@ -69,7 +69,7 @@ export default function DistrictManager({
 
   const handleDeleteDistrict = async (id: number) => {
     try {
-      const res = await fetch(`/api/districts/${id}`, {
+      const res = await fetch(`/api/locations/districts/${id}`, {
         method: 'DELETE',
       });
 
@@ -96,7 +96,7 @@ export default function DistrictManager({
 
       setLoading(true);
 
-      const res = await fetch(`/api/districts?region=${selectedRegion.id}`);
+      const res = await fetch(`/api/locations/districts?region=${selectedRegion.id}`);
 
       if (!res.ok) {
         const errorBody = await res.text();
@@ -118,7 +118,7 @@ export default function DistrictManager({
     try {
       setCreating(true);
 
-      const res = await fetch('/api/districts', {
+      const res = await fetch('/api/locations/districts', {
         method: 'POST',
         body: JSON.stringify({
           name: search,

@@ -45,7 +45,6 @@ export async function GET(req: NextRequest) {
       msg: row.msg,
       created_at: row.created_at,
     };
-    console.log(orderDetails);
 
     return NextResponse.json(orderDetails);
   } catch (err) {

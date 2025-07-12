@@ -98,11 +98,11 @@ export default function PersonalInfoStep({
           <Label className="mb-2">Phone Number *</Label>
           <Input
             type="tel"
+            inputMode="numeric"
             value={personInfo.phone || ""}
             onChange={(e) =>
               setPersonInfo({ ...personInfo, phone: e.target.value })
             }
-            pattern="[0-9]"
             placeholder="Enter your phone number"
           />
         </div>
