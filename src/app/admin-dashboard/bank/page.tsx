@@ -61,9 +61,9 @@ export default function EditBankPage() {
 
     return (
         <AppShell>
-            <Container className="py-10">
+            <Container className="pt-22 pb-16">
                            
-                <div className="max-w-xl mx-auto py-2 space-y-6">
+                <div className="max-w-xl mx-auto space-y-6">
                     <h2 className="text-2xl font-semibold">Edit Bank & Payment Info</h2>
                     {!loading && ( 
                         <>
