@@ -27,7 +27,7 @@ export default function LivinginformationStep({application, regions, setRegions,
 
   useEffect(() => {
       if(regions.length==0){
-          fetch("/api/regions")
+          fetch("/api/locations/regions")
           .then((res) => res.json())
           .then(setRegions)
           .catch((error)=>{
@@ -40,7 +40,7 @@ export default function LivinginformationStep({application, regions, setRegions,
   useEffect(() => {
     if (!application.region) return setDistricts([]);
 
-    fetch(`/api/districts?region=${application.region}`)
+    fetch(`/api/locations/districts?region=${application.region}`)
       .then((res) => res.json())
       .then((list) => {
         setDistricts(list);
@@ -54,7 +54,7 @@ export default function LivinginformationStep({application, regions, setRegions,
   useEffect(() => {
     if (!application.district) return setNeighbourhoods([]);
 
-    fetch(`/api/neighbourhoods?district=${application.district}`)
+    fetch(`/api/locations/neighbourhoods?district=${application.district}`)
       .then((res) => res.json())
       .then((list) => {
         setNeighbourhoods(list);

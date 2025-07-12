@@ -56,14 +56,14 @@ export default function InsuranceOrderingPage() {
   const [availablePlans, setAvailablePlans] = useState<PlanWithPrice[]>([]);
   
   useEffect(() => {
-    fetch("/api/bank-info")
+    fetch("/api/locations/bank-info")
       .then(res => res.json())
       .then(data => setBankInfo(data))
       .catch(err => {});
   }, []);
 
   useEffect(() => {
-    fetch("/api/regions")
+    fetch("/api/locations/regions")
       .then((res) => res.json())
       .then(setRegions)
       .catch(err => {});
@@ -170,7 +170,7 @@ export default function InsuranceOrderingPage() {
           setPassportFile={setPassportFile}
           fn={async ()=>{
               if(regions.length==0){
-                  fetch("/api/regions")
+                  fetch("/api/locations/regions")
                   .then((res) => res.json())
                   .then(setRegions)
                   .catch((error)=>{});
@@ -203,7 +203,7 @@ export default function InsuranceOrderingPage() {
           onNext={goNext}
           fn={async ()=>{
               if(!bankInfo){
-                  fetch("/api/bank-info")
+                  fetch("/api/locations/bank-info")
                   .then(res => res.json())
                   .then(data => setBankInfo(data))
                   .catch((error)=>{});

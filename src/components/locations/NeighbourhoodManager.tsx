@@ -51,7 +51,7 @@ export default function NeighbourhoodManager({
   
     async function handleRenameNeighbourhood(id: number, newName: string) {
       try {
-        const res = await fetch(`/api/neighbourhoods/${id}`, {
+        const res = await fetch(`/api/locations/neighbourhoods/${id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name: newName }),
@@ -74,7 +74,7 @@ export default function NeighbourhoodManager({
 
   const handleDeleteNeighbourhood = async (id: number) => {
     try {
-      const res = await fetch(`/api/neighbourhoods/${id}`, {
+      const res = await fetch(`/api/locations/neighbourhoods/${id}`, {
         method: 'DELETE',
       });
 
@@ -101,7 +101,7 @@ export default function NeighbourhoodManager({
 
       setLoading(true);
 
-      const res = await fetch(`/api/neighbourhoods?district=${selectedDistrict.id}`);
+      const res = await fetch(`/api/locations/neighbourhoods?district=${selectedDistrict.id}`);
 
       if (!res.ok) {
         const errorBody = await res.text();
@@ -123,7 +123,7 @@ export default function NeighbourhoodManager({
     try {
       setCreating(true);
 
-      const res = await fetch('/api/neighbourhoods', {
+      const res = await fetch('/api/locations/neighbourhoods', {
         method: 'POST',
         body: JSON.stringify({
           name: search,

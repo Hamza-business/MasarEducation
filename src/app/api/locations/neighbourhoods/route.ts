@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-// GET /api/neighbourhoods?district=1
 export async function GET(req: NextRequest) {
   try {
     const districtId = req.nextUrl.searchParams.get('district');
@@ -25,7 +24,6 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// POST /api/neighbourhoods
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
