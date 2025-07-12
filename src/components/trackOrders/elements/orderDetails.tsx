@@ -29,7 +29,7 @@ function convertDate(dt:Timestamp|Date|string):string{
 export default function OrderDetails({orderdetails}:{orderdetails:InsuranceOrderDetails}) {
     
   return (
-    <div className="grid gap-4 border border-gray-200 rounded-sm p-6 dark:border-gray-800 dark:bg-neutral-900 bg-white ">
+    <div className="grid gap-4 border-gray-200 bg-white dark:bg-zinc-900 rounded-sm p-4 shadow-sm border dark:border-zinc-800 transition-colors">
         <div className="flex items-center justify-between stack-on-xs">
             <div className="flex items-center gap-4">
                 <div className={cn("rounded-sm flex items-center justify-center aspect-square w-12 border-1", statusMap[orderdetails.status as oredrStatus].stl)}>
@@ -60,11 +60,11 @@ export default function OrderDetails({orderdetails}:{orderdetails:InsuranceOrder
             {(orderdetails.status as oredrStatus === "completed") && (
                 <>
                     <div className="flex items-center justify-between">
-                        <h3 className="text-sm text-muted-foreground">Completed On</h3>
+                        <h3 className="text-sm text-gray-500 dark:text-gray-400">Completed On</h3>
                         <p className="text-base font-medium">{orderdetails?.finish_date && (convertDate(orderdetails?.finish_date))}</p>
                     </div>
                     <div className="flex justify-between flex-col">
-                        <h3 className="text-sm text-muted-foreground mb-0">Insurance Files</h3>
+                        <h3 className="text-sm text-gray-500 dark:text-gray-400 mb-0">Insurance Files</h3>
                         <InsuranceFiles orderId={orderdetails.id}/>
                     </div>
                 </>
@@ -72,11 +72,11 @@ export default function OrderDetails({orderdetails}:{orderdetails:InsuranceOrder
             {(orderdetails.status as oredrStatus === "rejected") && (
                 <>
                     <div className="flex items-center justify-between">
-                        <h3 className="text-sm text-muted-foreground">Rejected On</h3>
+                        <h3 className="text-sm text-gray-500 dark:text-gray-400">Rejected On</h3>
                         <p className="text-base font-medium">{orderdetails?.finish_date && (convertDate(orderdetails?.finish_date))}</p>
                     </div>
                     <div>
-                        <h3 className="text-sm text-muted-foreground mb-2">Rejection Message:</h3>
+                        <h3 className="text-sm text-gray-500 dark:text-gray-400 mb-2">Rejection Message:</h3>
                         <div className="bg-red-50 dark:bg-neutral-800 dark:text-red-200 p-4 rounded-sm text-sm text-gray-800 border border-red-300 dark:border-red-600">
                             {orderdetails?.msg}
                             <br />
