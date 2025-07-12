@@ -39,9 +39,9 @@ export default function InsuranceFiles({orderId}:{orderId:number}) {
             ) : files.length > 0 ? (
                 <div className="flex flex-col sm:flex-row gap-3">
                     {files.map((file, i) => (
-                        <Button className="text-sm px-4 py-4 mt-2">
-                            <a key={file.id} href={`/api/order/reports/insurance/${file.id}`} download={file.name} className="flex justify-between items-center gap-2 w-full">
-                                {file.label || "Insurance"} {i+1} <FaDownload />
+                        <Button key={file.id} className="text-sm px-4 py-4 mt-2">
+                            <a href={`/api/order/reports/insurance/${file.id}`} download={file.name} className="flex justify-between items-center gap-2 w-full">
+                                Insurance {i+1} <FaDownload />
                             </a>
                         </Button>
                     ))}
