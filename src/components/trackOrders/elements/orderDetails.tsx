@@ -35,8 +35,9 @@ export default function OrderDetails({orderdetails}:{orderdetails:InsuranceOrder
                 <div className={cn("rounded-sm flex items-center justify-center aspect-square w-12 border-1", statusMap[orderdetails.status as oredrStatus].stl)}>
                     {statusMap[orderdetails.status as oredrStatus].icon}                    
                 </div>
+                
                 <div>
-                    <div className="font-medium">Package #{orderdetails?.trackCode}</div>
+                    <div className="font-medium">Order #{orderdetails?.trackCode}</div>
                     <div className="text-sm text-gray-500 dark:text-gray-400">Order Issued on {convertDate(orderdetails?.created_at)}</div>
                 </div>
             </div>
@@ -47,6 +48,10 @@ export default function OrderDetails({orderdetails}:{orderdetails:InsuranceOrder
             </div>
         </div>
         <div className="grid gap-3">
+            <div className="flex items-center justify-between">
+                <div className="text-sm text-gray-500 dark:text-gray-400">Insurance Plan</div>
+                <div className="font-medium">{orderdetails?.plan}</div>
+            </div>
             <div className="flex items-center justify-between">
                 <div className="text-sm text-gray-500 dark:text-gray-400">Plan Price</div>
                 <div className="font-medium">{orderdetails?.price} TL</div>
