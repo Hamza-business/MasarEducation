@@ -2,7 +2,7 @@
 import sql from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(_: NextRequest, { params }: any) {
   const id = Number(params.id);
   if (isNaN(id)) return NextResponse.json({ message: "Invalid file ID" }, { status: 400 });
 
