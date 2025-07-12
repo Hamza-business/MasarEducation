@@ -92,7 +92,6 @@ export default function TrackCodeInput({ onSubmit }: Props) {
             <Input
               key={idx}
               type="text"
-              inputMode="numeric"
               maxLength={1}
               value={digit}
               onChange={(e) => handleChange(idx, e.target.value.slice(-1))}
