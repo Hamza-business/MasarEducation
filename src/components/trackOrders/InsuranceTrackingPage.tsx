@@ -1,21 +1,50 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
-import { PassportFile, ReceiptFile, PersonInfo, InsuranceApplication, Country, BankInfo, PlanWithPrice, InsuranceOrder } from '@/types/all';
+import { InsuranceOrderDetails } from '@/types/all';
 import { toastMissingErorr } from '../notifications/toast';
 import TrackCodeInput from '../custom/TrackCodeInput';
-
+import OrderDetails from './elements/orderDetails'
 
 export default function InsuranceTrackingPage() {
+  const [order, setOrder] = useState<InsuranceOrderDetails | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
+  async function fetchOrder(trackCode: string) {
+    setError(null);
+    setOrder(null);
+    
+    try {
+      const res = await fetch(`/api/track-order?code=${trackCode}`);
+      const data = await res.json();
 
-  function fetchOrder(code: string): void {
-    // throw new Error('Function not implemented.');
+      if (!res.ok) {
+        setError(data.error || "Order not found");
+        return;
+      }
+
+      setOrder(data);
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong. Please try again later.");
+    }
   }
 
   return (
-    <div className="max-w-3xl mx-auto py-2 space-y-6">
-        <TrackCodeInput onSubmit={(code) => fetchOrder(code)} />
-    </div>
+    // <div className="w-full max-w-3xl mx-auto min-h-screen grid place-items-center px-4">
+    //   <div className="grid gap-6 w-full">
+    //     <TrackCodeInput onSubmit={(code) => fetchOrder(code)} />
+    //     {/* <Component /> */}
+    //   </div>
+    // </div>
+
+    <main className="flex-1 flex items-center justify-center px-4">
+        <div className="grid gap-6 max-w-2xl">
+          {/* <Component /> */}
+          <TrackCodeInput onSubmit={fetchOrder} />
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+          {order && <OrderDetails orderdetails={order} />}
+        </div>
+    </main>
   );
 }
