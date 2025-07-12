@@ -84,7 +84,7 @@ export default function TrackCodeInput({ onSubmit }: Props) {
   const isComplete = code.length === 6;
 
   return (
-      <div className="grid gap-4 border border-gray-200 rounded-sm p-6 dark:border-gray-800 dark:bg-neutral-900 bg-stone-50 ">
+      <div className="grid gap-4 border-gray-200 bg-white dark:bg-zinc-900 rounded-sm p-4 shadow-sm border dark:border-zinc-800 transition-colors">
         <h2 className="text-2xl font-semibold mb-2 text-center">Track Your Insurance Order</h2>
 
         <div className="flex justify-center gap-2 mb-4">
