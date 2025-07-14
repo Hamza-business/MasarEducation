@@ -25,7 +25,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Providers>
             <NextIntlClientProvider locale={locale}>
-                <AppLoad children={children} defaultOpen={defaultOpen}/>
+                <AppLoad defaultOpen={defaultOpen}>
+                    {children}
+                </AppLoad>
             </NextIntlClientProvider>
           </Providers>
         </ThemeProvider>
