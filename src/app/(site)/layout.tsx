@@ -1,8 +1,8 @@
 // src/app/layout.tsx
-import './globals.css'
+import '../globals.css'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
-import { Providers } from '../components/providers'
+import { Providers } from '../../components/providers'
 import {NextIntlClientProvider} from 'next-intl';
 import { cookies } from 'next/headers';
 import { Toaster } from "@/components/ui/sonner"; 
