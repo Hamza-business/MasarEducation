@@ -8,7 +8,6 @@ import InsuranceList from "./InsuranceList";
 import { InsurancePackage, PriceRange } from "@/types/all";
 import InsuranceCardSkeleton from "./InsuranceCardSkeleton";
 import { planActivationToggleFailed, planActivationToggleSuccess, planDeletionFailed, planDeletionSuccess, planFetchFailed, planStoreFailed, planStoreSuccess } from "../notifications/toast";
-import { Container } from "../container";
 
 
 export default function InsuranceManager() {
@@ -131,7 +130,7 @@ export default function InsuranceManager() {
 
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 w-full">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Active Insurance Price Plans</h1>
         <Button onClick={handleCreateClick}>

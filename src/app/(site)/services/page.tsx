@@ -1,5 +1,5 @@
-import AppShell from "@/components/app-shell"
-import { Container } from "@/components/container";
+import AppShell from "@/app/(site)/app-shell"
+import { Container } from "@/app/(site)/container";
 import { Skeleton } from "@/components/ui/skeleton"
 import {useTranslations} from 'next-intl';
 
