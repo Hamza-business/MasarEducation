@@ -3,11 +3,13 @@ import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { TbPackages } from "react-icons/tb";
 import { LiaFileSignatureSolid } from "react-icons/lia";
+import { FaSignature } from "react-icons/fa";
 
 export const links:string[] = ["bank-infomration", "locations", "services", "insurance"];
 export const locations:string[] = ["locations"];
 export const services:string[] = ["insurance"];
 export const bank:string[] = ["bank-infomration"];
+export const orders:string[] = ["insurance"];
 
 export const linksInfo = {
     "admin-dashboard":{
@@ -35,4 +37,38 @@ export const linksInfo = {
         label:  "Insurance", 
         icon: <LiaFileSignatureSolid className="fn"/>
     },
+    orders: {
+        href:  "/admin-dashboard/orders", 
+        label:  "Orders", 
+        icon: <LiaFileSignatureSolid className="fn"/>
+    }
 };
+
+export const bankItems = [
+    { 
+        href: "/admin-dashboard/bank-infomration", 
+        label: "Bank Information", 
+        icon: <CiBank className="fn"/>
+    },
+];
+export const locationsItems = [
+    { 
+        href: "/admin-dashboard/locations", 
+        label: "Locations", 
+        icon: <IoLocationOutline className="fn"/>
+    },
+];
+export const servicesItems = [
+    { 
+        href: "/admin-dashboard/services/insurance", 
+        label: "Insurance", 
+        icon: <LiaFileSignatureSolid className="fn"/>
+    }
+];
+export const ordersItems = [
+    { 
+        href:  "/admin-dashboard/orders/insurance", 
+        label:  "Insurance Orders", 
+        icon: <FaSignature className="fn"/>
+    },
+]
