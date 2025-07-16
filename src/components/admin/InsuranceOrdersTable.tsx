@@ -74,7 +74,7 @@ export function InsuranceOrderTable(
                             <TableHead className='px-4'>Status</TableHead>
                             <TableHead className='px-4'>Name</TableHead>
                             <TableHead className='px-4'>Email</TableHead>
-                            <TableHead className='px-4'>ID</TableHead>
+                            <TableHead className='px-4'>Track Code</TableHead>
                             <TableHead className='px-4'>Date</TableHead>
                             <TableHead className='px-4'>Actions</TableHead>
                         </TableRow>
@@ -89,7 +89,7 @@ export function InsuranceOrderTable(
                                 </TableCell>
                                 <TableCell className='px-4'>{order.name}</TableCell>
                                 <TableCell className='px-4'>{order.email}</TableCell>
-                                <TableCell className='px-4'>{order.id}</TableCell>
+                                <TableCell className='px-4'>{order.trackcode}</TableCell>
                                 <TableCell className='px-4'>{convertDate(order.created_at)}</TableCell>
                                 <TableCell className="px-4 rounded-sm">
                                     <Button variant="outline" onClick={() => {

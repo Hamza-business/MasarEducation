@@ -8,39 +8,10 @@ import OrderSlideOverContent from '@/components/admin/OrderSlideOverContent';
 
 
 
-async function fetchOrders(): Promise<OrderDetails[]> {
-  return [
-    {
-      id: 'ORD001',
-      trackcode: 'ORD001',
-      name: 'John Doe',
-      email: 'john@example.com',
-      status: "rejected",
-      created_at: '2025-07-14T10:30:00Z',
-      user: {
-        name: 'John Doe',
-        nationality: 'Egyptian',
-        dob: '1990-05-21',
-      },
-      contact: {
-        email: 'john@example.com',
-        phone: '+201234567890',
-      },
-      plan: {
-        name: 'Pro Plan',
-        price: '$49.99',
-      },
-      location: {
-        region: 'Cairo',
-        district: 'Nasr City',
-        neighbourhood: 'Zone 6',
-        street: 'Tayaran Street',
-        buildingNo: '12B',
-        apartmentNo: '4A',
-      },
-    },
-    // Add more test entries
-  ];
+export async function fetchOrders(): Promise<OrderDetails[]> {
+  const res = await fetch('/api/orders'); // Or any API route
+  const data = await res.json();
+  return data;
 }
 
 
