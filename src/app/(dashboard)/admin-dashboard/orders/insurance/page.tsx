@@ -8,21 +8,18 @@ import OrderSlideOverContent from '@/components/admin/OrderSlideOverContent';
 
 
 
-export async function fetchOrders(): Promise<OrderDetails[]> {
-  const res = await fetch('/api/orders'); // Or any API route
-  const data = await res.json();
-  return data;
-}
 
-
-export default function Page() {
+export default function InsuranceOrders() {
     const [open, setOpen] = useState(false);
-
-
     const [orders, setOrders] = useState<OrderDetails[]>([]);
     const [selectedOrder, setSelectedOrder] = useState<OrderDetails | null>(null);
     const [filtered, setFiltered] = useState<OrderDetails[]>([]);
     
+    async function fetchOrders(): Promise<OrderDetails[]> {
+        const res = await fetch('/api/orders'); // Or any API route
+        const data = await res.json();
+        return data;
+    }
 
     useEffect(() => {
         fetchOrders().then(data => {
@@ -30,37 +27,6 @@ export default function Page() {
             setFiltered(data);
         });
     }, []);
-
-
-    // const orderData = {
-    //     id: "1",
-    //     trackcode: 'ORD-1234',
-    //     status: 'completed',
-    //     created_at: '2025-07-14T10:30:00Z',
-    //     user: {
-    //         name: 'John Doe',
-    //         nationality: 'Egyptian',
-    //         dob: '1990-05-21',
-    //     },
-    //     contact: {
-    //         email: 'john.doe@example.com',
-    //         phone: '+201234567890',
-    //     },
-    //     plan: {
-    //         name: 'Pro Plan',
-    //         price: '$49.99',
-    //     },
-    //     location: {
-    //         region: 'Cairo',
-    //         district: 'Nasr City',
-    //         neighbourhood: 'Zone 6',
-    //         street: 'Tayaran Street',
-    //         buildingNo: '12B',
-    //         apartmentNo: '4A',
-    //     },
-    //     msg: "sdsdsds",
-    // };
-
 
     return (
         <div>
