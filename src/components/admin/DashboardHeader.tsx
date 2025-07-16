@@ -20,7 +20,7 @@ export function DashboardHeader() {
         <div className="text-sm flex items-center">
           {segments.map((s, i) => (
             <span key={i}>
-              <a href={linksInfo[s as keyof typeof linksInfo]?.href} className={`capitalize ${i+1 < segments.length ? "text-muted-foreground" : "text-gray-900 dark:text-gray-100"}`}> {s}</a>
+              <a href={linksInfo[s as keyof typeof linksInfo]?.href} className={`capitalize ${i+1 < segments.length ? "text-muted-foreground" : "text-gray-900 dark:text-gray-100"}`}> {linksInfo[s as keyof typeof linksInfo]?.label}</a>
               {
                 i+1 < segments.length ? <span className="inline-flex mx-2"><IoIosArrowForward/></span> : ""
               }
