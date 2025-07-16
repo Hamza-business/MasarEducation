@@ -42,7 +42,7 @@ export default function OrderSlideOverContent({selectedOrder}:{selectedOrder:Ord
             {((selectedOrder?.status || 'completed') as oredrStatus === "rejected") && (
                 <>
                     <span className='text-sm font-semibold text-gray-600 dark:text-gray-300'>Reject Message</span>
-                    <div className="mt-2 bg-red-50 dark:bg-neutral-800 dark:text-red-400 p-4 rounded-sm text-sm text-gray-800 border border-red-300 dark:border-red-500">
+                    <div className="mt-2 bg-red-50 dark:bg-zinc-900 dark:text-red-400 p-4 rounded-sm text-sm text-gray-800 border border-red-300 dark:border-red-500">
                         {selectedOrder?.msg}
                     </div>
                 </>

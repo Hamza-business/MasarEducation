@@ -77,7 +77,7 @@ export default function OrderDetails({orderdetails}:{orderdetails:InsuranceOrder
                     </div>
                     <div>
                         <h3 className="text-sm text-gray-500 dark:text-gray-400 mb-2">Rejection Message:</h3>
-                        <div className="bg-red-50 dark:bg-neutral-800 dark:text-red-200 p-4 rounded-sm text-sm text-gray-800 border border-red-300 dark:border-red-600">
+                        <div className="bg-red-50 dark:bg-zinc-900 dark:text-red-200 p-4 rounded-sm text-sm text-gray-800 border border-red-300 dark:border-red-600">
                             {orderdetails?.msg}
                             <br />
                             Please contact our <a href="/support" className="underline font-medium">Support Team</a> for help.
@@ -86,7 +86,7 @@ export default function OrderDetails({orderdetails}:{orderdetails:InsuranceOrder
                 </>
             )}
             {(orderdetails.status as oredrStatus !== "rejected") && (orderdetails.status as oredrStatus !== "completed") && (
-                <div className="bg-blue-50 dark:bg-neutral-800 dark:text-gray-200 p-4 rounded-md text-sm text-gray-800">
+                <div className="bg-blue-50 dark:bg-zinc-900 dark:text-gray-200 p-4 rounded-md text-sm text-gray-800">
                     Your Insurance files will be available after completion.
                 </div>
             )}

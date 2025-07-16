@@ -67,7 +67,7 @@ export default function ReceiptUploadStep({
 
   return (
     <div className="space-y-6">
-        <div className="bg-blue-50 dark:bg-neutral-800 dark:text-gray-200 p-4 rounded-md text-sm text-gray-800">
+        <div className="bg-blue-50 dark:bg-zinc-900 dark:text-gray-200 p-4 rounded-md text-sm text-gray-800">
           To finalize your insurance, kindly upload a clear photo or scan of your insurance receipt using the button below. Your uploaded receipt will help us ensure a quick and easy process for activating your insurance coverage.
         </div>
         <ReceiptFileUploadBox
