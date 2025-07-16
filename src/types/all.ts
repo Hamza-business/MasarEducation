@@ -359,9 +359,6 @@ export type InsuranceOrderDetails = {
 }
 
 
-
-
-
 export type BankInfo = {
   id: number;
   name: string;
@@ -370,3 +367,25 @@ export type BankInfo = {
   diban: string;
   eiban: string;
 };
+
+
+export interface OrderDetails {
+  id: string;
+  name: string;
+  email: string;
+  status: string;
+  created_at: string;
+  trackcode: string;
+  msg?: string;
+  user: { name: string; nationality: string; dob: string };
+  contact: { email: string; phone: string };
+  plan: { name: string; price: string };
+  location: {
+    region: string;
+    district: string;
+    neighbourhood: string;
+    street: string;
+    buildingNo: string;
+    apartmentNo: string;
+  };
+}

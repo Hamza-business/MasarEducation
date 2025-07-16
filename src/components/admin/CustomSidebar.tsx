@@ -12,11 +12,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { LayoutDashboard, PackageSearch, Users } from "lucide-react";
-import {links, linksInfo, locations, services, bank} from "@/constants/dashboard"
-import { CiBank } from "react-icons/ci";
-import { IoLocationOutline } from "react-icons/io5";
-import { TbPackages } from "react-icons/tb";
+import {bankItems, ordersItems, servicesItems, locationsItems} from "@/constants/dashboard"
 
 
 export default function CustomSidebar({ rtl }: { rtl?: boolean }) {
@@ -27,12 +23,12 @@ export default function CustomSidebar({ rtl }: { rtl?: boolean }) {
                     <SidebarGroupLabel>Bank Information</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            {bank.map((item, i) => (
+                            {bankItems.map((item, i) => (
                                 <SidebarMenuItem key={i}>
                                     <SidebarMenuButton asChild>
-                                        <a href={linksInfo[item as keyof typeof linksInfo]?.href}>
-                                            {linksInfo[item as keyof typeof linksInfo]?.icon}
-                                            <span>{linksInfo[item as keyof typeof linksInfo]?.label}</span>
+                                        <a href={item?.href}>
+                                            {item?.icon}
+                                            <span>{item?.label}</span>
                                         </a>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
@@ -44,12 +40,12 @@ export default function CustomSidebar({ rtl }: { rtl?: boolean }) {
                     <SidebarGroupLabel>locations Management</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            {locations.map((item, i) => (
+                            {locationsItems.map((item, i) => (
                                 <SidebarMenuItem key={i}>
                                     <SidebarMenuButton asChild>
-                                        <a href={linksInfo[item as keyof typeof linksInfo]?.href}>
-                                            {linksInfo[item as keyof typeof linksInfo]?.icon}
-                                            <span>{linksInfo[item as keyof typeof linksInfo]?.label}</span>
+                                        <a href={item?.href}>
+                                            {item?.icon}
+                                            <span>{item?.label}</span>
                                         </a>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
@@ -61,12 +57,29 @@ export default function CustomSidebar({ rtl }: { rtl?: boolean }) {
                     <SidebarGroupLabel>Services Management</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            {services.map((item, i) => (
+                            {servicesItems.map((item, i) => (
                                 <SidebarMenuItem key={i}>
                                     <SidebarMenuButton asChild>
-                                        <a href={linksInfo[item as keyof typeof linksInfo]?.href}>
-                                            {linksInfo[item as keyof typeof linksInfo]?.icon}
-                                            <span>{linksInfo[item as keyof typeof linksInfo]?.label}</span>
+                                        <a href={item?.href}>
+                                            {item?.icon}
+                                            <span>{item?.label}</span>
+                                        </a>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            ))}
+                        </SidebarMenu>
+                    </SidebarGroupContent>
+                </SidebarGroup>
+                <SidebarGroup>
+                    <SidebarGroupLabel>Orders Management</SidebarGroupLabel>
+                    <SidebarGroupContent>
+                        <SidebarMenu>
+                            {ordersItems.map((item, i) => (
+                                <SidebarMenuItem key={i}>
+                                    <SidebarMenuButton asChild>
+                                        <a href={item?.href}>
+                                            {item?.icon}
+                                            <span>{item?.label}</span>
                                         </a>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>

@@ -135,6 +135,8 @@ model insurance_order {
   insurance_application                                                              Int
   receipt                                                                            Int
   created_at                                                                         DateTime?             @default(now()) @db.Timestamp(6)
+  msg                                                                                String?
+  finish_date                                                                        DateTime?             @db.Date
   insurance_files                                                                    insurance_files[]
   insurance_application_insurance_order_insurance_applicationToinsurance_application insurance_application @relation("insurance_order_insurance_applicationToinsurance_application", fields: [insurance_application], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "insurance_application")
   personinfo_insurance_order_personinfoTopersoninfo                                  personinfo            @relation("insurance_order_personinfoTopersoninfo", fields: [personinfo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "personinfo")
