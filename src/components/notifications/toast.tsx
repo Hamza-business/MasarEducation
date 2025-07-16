@@ -12,7 +12,7 @@ export function toastRegionCreationFailed(regionName: string) {
   toast.success("Failed to create region!", {
     description: `Failed to create region <${regionName}>. Please try again.`,
     duration: 4000,
-    icon: <FaTimesCircle />
+    icon: <FaTimesCircle className="text-red-500 h-7 w-7"/>
   });
 }
 export function toastRegionDeletionSuccess(regionName: string) {
@@ -43,7 +43,7 @@ export function toastRegionFetchFailed() {
   toast.success(`Failed to fetch regions`, {
     description: `Failed to fetch regions. Please try again.`,
     duration: 4000,
-    icon: <FaTimesCircle />
+    icon: <FaTimesCircle className="text-red-500 h-7 w-7"/>
   });
 }
 
@@ -63,7 +63,7 @@ export function toastDistrictCreationFailed(districtName: string) {
   toast.success("Failed to create district!", {
     description: `Failed to create district <${districtName}>. Please try again.`,
     duration: 4000,
-    icon: <FaTimesCircle />
+    icon: <FaTimesCircle className="text-red-500 h-7 w-7"/>
   });
 }
 export function toastDistrictDeletionSuccess(districtName: string) {
@@ -94,7 +94,7 @@ export function toastDistrictFetchFailed() {
   toast.success(`Failed to fetch districts`, {
     description: `Failed to fetch districts. Please try again.`,
     duration: 4000,
-    icon: <FaTimesCircle />
+    icon: <FaTimesCircle className="text-red-500 h-7 w-7"/>
   });
 }
 
@@ -109,7 +109,7 @@ export function toastNeighborhoodCreationFailed(neighborhoodName: string) {
   toast.success("Failed to create neighbourhood!", {
     description: `Failed to create neighbourhood <${neighborhoodName}>. Please try again.`,
     duration: 4000,
-    icon: <FaTimesCircle />
+    icon: <FaTimesCircle className="text-red-500 h-7 w-7"/>
   });
 }
 export function toastNeighborhoodDeletionSuccess(neighborhoodName: string) {
@@ -140,7 +140,7 @@ export function toastNeighborhoodFetchFailed() {
   toast.success(`Failed to fetch neighbourhoods`, {
     description: `Failed to fetch neighbourhoods. Please try again.`,
     duration: 4000,
-    icon: <FaTimesCircle />
+    icon: <FaTimesCircle className="text-red-500 h-7 w-7"/>
   });
 }
 
@@ -185,7 +185,7 @@ export function planFetchFailed() {
   toast.success(`Failed to fetch price plans`, {
     description: `Failed to fetch price plans. Please try again.`,
     duration: 4000,
-    icon: <FaTimesCircle />
+    icon: <FaTimesCircle className="text-red-500 h-7 w-7"/>
   });
 }
 
@@ -193,7 +193,7 @@ export function toastValidationErorr(msg:string) {
   toast.success(`Unvalid Data`, {
     description: msg,
     duration: 8000,
-    icon: <FaTimesCircle />
+    icon: <FaTimesCircle className="text-red-500 h-7 w-7"/>
   });
 }
 export function toastMissingErorr(msg:string) {
@@ -207,7 +207,7 @@ export function somethingWentWrong(msg:string) {
   toast.success(`something Went Wrong`, {
     description: msg,
     duration: 8000,
-    icon: <FaTimesCircle className="text-red-500 h-9 w-9"/>
+    icon: <FaTimesCircle className="text-red-500 h-7 w-7"/>
   });
 }
 

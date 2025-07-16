@@ -1,6 +1,5 @@
 import AppShell from "@/app/(site)/app-shell"
 import InsuranceOrderingPage from "@/components/insuranceOrder/InsuranceOrderingManager";
-import { Skeleton } from "@/components/ui/skeleton"
 import {useTranslations} from 'next-intl';
 
 export default function Home() {

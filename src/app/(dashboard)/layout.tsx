@@ -5,6 +5,7 @@ import { Providers } from '../../components/providers'
 import {NextIntlClientProvider} from 'next-intl';
 import { cookies } from 'next/headers';
 import AppLoad from './appLoad';
+import { Toaster } from "@/components/ui/sonner"; 
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,6 +29,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
                 <AppLoad defaultOpen={defaultOpen}>
                     {children}
                 </AppLoad>
+                <Toaster />
             </NextIntlClientProvider>
           </Providers>
         </ThemeProvider>

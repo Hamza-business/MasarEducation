@@ -31,9 +31,8 @@ export default function InsuranceTrackingPage() {
   }
 
   return (
-    <main className="flex-1 flex items-center justify-center px-4">
+    <main className="flex-1 flex items-center justify-center px-4 py-0">
         <div className="grid gap-6 max-w-2xl">
-          {/* <Component /> */}
           <TrackCodeInput onSubmit={fetchOrder} />
           {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
           {order && <OrderDetails orderdetails={order} />}
