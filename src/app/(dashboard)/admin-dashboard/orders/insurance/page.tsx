@@ -239,7 +239,7 @@ export default function Page() {
 
 
 
-            <Button onClick={() => setOpen(true)}>View Order Details</Button>
+            {/* <Button onClick={() => setOpen(true)}>View Order Details</Button> */}
 
             <SlideOver open={open} onClose={() => setOpen(false)} title={`Order #${selectedOrder?.trackcode}`}>
                 {/* Top Actions */}
