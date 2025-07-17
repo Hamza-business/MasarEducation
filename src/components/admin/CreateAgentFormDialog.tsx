@@ -5,49 +5,51 @@ import { useEffect, useState } from "react";
 import AgentInfoTab from "./AgentFormDialog/AgentInfoTab";
 import UserInfoTab from "./AgentFormDialog/UserInfoTab";
 import { Tabs} from "@/components/ui/tabs";
-import type { AgentInfo, InsurancePackage, PriceRange } from "@/types/all";
+import type { agentImageType, AgentInfo, agentInfoType, agentUserType, InsurancePackage, PriceRange } from "@/types/all";
 import TabNavigation from "./AgentFormDialog/TabNavigation";
 import { validateInsurancePackage } from "@/components/validations/validateInsurancePackage";
 import { toastValidationErorr } from "../notifications/toast";
 import ImageUploadTab from "./AgentFormDialog/ImageUploadTab";
+import PreviewTab from "./AgentFormDialog/PreviewTab";
 
 type Props = {
+  agents: AgentInfo[];
+  setAgents: (agents: AgentInfo[]) => void;
   open: boolean;
   parentid: number;
+  parentLVL: number;
   onClose: () => void;
   onSubmit: (data: AgentInfo) => void;
 };
 
 export default function CreateAgentFormDialog({
+  agents,
+  setAgents,
   open,
   parentid,
+  parentLVL,
   onClose,
   onSubmit,
 }: Props) {
-  const [currentTab, setCurrentTab] = useState<"agent" | "user" | "image">("agent");
-  const [newAgent, setNewAgent] = useState<AgentInfo>({
-    id: 0,
-    agent_name: "",
-    lvl: 0,
-    percent: 0,
-    url: "",
-    active: true,
-    created_at: "",
-
-    user: {
-        id: 0,
-        email: "",
-        name: "",
-        created_at: "",
-    },
-
-    image: {
-        id: 0,
-        name: "",
-        mimetype: "",
-        data: "",
-    },
-  });
+  const [currentTab, setCurrentTab] = useState<"agent" | "user" | "image" | "preview">("agent");
+  const [agentInfo, setAgentInfo] = useState<agentInfoType>({
+      parent_agent: parentid,
+      agent_name: "",
+      lvl: parentLVL+1,
+      percent: 0,
+      url: ""
+  })
+  const [agentUser, setUserInfo] = useState<agentUserType>({
+      email: "",
+      name: "",
+      passowrd: ""
+  })
+  const [agentImage, setAgentImage] = useState<agentImageType | null>({
+      name: "",
+      mimetype: "",
+      data: ""
+  })
+  const [newAgent, setNewAgent] = useState<AgentInfo | null>(null);
 
   useEffect(() => {
     if (open) {
@@ -76,7 +78,7 @@ export default function CreateAgentFormDialog({
 
   const handleCancel = () => {
     // handleReset();
-    // onClose();
+    onClose();
   };
 
   const handleFinalSubmit = () => {
@@ -95,11 +97,13 @@ export default function CreateAgentFormDialog({
     // });
 
     // handleReset();
+    if(newAgent)
+      setAgents([...agents, newAgent])
   };
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && handleCancel()}>
-      <DialogContent className="!max-w-xl !w-full overflow-auto" style={{ maxHeight: "calc(100% - 40px)" }}>
+      <DialogContent className="!max-w-2xl !w-full overflow-auto" style={{ maxHeight: "calc(100% - 40px)" }}>
         <DialogHeader>
           <DialogTitle>
             Create Agent
@@ -111,6 +115,8 @@ export default function CreateAgentFormDialog({
         <Tabs value={currentTab} onValueChange={(v) => setCurrentTab(v as any)}>
           {currentTab === "agent" && (
             <AgentInfoTab
+              agentInfo={agentInfo}
+              setAgentInfo={setAgentInfo}
               onCancel={handleCancel}
               onNext={() => setCurrentTab("user")}
             />
@@ -118,6 +124,8 @@ export default function CreateAgentFormDialog({
 
           {currentTab === "user" && (
             <UserInfoTab
+              agentUser={agentUser}
+              setUserInfo={setUserInfo}
               onBack={() => setCurrentTab("agent")}
               onCancel={handleCancel}
               onNext={() => setCurrentTab("image")}
@@ -125,7 +133,19 @@ export default function CreateAgentFormDialog({
           )}
           {currentTab === "image" && (
             <ImageUploadTab
+              agentImage={agentImage}
+              setAgentImage={setAgentImage}
               onBack={() => setCurrentTab("user")}
+              onCancel={handleCancel}
+              onNext={() => setCurrentTab("preview")}
+            />
+          )}
+          {currentTab === "preview" && (
+            <PreviewTab
+              agentInfo={agentInfo}
+              agentUser={agentUser}
+              agentImage={agentImage}
+              onBack={() => setCurrentTab("image")}
               onCancel={handleCancel}
               onSubmit={handleFinalSubmit}
             />
@@ -135,3 +155,5 @@ export default function CreateAgentFormDialog({
     </Dialog>
   );
 }
+
+// 

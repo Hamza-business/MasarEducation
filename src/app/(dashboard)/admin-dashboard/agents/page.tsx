@@ -13,6 +13,7 @@ import CreateAgentFormDialog from '@/components/admin/CreateAgentFormDialog';
 
 export default function InsuranceOrders() {
     const parentid = 1;
+    const parentLVL = 1;
     const [open, setOpen] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
     const [agents, setAgents] = useState<AgentInfo[]>([]);
@@ -94,8 +95,11 @@ export default function InsuranceOrders() {
             </SlideOver> */}
 
             <CreateAgentFormDialog
+                agents={agents}
+                setAgents={setAgents}
                 open={openDialog}
                 parentid={parentid}
+                parentLVL={parentLVL}
                 onClose={() => setOpenDialog(false)}
                 onSubmit={handleSave}
             />

@@ -1,20 +1,53 @@
 import { Button } from "@/components/ui/button";
-import type { PriceRange } from "@/types/all";
+import type { agentImageType, PriceRange } from "@/types/all";
 import { IoIosArrowBack, IoMdDoneAll } from "react-icons/io";
 import { CgAddR } from "react-icons/cg";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { useRef } from "react";
+import { UploadIcon } from "lucide-react";
+import { MdNavigateNext } from "react-icons/md";
 
 type Props = {
+  agentImage:agentImageType | null,
+  setAgentImage: (agentImage:agentImageType)=>void;
   onBack: () => void;
   onCancel: () => void;
-  onSubmit: () => void;
+  onNext: () => void;
 };
 
 export default function ImageUploadTab({
+  agentImage,
+  setAgentImage,
   onBack,
   onCancel,
-  onSubmit,
+  onNext,
 }: Props) {
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setAgentImage({
+        name: file.name,
+        mimetype: file.type,
+        data: reader.result?.toString().split(",")[1] || "", // Base64
+      });
+    };
+
+
+    const allowedSignatures = {
+      pdf: "25504446", // %PDF
+      png: "89504E47", // PNG
+      jpg: "FFD8FF",   // JPG
+    };
+
+
+    reader.readAsDataURL(file);
+  };
+
   const handleChange = (index: number, field: keyof PriceRange, value: number) => {
     // const updated = [...prices];
     // updated[index] = { ...updated[index], [field]: value };
@@ -30,34 +63,71 @@ export default function ImageUploadTab({
     // setPrices(updated);
   };
 
+  function handleFinish() {
+    // const payload = {
+    //   agentInfo,
+    //   agentUser,
+    //   agentImage,
+    // };
+    // Call your POST API here with this payload
+    // console.log("Final Payload:", payload);
+  }
+
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+  
+    const triggerFileInput = () => {
+      fileInputRef.current?.click();
+    };
+
   return (
     <div className="space-y-4">
-      <div className="flex items-center">
-        <Label className="flex-1">Minimum Age</Label>
-        <Label className="flex-1">Maximum Age</Label>
-        <Label className="flex-1">Price</Label>
-      </div>
+        <div className="space-y-4">
+            <Label>Upload Agent Logo {"(w 3000px, h 530)"}</Label>
+            <div className="cursor-pointer border-2 border-dashed rounded-md px-4 py-8 flex flex-col items-center justify-center text-sm text-muted-foreground hover:bg-accent transition"
+            onClick={triggerFileInput}>
+                <UploadIcon className="mb-2 h-6 w-6" />
+                {agentImage?.name ? (
+                    <span className="text-blue-500 font-medium">{agentImage.name}</span>
+                ) : (
+                    <span className="text-center">Tap here to upload your Receipt.<br/> Make sure image has 3000px width and 530px height for best fit!</span>
+                )}
+            </div>
 
-      <Button variant="outline" onClick={handleAdd}>
-        <CgAddR /> Add Price Range
-      </Button>
+            <input
+                ref={fileInputRef}
+                id="agentlogo"
+                type="file"
+                accept=".png,.jpg,.jpeg"
+                className="hidden"
+                onChange={handleFileChange}
+            />
 
-      <div className="flex justify-between mt-2">
-        <div className="flex gap-2">
-          <Button variant="outline" onClick={onCancel}>
-            Cancel
-          </Button>
+            <p className="text-xs text-muted-foreground mt-1">
+                Accepted formats: PNG, JPG, JPEG. File is validated using its signature.
+            </p>
+            {agentImage?.data && (
+                <img
+                    src={`data:${agentImage.mimetype};base64,${agentImage.data}`}
+                    alt="Preview"
+                    className="w-full object-cover rounded border"
+                />
+            )}
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" onClick={onBack}>
-            <IoIosArrowBack />
-            Back
-          </Button>
-          <Button onClick={onSubmit}>
-            Create
-          </Button>
+
+        <div className="flex justify-between mt-2">
+            <div className="flex gap-2">
+                <Button variant="outline" onClick={onCancel}> Cancel</Button>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={onBack}>
+                <IoIosArrowBack />
+                Back
+              </Button>
+              <Button onClick={onNext}>Next <MdNavigateNext /></Button>
+            </div>
         </div>
-      </div>
     </div>
   );
 }
+
+{/* <Button onClick={onSubmit}>Create</Button> */}

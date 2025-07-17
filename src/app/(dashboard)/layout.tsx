@@ -6,6 +6,7 @@ import {NextIntlClientProvider} from 'next-intl';
 import { cookies } from 'next/headers';
 import AppLoad from './appLoad';
 import { Toaster } from "@/components/ui/sonner"; 
+import React from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,16 +24,16 @@ export default async function DashboardLayout({ children }: { children: React.Re
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <body className={inter.className} key={dir}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Providers>
-            <NextIntlClientProvider locale={locale}>
-                <AppLoad defaultOpen={defaultOpen}>
-                    {children}
-                </AppLoad>
-                <Toaster />
-            </NextIntlClientProvider>
-          </Providers>
-        </ThemeProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Providers>
+              <NextIntlClientProvider locale={locale}>
+                  <AppLoad defaultOpen={defaultOpen}>
+                      {children}
+                  </AppLoad>
+                  <Toaster />
+              </NextIntlClientProvider>
+            </Providers>
+          </ThemeProvider>
       </body>
     </html>
   );

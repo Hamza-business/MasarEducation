@@ -79,7 +79,7 @@ export function AgentsTable(
             <div className="rounded-sm border overflow-hidden mt-2 mb-4">
                 <Table className='w-full caption-bottom text-sm'>
                     <TableHeader>
-                        <TableRow className='bg-zinc-800 hover:bg-zinc-900'>
+                        <TableRow className='bg-gray-100 hover:bg-gray-200 dark:bg-zinc-800 dark:hover:bg-zinc-900'>
                             <TableHead className='px-4'>Status</TableHead>
                             <TableHead className='px-4'>Agent Name</TableHead>
                             <TableHead className='px-4'>Agent Owner</TableHead>

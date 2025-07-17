@@ -418,3 +418,25 @@ export type AgentInfo = {
         data: string;
     } | null;
 };
+
+
+export type agentInfoType = {
+    parent_agent: number;
+    agent_name: string;
+    lvl: number;
+    percent: number;
+    url: string;
+}
+
+export type agentUserType = {
+    email: string;
+    name: string;
+    passowrd: string;
+}
+
+export type agentImageType = {
+    name: string;
+    mimetype: string;
+    data: string;
+}
+
