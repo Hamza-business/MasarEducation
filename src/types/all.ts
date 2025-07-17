@@ -399,10 +399,10 @@ export type AgentInfo = {
     active: boolean;
     created_at: string;
 
-    parent?: {
-        id: number;
-        name: string;
-    } | null;
+    // parent?: {
+    //     id: number;
+    //     name: string;
+    // } | null;
 
     user: {
         id: number;

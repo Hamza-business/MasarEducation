@@ -44,7 +44,7 @@ export async function GET(req: NextRequest) {
             url: row.url,
             active: row.active,
             created_at: row.created_at,
-            parent: row.parent_id ? { id: row.parent_id, name: row.parent_name }: null,
+            // parent: row.parent_id ? { id: row.parent_id, name: row.parent_name }: null,
             user: {
             id: row.user_id,
             email: row.email,
@@ -53,10 +53,10 @@ export async function GET(req: NextRequest) {
             },
             image: row.image_id
                 ? {
-                id: row.image_id,
-                name: row.image_name,
-                mimetype: row.image_type,
-                data: row.image_data,
+                  id: row.image_id,
+                  name: row.image_name,
+                  mimetype: row.image_type,
+                  data: row.image_data,
                 }
             : null,
         }));
