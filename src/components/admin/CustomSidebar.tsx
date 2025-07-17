@@ -12,7 +12,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import {bankItems, ordersItems, servicesItems, locationsItems} from "@/constants/dashboard"
+import {bankItems, ordersItems, servicesItems, locationsItems, agentsItems} from "@/constants/dashboard"
 
 
 export default function CustomSidebar({ rtl }: { rtl?: boolean }) {
@@ -75,6 +75,23 @@ export default function CustomSidebar({ rtl }: { rtl?: boolean }) {
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {ordersItems.map((item, i) => (
+                                <SidebarMenuItem key={i}>
+                                    <SidebarMenuButton asChild>
+                                        <a href={item?.href}>
+                                            {item?.icon}
+                                            <span>{item?.label}</span>
+                                        </a>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            ))}
+                        </SidebarMenu>
+                    </SidebarGroupContent>
+                </SidebarGroup>
+                <SidebarGroup>
+                    <SidebarGroupLabel>Agents</SidebarGroupLabel>
+                    <SidebarGroupContent>
+                        <SidebarMenu>
+                            {agentsItems.map((item, i) => (
                                 <SidebarMenuItem key={i}>
                                     <SidebarMenuButton asChild>
                                         <a href={item?.href}>

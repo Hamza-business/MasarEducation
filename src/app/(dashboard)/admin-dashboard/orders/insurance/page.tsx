@@ -6,9 +6,6 @@ import {OrderDetails} from '@/types/all';
 import { InsuranceOrderTable } from '@/components/admin/InsuranceOrdersTable';
 import OrderSlideOverContent from '@/components/admin/OrderSlideOverContent';
 
-
-
-
 export default function InsuranceOrders() {
     const [open, setOpen] = useState(false);
     const [orders, setOrders] = useState<OrderDetails[]>([]);
@@ -16,7 +13,7 @@ export default function InsuranceOrders() {
     const [filtered, setFiltered] = useState<OrderDetails[]>([]);
     
     async function fetchOrders(): Promise<OrderDetails[]> {
-        const res = await fetch('/api/orders'); // Or any API route
+        const res = await fetch('/api/orders');
         const data = await res.json();
         return data;
     }

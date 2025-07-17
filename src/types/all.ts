@@ -389,3 +389,32 @@ export interface OrderDetails {
     apartmentNo: string;
   };
 }
+
+export type AgentInfo = {
+    id: number;
+    agent_name: string;
+    lvl: number;
+    percent: number;
+    url: string;
+    active: boolean;
+    created_at: string;
+
+    parent?: {
+        id: number;
+        name: string;
+    } | null;
+
+    user: {
+        id: number;
+        email: string;
+        name: string;
+        created_at: string;
+    };
+
+    image?: {
+        id: number;
+        name: string;
+        mimetype: string;
+        data: string;
+    } | null;
+};
