@@ -210,5 +210,12 @@ export function somethingWentWrong(msg:string) {
     icon: <FaTimesCircle className="text-red-500 h-7 w-7"/>
   });
 }
+export function uniquenessError(msg:string) {
+  toast.success(`Uniqueness Error`, {
+    description: msg,
+    duration: 8000,
+    icon: <FaTimesCircle className="text-red-500 h-7 w-7"/>
+  });
+}
 
 

@@ -27,10 +27,10 @@ export function validateAgentCreation(
   if (!isEmail(`${agentUser.email}@masare.edu`) || agentUser.email.length === 0) {
     errors.push("Invalid Email.");
   }
-  if (agentUser.passowrd === "") {
+  if (agentUser.password === "") {
     errors.push("User must have password.");
   }
-  if (agentUser.passowrd.length < 10) {
+  if (agentUser.password.length < 10) {
     errors.push("User must have password of at least 10 digits.");
   }
   if (!agentImage || agentImage?.name === "" || agentImage?.mimetype === "" || agentImage?.data === "") {

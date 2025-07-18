@@ -72,8 +72,8 @@ export default function UserInfoTab({
         <Label className="mb-2">Password</Label>
         <Input
           type="password"
-          value={agentUser.passowrd}
-          onChange={(e) => setUserInfo({ ...agentUser, passowrd: e.target.value })}
+          value={agentUser.password}
+          onChange={(e) => setUserInfo({ ...agentUser, password: e.target.value })}
           placeholder="Enter password"
         />
       </div>

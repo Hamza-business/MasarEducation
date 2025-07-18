@@ -46,7 +46,7 @@ Agent Info
 
 Agent Owner Login Info
   Email: ${agentUser?.email}.agent@masare.edu
-  Password: ${agentUser?.passowrd}
+  Password: ${agentUser?.password}
   Name: ${agentUser?.name}
 `.trim();
             await navigator.clipboard.writeText(data).then(()=>{
@@ -101,7 +101,7 @@ Agent Owner Login Info
                             </CardHeader>
                             <CardContent className="grid grid-cols-2 gap-y-3 gap-x-2 text-sm px-0">
                               <Field label="Email" value={`${agentUser?.email}.agent@masare.edu`} />
-                              <Field label="Password" value={agentUser?.passowrd} />
+                              <Field label="Password" value={agentUser?.password} />
                               <Field label="Name" value={agentUser?.name} />
                             </CardContent>
                           </Card>

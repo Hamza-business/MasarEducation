@@ -408,35 +408,43 @@ export type AgentInfo = {
         id: number;
         email: string;
         name: string;
+        password?: string,
         created_at: string;
     };
 
-    image?: {
+    image: {
         id: number;
         name: string;
         mimetype: string;
         data: string;
-    } | null;
+    };
 };
 
 
 export type agentInfoType = {
+    id: number;
     parent_agent: number;
+    userid: number;
+    agent_image: number;
+    percent: number;
     agent_name: string;
     lvl: number;
-    percent: number;
     url: string;
+    created_at: string;
+    active: boolean;
 }
 
 export type agentUserType = {
+    id: number;
     email: string;
+    password: string;
     name: string;
-    passowrd: string;
+    created_at:string;
 }
 
 export type agentImageType = {
+    id: number;
     name: string;
     mimetype: string;
     data: string;
 }
-

@@ -11,7 +11,7 @@ import { fetchAgentsByParent } from '@/lib/apis';
 import CreateAgentFormDialog from '@/components/admin/CreateAgentFormDialog';
 
 
-export default function InsuranceOrders() {
+export default function AgentsManagement() {
     const parentid = 1;
     const parentLVL = 1;
     const [open, setOpen] = useState(false);
@@ -27,55 +27,6 @@ export default function InsuranceOrders() {
         });
     }, []);
 
-
-    const handleSave = async (newAgent: AgentInfo) => {
-        // try {
-        //     if (mode === "create") {
-        //         const res = await fetch("/api/insurances", {
-        //             method: "POST",
-        //             headers: {
-        //             "Content-Type": "application/json",
-        //             },
-        //             body: JSON.stringify(newPkg),
-        //         });
-
-        //         if (!res.ok) {
-        //             const errText = await res.text();
-        //             throw new Error(errText);
-        //         }
-
-        //         setOpen(false);
-
-        //         const saved = await res.json();
-        //         setPackages((prev) => [...prev, saved]);
-        //     } else {
-        //         const res = await fetch(`/api/insurances/${newPkg.id}`, {
-        //             method: "PUT",
-        //             headers: {
-        //             "Content-Type": "application/json",
-        //             },
-        //             body: JSON.stringify(newPkg),
-        //         });
-
-        //         if (!res.ok) {
-        //             const errText = await res.text();
-        //             throw new Error(errText);
-        //         }
-
-        //         setOpen(false);
-
-        //         const updated = await res.json();
-                
-        //         setPackages((prev) =>
-        //         prev.map((p) => (p.id === updated.id ? updated : p))
-        //         );
-        //     }
-        //     planStoreSuccess(newPkg.name);
-        // } catch (err) {
-        //     planStoreFailed(newPkg.name);
-        // }
-    };
-
     return (
         <div>
             <div className="flex justify-between items-center mb-6">
@@ -85,7 +36,6 @@ export default function InsuranceOrders() {
                 </div>
                 <Button onClick={()=>{setOpenDialog(true)}}><CgAddR className="mr-2" /> Create New Agent</Button>
             </div>
-             {/*  */}
 
             <AgentsTable agents={agents} filtered={filtered} setFiltered={setFiltered} setOpen={setOpen} setSelectedAgent={setSelectedAgent}/>
 
@@ -101,7 +51,6 @@ export default function InsuranceOrders() {
                 parentid={parentid}
                 parentLVL={parentLVL}
                 onClose={() => setOpenDialog(false)}
-                onSubmit={handleSave}
             />
         </div>
     );

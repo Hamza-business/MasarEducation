@@ -22,7 +22,7 @@ export function AgentsTable(
     
 
     // Pagination
-    const itemsPerPage = 10;
+    const itemsPerPage = 8;
     const [page, setPage] = useState(1);
     
     const paginated = filtered.slice((page - 1) * itemsPerPage, page * itemsPerPage);
@@ -115,7 +115,7 @@ export function AgentsTable(
             </div>
 
             <div className="flex justify-between text-sm text-muted-foreground">
-                <span>{`Showing ${paginated.length} of ${filtered.length} orders`}</span>
+                <span>{`Showing ${paginated.length} of ${filtered.length} Agents`}</span>
                 <div className="space-x-2 inline-flex">
                     <Button variant="outline" size="sm" onClick={() => setPage(p => p - 1)} disabled={page === 1}>
                         <IoIosArrowBack /> Previous
