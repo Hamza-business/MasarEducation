@@ -5,7 +5,7 @@ import LanguageSwitcher from '@/components/LanguageSwitcher';
 export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="p-4 border-b">
+      <header className="p-4 border-b mb-12">
         <Container className="flex justify-between items-center">
           <h1 className="text-xl font-bold">MyApp</h1>
           <LanguageSwitcher type={"list"}/>

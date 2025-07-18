@@ -47,7 +47,7 @@ export default function InsuranceFiles({orderId}:{orderId:number}) {
                     ))}
                 </div>
             ) : (
-                <div className="bg-red-50 dark:bg-neutral-800 dark:text-red-200 p-4 rounded-sm text-sm text-gray-800 border border-red-300 dark:border-red-600">
+                <div className="bg-red-50 dark:bg-zinc-900 dark:text-red-200 p-4 rounded-sm text-sm text-gray-800 border border-red-300 dark:border-red-600">
                     No insurance file(s) available.
                     <br />
                     Please contact our{" "}

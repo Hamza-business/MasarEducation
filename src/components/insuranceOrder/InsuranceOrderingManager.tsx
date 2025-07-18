@@ -16,6 +16,7 @@ import { FaFire } from 'react-icons/fa';
 import PassportUploadStep from './steps/PassportUploadStep';
 import PlanSelectorStep from './steps/PlanSelectorStep';
 import { toastMissingErorr } from '../notifications/toast';
+import { Container } from '@/app/(site)/container';
 
 // Constants
 const TOTAL_STEPS = 7;
@@ -85,174 +86,176 @@ export default function InsuranceOrderingPage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto py-2 space-y-6">
-      <div className="w-full">
-        <img
-          src="/logo.png"
-          alt="Banner"
-          className="w-full object-cover rounded-sm min-h-30"
-        />
-      </div>
-      <div className="text-center font-semibold text-xl mb-3 flex justify-between items-center">
-        <span className='flex justify-center gap-1 items-center text-blue-500'>
-          {step === 1 && (
-            <>
-              <TbInfoSquareRounded/> Personal Infomration
-            </>
-          )}
-          {step === 2 && (
-            <>
-              <GiPassport /> Passport Upload
-            </>
-          )}
-          {step === 3 && (
-            <>
-              <AiTwotoneHome /> Living Information
-            </>
-          )}
-          {step === 4 && (
-            <>
-              <TbPackages /> Package
-            </>
-          )}
-          {step === 5 && (
-            <>
-              <CiBank /> IBAN Details
-            </>
-          )}
-          {step === 6 && (
-            <>
-              <TbReceipt2 /> Receipt Upload
-            </>
-          )}
-          {step === 7 && (
-            <>
-              <FaFire /> Final Step
-            </>
-          )}
-          {step === 8 && (<>🏁 Order Placed</>)}
-        </span>
-        <p className="text-center font-semibold text-sm mb-1 text-blue-400">
-          { step<=TOTAL_STEPS &&(
-            <>
-              Step {step} / {TOTAL_STEPS}
-            </>
-          )}
-          { step>TOTAL_STEPS &&(
-            <>
-              Finsih 🏁
-            </>
-          )}
-        </p>
-      </div>
-      <div className="w-full bg-gray-200 dark:bg-gray-800 h-2 rounded overflow-hidden mt-2">
-        <div
-          className="bg-blue-500 h-full transition-all duration-300"
-          style={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
-        />
-      </div>
+      <Container>
+          <div className="max-w-3xl mx-auto py-0 space-y-6">
+              <div className="w-full">
+                <img
+                  src="/logo.png"
+                  alt="Banner"
+                  className="w-full object-cover rounded-sm min-h-30"
+                />
+              </div>
+              <div className="text-center font-semibold text-xl mb-3 flex justify-between items-center">
+                <span className='flex justify-center gap-1 items-center text-blue-500'>
+                  {step === 1 && (
+                    <>
+                      <TbInfoSquareRounded/> Personal Infomration
+                    </>
+                  )}
+                  {step === 2 && (
+                    <>
+                      <GiPassport /> Passport Upload
+                    </>
+                  )}
+                  {step === 3 && (
+                    <>
+                      <AiTwotoneHome /> Living Information
+                    </>
+                  )}
+                  {step === 4 && (
+                    <>
+                      <TbPackages /> Package
+                    </>
+                  )}
+                  {step === 5 && (
+                    <>
+                      <CiBank /> IBAN Details
+                    </>
+                  )}
+                  {step === 6 && (
+                    <>
+                      <TbReceipt2 /> Receipt Upload
+                    </>
+                  )}
+                  {step === 7 && (
+                    <>
+                      <FaFire /> Final Step
+                    </>
+                  )}
+                  {step === 8 && (<>🏁 Order Placed</>)}
+                </span>
+                <p className="text-center font-semibold text-sm mb-1 text-blue-400">
+                  { step<=TOTAL_STEPS &&(
+                    <>
+                      Step {step} / {TOTAL_STEPS}
+                    </>
+                  )}
+                  { step>TOTAL_STEPS &&(
+                    <>
+                      Finsih 🏁
+                    </>
+                  )}
+                </p>
+              </div>
+              <div className="w-full bg-gray-200 dark:bg-gray-800 h-2 rounded overflow-hidden mt-2">
+                <div
+                  className="bg-blue-500 h-full transition-all duration-300"
+                  style={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
+                />
+              </div>
 
-      {step === 1 && (
-        <PersonalInfoStep
-          availablePlans={availablePlans}
-          setAvailablePlans={setAvailablePlans}
-          application={application}
-          setApplication={setApplication}
-          personInfo={personInfo}
-          setPersonInfo={setPersonInfo}
-          onNext={goNext}
-        />
-      )}
+              {step === 1 && (
+                <PersonalInfoStep
+                  availablePlans={availablePlans}
+                  setAvailablePlans={setAvailablePlans}
+                  application={application}
+                  setApplication={setApplication}
+                  personInfo={personInfo}
+                  setPersonInfo={setPersonInfo}
+                  onNext={goNext}
+                />
+              )}
 
-      {step === 2 && (
-        <PassportUploadStep
-          passportFile={passportFile}
-          setPassportFile={setPassportFile}
-          fn={async ()=>{
-              if(regions.length==0){
-                  fetch("/api/locations/regions")
-                  .then((res) => res.json())
-                  .then(setRegions)
-                  .catch((error)=>{});
-              }
-          }}
-          onBack={goBack}
-          onNext={goNext}
-        />
-      )}
+              {step === 2 && (
+                <PassportUploadStep
+                  passportFile={passportFile}
+                  setPassportFile={setPassportFile}
+                  fn={async ()=>{
+                      if(regions.length==0){
+                          fetch("/api/locations/regions")
+                          .then((res) => res.json())
+                          .then(setRegions)
+                          .catch((error)=>{});
+                      }
+                  }}
+                  onBack={goBack}
+                  onNext={goNext}
+                />
+              )}
 
-      {step === 3 && (
-        <LivinginformationStep
-          application={application}
-          regions={regions}
-          setRegions={setRegions}
-          setApplication={setApplication}
-          onBack={goBack}
-          onNext={goNext}
-        />
-      )}
+              {step === 3 && (
+                <LivinginformationStep
+                  application={application}
+                  regions={regions}
+                  setRegions={setRegions}
+                  setApplication={setApplication}
+                  onBack={goBack}
+                  onNext={goNext}
+                />
+              )}
 
-      {step === 4 && (
-        <PlanSelectorStep
-          application={application}
-          setApplication={setApplication}
-          availablePlans={availablePlans}
-          setAvailablePlans={setAvailablePlans}
-          personInfo={personInfo}
-          onBack={goBack}
-          onNext={goNext}
-          fn={async ()=>{
-              if(!bankInfo){
-                  fetch("/api/locations/bank-info")
-                  .then(res => res.json())
-                  .then(data => setBankInfo(data))
-                  .catch((error)=>{});
-              }
-          }}
-        />
-      )}
+              {step === 4 && (
+                <PlanSelectorStep
+                  application={application}
+                  setApplication={setApplication}
+                  availablePlans={availablePlans}
+                  setAvailablePlans={setAvailablePlans}
+                  personInfo={personInfo}
+                  onBack={goBack}
+                  onNext={goNext}
+                  fn={async ()=>{
+                      if(!bankInfo){
+                          fetch("/api/locations/bank-info")
+                          .then(res => res.json())
+                          .then(data => setBankInfo(data))
+                          .catch((error)=>{});
+                      }
+                  }}
+                />
+              )}
 
-      {step === 5 && (
-        <BankInfoStep
-          bankInfo={bankInfo}
-          setBankInfo={setBankInfo}
-          application={application}
-          onBack={goBack}
-          onNext={goNext}
-        />
-      )}
+              {step === 5 && (
+                <BankInfoStep
+                  bankInfo={bankInfo}
+                  setBankInfo={setBankInfo}
+                  application={application}
+                  onBack={goBack}
+                  onNext={goNext}
+                />
+              )}
 
-      {step === 6 && (
-        <ReceiptUploadStep
-          receiptFile={receiptFile}
-          setReceiptFile={setReceiptFile}
-          onBack={goBack}
-          onNext={goNext}
-        />
-      )}
+              {step === 6 && (
+                <ReceiptUploadStep
+                  receiptFile={receiptFile}
+                  setReceiptFile={setReceiptFile}
+                  onBack={goBack}
+                  onNext={goNext}
+                />
+              )}
 
-      {step === 7 && (
-        <PreviewSubmitStep
-          personInfo={personInfo}
-          application={application}
-          passportFile={passportFile}
-          receiptFile={receiptFile}
-          insuranceOrder={insuranceOrder}
-          setInsuranceOrder={setInsuranceOrder}
-          setPersonInfo={setPersonInfo}
-          setTrackCode={setTrackCode}
-          onBack={goBack}
-          step={step}
-          setStep={setStep}
-        />
-      )}
+              {step === 7 && (
+                <PreviewSubmitStep
+                  personInfo={personInfo}
+                  application={application}
+                  passportFile={passportFile}
+                  receiptFile={receiptFile}
+                  insuranceOrder={insuranceOrder}
+                  setInsuranceOrder={setInsuranceOrder}
+                  setPersonInfo={setPersonInfo}
+                  setTrackCode={setTrackCode}
+                  onBack={goBack}
+                  step={step}
+                  setStep={setStep}
+                />
+              )}
 
-      {trackCode && step === 8 && (
-        <TrackCodeStep
-          trackCode={trackCode}
-        />
-      )}
+              {trackCode && step === 8 && (
+                <TrackCodeStep
+                  trackCode={trackCode}
+                />
+              )}
 
-    </div>
+          </div>
+      </Container>
   );
 }
