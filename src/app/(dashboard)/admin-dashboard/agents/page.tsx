@@ -34,7 +34,7 @@ export default function AgentsManagement() {
                     <h1 className='text-2xl font-bold'>Agents</h1>
                     <p className='text-muted-foreground text-sm'>Manage Agents</p>
                 </div>
-                <Button onClick={()=>{setOpenDialog(true)}}><CgAddR className="mr-2" /> Create New Agent</Button>
+                <Button onClick={()=>{setOpenDialog(true)}}><CgAddR /> Create New Agent</Button>
             </div>
 
             <AgentsTable agents={agents} filtered={filtered} setFiltered={setFiltered} setOpen={setOpen} setSelectedAgent={setSelectedAgent}/>
