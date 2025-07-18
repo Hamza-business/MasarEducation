@@ -3,12 +3,12 @@
 import { useEffect, useState } from 'react';
 import SlideOver from '@/components/admin/SlideOver';
 import {AgentInfo} from '@/types/all';
-import OrderSlideOverContent from '@/components/admin/OrderSlideOverContent';
 import { AgentsTable } from '@/components/admin/AgentsTable';
 import { Button } from '@/components/ui/button';
 import { CgAddR } from 'react-icons/cg';
 import { fetchAgentsByParent } from '@/lib/apis';
 import CreateAgentFormDialog from '@/components/admin/CreateAgentFormDialog';
+import AgentSlideOverContent from '@/components/admin/AgentSlideOverContent';
 
 
 export default function AgentsManagement() {
@@ -41,7 +41,7 @@ export default function AgentsManagement() {
 
             <SlideOver open={open} onClose={() => setOpen(false)} title={`Agent: ${selectedAgent?.agent_name}`}>
                 {selectedAgent && (
-                    <OrderSlideOverContent selectedAgent={selectedAgent}/>
+                    <AgentSlideOverContent selectedAgent={selectedAgent}/>
                 )}
             </SlideOver>
 
