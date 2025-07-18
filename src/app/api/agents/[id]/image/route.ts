@@ -4,7 +4,7 @@ import sql from '@/lib/db';
 
 export async function GET(req: NextRequest, { params }: any) {
     try {
-        const id = Number(params.id);
+        const id = Number(await params.id);
         if (isNaN(id)) {
             return NextResponse.json({ error: 'Invalid agent ID' }, { status: 400 });
         }

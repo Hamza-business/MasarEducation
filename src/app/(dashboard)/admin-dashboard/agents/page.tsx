@@ -39,10 +39,11 @@ export default function AgentsManagement() {
 
             <AgentsTable agents={agents} filtered={filtered} setFiltered={setFiltered} setOpen={setOpen} setSelectedAgent={setSelectedAgent}/>
 
-
-            {/* <SlideOver open={open} onClose={() => setOpen(false)} title={`Order #${selectedOrder?.trackcode}`}>
-                <OrderSlideOverContent selectedOrder={selectedOrder}/>
-            </SlideOver> */}
+            <SlideOver open={open} onClose={() => setOpen(false)} title={`Agent: ${selectedAgent?.agent_name}`}>
+                {selectedAgent && (
+                    <OrderSlideOverContent selectedAgent={selectedAgent}/>
+                )}
+            </SlideOver>
 
             <CreateAgentFormDialog
                 agents={agents}

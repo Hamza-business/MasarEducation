@@ -44,21 +44,18 @@ export async function GET(req: NextRequest) {
             url: row.url,
             active: row.active,
             created_at: row.created_at,
-            // parent: row.parent_id ? { id: row.parent_id, name: row.parent_name }: null,
             user: {
             id: row.user_id,
             email: row.email,
             name: row.user_name,
             created_at: row.user_created_at,
             },
-            image: row.image_id
-                ? {
+            image: {
                   id: row.image_id,
                   name: row.image_name,
                   mimetype: row.image_type,
                   data: row.image_data,
-                }
-            : null,
+            }
         }));
 
         return NextResponse.json(agents);
