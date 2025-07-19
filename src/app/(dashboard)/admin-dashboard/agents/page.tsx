@@ -41,7 +41,7 @@ export default function AgentsManagement() {
 
             <SlideOver open={open} onClose={() => setOpen(false)} title={`Agent: ${selectedAgent?.agent_name}`}>
                 {selectedAgent && (
-                    <AgentSlideOverContent selectedAgent={selectedAgent} setSelectedAgent={setSelectedAgent}/>
+                    <AgentSlideOverContent selectedAgent={selectedAgent} setSelectedAgent={setSelectedAgent} agents={agents} setAgents={setAgents}/>
                 )}
             </SlideOver>
 

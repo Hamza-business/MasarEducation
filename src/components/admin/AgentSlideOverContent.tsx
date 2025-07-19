@@ -29,7 +29,19 @@ async function getAgentImageById(id: number): Promise<agentImageType | null> {
   }
 }
 
-export default function AgentSlideOverContent({selectedAgent, setSelectedAgent}:{selectedAgent:AgentInfo, setSelectedAgent:(selectedAgent:AgentInfo)=>void}){
+export default function AgentSlideOverContent(
+    {
+        selectedAgent, 
+        setSelectedAgent,
+        agents,
+        setAgents
+    }:{
+        selectedAgent:AgentInfo,
+        setSelectedAgent:(selectedAgent:AgentInfo)=>void,
+        agents: AgentInfo[],
+        setAgents: (agents:AgentInfo[])=>void,
+    }
+){
     const [loaded, setLoaded] = useState(false);
     const [activests, setActivests] = useState(true);
 
@@ -57,7 +69,7 @@ export default function AgentSlideOverContent({selectedAgent, setSelectedAgent}:
                             if(sts){
                                 agentActivationToggleSuccess(!selectedAgent.active);
                                 selectedAgent.active=!selectedAgent.active
-                                setSelectedAgent({...selectedAgent, active:selectedAgent.active});
+                                setAgents([...agents]);
                                 setActivests(!activests);
                             } else{
                                 agentActivationToggleFailed(!selectedAgent.active)
@@ -89,7 +101,7 @@ export default function AgentSlideOverContent({selectedAgent, setSelectedAgent}:
                             if(sts){
                                 agentActivationToggleSuccess(!selectedAgent.active);
                                 selectedAgent.active=!selectedAgent.active
-                                setSelectedAgent({...selectedAgent, active:selectedAgent.active});
+                                setAgents([...agents]);
                                 setActivests(!activests);
                             } else{
                                 agentActivationToggleFailed(!selectedAgent.active);
