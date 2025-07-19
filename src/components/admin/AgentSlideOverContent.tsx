@@ -17,6 +17,7 @@ import { agentActivationToggleFailed, agentActivationToggleSuccess } from '../no
 import LineField from '../custom/LineField';
 import { BsBuildings } from "react-icons/bs";
 import { TbUserShield } from 'react-icons/tb';
+import { usePathname } from 'next/navigation';
 
 export default function AgentSlideOverContent(
     {
@@ -33,6 +34,7 @@ export default function AgentSlideOverContent(
 ){
     const [loaded, setLoaded] = useState(false);
     const [activests, setActivests] = useState(true);
+    const pathname = usePathname().split('/')[1];
 
     useEffect(() => {
         setLoaded(false);
@@ -52,6 +54,7 @@ export default function AgentSlideOverContent(
             }
         })()
     }, [selectedAgent]);
+
 
     return(
         <>
@@ -117,7 +120,7 @@ export default function AgentSlideOverContent(
                         ><BiShow /> Reactivate</Button>
                     </ConfirmActionDialog>
                 )}
-                <a href={`/orders/insurance/${""}/manage`} className="cursor-pointer">
+                <a href={`/${pathname}/agents/${selectedAgent.url}`} className="cursor-pointer">
                     <Button className="cursor-pointer"><MdOutlineRemoveRedEye /> Orders & Subagents <IoMdArrowDropright /></Button>
                 </a>
             </div>
