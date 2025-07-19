@@ -1,4 +1,4 @@
-import { agentImageType, agentInfoType, agentUserType } from "@/types/all";
+import { agentImageType, agentInfoType, agentUserType, AgentInfo } from "@/types/all";
 
 export async function checkUniqueEmail(email: string): Promise<boolean> {
   try {
@@ -82,6 +82,33 @@ export async function storeAgentInfoToDB(info: agentInfoType): Promise<agentInfo
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(info),
     });
+    const data = await res.json();
+    return data;
+}
+
+
+export async function onToggleAgentActive(id: number, desiredState: boolean){
+    try {
+        const res = await fetch(`/api/agents/${id}/toggle-active`, {
+            method: 'PATCH',
+            body: JSON.stringify({ active: desiredState }),
+            headers: {
+            'Content-Type': 'application/json',
+            },
+        });
+
+        if (!res.ok) throw new Error('Failed to update active status');
+
+        return 1;
+    } catch (error) {
+        return 0;
+    }
+}
+
+export async function fetchAgentsByParent(id:string): Promise<AgentInfo[]> {
+    const query = new URLSearchParams();
+    query.append('id', id);
+    const res = await fetch(`/api/agents?${query.toString()}`);
     const data = await res.json();
     return data;
 }

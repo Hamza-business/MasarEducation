@@ -219,3 +219,15 @@ export function uniquenessError(msg:string) {
 }
 
 
+export function agentActivationToggleSuccess(status:boolean) {
+  toast.success(`✅ Agent was ${status?"reActivated" : "DeActivated"}!`, {
+    description: `Agent was ${status?"reActivated" : "DeActivated"} successfully`,
+    duration: 4000,
+  });
+}
+export function agentActivationToggleFailed(status:boolean) {
+  toast.success(`Failed to ${status?"reActivate" : "DeActivate"} Agent!`, {
+    description: `Failed to ${status?"reActivated" : "DeActivated"} Agent. Please try again.`,
+    duration: 4000,
+  });
+}

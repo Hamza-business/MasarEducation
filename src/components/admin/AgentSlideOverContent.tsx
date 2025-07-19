@@ -11,6 +11,11 @@ import { convertDate } from '@/lib/global';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { Skeleton } from '../ui/skeleton';
 import { useEffect, useState } from 'react';
+import { BiHide, BiShow } from 'react-icons/bi';
+import ConfirmActionDialog from '../custom/confirm-action-dialog';
+import ConfirmDeleteDialog from '../custom/confirm-delete-dialog';
+import { onToggleAgentActive } from '@/lib/agent';
+import { agentActivationToggleFailed, agentActivationToggleSuccess } from '../notifications/toast';
 
 async function getAgentImageById(id: number): Promise<agentImageType | null> {
   try {
@@ -24,11 +29,13 @@ async function getAgentImageById(id: number): Promise<agentImageType | null> {
   }
 }
 
-export default function AgentSlideOverContent({selectedAgent}:{selectedAgent:AgentInfo}){
+export default function AgentSlideOverContent({selectedAgent, setSelectedAgent}:{selectedAgent:AgentInfo, setSelectedAgent:(selectedAgent:AgentInfo)=>void}){
     const [loaded, setLoaded] = useState(false);
+    const [activests, setActivests] = useState(true);
 
     useEffect(() => {
         setLoaded(false);
+        setActivests(selectedAgent.active);
         (async ()=>{
             const data = await getAgentImageById(selectedAgent.id);
             if(data){
@@ -43,6 +50,67 @@ export default function AgentSlideOverContent({selectedAgent}:{selectedAgent:Age
     return(
         <>
             <div className="flex gap-3 mb-4 justify-end md:">
+                {activests && (
+                    <ConfirmDeleteDialog
+                        onConfirm={async ()=>{
+                            const sts = await onToggleAgentActive(selectedAgent.id, !selectedAgent.active);
+                            if(sts){
+                                agentActivationToggleSuccess(!selectedAgent.active);
+                                selectedAgent.active=!selectedAgent.active
+                                setSelectedAgent({...selectedAgent, active:selectedAgent.active});
+                                setActivests(!activests);
+                            } else{
+                                agentActivationToggleFailed(!selectedAgent.active)
+                            }
+                        }}
+                        description={
+                            <>
+                                <strong className="mb-1">Are you sure you want to deActivate this Agent?</strong>
+                                <span className="px-2 mb-2 block">
+                                    • DeActivating it will cause users to not able to create orders again from this agent.
+                                </span>
+                                <span className="px-2 mb-2 block">
+                                    • Users will be redirected to its parent agent ordering page.
+                                </span>
+                            </>
+                        }
+                        confirmText="DeActivate This Plan"
+                    >
+                        <Button
+                            variant="outline"
+                            className="text-red-500 hover:bg-red-500 hover:text-white border border-red-500 px-4 py-2 rounded-md w-30 meow"
+                        > <BiHide /> Deactivate</Button>
+                    </ConfirmDeleteDialog>
+                )}
+                {!activests && (
+                    <ConfirmActionDialog
+                        onConfirm={async ()=>{
+                            const sts = await onToggleAgentActive(selectedAgent.id, !selectedAgent.active);
+                            if(sts){
+                                agentActivationToggleSuccess(!selectedAgent.active);
+                                selectedAgent.active=!selectedAgent.active
+                                setSelectedAgent({...selectedAgent, active:selectedAgent.active});
+                                setActivests(!activests);
+                            } else{
+                                agentActivationToggleFailed(!selectedAgent.active);
+                            }
+                        }}
+                        description={
+                            <>
+                                <strong className="mb-1">Are you sure you want to reActivate this Agent?</strong>
+                                <span className="px-2 mb-2 block">
+                                    • ReActivating it will cause users to be able to create orders again from this agent.
+                                </span>
+                            </>
+                        }
+                        confirmText="Activate This Plan"
+                    >
+                        <Button
+                            variant="outline"
+                            className="text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white px-4 py-2 rounded-md w-30"
+                        ><BiShow /> Reactivate</Button>
+                    </ConfirmActionDialog>
+                )}
                 <a href={`/orders/insurance/${""}/manage`} className="cursor-pointer">
                     <Button className="cursor-pointer"><MdOutlineRemoveRedEye /> Orders & Subagents <IoMdArrowDropright /></Button>
                 </a>
@@ -51,8 +119,8 @@ export default function AgentSlideOverContent({selectedAgent}:{selectedAgent:Age
             {/* Order Status */}
             <div className="mb-4 flex items-center gap-2 justify-between">
                 <div>
-                    <span className={`px-3 py-1 rounded-sm text-sm font-medium ${selectedAgent.active ? "bg-green-200 text-green-800" : "bg-red-200 text-red-800"}`}>
-                        {selectedAgent.active ? "Active" : "Inactive"}
+                    <span className={`px-3 py-1 rounded-sm text-sm font-medium ${activests ? "bg-green-200 text-green-800" : "bg-red-200 text-red-800"}`}>
+                        {activests ? "Active" : "Inactive"}
                     </span>
                 </div>
                 <div className="flex items-center gap-x-2">

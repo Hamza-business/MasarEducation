@@ -6,7 +6,7 @@ import {AgentInfo} from '@/types/all';
 import { AgentsTable } from '@/components/admin/AgentsTable';
 import { Button } from '@/components/ui/button';
 import { CgAddR } from 'react-icons/cg';
-import { fetchAgentsByParent } from '@/lib/apis';
+import { fetchAgentsByParent } from '@/lib/agent';
 import CreateAgentFormDialog from '@/components/admin/CreateAgentFormDialog';
 import AgentSlideOverContent from '@/components/admin/AgentSlideOverContent';
 
@@ -41,7 +41,7 @@ export default function AgentsManagement() {
 
             <SlideOver open={open} onClose={() => setOpen(false)} title={`Agent: ${selectedAgent?.agent_name}`}>
                 {selectedAgent && (
-                    <AgentSlideOverContent selectedAgent={selectedAgent}/>
+                    <AgentSlideOverContent selectedAgent={selectedAgent} setSelectedAgent={setSelectedAgent}/>
                 )}
             </SlideOver>
 
