@@ -15,7 +15,7 @@ import { useParams } from 'next/navigation';
 
 export default function AgentsManagement() {
     const params = useParams();
-    const parent = typeof params?.parent === 'string' && params.parent ? params.parent : '1';
+    const parent = typeof params?.child === 'string' && params.child ? params.child : typeof params?.parent === 'string' && params.parent ? params.parent : '1';
 
     const [parentid, setParentid] = useState<number>(1);
     const [parentLVL, setParentLVL] = useState<number>(1);
@@ -26,6 +26,7 @@ export default function AgentsManagement() {
     const [filtered, setFiltered] = useState<AgentInfo[]>([]);
 
     useEffect(() => {
+        console.log(parent);
         fetchAgentByCode(parent).then( res => {
             setParentid(res.id);
             setParentLVL(res.lvl);
