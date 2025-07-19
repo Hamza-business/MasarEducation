@@ -14,20 +14,8 @@ import { useEffect, useState } from 'react';
 import { BiHide, BiShow } from 'react-icons/bi';
 import ConfirmActionDialog from '../custom/confirm-action-dialog';
 import ConfirmDeleteDialog from '../custom/confirm-delete-dialog';
-import { onToggleAgentActive } from '@/lib/agent';
+import { getAgentImageById, onToggleAgentActive } from '@/lib/agent';
 import { agentActivationToggleFailed, agentActivationToggleSuccess } from '../notifications/toast';
-
-async function getAgentImageById(id: number): Promise<agentImageType | null> {
-  try {
-    const res = await fetch(`/api/agents/${id}/image`);
-    if (!res.ok) throw new Error("Failed to fetch agent image");
-    const data = await res.json();
-    return data as agentImageType;
-  } catch (error) {
-    console.error("Error fetching agent image:", error);
-    return null;
-  }
-}
 
 export default function AgentSlideOverContent(
     {
@@ -49,11 +37,16 @@ export default function AgentSlideOverContent(
         setLoaded(false);
         setActivests(selectedAgent.active);
         (async ()=>{
+            if(selectedAgent.image.data){
+                setLoaded(true);
+                return
+            }
             const data = await getAgentImageById(selectedAgent.id);
             if(data){
                 selectedAgent.image.data = data?.data;
                 selectedAgent.image.mimetype = data?.mimetype;
                 selectedAgent.image.name = data?.name;
+                setAgents([...agents]);
                 setLoaded(true);
             }
         })()

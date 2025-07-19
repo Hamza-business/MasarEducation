@@ -112,3 +112,15 @@ export async function fetchAgentsByParent(id:string): Promise<AgentInfo[]> {
     const data = await res.json();
     return data;
 }
+
+export async function getAgentImageById(id: number): Promise<agentImageType | null> {
+  try {
+    const res = await fetch(`/api/agents/${id}/image`);
+    if (!res.ok) throw new Error("Failed to fetch agent image");
+    const data = await res.json();
+    return data as agentImageType;
+  } catch (error) {
+    console.error("Error fetching agent image:", error);
+    return null;
+  }
+}
