@@ -11,7 +11,7 @@ import { validateInsurancePackage } from "@/components/validations/validateInsur
 import { somethingWentWrong, toastValidationErorr, uniquenessError } from "../notifications/toast";
 import ImageUploadTab from "./AgentFormDialog/ImageUploadTab";
 import PreviewTab from "./AgentFormDialog/PreviewTab";
-import { checkUniqueEmail, checkUniqueLink, storeAgentInfoToDB, storeOwnerInfoToDB, uploadAgentLogoToDB } from "@/lib/createAgent";
+import { checkUniqueEmail, checkUniqueLink, storeAgentInfoToDB, storeOwnerInfoToDB, uploadAgentLogoToDB } from "@/lib/agent";
 
 type Props = {
     agents: AgentInfo[];

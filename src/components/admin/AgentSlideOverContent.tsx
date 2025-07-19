@@ -1,58 +1,135 @@
 'use client';
 import { IoMdArrowDropright } from 'react-icons/io';
-import { TbSettings2 } from 'react-icons/tb';
-import { PiUserListDuotone } from 'react-icons/pi';
 import { FaPhoneAlt } from 'react-icons/fa';
 import { FiPackage } from 'react-icons/fi';
 import { IoLocationOutline } from 'react-icons/io5';
-import { agentImageType, AgentInfo, oredrStatus } from '@/types/all';
+import { AgentInfo } from '@/types/all';
 import { Button } from '@/components/ui/button';
 import { convertDate } from '@/lib/global';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { Skeleton } from '../ui/skeleton';
 import { useEffect, useState } from 'react';
+import { BiHide, BiShow } from 'react-icons/bi';
+import ConfirmActionDialog from '../custom/confirm-action-dialog';
+import ConfirmDeleteDialog from '../custom/confirm-delete-dialog';
+import { getAgentImageById, onToggleAgentActive } from '@/lib/agent';
+import { agentActivationToggleFailed, agentActivationToggleSuccess } from '../notifications/toast';
+import LineField from '../custom/LineField';
+import { BsBuildings } from "react-icons/bs";
+import { TbUserShield } from 'react-icons/tb';
+import { usePathname } from 'next/navigation';
 
-async function getAgentImageById(id: number): Promise<agentImageType | null> {
-  try {
-    const res = await fetch(`/api/agents/${id}/image`);
-    if (!res.ok) throw new Error("Failed to fetch agent image");
-    const data = await res.json();
-    return data as agentImageType;
-  } catch (error) {
-    console.error("Error fetching agent image:", error);
-    return null;
-  }
-}
-
-export default function AgentSlideOverContent({selectedAgent}:{selectedAgent:AgentInfo}){
+export default function AgentSlideOverContent(
+    {
+        selectedAgent, 
+        setSelectedAgent,
+        agents,
+        setAgents
+    }:{
+        selectedAgent:AgentInfo,
+        setSelectedAgent:(selectedAgent:AgentInfo)=>void,
+        agents: AgentInfo[],
+        setAgents: (agents:AgentInfo[])=>void,
+    }
+){
     const [loaded, setLoaded] = useState(false);
+    const [activests, setActivests] = useState(true);
+    const pathname = usePathname().split('/')[1];
 
     useEffect(() => {
         setLoaded(false);
+        setActivests(selectedAgent.active);
         (async ()=>{
+            if(selectedAgent.image.data){
+                setLoaded(true);
+                return
+            }
             const data = await getAgentImageById(selectedAgent.id);
             if(data){
                 selectedAgent.image.data = data?.data;
                 selectedAgent.image.mimetype = data?.mimetype;
                 selectedAgent.image.name = data?.name;
+                setAgents([...agents]);
                 setLoaded(true);
             }
         })()
     }, [selectedAgent]);
 
+
     return(
         <>
-            <div className="flex gap-3 mb-4 justify-end md:">
-                <a href={`/orders/insurance/${""}/manage`} className="cursor-pointer">
+            <div className="flex gap-3 mb-4 justify-end">
+                {activests && (
+                    <ConfirmDeleteDialog
+                        onConfirm={async ()=>{
+                            const sts = await onToggleAgentActive(selectedAgent.id, !selectedAgent.active);
+                            if(sts){
+                                agentActivationToggleSuccess(!selectedAgent.active);
+                                selectedAgent.active=!selectedAgent.active
+                                setAgents([...agents]);
+                                setActivests(!activests);
+                            } else{
+                                agentActivationToggleFailed(!selectedAgent.active)
+                            }
+                        }}
+                        description={
+                            <>
+                                <strong className="mb-1">Are you sure you want to deActivate this Agent?</strong>
+                                <span className="px-2 mb-2 block">
+                                    • DeActivating it will cause users to not able to create orders again from this agent.
+                                </span>
+                                <span className="px-2 mb-2 block">
+                                    • Users will be redirected to its parent agent ordering page.
+                                </span>
+                            </>
+                        }
+                        confirmText="DeActivate This Plan"
+                    >
+                        <Button
+                            variant="outline"
+                            className="text-red-500 hover:bg-red-500 hover:text-white border border-red-500 px-4 py-2 rounded-md w-30 meow"
+                        > <BiHide /> Deactivate</Button>
+                    </ConfirmDeleteDialog>
+                )}
+                {!activests && (
+                    <ConfirmActionDialog
+                        onConfirm={async ()=>{
+                            const sts = await onToggleAgentActive(selectedAgent.id, !selectedAgent.active);
+                            if(sts){
+                                agentActivationToggleSuccess(!selectedAgent.active);
+                                selectedAgent.active=!selectedAgent.active
+                                setAgents([...agents]);
+                                setActivests(!activests);
+                            } else{
+                                agentActivationToggleFailed(!selectedAgent.active);
+                            }
+                        }}
+                        description={
+                            <>
+                                <strong className="mb-1">Are you sure you want to reActivate this Agent?</strong>
+                                <span className="px-2 mb-2 block">
+                                    • ReActivating it will cause users to be able to create orders again from this agent.
+                                </span>
+                            </>
+                        }
+                        confirmText="Activate This Plan"
+                    >
+                        <Button
+                            variant="outline"
+                            className="text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white px-4 py-2 rounded-md w-30"
+                        ><BiShow /> Reactivate</Button>
+                    </ConfirmActionDialog>
+                )}
+                <a href={`/${pathname}/agents/${selectedAgent.url}`} className="cursor-pointer">
                     <Button className="cursor-pointer"><MdOutlineRemoveRedEye /> Orders & Subagents <IoMdArrowDropright /></Button>
                 </a>
             </div>
 
             {/* Order Status */}
-            <div className="mb-4 flex items-center gap-2 justify-between">
+            <div className="mb-6 flex items-center gap-2 justify-between">
                 <div>
-                    <span className={`px-3 py-1 rounded-sm text-sm font-medium ${selectedAgent.active ? "bg-green-200 text-green-800" : "bg-red-200 text-red-800"}`}>
-                        {selectedAgent.active ? "Active" : "Inactive"}
+                    <span className={`px-3 py-1 rounded-sm text-sm font-medium ${activests ? "bg-green-200 text-green-800" : "bg-red-200 text-red-800"}`}>
+                        {activests ? "Active" : "Inactive"}
                     </span>
                 </div>
                 <div className="flex items-center gap-x-2">
@@ -68,61 +145,34 @@ export default function AgentSlideOverContent({selectedAgent}:{selectedAgent:Age
                 <Skeleton className='w-full h-30'/>
             )}
 
-            {/* User + Contact/Location in Grid */}
-            <div className="mb-8 mt-8 border-b pb-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-3 relative">
-                    {/* Vertical divider */}
-                    <div className="hidden md:block absolute inset-y-0 left-1/2 w-px bg-gray-200 dark:bg-zinc-700" />
-
-                    {/* User Info */}
-                    <div className="pl-3 space-y-6">
-                        <div>
-                            <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                                <PiUserListDuotone className='w-6 h-6' /> User Information
-                            </h3>
-                            <div className="space-y-1 text-sm">
-                                {/* <p><strong>Name:</strong> {selectedOrder?.user.name}</p>
-                                <p><strong>Nationality:</strong> {selectedOrder?.user.nationality}</p>
-                                <p><strong>Date of Birth:</strong> {selectedOrder?.user.dob}</p> */}
-                            </div>
+            <div className="mt-6 px-2">
+                <div className="p-0 gap-2 mb-6">
+                    <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
+                        <BsBuildings className='w-6 h-6' /> Agent Information
+                    </h3>
+                    <div className="grid grid-cols-1 gap-y-3 gap-x-0 text-sm px-2">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm px-0">
+                            <LineField label="Agent Name" value={selectedAgent?.agent_name} />
+                            <LineField label="Percent" value={selectedAgent?.percent + "%"} />
                         </div>
-                        {/* Contact Info */}
-                        <div>
-                            <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                                <FaPhoneAlt className='w-4 h-4' /> Contact Information
-                            </h3>
-                            <div className="space-y-1 text-sm">
-                                {/* <p><strong>Email:</strong> {selectedOrder?.contact.email}</p>
-                                <p><strong>Phone:</strong> {selectedOrder?.contact.phone}</p> */}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Contact + Location */}
-                    <div className="pl-4">
-                        <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                            <IoLocationOutline className='w-5 h-5' /> Location
-                        </h3>
-                        <div className="space-y-1 text-sm">
-                            {/* <p><strong>Region:</strong> {selectedOrder?.location.region}</p>
-                            <p><strong>District:</strong> {selectedOrder?.location.district}</p>
-                            <p><strong>Neighbourhood:</strong> {selectedOrder?.location.neighbourhood}</p>
-                            <p><strong>Street:</strong> {selectedOrder?.location.street}</p>
-                            <p><strong>Building No:</strong> {selectedOrder?.location.buildingNo}</p>
-                            <p><strong>Apartment No:</strong> {selectedOrder?.location.apartmentNo}</p> */}
-                        </div>
+                        <LineField label="Agent Referral Link" value={`https://masar.edu/${selectedAgent?.url}/services/insurance/order`} type={"link"} style={"text-blue-500"}/>
+                        <LineField label="Dashboard Portal" value={"https://masar.edu/agent"} type={"link"} style={"text-blue-500"}/>
                     </div>
                 </div>
             </div>
 
-            {/* Plan Info */}
-            <div className="mb-6 pl-3">
-                <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                    <FiPackage className='w-5 h-5' /> Plan Details
-                </h3>
-                <div className="space-y-1 text-sm">
-                    {/* <p><strong>Plan Name:</strong> {selectedOrder?.plan.name}</p>
-                    <p><strong>Paid Price:</strong> {selectedOrder?.plan.price}</p> */}
+            <hr />
+            
+            <div className="mt-6 px-2">
+                <div className="p-0 gap-2 mb-6">
+                    <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
+                        <TbUserShield className='w-6 h-6' /> Owner Information
+                    </h3>
+                    <div className="grid grid-cols-1 gap-y-3 gap-x-0 text-sm px-2">
+                        <LineField label="Email" value={`${selectedAgent?.user?.email}.agent@masare.edu`} />
+                        <LineField label="Password" value={selectedAgent?.user?.password} />
+                        <LineField label="Name" value={selectedAgent?.user?.name} />
+                    </div>
                 </div>
             </div>
         </>

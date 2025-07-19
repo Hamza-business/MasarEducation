@@ -1,4 +1,4 @@
-import { agentImageType, agentInfoType, agentUserType } from "@/types/all";
+import { agentImageType, agentInfoType, agentUserType, AgentInfo } from "@/types/all";
 
 export async function checkUniqueEmail(email: string): Promise<boolean> {
   try {
@@ -84,4 +84,51 @@ export async function storeAgentInfoToDB(info: agentInfoType): Promise<agentInfo
     });
     const data = await res.json();
     return data;
+}
+
+
+export async function onToggleAgentActive(id: number, desiredState: boolean){
+    try {
+        const res = await fetch(`/api/agents/${id}/toggle-active`, {
+            method: 'PATCH',
+            body: JSON.stringify({ active: desiredState }),
+            headers: {
+            'Content-Type': 'application/json',
+            },
+        });
+
+        if (!res.ok) throw new Error('Failed to update active status');
+
+        return 1;
+    } catch (error) {
+        return 0;
+    }
+}
+
+export async function fetchAgentsByParent(id:string): Promise<AgentInfo[]> {
+    const query = new URLSearchParams();
+    query.append('id', id);
+    const res = await fetch(`/api/agents?${query.toString()}`);
+    const data = await res.json();
+    return data;
+}
+export async function fetchAgentByCode(parent:string): Promise<AgentInfo> {
+    const query = new URLSearchParams();
+    query.append('parent', parent);
+    const res = await fetch(`/api/agent?${query.toString()}`);
+    const data = await res.json();
+    return data;
+}
+
+
+export async function getAgentImageById(id: number): Promise<agentImageType | null> {
+  try {
+    const res = await fetch(`/api/agents/${id}/image`);
+    if (!res.ok) throw new Error("Failed to fetch agent image");
+    const data = await res.json();
+    return data as agentImageType;
+  } catch (error) {
+    console.error("Error fetching agent image:", error);
+    return null;
+  }
 }
