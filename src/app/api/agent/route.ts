@@ -11,7 +11,8 @@ export async function GET(req: NextRequest) {
         const result = await sql.query(  `
           SELECT
             ai.id,
-            ai.lvl
+            ai.lvl,
+            ai.name as agent_name
           FROM agents.agent_info ai
           WHERE ai.url = $1
         `,[parent]);

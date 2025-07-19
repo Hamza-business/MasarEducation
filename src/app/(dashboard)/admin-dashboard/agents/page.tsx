@@ -9,7 +9,6 @@ import { CgAddR } from 'react-icons/cg';
 import { fetchAgentByCode, fetchAgentsByParent } from '@/lib/agent';
 import CreateAgentFormDialog from '@/components/admin/CreateAgentFormDialog';
 import AgentSlideOverContent from '@/components/admin/AgentSlideOverContent';
-import { FC } from "react";
 import { useParams } from 'next/navigation';
 
 
@@ -19,6 +18,7 @@ export default function AgentsManagement() {
 
     const [parentid, setParentid] = useState<number>(1);
     const [parentLVL, setParentLVL] = useState<number>(1);
+    const [agentName, setAgentName] = useState<string>("");
     const [open, setOpen] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
     const [agents, setAgents] = useState<AgentInfo[]>([]);
@@ -26,10 +26,10 @@ export default function AgentsManagement() {
     const [filtered, setFiltered] = useState<AgentInfo[]>([]);
 
     useEffect(() => {
-        console.log(parent);
         fetchAgentByCode(parent).then( res => {
             setParentid(res.id);
             setParentLVL(res.lvl);
+            setAgentName(res.agent_name)
             fetchAgentsByParent(parentid.toString()).then(data => {
                 setAgents(data);
                 setFiltered(data);
@@ -42,7 +42,7 @@ export default function AgentsManagement() {
             <div className="flex justify-between items-center mb-6">
                 <div className=''>
                     <h1 className='text-2xl font-bold'>Agents</h1>
-                    <p className='text-muted-foreground text-sm'>Manage Agents</p>
+                    <p className='text-muted-foreground text-sm mt-0.5'>Manage <span className='font-semibold text-zinc-600 dark:text-gray-300'>{agentName}&#39;</span>s Agents</p>
                 </div>
                 <Button onClick={()=>{setOpenDialog(true)}}><CgAddR /> Create New Agent</Button>
             </div>
