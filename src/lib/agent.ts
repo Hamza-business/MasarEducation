@@ -112,6 +112,14 @@ export async function fetchAgentsByParent(id:string): Promise<AgentInfo[]> {
     const data = await res.json();
     return data;
 }
+export async function fetchAgentByCode(parent:string): Promise<AgentInfo> {
+    const query = new URLSearchParams();
+    query.append('parent', parent);
+    const res = await fetch(`/api/agent?${query.toString()}`);
+    const data = await res.json();
+    return data;
+}
+
 
 export async function getAgentImageById(id: number): Promise<agentImageType | null> {
   try {

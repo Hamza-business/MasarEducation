@@ -6,14 +6,19 @@ import {AgentInfo} from '@/types/all';
 import { AgentsTable } from '@/components/admin/AgentsTable';
 import { Button } from '@/components/ui/button';
 import { CgAddR } from 'react-icons/cg';
-import { fetchAgentsByParent } from '@/lib/agent';
+import { fetchAgentByCode, fetchAgentsByParent } from '@/lib/agent';
 import CreateAgentFormDialog from '@/components/admin/CreateAgentFormDialog';
 import AgentSlideOverContent from '@/components/admin/AgentSlideOverContent';
+import { FC } from "react";
+import { useParams } from 'next/navigation';
 
 
 export default function AgentsManagement() {
-    const parentid = 1;
-    const parentLVL = 1;
+    const params = useParams();
+    const parent = typeof params?.parent === 'string' && params.parent ? params.parent : '1';
+
+    const [parentid, setParentid] = useState<number>(1);
+    const [parentLVL, setParentLVL] = useState<number>(1);
     const [open, setOpen] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
     const [agents, setAgents] = useState<AgentInfo[]>([]);
@@ -21,10 +26,14 @@ export default function AgentsManagement() {
     const [filtered, setFiltered] = useState<AgentInfo[]>([]);
 
     useEffect(() => {
-        fetchAgentsByParent(parentid.toString()).then(data => {
-            setAgents(data);
-            setFiltered(data);
-        });
+        fetchAgentByCode(parent).then( res => {
+            setParentid(res.id);
+            setParentLVL(res.lvl);
+            fetchAgentsByParent(parentid.toString()).then(data => {
+                setAgents(data);
+                setFiltered(data);
+            });
+        })
     }, []);
 
     return (
