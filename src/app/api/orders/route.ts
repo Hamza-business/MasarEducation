@@ -73,7 +73,7 @@ export async function GET(request: Request) {
       },
       plan: {
         name: row.plan,
-        price: `$${row.price}`,
+        price: `₺ ${row.price}`,
       },
       location: {
         region: row.region_name,
