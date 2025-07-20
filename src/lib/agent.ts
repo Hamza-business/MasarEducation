@@ -121,6 +121,7 @@ export async function fetchAgentByCode(parent:string): Promise<AgentInfo> {
 }
 
 
+
 export async function getAgentImageById(id: number): Promise<agentImageType | null> {
   try {
     const res = await fetch(`/api/agents/${id}/image`);

@@ -80,8 +80,13 @@ export default function InsuranceOrderingPage() {
     useEffect(() => {
         const parent = typeof params?.child === 'string' && params.child ? params.child : typeof params?.parent === 'string' && params.parent ? params.parent : '1';
         fetchAgentByCode(parent).then(res => {
-            setParentid(res.id);
-        });
+            if(res.active)
+              setParentid(res.id);
+            else
+              window.location.href = "/services/insurance/order";
+        }).catch((err)=>{
+            window.location.href = "/services/insurance/order";
+        })
     }, []);
 
   useEffect(() => {
