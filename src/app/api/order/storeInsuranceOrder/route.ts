@@ -8,10 +8,18 @@ export async function POST(req: Request) {
 
     const result = await prisma.insurance_order.create({
       data: {
-        track_code: body.trackCode,
-        personinfo: body.personInfo,
-        insurance_application: body.insuranceApplication,
-        receipt: body.receipt,
+        track_code: body.order.trackCode,
+        personinfo: body.order.personInfo,
+        insurance_application: body.order.insuranceApplication,
+        receipt: body.order.receipt,
+      },
+      select: { id: true },
+    });
+
+    const result2 = await prisma.insurance_order_agent.create({
+      data: {
+        agent: parseInt(body.agent),
+        order: result.id,
       },
       select: { id: true },
     });

@@ -6,7 +6,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  schemas  = ["files", "insurances", "locations", "public"]
+  schemas  = ["agents", "files", "insurances", "locations", "public"]
 }
 
 model insurance_reports {
@@ -128,19 +128,20 @@ model insurance_application {
 }
 
 model insurance_order {
-  id                                                                                 Int                   @id @default(autoincrement())
-  status                                                                             oredrStatus           @default(pending)
-  track_code                                                                         String                @unique
+  id                                                                                 Int                     @id @default(autoincrement())
+  status                                                                             oredrStatus             @default(pending)
+  track_code                                                                         String                  @unique
   personinfo                                                                         Int
   insurance_application                                                              Int
   receipt                                                                            Int
-  created_at                                                                         DateTime?             @default(now()) @db.Timestamp(6)
+  created_at                                                                         DateTime?               @default(now()) @db.Timestamp(6)
   msg                                                                                String?
-  finish_date                                                                        DateTime?             @db.Date
+  finish_date                                                                        DateTime?               @db.Date
+  insurance_order_agent                                                              insurance_order_agent[]
   insurance_files                                                                    insurance_files[]
-  insurance_application_insurance_order_insurance_applicationToinsurance_application insurance_application @relation("insurance_order_insurance_applicationToinsurance_application", fields: [insurance_application], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "insurance_application")
-  personinfo_insurance_order_personinfoTopersoninfo                                  personinfo            @relation("insurance_order_personinfoTopersoninfo", fields: [personinfo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "personinfo")
-  receipts                                                                           receipts              @relation(fields: [receipt], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "receipt")
+  insurance_application_insurance_order_insurance_applicationToinsurance_application insurance_application   @relation("insurance_order_insurance_applicationToinsurance_application", fields: [insurance_application], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "insurance_application")
+  personinfo_insurance_order_personinfoTopersoninfo                                  personinfo              @relation("insurance_order_personinfoTopersoninfo", fields: [personinfo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "personinfo")
+  receipts                                                                           receipts                @relation(fields: [receipt], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "receipt")
 
   @@schema("insurances")
 }
@@ -152,6 +153,66 @@ model bank {
   tiban String
   diban String
   eiban String
+
+  @@schema("public")
+}
+
+model agent_info {
+  id                    Int                     @id @default(autoincrement())
+  parent_agent          Int?
+  userid                Int
+  agent_image           Int
+  percent               Float                   @db.Real
+  name                  String
+  lvl                   Int                     @default(2)
+  created_at            DateTime?               @default(now()) @db.Timestamp(6)
+  active                Boolean?                @default(true)
+  url                   String                  @unique
+  agent_images          agent_images            @relation(fields: [agent_image], references: [id], onDelete: SetNull, onUpdate: NoAction, map: "imagelink")
+  agent_info            agent_info?             @relation("agent_infoToagent_info", fields: [parent_agent], references: [id], onUpdate: NoAction, map: "parent_agent_fk")
+  other_agent_info      agent_info[]            @relation("agent_infoToagent_info")
+  users                 users                   @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "userlink")
+  insurance_order_agent insurance_order_agent[]
+
+  @@schema("agents")
+}
+
+model insurance_order_agent {
+  id              Int             @id @default(autoincrement())
+  agent           Int
+  order           Int
+  agent_info      agent_info      @relation(fields: [agent], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "agentid")
+  insurance_order insurance_order @relation(fields: [order], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "orderid")
+
+  @@schema("agents")
+}
+
+model users {
+  id         Int          @id @default(autoincrement())
+  email      String       @unique
+  password   String
+  name       String
+  created_at DateTime?    @default(now()) @db.Timestamp(6)
+  agent_info agent_info[]
+  admins     admins?
+
+  @@schema("agents")
+}
+
+model agent_images {
+  id         Int          @id @default(autoincrement())
+  name       String
+  mimetype   String
+  data       String
+  agent_info agent_info[]
+
+  @@schema("files")
+}
+
+model admins {
+  id     Int   @id @default(autoincrement())
+  userid Int   @unique
+  users  users @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userAdmin")
 
   @@schema("public")
 }
