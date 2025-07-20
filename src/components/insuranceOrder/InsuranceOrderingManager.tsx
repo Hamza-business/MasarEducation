@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
-import { PassportFile, ReceiptFile, PersonInfo, InsuranceApplication, Country, BankInfo, PlanWithPrice, InsuranceOrder } from '@/types/all';
+import { PassportFile, ReceiptFile, PersonInfo, InsuranceApplication, Country, BankInfo, PlanWithPrice, InsuranceOrder, agentImageType } from '@/types/all';
 import PersonalInfoStep from './steps/PersonalInfoStep';
 import LivinginformationStep from './steps/LivingInformationStep';
 import BankInfoStep from './steps/BankInfoStep';
@@ -17,12 +17,16 @@ import PassportUploadStep from './steps/PassportUploadStep';
 import PlanSelectorStep from './steps/PlanSelectorStep';
 import { toastMissingErorr } from '../notifications/toast';
 import { Container } from '@/app/(site)/container';
+import { useParams } from 'next/navigation';
+import { fetchAgentByCode, getAgentImageById } from '@/lib/agent';
+import { Skeleton } from '../ui/skeleton';
 
 // Constants
 const TOTAL_STEPS = 7;
 
 export default function InsuranceOrderingPage() {
   const [step, setStep] = useState<number>(1);
+  const params = useParams();
 
   // Shared state across steps
   const [insuranceOrder, setInsuranceOrder] = useState<InsuranceOrder>({
@@ -55,6 +59,9 @@ export default function InsuranceOrderingPage() {
   const [bankInfo, setBankInfo] = useState<BankInfo | null>(null);
   const [regions, setRegions] = useState<{ id: number; name: string }[]>([]);
   const [availablePlans, setAvailablePlans] = useState<PlanWithPrice[]>([]);
+  const [loaded, setLoaded] = useState(false);
+  const [parentid, setParentid] = useState<number>(0);
+  const [agentImage, setAgentImage] = useState<agentImageType>();
   
   useEffect(() => {
     fetch("/api/locations/bank-info")
@@ -69,6 +76,33 @@ export default function InsuranceOrderingPage() {
       .then(setRegions)
       .catch(err => {});
   }, []);
+
+    useEffect(() => {
+        const parent = typeof params?.child === 'string' && params.child ? params.child : typeof params?.parent === 'string' && params.parent ? params.parent : '1';
+        fetchAgentByCode(parent).then(res => {
+            if(res.active)
+              setParentid(res.id);
+            else
+              window.location.href = "/services/insurance/order";
+        }).catch((err)=>{
+            window.location.href = "/services/insurance/order";
+        })
+    }, []);
+
+  useEffect(() => {
+    setLoaded(false);
+    (async ()=>{
+      if(parentid && parentid!=1){
+          const data = await getAgentImageById(parentid);
+          if(data){
+              setAgentImage(data);
+              setLoaded(true);
+          }
+      } else if(parentid==1){
+          setLoaded(true);
+      }
+    })()
+}, [parentid]);
 
   const goNext = (validate?: () => string[]) => {
       const errors = validate?.() ?? [];
@@ -89,11 +123,23 @@ export default function InsuranceOrderingPage() {
       <Container>
           <div className="max-w-3xl mx-auto py-0 space-y-6">
               <div className="w-full">
-                <img
-                  src="/logo.png"
-                  alt="Banner"
-                  className="w-full object-cover rounded-sm min-h-30"
-                />
+                {loaded && parentid != 1 && (
+                  <img
+                    src={`data:${agentImage?.mimetype};base64,${agentImage?.data}`}
+                    alt="Banner"
+                    className="w-full object-cover rounded-sm min-h-30"
+                  />
+                )}
+                {parentid == 1 && (
+                  <img
+                    src="/logo.png"
+                    alt="Banner"
+                    className="w-full object-cover rounded-sm min-h-30"
+                  />
+                )}
+                {!loaded && (
+                  <Skeleton className='w-full h-40'/>
+                )}
               </div>
               <div className="text-center font-semibold text-xl mb-3 flex justify-between items-center">
                 <span className='flex justify-center gap-1 items-center text-blue-500'>
@@ -246,6 +292,7 @@ export default function InsuranceOrderingPage() {
                   onBack={goBack}
                   step={step}
                   setStep={setStep}
+                  parentid={parentid}
                 />
               )}
 

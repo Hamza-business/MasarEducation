@@ -14,74 +14,84 @@ export const orders:string[] = ["insurance"];
 export const agents:string[] = ["Manage Agents"];
 
 export const linksInfo = {
-    "admin-dashboard":{
-        href: "/admin-dashboard",
+    "admin":{
+        href: "",
         label: "Admin Dashboard",
         icon: <MdOutlineAdminPanelSettings className="fn"/>
     },
     "bank-infomration": { 
-        href: "/admin-dashboard/bank-infomration", 
+        href: "/bank-infomration", 
         label: "Bank Information", 
         icon: <CiBank className="fn"/>
     },
     locations: { 
-        href: "/admin-dashboard/locations", 
+        href: "/locations", 
         label: "Locations", 
         icon: <IoLocationOutline className="fn"/>
     },
     services: { 
-        href: "/admin-dashboard/services", 
+        href: "/services", 
         label: "Services", 
         icon: <TbPackages className="fn"/>
     },
     insurance: { 
-        href:  "/admin-dashboard/services/insurance", 
+        href:  "/services/insurance", 
         label:  "Insurance", 
         icon: <LiaFileSignatureSolid className="fn"/>
     },
     orders: {
-        href:  "/admin-dashboard/orders", 
+        href:  "/orders", 
         label:  "Orders", 
         icon: <LiaFileSignatureSolid className="fn"/>
     },
     "Manage Agents": {
-        href:  "/admin-dashboard/agents", 
+        href:  "/agents", 
         label:  "Manage Agents", 
+        icon: <GoOrganization className="fn"/>
+    },
+    "agent": {
+        href:  "", 
+        label:  "Agent Dashboard", 
+        icon: <GoOrganization className="fn"/>
+    },
+    "agents": {
+        href:  "/agents", 
+        label:  "Manage My Agents", 
         icon: <GoOrganization className="fn"/>
     }
 };
 
 export const bankItems = [
     { 
-        href: "/admin-dashboard/bank-infomration", 
+        href: "/bank-infomration", 
         label: "Bank Information", 
         icon: <CiBank className="fn"/>
     },
 ];
 export const locationsItems = [
     { 
-        href: "/admin-dashboard/locations", 
+        href: "/locations", 
         label: "Locations", 
         icon: <IoLocationOutline className="fn"/>
     },
 ];
 export const servicesItems = [
     { 
-        href: "/admin-dashboard/services/insurance", 
+        href: "/services/insurance", 
         label: "Insurance", 
         icon: <LiaFileSignatureSolid className="fn"/>
     }
 ];
 export const ordersItems = [
     { 
-        href:  "/admin-dashboard/orders/insurance", 
+        href:  "/orders/insurance", 
         label:  "Insurance Orders", 
         icon: <FaSignature className="fn"/>
     },
 ]
 export const agentsItems = [
     { 
-        href:  "/admin-dashboard/agents", 
+        href:  "/agents", 
         label:  "Manage Agents", 
         icon: <GoOrganization className="fn"/>
     },

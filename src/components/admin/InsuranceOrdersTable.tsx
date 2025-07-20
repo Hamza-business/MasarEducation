@@ -23,7 +23,13 @@ export function InsuranceOrderTable(
 }) {
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState('');
-    const pathname = usePathname().split('/')[1];
+    const pathname = usePathname().split('/');
+    let pathurl = "";
+    if(pathname[1] == "admin"){
+        pathurl = pathname[1]
+    } else if (pathname[1] == "agent"){
+        pathurl = `${pathname[1]}/${pathname[2]}`
+    }
     
 
     // Pagination
@@ -93,7 +99,7 @@ export function InsuranceOrderTable(
                                 <TableCell className='px-4'>{order.user.name}</TableCell>
                                 <TableCell className='px-4'>{order.contact.email}</TableCell>
                                 <TableCell className='px-4'>{order.trackcode}</TableCell>
-                                <TableCell className='px-4'><a href={`/${pathname}/agents/${order.agent?.url}`} className='text-blue-400'>{order.agent?.name}</a></TableCell>
+                                <TableCell className='px-4'><a href={`/${pathurl}/agents/${order.agent?.url}`} className='text-blue-400'>{order.agent?.name}</a></TableCell>
                                 <TableCell className='px-4'>{convertDate(order.created_at)}</TableCell>
                                 <TableCell className="px-4 rounded-sm">
                                     <Button variant="outline" onClick={() => {

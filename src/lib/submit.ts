@@ -51,12 +51,12 @@ export async function storeApplicationToDB(application: InsuranceApplication): P
     return id;
 }
 
-export async function storeInsuranceOrderToDB(order: InsuranceOrder): Promise<number> {
+export async function storeInsuranceOrderToDB(order: InsuranceOrder, agent: string): Promise<number> {
     console.log(order);
     const res = await fetch("/api/order/storeInsuranceOrder", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(order),
+        body: JSON.stringify({order, agent}),
     });
     const data = await res.json();
     const id = data.id;

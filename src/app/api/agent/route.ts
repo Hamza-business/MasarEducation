@@ -12,7 +12,8 @@ export async function GET(req: NextRequest) {
           SELECT
             ai.id,
             ai.lvl,
-            ai.name as agent_name
+            ai.name as agent_name,
+            ai.active
           FROM agents.agent_info ai
           WHERE ai.url = $1
         `,[parent]);

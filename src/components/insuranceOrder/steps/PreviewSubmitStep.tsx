@@ -18,6 +18,7 @@ type Props = {
   insuranceOrder: InsuranceOrder;
 //   onSubmitSuccess: (trackCode: string) => void;
   step: number;
+  parentid: number;
   setStep: (stp: number) => void;
   setPersonInfo: (info: PersonInfo) => void;
   setInsuranceOrder: (info: any) => void; // Adjust as needed
@@ -32,12 +33,14 @@ export default function PreviewSubmitStep({
   receiptFile,
   insuranceOrder,
   step,
+  parentid,
   setStep,
   setPersonInfo,
   setInsuranceOrder,
   setTrackCode,
   onBack
 }: Props) {
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStep, setSubmitStep] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -107,7 +110,7 @@ export default function PreviewSubmitStep({
             receipt: receiptId,
         };
 
-        await storeInsuranceOrderToDB(newOrder);
+        await storeInsuranceOrderToDB(newOrder, parentid.toString());
 
         setInsuranceOrder(newOrder);
 

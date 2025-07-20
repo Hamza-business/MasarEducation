@@ -34,7 +34,13 @@ export default function AgentSlideOverContent(
 ){
     const [loaded, setLoaded] = useState(false);
     const [activests, setActivests] = useState(true);
-    const pathname = usePathname().split('/')[1];
+    const pathname = usePathname().split('/');
+    let pathurl = "";
+    if(pathname[1] == "admin"){
+        pathurl = pathname[1]
+    } else if (pathname[1] == "agent"){
+        pathurl = `${pathname[1]}/${pathname[2]}`
+    }
 
     useEffect(() => {
         setLoaded(false);
@@ -120,7 +126,7 @@ export default function AgentSlideOverContent(
                         ><BiShow /> Reactivate</Button>
                     </ConfirmActionDialog>
                 )}
-                <a href={`/${pathname}/agents/${selectedAgent.url}`} className="cursor-pointer">
+                <a href={`/${pathurl}/agents/${selectedAgent.url}`} className="cursor-pointer">
                     <Button className="cursor-pointer"><MdOutlineRemoveRedEye /> Orders & Subagents <IoMdArrowDropright /></Button>
                 </a>
             </div>
