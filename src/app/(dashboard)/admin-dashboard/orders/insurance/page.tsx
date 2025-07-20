@@ -52,7 +52,6 @@ export default function InsuranceOrders() {
 
             <InsuranceOrderTable orders={orders} filtered={filtered} setFiltered={setFiltered} setOpen={setOpen} setSelectedOrder={setSelectedOrder}/>
 
-
             <SlideOver open={open} onClose={() => setOpen(false)} title={`Order #${selectedOrder?.trackcode}`}>
                 <OrderSlideOverContent selectedOrder={selectedOrder}/>
             </SlideOver>
