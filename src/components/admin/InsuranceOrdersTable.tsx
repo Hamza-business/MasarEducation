@@ -30,17 +30,17 @@ export function InsuranceOrderTable(
     
     const paginated = filtered.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
-    useEffect(() => {
-        const result = orders.filter(order => {
-            const matchesSearch = [order.name, order.email, order.id].some(val =>
-                val.toLowerCase().includes(search.toLowerCase())
-            );
-            const matchesStatus = statusFilter === '' || order.status === statusFilter;
-            return matchesSearch && matchesStatus;
-        });
-        setFiltered(result);
-        setPage(1); // reset page when filtered
-    }, [search, statusFilter, orders]);
+    // useEffect(() => {
+    //     const result = orders.filter(order => {
+    //         const matchesSearch = [order.name, order.email, order.id].some(val =>
+    //             val.toLowerCase().includes(search.toLowerCase())
+    //         );
+    //         const matchesStatus = statusFilter === '' || order.status === statusFilter;
+    //         return matchesSearch && matchesStatus;
+    //     });
+    //     setFiltered(result);
+    //     setPage(1); // reset page when filtered
+    // }, [search, statusFilter, orders]);
 
     return (
         <>
@@ -75,6 +75,7 @@ export function InsuranceOrderTable(
                             <TableHead className='px-4'>Name</TableHead>
                             <TableHead className='px-4'>Email</TableHead>
                             <TableHead className='px-4'>Track Code</TableHead>
+                            <TableHead className='px-4'>Agent Name</TableHead>
                             <TableHead className='px-4'>Date</TableHead>
                             <TableHead className='px-4'>Actions</TableHead>
                         </TableRow>
@@ -87,9 +88,10 @@ export function InsuranceOrderTable(
                                         {statusMap[order.status as oredrStatus].label}
                                     </span>
                                 </TableCell>
-                                <TableCell className='px-4'>{order.name}</TableCell>
-                                <TableCell className='px-4'>{order.email}</TableCell>
+                                <TableCell className='px-4'>{order.user.name}</TableCell>
+                                <TableCell className='px-4'>{order.contact.email}</TableCell>
                                 <TableCell className='px-4'>{order.trackcode}</TableCell>
+                                <TableCell className='px-4'><a href={order.agent?.url}>{order.agent?.name}</a></TableCell>
                                 <TableCell className='px-4'>{convertDate(order.created_at)}</TableCell>
                                 <TableCell className="px-4 rounded-sm">
                                     <Button variant="outline" onClick={() => {
