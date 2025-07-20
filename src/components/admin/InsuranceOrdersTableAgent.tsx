@@ -40,7 +40,7 @@ export function InsuranceOrderTableAgent(
 
     useEffect(() => {
         const result = orders.filter(order => {
-            const matchesSearch = [order.user.name, order.contact.email, order.trackcode, order.agent?.name].some(val =>
+            const matchesSearch = [order.user.name, order.trackcode, order.agent?.name].some(val =>
                 val?.toLowerCase().includes(search.toLowerCase())
             );
             const matchesStatus = statusFilter === '' || order.status === statusFilter;
