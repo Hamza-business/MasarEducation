@@ -10,7 +10,7 @@ import {links, linksInfo, locations, services, bank} from "@/constants/dashboard
 import { IoIosArrowForward } from "react-icons/io";
 
 export function DashboardHeader() {
-  let pathname = usePathname().split("/");
+  const pathname = usePathname().split("/");
   const segments = pathname.filter(Boolean);
   let pathurl = "";
   if(pathname[1] == "admin"){
