@@ -388,6 +388,11 @@ export interface OrderDetails {
     buildingNo: string;
     apartmentNo: string;
   };
+  agent?: {
+    id: number,
+    name: string,
+    url: string,
+  },
 }
 
 export type AgentInfo = {

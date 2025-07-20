@@ -13,6 +13,7 @@ import {OrderDetails, oredrStatus} from '@/types/all';
 import { statusMap } from '@/constants/global';
 import { cn } from '@/lib/utils';
 import { convertDate } from '@/lib/global';
+import { usePathname } from 'next/navigation';
 
 export function InsuranceOrderTable(
 {
@@ -22,6 +23,7 @@ export function InsuranceOrderTable(
 }) {
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState('');
+    const pathname = usePathname().split('/')[1];
     
 
     // Pagination
@@ -32,8 +34,8 @@ export function InsuranceOrderTable(
 
     useEffect(() => {
         const result = orders.filter(order => {
-            const matchesSearch = [order.name, order.email, order.id].some(val =>
-                val.toLowerCase().includes(search.toLowerCase())
+            const matchesSearch = [order.user.name, order.contact.email, order.trackcode, order.agent?.name].some(val =>
+                val?.toLowerCase().includes(search.toLowerCase())
             );
             const matchesStatus = statusFilter === '' || order.status === statusFilter;
             return matchesSearch && matchesStatus;
@@ -46,10 +48,10 @@ export function InsuranceOrderTable(
         <>
             <div className="mb-3 flex flex-wrap gap-4 items-center justify-between">
                 <Input
-                placeholder="Search by name, email, or ID..."
+                placeholder="Search by Client name, email, Order track code, agent name..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="max-w-xs rounded-sm"
+                className="max-w-xl rounded-sm"
                 />
                 <Select onValueChange={val => setStatusFilter(val === 'all' ? '' : val)} defaultValue="all">
                     <SelectTrigger className="w-40 rounded-sm">
@@ -75,6 +77,7 @@ export function InsuranceOrderTable(
                             <TableHead className='px-4'>Name</TableHead>
                             <TableHead className='px-4'>Email</TableHead>
                             <TableHead className='px-4'>Track Code</TableHead>
+                            <TableHead className='px-4'>Agent Name</TableHead>
                             <TableHead className='px-4'>Date</TableHead>
                             <TableHead className='px-4'>Actions</TableHead>
                         </TableRow>
@@ -87,9 +90,10 @@ export function InsuranceOrderTable(
                                         {statusMap[order.status as oredrStatus].label}
                                     </span>
                                 </TableCell>
-                                <TableCell className='px-4'>{order.name}</TableCell>
-                                <TableCell className='px-4'>{order.email}</TableCell>
+                                <TableCell className='px-4'>{order.user.name}</TableCell>
+                                <TableCell className='px-4'>{order.contact.email}</TableCell>
                                 <TableCell className='px-4'>{order.trackcode}</TableCell>
+                                <TableCell className='px-4'><a href={`/${pathname}/agents/${order.agent?.url}`} className='text-blue-400'>{order.agent?.name}</a></TableCell>
                                 <TableCell className='px-4'>{convertDate(order.created_at)}</TableCell>
                                 <TableCell className="px-4 rounded-sm">
                                     <Button variant="outline" onClick={() => {

@@ -10,6 +10,7 @@ import { fetchAgentByCode, fetchAgentsByParent } from '@/lib/agent';
 import CreateAgentFormDialog from '@/components/admin/CreateAgentFormDialog';
 import AgentSlideOverContent from '@/components/admin/AgentSlideOverContent';
 import { useParams } from 'next/navigation';
+import InsuranceOrders from '../../orders/insurance/page';
 
 
 export default function AgentsManagement() {
@@ -44,23 +45,32 @@ export default function AgentsManagement() {
 
     return (
         <div>
-            <div className="flex justify-between items-center mb-6">
-                <div className=''>
-                    <h1 className='text-2xl font-bold'>Agents</h1>
-                    <p className='text-muted-foreground text-sm mt-0.5'>Manage <span className='font-semibold text-zinc-600 dark:text-gray-300'>{agentName}&#39;</span>s Agents</p>
-                </div>
-                { parentLVL < 3 && (
-                    <Button onClick={()=>{setOpenDialog(true)}}><CgAddR /> Create New Agent</Button>
-                )}
-            </div>
+            {parentLVL < 3 && (
+                <>
+                    <div className="flex justify-between items-center mb-6">
+                        <div className=''>
+                            <h1 className='text-2xl font-bold'>Agents</h1>
+                            <p className='text-muted-foreground text-sm mt-0.5'>Manage <span className='font-semibold text-zinc-600 dark:text-gray-300'>{agentName}&#39;</span>s Agents</p>
+                        </div>
+                        { parentLVL < 3 && (
+                            <Button onClick={()=>{setOpenDialog(true)}}><CgAddR /> Create New Agent</Button>
+                        )}
+                    </div>
 
-            <AgentsTable agents={agents} filtered={filtered} setFiltered={setFiltered} setOpen={setOpen} setSelectedAgent={setSelectedAgent}/>
+                    <div className='mb-10'>
+                        <AgentsTable agents={agents} filtered={filtered} setFiltered={setFiltered} setOpen={setOpen} setSelectedAgent={setSelectedAgent}/>
+                    </div>
+                </>
+            )}
 
             <SlideOver open={open} onClose={() => setOpen(false)} title={`Agent: ${selectedAgent?.agent_name}`}>
                 {selectedAgent && (
                     <AgentSlideOverContent selectedAgent={selectedAgent} setSelectedAgent={setSelectedAgent} agents={agents} setAgents={setAgents}/>
                 )}
             </SlideOver>
+
+            
+            <InsuranceOrders/>
 
             { parentLVL < 3 && (
                 <CreateAgentFormDialog

@@ -47,7 +47,7 @@ export default function AgentInfoTab({
         </div>
         <p className="text-xs mt-1 text-muted-foreground">Agent Referral Link Will be: 
           {agentInfo.url && (
-            <a href={`https://masar.edu/${agentInfo.url}/services/insurance/order`} className="text-blue-400"> https://masar.edu/{agentInfo.url}/services/insurance/order</a>
+            <a href={`/${agentInfo.url}/services/insurance/order`} className="text-blue-400"> https://masar.edu/{agentInfo.url}/services/insurance/order</a>
           )}
         </p>
       </div>
