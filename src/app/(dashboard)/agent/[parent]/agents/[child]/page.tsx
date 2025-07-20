@@ -10,7 +10,7 @@ import { fetchAgentByCode, fetchAgentsByParent } from '@/lib/agent';
 import CreateAgentFormDialog from '@/components/admin/CreateAgentFormDialog';
 import AgentSlideOverContent from '@/components/admin/AgentSlideOverContent';
 import { useParams } from 'next/navigation';
-import InsuranceOrders from '../orders/insurance/page';
+import InsuranceOrders from '../../orders/insurance/page';
 
 
 export default function AgentsManagement() {
