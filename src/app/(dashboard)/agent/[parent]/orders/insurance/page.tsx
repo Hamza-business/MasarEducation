@@ -1,12 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import SlideOver from '@/components/admin/SlideOver';
 import {OrderDetails} from '@/types/all';
-import { InsuranceOrderTable } from '@/components/admin/InsuranceOrdersTable';
-import OrderSlideOverContent from '@/components/admin/OrderSlideOverContent';
 import { useParams } from 'next/navigation';
 import { fetchAgentByCode } from '@/lib/agent';
+import { InsuranceOrderTableAgent } from '@/components/admin/InsuranceOrdersTableAgent';
 
 export default function InsuranceOrders() {
     const params = useParams();
@@ -50,11 +48,7 @@ export default function InsuranceOrders() {
                 <p className='text-muted-foreground text-sm mt-0.5'>Manage <span className='font-semibold text-zinc-600 dark:text-gray-300'>{agentName}&#39;</span>s Insurance Orders</p>
             </div>
 
-            <InsuranceOrderTable orders={orders} filtered={filtered} setFiltered={setFiltered} setOpen={setOpen} setSelectedOrder={setSelectedOrder}/>
-
-            <SlideOver open={open} onClose={() => setOpen(false)} title={`Order #${selectedOrder?.trackcode}`}>
-                <OrderSlideOverContent selectedOrder={selectedOrder}/>
-            </SlideOver>
+            <InsuranceOrderTableAgent orders={orders} filtered={filtered} setFiltered={setFiltered} setOpen={setOpen} setSelectedOrder={setSelectedOrder}/>
         </div>
     );
 }
