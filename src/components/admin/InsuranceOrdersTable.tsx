@@ -30,26 +30,26 @@ export function InsuranceOrderTable(
     
     const paginated = filtered.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
-    // useEffect(() => {
-    //     const result = orders.filter(order => {
-    //         const matchesSearch = [order.name, order.email, order.id].some(val =>
-    //             val.toLowerCase().includes(search.toLowerCase())
-    //         );
-    //         const matchesStatus = statusFilter === '' || order.status === statusFilter;
-    //         return matchesSearch && matchesStatus;
-    //     });
-    //     setFiltered(result);
-    //     setPage(1); // reset page when filtered
-    // }, [search, statusFilter, orders]);
+    useEffect(() => {
+        const result = orders.filter(order => {
+            const matchesSearch = [order.user.name, order.contact.email, order.trackcode, order.agent?.name].some(val =>
+                val?.toLowerCase().includes(search.toLowerCase())
+            );
+            const matchesStatus = statusFilter === '' || order.status === statusFilter;
+            return matchesSearch && matchesStatus;
+        });
+        setFiltered(result);
+        setPage(1); // reset page when filtered
+    }, [search, statusFilter, orders]);
 
     return (
         <>
             <div className="mb-3 flex flex-wrap gap-4 items-center justify-between">
                 <Input
-                placeholder="Search by name, email, or ID..."
+                placeholder="Search by Client name, email, Order track code, agent name..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="max-w-xs rounded-sm"
+                className="max-w-xl rounded-sm"
                 />
                 <Select onValueChange={val => setStatusFilter(val === 'all' ? '' : val)} defaultValue="all">
                     <SelectTrigger className="w-40 rounded-sm">
