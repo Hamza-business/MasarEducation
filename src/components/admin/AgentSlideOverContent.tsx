@@ -155,8 +155,8 @@ export default function AgentSlideOverContent(
                             <LineField label="Agent Name" value={selectedAgent?.agent_name} />
                             <LineField label="Percent" value={selectedAgent?.percent + "%"} />
                         </div>
-                        <LineField label="Agent Referral Link" value={`https://masar.edu/${selectedAgent?.url}/services/insurance/order`} type={"link"} style={"text-blue-500"}/>
-                        <LineField label="Dashboard Portal" value={"https://masar.edu/agent"} type={"link"} style={"text-blue-500"}/>
+                        <LineField label="Agent Referral Link" value={`https://masar.edu/${selectedAgent?.url}/services/insurance/order`} link={`/${selectedAgent?.url}/services/insurance/order`} type={"link"} style={"text-blue-500"}/>
+                        <LineField label="Dashboard Portal" value={"https://masar.edu/agent"} link={"/agent"} type={"link"} style={"text-blue-500"}/>
                     </div>
                 </div>
             </div>
