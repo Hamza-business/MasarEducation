@@ -13,6 +13,8 @@ export default function InsuranceOrders() {
     const parent = typeof params?.child === 'string' && params.child ? params.child : typeof params?.parent === 'string' && params.parent ? params.parent : '1';
 
     const [parentid, setParentid] = useState<number>(0);
+    const [parentLVL, setParentLVL] = useState<number>(3);
+    const [agentName, setAgentName] = useState<string>("");
     const [open, setOpen] = useState(false);
     const [orders, setOrders] = useState<OrderDetails[]>([]);
     const [selectedOrder, setSelectedOrder] = useState<OrderDetails | null>(null);
@@ -27,6 +29,8 @@ export default function InsuranceOrders() {
     useEffect(() => {
         fetchAgentByCode(parent).then(res => {
             setParentid(res.id);
+            setParentLVL(res.lvl);
+            setAgentName(res.agent_name);
         });
     }, []);
 
@@ -43,7 +47,7 @@ export default function InsuranceOrders() {
         <div>
             <div className='mb-6'>
                 <h1 className='text-2xl font-bold'>Insurance Orders</h1>
-                <p className='text-muted-foreground text-sm'>Manage Orders</p>
+                <p className='text-muted-foreground text-sm mt-0.5'>Manage <span className='font-semibold text-zinc-600 dark:text-gray-300'>{agentName}&#39;</span>s Insurance Orders</p>
             </div>
 
             <InsuranceOrderTable orders={orders} filtered={filtered} setFiltered={setFiltered} setOpen={setOpen} setSelectedOrder={setSelectedOrder}/>
