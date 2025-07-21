@@ -9,7 +9,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <Container className="flex justify-between items-center">
           <h1 className="text-xl font-bold">MyApp</h1>
           <LanguageSwitcher type={"list"}/>
-          <ModeToggle type={"smbutton"}/>
+          {/* <ModeToggle type={"smbutton"}/> */}
         </Container>
       </header>
 
