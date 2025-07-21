@@ -301,12 +301,14 @@ export type PriceRange = {
 
 
 export type PassportFile = {
+  id?:number;
   name: string; // Taken from the uploaded file name
   mimetype: string; // Taken from the uploaded file type
   data: string; // Taken from the uploaded file after converting to Base64
 }
 
 export type ReceiptFile = {
+  id?:number;
   name: string; // Taken from the uploaded file name
   mimetype: string; // Taken from the uploaded file type
   data: string; // Taken from the uploaded file after converting to Base64
@@ -394,6 +396,25 @@ export interface OrderDetails {
     url: string,
   },
 }
+
+export type InsuranceOrderWithPersonInfo = {
+  order_id: number;
+  status: string;             // using string for flexibility
+  track_code: string;
+  insurance_application: number;
+  created_at: string;         // ISO timestamp
+  finish_date: string | null;
+  receipt: number;
+  personinfo_id: number;
+  person_name: string;
+  email: string;
+  phone: string;
+  nat: string;
+  dob: string;                // ISO date string
+  passport_id: number;
+};
+
+
 
 export type AgentInfo = {
     id: number;
