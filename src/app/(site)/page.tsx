@@ -20,3 +20,7 @@ export default function Home() {
     </AppShell>
   )
 }
+
+// #103c5c
+// #e85f5e
+// #e9e9e9

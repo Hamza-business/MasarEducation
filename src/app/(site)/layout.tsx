@@ -21,7 +21,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
-      <body className={inter.className} key={dir}>
+      <body className={`${inter.className} bg-[#fcfcfc]`} key={dir}>
         {children}
         {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Providers>
