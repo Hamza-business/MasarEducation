@@ -40,8 +40,8 @@ export default function PreviewTab({
         try {
             const data = `
 Agent Info
-  Agent Referral Link: https://masar.edu/${agentInfo?.url}/services/insurance/order
-  Dashboard Portal: https://masar.edu/agent
+  Agent Referral Link: https://masartr.com/${agentInfo?.url}/services/insurance/order
+  Dashboard Portal: https://masartr.com/agent
   Agent Name: ${agentInfo?.agent_name}
 
 Agent Owner Login Info
@@ -84,8 +84,8 @@ Agent Owner Login Info
                                 <CardTitle>Agent Info</CardTitle>
                               </CardHeader>
                               <CardContent className="grid grid-cols-1 gap-y-3 gap-x-0 text-sm px-0">
-                                <Field label="Agent Referral Link" value={`https://masar.edu/${agentInfo?.url}/services/insurance/order`} />
-                                <Field label="Dashboard Portal" value={"https://masar.edu/agent"} />
+                                <Field label="Agent Referral Link" value={`https://masartr.com/${agentInfo?.url}/services/insurance/order`} />
+                                <Field label="Dashboard Portal" value={"https://masartr.com/agent"} />
                                 <div className="grid grid-cols-2 gap-4 text-sm px-0">
                                   <Field label="Agent Name" value={agentInfo?.agent_name} />
                                   <Field label="Percent" value={agentInfo?.percent + "%"} />

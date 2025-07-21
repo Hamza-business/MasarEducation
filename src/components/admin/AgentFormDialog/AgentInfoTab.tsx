@@ -36,7 +36,7 @@ export default function AgentInfoTab({
       <div className="mb-5">
         <Label className="mb-2">Agent Referral Link</Label>
         <div className="flex items-center">
-          <span className="bg-muted px-3 py-2 rounded-sm text-sm rounded-tr-none rounded-br-none">https://masar.edu/</span>
+          <span className="bg-muted px-3 py-2 rounded-sm text-sm rounded-tr-none rounded-br-none">https://masartr.com/</span>
           <Input
             className="flex-1 rounded-none"
             value={agentInfo.url}
@@ -47,7 +47,7 @@ export default function AgentInfoTab({
         </div>
         <p className="text-xs mt-1 text-muted-foreground">Agent Referral Link Will be: 
           {agentInfo.url && (
-            <a href={`/${agentInfo.url}/services/insurance/order`} className="text-blue-400"> https://masar.edu/{agentInfo.url}/services/insurance/order</a>
+            <a href={`/${agentInfo.url}/services/insurance/order`} className="text-blue-400"> https://masartr.com/{agentInfo.url}/services/insurance/order</a>
           )}
         </p>
       </div>

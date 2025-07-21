@@ -1,10 +1,12 @@
 import Image from "next/image";
 import BlurredShapeGray from "@/../public/blurred-shape-gray.svg";
 import BlurredShape from "@/../public/blurred-shape.svg";
+import { Container } from "@/app/(site)/container";
 
 export default function Features() {
   return (
     <section className="relative">
+      <Container className="flex justify-between items-center">
       <div
         className="pointer-events-none absolute left-1/2 top-0 -z-10 -mt-20 -translate-x-1/2"
         aria-hidden="true"
@@ -29,7 +31,7 @@ export default function Features() {
           alt="Blurred shape"
         />
       </div>
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="">
         <div className="border-t py-12 [border-image:linear-gradient(to_right,transparent,--theme(--color-slate-400/.25),transparent)1] md:py-20">
           {/* Section header */}
           <div className="mx-auto max-w-3xl pb-4 text-center md:pb-12">
@@ -47,16 +49,6 @@ export default function Features() {
               speed of thought.
             </p>
           </div>
-          {/* <div className="flex justify-center pb-4 md:pb-12" data-aos="fade-up">
-            <Image
-              className="max-w-none"
-              src={FeaturesImage}
-              width={1104}
-              height={384}
-              alt="Features"
-            />
-          </div> */}
-          {/* Items */}
           <div className="mx-auto grid max-w-sm gap-12 sm:max-w-none sm:grid-cols-2 md:gap-x-14 md:gap-y-16 lg:grid-cols-3">
             <article>
               <svg
@@ -189,6 +181,7 @@ export default function Features() {
           </div>
         </div>
       </div>
+      </Container>
     </section>
   );
 }
