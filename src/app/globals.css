@@ -176,3 +176,7 @@
   width: 21px !important;
   height: 21px !important;
 }
+
+.borderedo{
+  border-image: linear-gradient(to right, transparent, #103c5c64, transparent) 2 !important;
+}

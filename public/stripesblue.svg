@@ -1,0 +1,79 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 736 420" width="736" height="420">
+	<title>stripesblue</title>
+	<defs>
+		<linearGradient id="g1" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,808,-64,0,32,-388)">
+			<stop offset="0" stop-color="#103c5c" stop-opacity="1"/>
+			<stop offset=".235" stop-color="#174a70" stop-opacity="1"/>
+			<stop offset=".24" stop-color="#174a70" stop-opacity=".99"/>
+			<stop offset="1" stop-color="#f3f4f6" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="g2" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,808,-64,0,116,-388)">
+			<stop offset="0" stop-color="#103c5c" stop-opacity="1"/>
+			<stop offset=".235" stop-color="#174a70" stop-opacity="1"/>
+			<stop offset=".24" stop-color="#174a70" stop-opacity=".99"/>
+			<stop offset="1" stop-color="#f3f4f6" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="g3" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,808,-64,0,200,-388)">
+			<stop offset="0" stop-color="#103c5c" stop-opacity="1"/>
+			<stop offset=".235" stop-color="#174a70" stop-opacity="1"/>
+			<stop offset=".24" stop-color="#174a70" stop-opacity=".99"/>
+			<stop offset="1" stop-color="#f3f4f6" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="g4" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,808,-64,0,284,-388)">
+			<stop offset="0" stop-color="#103c5c" stop-opacity="1"/>
+			<stop offset=".235" stop-color="#174a70" stop-opacity="1"/>
+			<stop offset=".24" stop-color="#174a70" stop-opacity=".99"/>
+			<stop offset="1" stop-color="#f3f4f6" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="g5" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,808,-64,0,368,-388)">
+			<stop offset="0" stop-color="#103c5c" stop-opacity="1"/>
+			<stop offset=".235" stop-color="#174a70" stop-opacity="1"/>
+			<stop offset=".24" stop-color="#174a70" stop-opacity=".99"/>
+			<stop offset="1" stop-color="#f3f4f6" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="g6" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,808,-64,0,452,-388)">
+			<stop offset="0" stop-color="#103c5c" stop-opacity="1"/>
+			<stop offset=".235" stop-color="#174a70" stop-opacity="1"/>
+			<stop offset=".24" stop-color="#174a70" stop-opacity=".99"/>
+			<stop offset="1" stop-color="#f3f4f6" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="g7" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,808,-64,0,536,-388)">
+			<stop offset="0" stop-color="#103c5c" stop-opacity="1"/>
+			<stop offset=".235" stop-color="#174a70" stop-opacity="1"/>
+			<stop offset=".24" stop-color="#174a70" stop-opacity=".99"/>
+			<stop offset="1" stop-color="#f3f4f6" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="g8" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,808,-64,0,620,-388)">
+			<stop offset="0" stop-color="#103c5c" stop-opacity="1"/>
+			<stop offset=".235" stop-color="#174a70" stop-opacity="1"/>
+			<stop offset=".24" stop-color="#174a70" stop-opacity=".99"/>
+			<stop offset="1" stop-color="#f3f4f6" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="g9" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,808,-64,0,704,-388)">
+			<stop offset="0" stop-color="#103c5c" stop-opacity="1"/>
+			<stop offset=".235" stop-color="#174a70" stop-opacity="1"/>
+			<stop offset=".24" stop-color="#174a70" stop-opacity=".99"/>
+			<stop offset="1" stop-color="#f3f4f6" stop-opacity="0"/>
+		</linearGradient>
+	</defs>
+	<style>
+		.s0 { fill: url(#g1) } 
+		.s1 { fill: url(#g2) } 
+		.s2 { fill: url(#g3) } 
+		.s3 { fill: url(#g4) } 
+		.s4 { fill: url(#g5) } 
+		.s5 { fill: url(#g6) } 
+		.s6 { fill: url(#g7) } 
+		.s7 { fill: url(#g8) } 
+		.s8 { fill: url(#g9) } 
+	</style>
+	<path fill-rule="evenodd" class="s0" d="m64-388v808h-64v-808z"/>
+	<path fill-rule="evenodd" class="s1" d="m148-388v808h-64v-808z"/>
+	<path fill-rule="evenodd" class="s2" d="m232-388v808h-64v-808z"/>
+	<path fill-rule="evenodd" class="s3" d="m316-388v808h-64v-808z"/>
+	<path fill-rule="evenodd" class="s4" d="m400-388v808h-64v-808z"/>
+	<path fill-rule="evenodd" class="s5" d="m484-388v808h-64v-808z"/>
+	<path fill-rule="evenodd" class="s6" d="m568-388v808h-64v-808z"/>
+	<path fill-rule="evenodd" class="s7" d="m652-388v808h-64v-808z"/>
+	<path fill-rule="evenodd" class="s8" d="m736-388v808h-64v-808z"/>
+</svg>
