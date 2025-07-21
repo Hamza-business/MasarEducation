@@ -300,6 +300,14 @@ export type PriceRange = {
 };
 
 
+export type InsuranceFile = {
+  id?:number;
+  order?: number;
+  name: string; // Taken from the uploaded file name
+  mimetype: string; // Taken from the uploaded file type
+  data: string; // Taken from the uploaded file after converting to Base64
+}
+
 export type PassportFile = {
   id?:number;
   name: string; // Taken from the uploaded file name
