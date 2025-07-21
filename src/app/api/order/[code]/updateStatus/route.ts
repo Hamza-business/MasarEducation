@@ -1,24 +1,35 @@
 import { NextRequest, NextResponse } from 'next/server';
 import sql from '@/lib/db';
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: any) {
   try {
-    const orderId = parseInt(params.id);
+    const orderId = parseInt(await params.code);
     if (isNaN(orderId)) {
       return NextResponse.json({ error: 'Invalid order ID' }, { status: 400 });
     }
 
     const body = await req.json();
-    const { status } = body;
+    const { status, msg } = body;
 
     if (!status || typeof status !== 'string') {
       return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
     }
-    
-    await sql.query(
-      `UPDATE insurances.insurance_order SET status = $1 WHERE id = $2`,
-      [status, orderId]
-    );
+
+    if (status === 'rejected' && msg) {
+      await sql.query(
+        `UPDATE insurances.insurance_order 
+         SET status = $1, msg = $2 
+         WHERE id = $3`,
+        [status, msg, orderId]
+      );
+    } else {
+      await sql.query(
+        `UPDATE insurances.insurance_order 
+         SET status = $1, msg = NULL 
+         WHERE id = $2`,
+        [status, orderId]
+      );
+    }
 
     return NextResponse.json({ message: 'Order status updated successfully.' });
   } catch (error) {

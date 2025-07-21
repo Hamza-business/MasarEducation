@@ -8,6 +8,7 @@ type FileInfo = {
 };
 
 export function FilePreview({ file }: { file: FileInfo }) {
+  console.log(file);
   const src = `data:${file.mimetype};base64,${file.data}`;
   const isImage = file.mimetype.startsWith("image/");
   const isPDF = file.mimetype === "application/pdf";

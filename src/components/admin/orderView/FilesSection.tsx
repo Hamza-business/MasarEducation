@@ -1,14 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { PassportFile, ReceiptFile } from '@/types/all';
+import { InsuranceFile, PassportFile, ReceiptFile } from '@/types/all';
 import { FilePreview } from './FilePreview';
 
 export function FileSection({ 
   passport,
   receipt,
+  insuranceFiles,
   numOfCols
 }:{ 
   passport: PassportFile | null,
   receipt: ReceiptFile | null,
+  insuranceFiles: InsuranceFile[],
   numOfCols: number
 }) {
   
@@ -28,7 +30,6 @@ export function FileSection({
                   </Card>
               )}
 
-              {/* Receipt File */}
               {receipt && (
                   <Card className='rounded-sm gap-2 py-6'>
                       <CardHeader className='px-5'>
@@ -38,6 +39,19 @@ export function FileSection({
                           <FilePreview file={receipt} />
                       </CardContent>
                   </Card>
+              )}
+
+              {insuranceFiles && insuranceFiles.length > 0 && (
+                insuranceFiles.map((e, i) => (
+                  <Card className="rounded-sm gap-2 py-6" key={i}>
+                    <CardHeader className="px-5">
+                      <CardTitle>Insurance File</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4 px-5">
+                      <FilePreview file={e} />
+                    </CardContent>
+                  </Card>
+                ))
               )}
           </div>
       </>

@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import sql from '@/lib/db';
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest, { params }: any) {
   try {
-    const orderId = parseInt(params.id);
+    console.log("1111");
+    const orderId = parseInt(await params.code);
     if (isNaN(orderId)) {
       return NextResponse.json({ error: 'Invalid order ID' }, { status: 400 });
     }
@@ -20,7 +21,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
 
     await sql.query(
       `
-      INSERT INTO files.insurance_files (order, name, mimetype, data)
+      INSERT INTO files.insurance_files ("order", name, mimetype, data)
       VALUES ($1, $2, $3, $4)
       `,
       [orderId, file.name, file.type, base64Data]

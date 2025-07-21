@@ -22,10 +22,10 @@ export async function GET(req: Request, { params }: any) {
       return NextResponse.json({ error: 'Order not found' }, { status: 404 });
     }
 
-    const { receipt_id, passport_id } = orderResult[0];
+    const { receipt_id, passport_id, status } = orderResult[0];
 
     // Step 2: Fetch files by ID
-    const [receiptResult, passportResult] = await Promise.all([
+    const [receiptResult, passportResult, insuranceFilesResult] = await Promise.all([
       sql.query(`
         SELECT name, mimetype, data
         FROM files.receipts
@@ -37,16 +37,24 @@ export async function GET(req: Request, { params }: any) {
         FROM files.passports
         WHERE id = $1
       `, [passport_id]),
+
+      sql.query(`
+        SELECT id, name, mimetype, data, "order"
+        FROM files.insurance_files
+        WHERE "order" = $1
+      `, [orderId]),
     ]);
 
     if (receiptResult.length === 0 || passportResult.length === 0) {
       return NextResponse.json({ error: 'One or more files not found' }, { status: 404 });
     }
 
+
     const receipt = receiptResult[0];
     const passport = passportResult[0];
+    const insurance_files = insuranceFilesResult;
 
-    return NextResponse.json({ receipt, passport });
+    return NextResponse.json({ receipt, passport, insurance_files });
   } catch (error) {
     console.error('[FETCH_ORDER_FILES_ERROR]', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
