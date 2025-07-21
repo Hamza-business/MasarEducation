@@ -10,3 +10,12 @@ export async function fetchInsuranceOrderFiles(orderid:number): Promise<{passpor
     const data = await res.json();
     return data;
 }
+export async function updateInsuranceOrderStatus(orderid:number, status:string): Promise<boolean> {
+    const res = await fetch(`/api/order/${orderid.toString()}/updateStatus`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: status }),
+    });
+    const data = await res.json();
+    return data;
+}

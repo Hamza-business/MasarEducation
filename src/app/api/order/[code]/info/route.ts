@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: Request, { params }: any) {
   try {
-        console.log(params)
         const trackCode = await params.code;
         if (!trackCode) {
             return NextResponse.json({ error: 'Invalid agent code' }, { status: 400 });
