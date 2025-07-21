@@ -26,50 +26,121 @@ export default function Workflows() {
                         </p>
                     </div>
 
-                  <Spotlight className="group mx-auto grid max-w-sm items-start gap-6 lg:max-w-none lg:grid-cols-4">
-                    {/* Card 1 */}
-                    <a
-                      className="group/card relative h-full overflow-hidden rounded-sm bg-gray-800 p-px before:pointer-events-none before:absolute before:-left-40 before:-top-40 before:z-10 before:h-80 before:w-80 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:rounded-full before:bg-indigo-500/80 before:opacity-0 before:blur-3xl before:transition-opacity before:duration-500 after:pointer-events-none after:absolute after:-left-48 after:-top-48 after:z-30 after:h-64 after:w-64 after:translate-x-[var(--mouse-x)] after:translate-y-[var(--mouse-y)] after:rounded-full after:bg-indigo-500 after:opacity-0 after:blur-3xl after:transition-opacity after:duration-500 hover:after:opacity-20 group-hover:before:opacity-100"
-                      href="#0"
-                    >
-                      <div className="relative z-20 h-full overflow-hidden rounded-[inherit] bg-gray-950 after:absolute after:inset-0 after:bg-linear-to-br after:from-gray-900/50 after:via-gray-800/25 after:to-gray-900/50">
-                        {/* Arrow */}
-                        <div
-                          className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-gray-700/50 bg-gray-800/65 text-gray-200 opacity-100"
-                          aria-hidden="true"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={9}
-                            height={8}
-                            fill="none"
-                          >
-                            <path
-                              fill="#F4F4F5"
-                              d="m4.92 8-.787-.763 2.733-2.68H0V3.443h6.866L4.133.767 4.92 0 9 4 4.92 8Z"
-                            />
-                          </svg>
-                        </div>
-                        {/* Image */}
-                        <Image
-                          className="inline-flex w-full px-6"
-                          src={WorflowImg01}
-                          alt="Workflow 01"
-                        />
-                        {/* Content */}
-                        <div className="p-4">
-                          <div className="mb-3">
-                            <h3 className="text-gray-200 text-2xl font-semibold text-center">Apply for Residence Permit</h3>
-                          </div>
-                          <p className="text-indigo-200/65 text-justify">
-                            Streamline the product development flow with a content
-                            platform that is aligned across specs and insights.
-                          </p>
-                          <Button className="w-full mt-2">Apply Now!</Button>
-                        </div>
-                      </div>
-                    </a>
-                  </Spotlight>
+                    <Spotlight className="group mx-auto grid max-w-sm items-start gap-6 lg:max-w-none lg:grid-cols-4">
+                        <a
+                          className="shadow-sm group/card relative overflow-hidden rounded-sm bg-gray-100 p-px before:pointer-events-none before:absolute before:-left-40 before:-top-40 before:z-10 before:h-80 before:w-80 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:rounded-full before:bg-[#e85f5e] before:opacity-0 before:blur-3xl before:transition-opacity before:duration-500 after:pointer-events-none after:absolute after:-left-48 after:-top-48 after:z-30 after:h-64 after:w-64 after:translate-x-[var(--mouse-x)] after:translate-y-[var(--mouse-y)] after:rounded-full after:bg-[#e85f5e] after:opacity-0 after:blur-3xl after:transition-opacity after:duration-500 hover:after:opacity-20 group-hover:before:opacity-100"
+                          href="/services/insurance/order">
+                            <div className="relative z-20 overflow-hidden rounded-[inherit] bg-gray-100 after:absolute after:inset-0 ">
+                               <div
+                                    className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#e85f5e] bg-[#f47070] text-gray-100 opacity-90"
+                                    aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width={9} height={8} fill="none">
+                                    <path fill="#F4F4F5" d="m4.92 8-.787-.763 2.733-2.68H0V3.443h6.866L4.133.767 4.92 0 9 4 4.92 8Z"/>
+                                    </svg>
+                               </div>
+                                <Image
+                                className="inline-flex w-full px-6"
+                                src={WorflowImg01}
+                                alt="Workflow 01"/>
+                                <div className="pt-0 px-4 pb-4">
+                                    <div className="mb-3">
+                                        <h3 className="text-[#1e547c] text-2xl font-semibold text-center">Apply for Health Insurance</h3>
+                                    </div>
+                                    <p className="text-[#103c5c] text-justify">
+                                        Secure your official student health insurance quickly and safely.
+                                    </p>
+                                    <Button className="w-full mt-3 rounded-sm py-5 bg-[#1e547c] hover:bg-[#103c5c]">Get Your Insurance Now!</Button>
+                                </div>
+                            </div>
+                        </a>
+                        <a
+                          className="shadow-sm group/card relative h-full overflow-hidden rounded-sm bg-gray-100 p-px before:pointer-events-none before:absolute before:-left-40 before:-top-40 before:z-10 before:h-80 before:w-80 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:rounded-full before:bg-[#e85f5e] before:opacity-0 before:blur-3xl before:transition-opacity before:duration-500 after:pointer-events-none after:absolute after:-left-48 after:-top-48 after:z-30 after:h-64 after:w-64 after:translate-x-[var(--mouse-x)] after:translate-y-[var(--mouse-y)] after:rounded-full after:bg-[#e85f5e] after:opacity-0 after:blur-3xl after:transition-opacity after:duration-500 hover:after:opacity-20 group-hover:before:opacity-100"
+                          href="#0">
+                            <div className="relative z-20 h-full overflow-hidden rounded-[inherit] bg-gray-100 after:absolute after:inset-0 ">
+                              {/* Arrow */}
+                              <div
+                                  className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#e85f5e] bg-[#f47070] text-gray-100 opacity-90"
+                                  aria-hidden="true">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width={9} height={8} fill="none">
+                                    <path fill="#F4F4F5" d="m4.92 8-.787-.763 2.733-2.68H0V3.443h6.866L4.133.767 4.92 0 9 4 4.92 8Z"/>
+                                  </svg>
+                              </div>
+                              {/* Image */}
+                              <Image
+                                  className="inline-flex w-full px-6"
+                                  src={WorflowImg01}
+                                  alt="Workflow 01"/>
+                                  {/* Content */}
+                                  <div className="pt-0 px-4 pb-4">
+                                      <div className="mb-3">
+                                          <h3 className="text-[#1e547c] text-2xl font-semibold text-center">Apply for Residence Permit</h3>
+                                      </div>
+                                      <p className="text-[#103c5c] text-justify">
+                                          Let us handle your student residence permit application with ease.
+                                      </p>
+                                      <Button className="w-full mt-3 rounded-sm py-5 bg-[#1e547c] hover:bg-[#103c5c]">Apply Now!</Button>
+                                  </div>
+                            </div>
+                        </a>
+                        <a
+                          className="shadow-sm group/card relative overflow-hidden rounded-sm bg-gray-100 p-px before:pointer-events-none before:absolute before:-left-40 before:-top-40 before:z-10 before:h-80 before:w-80 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:rounded-full before:bg-[#e85f5e] before:opacity-0 before:blur-3xl before:transition-opacity before:duration-500 after:pointer-events-none after:absolute after:-left-48 after:-top-48 after:z-30 after:h-64 after:w-64 after:translate-x-[var(--mouse-x)] after:translate-y-[var(--mouse-y)] after:rounded-full after:bg-[#e85f5e] after:opacity-0 after:blur-3xl after:transition-opacity after:duration-500 hover:after:opacity-20 group-hover:before:opacity-100"
+                          href="#0">
+                            <div className="relative z-20 overflow-hidden rounded-[inherit] bg-gray-100 after:absolute after:inset-0 ">
+                              {/* Arrow */}
+                              <div
+                                  className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#e85f5e] bg-[#f47070] text-gray-100 opacity-90"
+                                  aria-hidden="true">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width={9} height={8} fill="none">
+                                    <path fill="#F4F4F5" d="m4.92 8-.787-.763 2.733-2.68H0V3.443h6.866L4.133.767 4.92 0 9 4 4.92 8Z"/>
+                                  </svg>
+                              </div>
+                              {/* Image */}
+                              <Image
+                                  className="inline-flex w-full px-6"
+                                  src={WorflowImg01}
+                                  alt="Workflow 01"/>
+                                  {/* Content */}
+                                  <div className="pt-0 px-4 pb-4">
+                                      <div className="mb-3">
+                                          <h3 className="text-[#1e547c] text-2xl font-semibold text-center">Apply to University</h3>
+                                      </div>
+                                      <p className="text-[#103c5c] text-justify">
+                                            Get support with your admission to top universities in Türkiye
+                                      </p>
+                                      <Button className="w-full mt-3 rounded-sm py-5 bg-[#1e547c] hover:bg-[#103c5c]">Apply Now!</Button>
+                                  </div>
+                            </div>
+                        </a>
+                        <a
+                          className="shadow-sm group/card relative overflow-hidden rounded-sm bg-gray-100 p-px before:pointer-events-none before:absolute before:-left-40 before:-top-40 before:z-10 before:h-80 before:w-80 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:rounded-full before:bg-[#e85f5e] before:opacity-0 before:blur-3xl before:transition-opacity before:duration-500 after:pointer-events-none after:absolute after:-left-48 after:-top-48 after:z-30 after:h-64 after:w-64 after:translate-x-[var(--mouse-x)] after:translate-y-[var(--mouse-y)] after:rounded-full after:bg-[#e85f5e] after:opacity-0 after:blur-3xl after:transition-opacity after:duration-500 hover:after:opacity-20 group-hover:before:opacity-100"
+                          href="#0">
+                            <div className="relative z-20 overflow-hidden rounded-[inherit] bg-gray-100 after:absolute after:inset-0 ">
+                              {/* Arrow */}
+                              <div
+                                  className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#e85f5e] bg-[#f47070] text-gray-100 opacity-90"
+                                  aria-hidden="true">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width={9} height={8} fill="none">
+                                    <path fill="#F4F4F5" d="m4.92 8-.787-.763 2.733-2.68H0V3.443h6.866L4.133.767 4.92 0 9 4 4.92 8Z"/>
+                                  </svg>
+                              </div>
+                              {/* Image */}
+                              <Image
+                                  className="inline-flex w-full px-6"
+                                  src={WorflowImg01}
+                                  alt="Workflow 01"/>
+                                  {/* Content */}
+                                  <div className="pt-0 px-4 pb-4">
+                                      <div className="mb-3">
+                                          <h3 className="text-[#1e547c] text-2xl font-semibold text-center">Apply for Certificate Accreditation</h3>
+                                      </div>
+                                      <p className="text-[#103c5c] text-justify">
+                                          Accredit your certificates for use in Türkiye’s education system.
+                                      </p>
+                                      <Button className="w-full mt-3 rounded-sm py-5 bg-[#1e547c] hover:bg-[#103c5c]">Apply Now!</Button>
+                                  </div>
+                            </div>
+                        </a>
+                    </Spotlight>
                 </div>
             </Container>
         </section>
