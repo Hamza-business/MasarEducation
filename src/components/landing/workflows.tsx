@@ -63,7 +63,7 @@ export default function Workflows() {
                           </div>
                           <p className="text-indigo-200/65 text-justify">
                             Streamline the product development flow with a content
-                            platform that's aligned across specs and insights.
+                            platform that is aligned across specs and insights.
                           </p>
                           <Button className="w-full mt-2">Apply Now!</Button>
                         </div>
