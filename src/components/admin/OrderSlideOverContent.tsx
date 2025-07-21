@@ -18,7 +18,7 @@ export default function OrderSlideOverContent({selectedOrder}:{selectedOrder:Ord
         <>
             {/* Top Actions */}
             <div className="flex gap-3 mb-4 justify-end">
-                <a href={`/orders/insurance/${selectedOrder?.trackcode}/manage`} className="cursor-pointer">
+                <a href={`/admin/orders/insurance/${selectedOrder?.trackcode}`} className="cursor-pointer">
                     <Button className="cursor-pointer"><TbSettings2 /> Manage Order <IoMdArrowDropright /></Button>
                 </a>
             </div>

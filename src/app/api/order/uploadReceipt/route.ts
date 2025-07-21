@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from "@/lib/prisma";
-import { MimeType, ReceiptFile  } from "@/types/all";
+import { InsuranceFile, MimeType, ReceiptFile  } from "@/types/all";
 
-function isValidReceiptFile(file: any): file is ReceiptFile {
+function isValidReceiptFile(file: any): file is InsuranceFile {
   return (
     typeof file === "object" &&
     typeof file.name === "string" &&
@@ -15,12 +15,13 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    if (!isValidReceiptFile(body)) {
-      return new NextResponse("Invalid receipt file format", { status: 400 });
-    }
+    // if (!isValidReceiptFile(body)) {
+    //   return new NextResponse("Invalid receipt file format", { status: 400 });
+    // }
 
-    const result = await prisma.receipts.create({
+    const result = await prisma.insurance_files.create({
       data: {
+        order: body.id, 
         name: body.name,
         mimetype: body.mimetype.toLowerCase() as MimeType,
         data: body.data,
