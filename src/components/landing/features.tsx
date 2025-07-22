@@ -4,19 +4,22 @@ import { LuMousePointerClick } from "react-icons/lu";
 import { SiEightsleep } from "react-icons/si";
 import { BiSupport } from "react-icons/bi";
 import { PiCurrencyDollarSimpleBold } from "react-icons/pi";
+import {useTranslations} from 'next-intl';
 
 export default function Features() {
+    const t = useTranslations('feautures');
+
     return (
         <section id="features" className="py-16 mb-25">
             <Container>
                 <div className="mx-auto max-w-3xl pb-10 text-center">
                     <div className="inline-flex items-center gap-3 pb-3 before:h-px before:flex-1">
                         <span className="inline-block bg-gradient-to-r from-[#e96262] to-[#d34f4f] bg-clip-text text-2xl text-transparent font-semibold">
-                            Masar Feautures
+                            {t("masarService")}
                         </span>
                     </div>
                     <h2 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,#cf4444,#cf4444,#103c5c,#103c5c,#e85f5e)] bg-clip-text text-transparent font-nacelle text-3xl md:text-5xl font-semibold pb-4">
-                        What Makes Us Different?
+                        {t("diff")}
                     </h2>
                     {/* <p className="text-lg text-[#144160] font-semibold">
                         No more efforts, our services are here to help you get rid of this hard work!
@@ -28,66 +31,66 @@ export default function Features() {
                         <h3 className="font-nacelle text-2xl font-semibold text-[#e85f5e]">
                             <span className="inline-flex items-center gap-x-2">
                                 <GiPlatform className="h-12 w-12 text-[#1e547c]"/>
-                                All-in-One Platform
+                                {t("allin")}
                             </span>
                         </h3>
                         <p className="text-[#144160] font-semibold leading-7 text-justify mt-auto">
-                            From university admission to health insurance and residency — everything you need in one place.
+                            {t("univirst")}
                         </p>
                     </article>
 
                     <article className="">
                         <h3 className="font-nacelle text-2xl font-semibold text-[#e85f5e]">
                             <span className="inline-flex items-center gap-x-2">
-                                <LuMousePointerClick className="h-10 w-10 text-[#1e547c]"/>Fully Digital & Easy to Use
+                                <LuMousePointerClick className="h-10 w-10 text-[#1e547c]"/>{t("digi")}
                             </span>
                         </h3>
                         <p className="text-[#144160] font-semibold leading-7 text-justify mt-auto">
-                            Our smart system lets you submit requests and track updates online.
+                            {t("smsysmt")}
                         </p>
                     </article>
 
                     <article className="">
                         <h3 className="font-nacelle text-2xl font-semibold text-[#e85f5e]">
                             <span className="inline-flex items-center gap-x-2">
-                                <SiEightsleep className="h-10 w-10 text-[#1e547c]"/>8+ Years of Proven Experience
+                                <SiEightsleep className="h-10 w-10 text-[#1e547c]"/>{t("eightYer")}
                             </span>
                         </h3>
                         <p className="text-[#144160] font-semibold leading-7 text-justify mt-auto">
-                            Trusted by thousands of students and residents across Turkey.
+                            {t("Trusted")}
                         </p>
                     </article>
 
                     <article className="">
                         <h3 className="font-nacelle text-2xl font-semibold text-[#e85f5e]">
                             <span className="inline-flex items-center gap-x-2">
-                                <BiSupport className="h-9 w-9 text-[#1e547c]"/>Dedicated Support
+                                <BiSupport className="h-9 w-9 text-[#1e547c]"/>{t("Dedicated")}
                             </span>
                         </h3>
                         <p className="text-[#144160] font-semibold leading-7 text-justify mt-auto">
-                            Our team is always ready to help — fast responses, real people, real solutions.
+                            {t("ourteam")}
                         </p>
                     </article>
 
                     <article className="">
                         <h3 className="font-nacelle text-2xl font-semibold text-[#e85f5e]">
                             <span className="inline-flex items-center gap-x-2">
-                                <GiMeshNetwork className="h-9 w-9 text-[#1e547c]"/>Reliable Network
+                                <GiMeshNetwork className="h-9 w-9 text-[#1e547c]"/>{t("Reliable")}
                             </span>
                         </h3>
                         <p className="text-[#144160] font-semibold leading-7 text-justify mt-auto">
-                            We work directly with top Turkish universities, government offices, and embassies.
+                            {t("wework")}
                         </p>
                     </article>
 
                     <article className="">
                         <h3 className="font-nacelle text-2xl font-semibold text-[#e85f5e]">
                             <span className="inline-flex items-center gap-x-2">
-                                <PiCurrencyDollarSimpleBold className="h-9 w-9 text-[#1e547c]"/>Commission Program
+                                <PiCurrencyDollarSimpleBold className="h-9 w-9 text-[#1e547c]"/>{t("commission")}
                             </span>
                         </h3>
                         <p className="text-[#144160] font-semibold leading-7 text-justify mt-auto">
-                            We empower individuals and agencies to earn through our affiliate program with custom tools and tracking.
+                            {t("weempower")}
                         </p>
                     </article>
                 </div>

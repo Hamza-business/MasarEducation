@@ -15,5 +15,21 @@
       "residenceBtn": "Start your life in Turkey!",
       "universityApplyBtn": "Start your academic Journey!",
       "CertificateAccreditationBtn": "Apply Now!"
+  },
+  "feautures": {
+    "masarService": "Masar Feautures",
+    "diff": "What Makes Us Different?",
+    "allin": "All-in-One Platform",
+    "univirst": "From university admission to health insurance and residency — everything you need in one place.",
+    "digi": "Fully Digital & Easy to Use",
+    "smsysmt": "Our smart system lets you submit requests and track updates online.",
+    "eightYer": "8+ Years of Proven Experience",
+    "Trusted": "Trusted by thousands of students and residents across Turkey.",
+    "Dedicated": "Dedicated Support",
+    "ourteam": "Our team is always ready to help — fast responses, real people, real solutions.",
+    "Reliable": "Reliable Network",
+    "wework": "We work directly with top Turkish universities, government offices, and embassies.",
+    "commission": "Commission Program",
+    "weempower": "We empower individuals and agencies to earn through our affiliate program with custom tools and tracking."
   }
 }
