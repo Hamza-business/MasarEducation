@@ -9,7 +9,7 @@ export default function Home() {
     <AppShell>
       <Container className="py-10">
           <>
-              <h2 className="text-3xl font-bold mb-4">{t('title')} Welcome to Your App</h2>
+              <h2 className="text-3xl font-bold mb-4">{t('title')} Welcome to Masar</h2>
               <p>This is a test page to verify everything works!</p>
               <Skeleton className="h-6 w-40" />
           </>
