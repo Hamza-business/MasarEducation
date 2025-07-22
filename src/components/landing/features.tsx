@@ -1,6 +1,3 @@
-import Image from "next/image";
-import BlurredShapeGray from "@/../public/blurred-shape-gray.svg";
-import BlurredShape from "@/../public/blurred-shape.svg";
 import { Container } from "@/app/(site)/container";
 import { GiMeshNetwork, GiPlatform } from "react-icons/gi";
 import { LuMousePointerClick } from "react-icons/lu";

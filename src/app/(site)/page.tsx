@@ -7,6 +7,7 @@ import Cta from "../../components/landing/cta";
 import Features from "../../components/landing/features";
 import Workflows from "../../components/landing/workflows";
 import Footer from "@/components/static/footer";
+import { Separator } from '@/components/ui/separator';
 
 export default function Home() {
   const t = useTranslations('HomePage');
@@ -14,6 +15,9 @@ export default function Home() {
     <AppShell>
       <HeroHome/>
       <Workflows/>
+      <div style={{width: "70%", minWidth: "270px"}} className="mx-auto">
+        <Separator />
+      </div>
       <Features/>
       {/* <Cta/> */}
       <Footer/>
