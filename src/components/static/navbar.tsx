@@ -7,7 +7,7 @@ export default function Header() {
   return (
       <header className="p-4 border-b bg-transparent backdrop-blur-sm z-10">
         <Container className="flex justify-between items-center">
-          <a href="/"><img src="/logotext.png" alt="" className="w-40" /></a>
+          <Link href={"/"}><img src="/logotext.png" alt="" className="w-40" /></Link>
           <LanguageSwitcher type={"list"}/>
         </Container>
       </header>
