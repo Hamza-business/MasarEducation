@@ -7,6 +7,7 @@ import { Container } from "@/app/(site)/container";
 import { Button } from "../ui/button";
 
 export default function Workflows() {
+    const msgs = ["", "Hey👋🏻\nI’d like to apply for my residence permit!", "Hey👋🏻\nI’d like to apply for a university!", , "Hey👋🏻\nI’d like to apply for my certificate accreditation!"]
     return (
         <section id="services" className="py-16">
             <Container>
@@ -28,7 +29,10 @@ export default function Workflows() {
                     {[...Array(4)].map((_, i) => (
                         <a
                         key={i}
-                        href={i === 0 ? "/service/insurance" : "#"}
+                        href={i === 0 ? "/services/insurance" : 
+                            i === 1 ? `https://wa.me/+905434948414?text=${msgs[i]}` :
+                            i === 2 ? `https://wa.me/+905074332296?text=${msgs[i]}` :
+                        `https://wa.me/+905076378139?text=${msgs[i]}`}
                         className="group/card relative flex flex-col overflow-hidden rounded-sm bg-gray-100 p-px shadow-sm
                             before:pointer-events-none before:absolute before:-left-40 before:-top-40 before:z-10 before:h-80 before:w-80 
                             before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:rounded-full before:bg-[#e85f5e] 
@@ -36,7 +40,7 @@ export default function Workflows() {
                             after:pointer-events-none after:absolute after:-left-48 after:-top-48 after:z-30 after:h-64 after:w-64 
                             after:translate-x-[var(--mouse-x)] after:translate-y-[var(--mouse-y)] after:rounded-full after:bg-[#e85f5e] 
                             after:opacity-0 after:blur-3xl after:transition-opacity after:duration-500 hover:after:opacity-20 
-                            group-hover:before:opacity-100"
+                            group-hover:before:opacity-100 cursor-pointer"
                         >
                             <div className="relative z-20 flex flex-col h-full overflow-hidden rounded-[inherit] bg-gray-100">
                                 {/* Arrow */}
@@ -65,7 +69,7 @@ export default function Workflows() {
                                         "Accredit your certificates for use in Türkiye’s education system."}
                                     </p>
 
-                                    <Button className="w-full mt-4 rounded-sm py-5 bg-[#1e547c] hover:bg-[#103c5c]">
+                                    <Button className="w-full mt-4 rounded-sm py-5 bg-[#1e547c] hover:bg-[#103c5c] cursor-pointer">
                                         {i === 0 ? "Get Your Insurance Now!" : 
                                         i === 1 ? "Start your life in Turkey!" : 
                                         i === 2 ? "Start your academic Journey!" :
