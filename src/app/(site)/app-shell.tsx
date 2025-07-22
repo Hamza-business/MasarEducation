@@ -14,7 +14,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       {/* </main> */}
       
       
-      <footer className="border-t py-6 mt-12 bg-muted/10 text-center text-sm text-muted-foreground">
+      <footer className="border-t py-6 bg-muted/10 text-center text-sm text-muted-foreground">
         <Container>© 2025 CompeteX. All rights reserved.</Container>
       </footer>
     </div>
