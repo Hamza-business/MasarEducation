@@ -1,5 +1,19 @@
 {
   "HomePage": {
     "title": "مرحبا يا عالم"
+  },
+  "services": {
+      "helthTitle": "طلب التأمين الصحي",
+      "residenceTitle": "قدم على الإقامة في تركيا",
+      "universityApplyTitle": "التسجيل في الجامعات الخاصة",
+      "CertificateAccreditationTitle": "توثيق الشهادة الجامعية",
+      "helthDesc": "احصل على التأمين الصحي الرسمي للطلاب بسرعة وأمان.",
+      "residenceDesc": "احصل على موعد إقامة او ملف كامل بسهولة وسرعة دون تعقيدات.",
+      "universityApplyDesc": "سجّل في أكثر من 25 جامعة تركية خاصة واحصل على خصم مميز لك أو لأحد معارفك.",
+      "CertificateAccreditationDesc": "نوثق شهادتك رسميًا من الجهات التركية والسفارات، بدون وكالة وبخدمة توصيل لعنوانك.",
+      "helthBtn": "احصل على تأمينك الآن!",
+      "residenceBtn": "ابدأ حياتك في تركيا!",
+      "universityApplyBtn": "ابدأ رحلتك الدراسية!",
+      "CertificateAccreditationBtn": "قدم الآن!"
   }
 }
