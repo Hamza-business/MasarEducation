@@ -22,7 +22,7 @@ export default function HeroHome() {
                   </h1>
                   <div className="relative py-2">
                       <div className="mx-auto flex max-w-fit flex-col items-center gap-4 sm:flex-row sm:justify-center" data-aos="zoom-y-out" data-aos-delay={450}>
-                          <a href="#services" className="btn px-4 group w-full sm:w-auto py-[11px] transition-all text-white bg-[#1e547c] hover:bg-[#103c5c] rounded-sm">
+                          <a href="/services" className="btn px-4 group w-full sm:w-auto py-[11px] transition-all text-white bg-[#1e547c] hover:bg-[#103c5c] rounded-sm">
                               <span className="inline-flex items-center gap-2">Browse Services <FaLocationArrow /></span>
                           </a>
 
