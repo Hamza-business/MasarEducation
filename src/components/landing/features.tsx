@@ -10,7 +10,7 @@ import { PiCurrencyDollarSimpleBold } from "react-icons/pi";
 
 export default function Features() {
     return (
-        <section id="services" className="py-16">
+        <section id="features" className="py-16 mb-25">
             <Container>
                 <div className="mx-auto max-w-3xl pb-10 text-center">
                     <div className="inline-flex items-center gap-3 pb-3 before:h-px before:flex-1">
