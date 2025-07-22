@@ -26,13 +26,27 @@ export default function AboutPage() {
             <img src="/logomasar.png" className='mb-15 max-h-35 mx-auto block'/>
             <div className="relative flex flex-col items-center mb-4 mt-8">
                 <motion.div
-                    {...floatWave(0.2, 20)}
+                    animate={{
+                        y: [0, -20, 0],
+                    }}
+                    transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: 0.2,
+                        ease: [0.42, 0, 0.58, 1], // this is "easeInOut"
+                    }}
                     className="-mt-12 z-20 opacity-65 mb-0"
                 ><GiPlatform className="h-20 w-20 text-[#e85f5e]" />
                 </motion.div>
 
                 <motion.div
-                    {...floatWave(0.4, 10)}
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: 0.4,
+                        ease: [0.42, 0, 0.58, 1], // easeInOut
+                    }}
                     className="-mt-14 z-10 opacity-20 mb-0"
                 ><GiPlatform className="h-20 w-20 text-[#e85f5e]" />
                 </motion.div>
