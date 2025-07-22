@@ -8,7 +8,7 @@ export default function HeroHome() {
     <section className="relative mt-[-65px] overflow-x-hidden">
         <PageIllustration />
         {/* Hero content */}
-        <div className="pb-12 pt-32 md:pb-25 md:pt-55">
+        <div className="pb-12 pt-32 md:pb-15 md:pt-45">
             {/* Section header */}
             <div className="text-center px-2">
               <p
