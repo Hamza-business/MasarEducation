@@ -18,6 +18,7 @@ const floatWave = (delay = 0, offset = 10) => ({
   },
 });
 
+
 export default function AboutPage() {
   return (
     <AppShell>
@@ -50,7 +51,7 @@ export default function AboutPage() {
                 </p>
             </motion.div>
 
-            <Separator className="my-10" />
+            <Separator />
 
             <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -79,6 +80,11 @@ export default function AboutPage() {
                 24/7 — with full transparency, safety, and care.
                 </p>
             </motion.div>
+            <motion.a
+                href="https://wa.me/+905434948414"
+                className="btn bg-gradient-to-r from-[#e85f5e] to-[#103c5c] text-white px-6 py-3 rounded-sm mx-auto block w-fit"
+                >Get in Touch
+            </motion.a>
         </section>
         <Footer/>
     </AppShell>
