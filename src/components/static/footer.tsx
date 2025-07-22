@@ -1,9 +1,12 @@
 import Link from "next/link";
 import Logo from "./logo";
+import { FaInstagram } from "react-icons/fa";
+import { MdOutlineEmail } from "react-icons/md";
+import { BsTelephone } from "react-icons/bs";
 
 export default function Footer({ border = false }: { border?: boolean }) {
   return (
-    <footer>
+    <footer className="shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
       {/* Big text */}
       <div className="absolute z-[-1] h-30 w-full" aria-hidden="true">
         <div className="pointer-events-none absolute left-1/2 -z-10 -translate-x-1/2 text-center text-[260px] font-bold leading-none before:bg-linear-to-b before:from-gray-200 before:to-gray-100/30 before:to-80% before:bg-clip-text before:text-transparent before:content-['Masar'] after:absolute after:inset-0 after:bg-gray-300/70 after:bg-clip-text after:text-transparent after:mix-blend-darken after:content-['Masar'] after:[text-shadow:0_1px_0_white]"></div>
@@ -22,13 +25,15 @@ export default function Footer({ border = false }: { border?: boolean }) {
           className={`grid gap-10 py-8 sm:grid-cols-12 md:py-12 ${border ? "border-t [border-image:linear-gradient(to_right,transparent,var(--color-slate-200),transparent)1]" : ""}`}
         >
           {/* 1st block */}
-          <div className="space-y-2 sm:col-span-12 lg:col-span-4">
+          <div className="space-y-2 sm:col-span-12 lg:col-span-3">
             <div>
               <Logo />
             </div>
             <div className="text-sm text-gray-600">
-              &copy; Cruip.com - All rights reserved.
+              &copy; masartr.com - All rights reserved.
             </div>
+          </div>
+          <div className="space-y-2 sm:col-span-12 lg:col-span-1">
           </div>
 
           {/* 2nd block */}
@@ -38,43 +43,40 @@ export default function Footer({ border = false }: { border?: boolean }) {
               <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
-                  href="#0"
-                >
-                  Features
+                  href="/services"
+                >Services
                 </Link>
               </li>
               <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
-                  href="#0"
-                >
-                  Order Insurance
+                  href="/services/insurance"
+                >Order Insurance
                 </Link>
-              </li>
-              <li>
               </li>
             </ul>
           </div>
 
           {/* 3rd block */}
-          <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
+          <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-3">
             <h3 className="text-sm font-medium">Company</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
-                  href="#0"
+                  href="/about-masar"
                 >
                   About us
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          {/* 4th block */}
-          <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h3 className="text-sm font-medium">Resources</h3>
-            <ul className="space-y-2 text-sm">
+              <li>
+                <Link
+                  className="text-gray-600 transition hover:text-gray-900"
+                  href="#features"
+                >
+                  Features
+                </Link>
+              </li>
               <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
@@ -87,35 +89,29 @@ export default function Footer({ border = false }: { border?: boolean }) {
           </div>
 
           {/* 5th block */}
-          <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
+          <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-3">
             <h3 className="text-sm font-medium">Social</h3>
-            <ul className="flex gap-1">
+            <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  className="flex items-center justify-center text-blue-500 transition hover:text-blue-600"
-                  href="#0"
+                  className="text-[#db5656] transition hover:text-[#e85f5e] font-semibold"
+                  href="https://www.instagram.com/masar.turkey?igsh=MTJrZnloeTM1anJjZw"
                   aria-label="Twitter"
-                >
-                  
-                </Link>
+                ><span className="flex items-center gap-2"><FaInstagram className="h-7 w-7"/>@masar.turkey</span></Link>
               </li>
               <li>
                 <Link
-                  className="flex items-center justify-center text-blue-500 transition hover:text-blue-600"
-                  href="#0"
-                  aria-label="Medium"
-                >
-                  
-                </Link>
+                  className="text-[#db5656] transition hover:text-[#e85f5e] font-semibold"
+                  href="mailto:support@masartr.com"
+                  aria-label="Twitter"
+                ><span className="flex items-center gap-2"><MdOutlineEmail className="h-7 w-7"/> support@masartr.com</span></Link>
               </li>
               <li>
                 <Link
-                  className="flex items-center justify-center text-blue-500 transition hover:text-blue-600"
-                  href="#0"
-                  aria-label="Github"
-                >
-                  
-                </Link>
+                  className="text-[#db5656] transition hover:text-[#e85f5e] font-semibold"
+                  href="tel:+905434948414"
+                  aria-label="Twitter"
+                ><span className="flex items-center gap-2"><BsTelephone className="h-7 w-7"/> +90 543 494 8414⠀</span></Link>
               </li>
             </ul>
           </div>

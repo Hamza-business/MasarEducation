@@ -15,7 +15,7 @@ export default function Home() {
       <HeroHome/>
       <Workflows/>
       <Features/>
-      <Cta/>
+      {/* <Cta/> */}
       <Footer/>
     </AppShell>
   )
