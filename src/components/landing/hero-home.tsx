@@ -5,7 +5,7 @@ import { BsBuildings } from "react-icons/bs";
 
 export default function HeroHome() {
   return (
-    <section className="relative mt-[-65px]">
+    <section className="relative mt-[-65px] overflow-x-hidden">
         <PageIllustration />
         {/* Hero content */}
         <div className="pb-12 pt-32 md:pb-25 md:pt-55">
