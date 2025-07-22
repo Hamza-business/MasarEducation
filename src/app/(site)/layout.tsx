@@ -10,7 +10,7 @@ import { Toaster } from "@/components/ui/sonner";
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Your App',
+  title: 'Masar',
   description: 'Welcome!',
 }
 

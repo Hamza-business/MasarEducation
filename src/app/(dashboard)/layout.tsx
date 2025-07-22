@@ -11,7 +11,7 @@ import React from 'react';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Your App1',
+  title: 'Masar',
   description: 'Welcome!',
 }
 
