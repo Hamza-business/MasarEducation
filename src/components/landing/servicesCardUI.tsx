@@ -5,10 +5,12 @@ import WorflowImg01 from "@/../public/workflow-01.png";
 import WorflowImg02 from "@/../public/workflow-02.png";
 import WorflowImg03 from "@/../public/workflow-03.png";
 import { Button } from "../ui/button";
+import {useTranslations} from 'next-intl';
 
 
 export default function ServicesCardUI() {
     const msgs = ["", "Hey👋🏻\nI’d like to apply for my residence permit!", "Hey👋🏻\nI’d like to apply for a university!", , "Hey👋🏻\nI’d like to apply for my certificate accreditation!"]
+    const t = useTranslations('services');
 
     return(
         <>
@@ -42,24 +44,24 @@ export default function ServicesCardUI() {
                     {/* Content */}
                     <div className="flex flex-1 flex-col px-4 pt-4 pb-4">
                         <h3 className="text-[#1e547c] text-2xl font-semibold text-center mb-2 min-h-[60px]">
-                            {i === 0 ? "Apply for Health Insurance" :
-                            i === 1 ? "Apply for Residence Permit" :
-                            i === 2 ? "Apply to University" :
-                            "Apply for Certificate Accreditation"}
+                            {i === 0 ? t("helthTitle") :
+                            i === 1 ? t("residenceTitle") :
+                            i === 2 ? t("universityApplyTitle") :
+                            t("CertificateAccreditationTitle")}
                         </h3>
 
                         <p className="text-[#103c5c] text-justify flex-1">
-                            {i === 0 ? "Secure your official student health insurance quickly and safely." :
-                            i === 1 ? "Let us handle your student residence permit application with ease." :
-                            i === 2 ? "Get support with your admission to top universities in Türkiye" :
-                            "Accredit your certificates for use in Türkiye’s education system."}
+                            {i === 0 ? t("helthDesc") :
+                            i === 1 ? t("residenceDesc") :
+                            i === 2 ? t("universityApplyDesc") :
+                            t("CertificateAccreditationDesc")}
                         </p>
 
                         <Button className="w-full mt-4 rounded-sm py-5 bg-[#1e547c] hover:bg-[#103c5c] cursor-pointer">
-                            {i === 0 ? "Get Your Insurance Now!" : 
-                            i === 1 ? "Start your life in Turkey!" : 
-                            i === 2 ? "Start your academic Journey!" :
-                            "Apply Now!"}
+                            {i === 0 ? t("helthBtn") : 
+                            i === 1 ? t("residenceBtn") : 
+                            i === 2 ? t("universityApplyBtn") :
+                            t("CertificateAccreditationBtn")}
                         </Button>
                     </div>
                 </div>
