@@ -6,7 +6,11 @@ export default {
     './src/**/*.{ts,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        arabic: ['var(--font-arabic)'],
+      },
+    },
   },
   plugins: [],
 }
