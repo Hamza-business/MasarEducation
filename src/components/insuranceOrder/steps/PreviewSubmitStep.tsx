@@ -69,6 +69,7 @@ async function sendOrderRecievedEmail(email:string, name:string, trackcode:strin
             console.log('✅ Email sent!', data.result);
         } else {
             console.error('❌ Email send failed:', data.error);
+            sendOrderRecievedEmail(email, name, trackcode);
         }
     } catch (error) {
         console.error('❌ Error calling API:', error);
