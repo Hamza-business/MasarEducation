@@ -42,7 +42,8 @@ export async function GET(request: Request) {
 
         ai.name AS agent_name,
         ai.url AS agent_url,
-        ai.id AS agent_id
+        ai.id AS agent_id,
+        ai.percent AS percent
 
       FROM insurances.insurance_order io
       JOIN insurances.personinfo pi ON io.personinfo = pi.id
@@ -87,6 +88,7 @@ export async function GET(request: Request) {
         id: row.agent_id,
         name: row.agent_name,
         url: row.agent_url,
+        percent: row?.percent
       },
     }));
 

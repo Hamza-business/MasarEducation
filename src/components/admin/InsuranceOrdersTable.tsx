@@ -82,9 +82,11 @@ export function InsuranceOrderTable(
                             <TableHead className='px-4'>Status</TableHead>
                             <TableHead className='px-4'>Name</TableHead>
                             <TableHead className='px-4'>Email</TableHead>
+                            <TableHead className='px-4'>Price</TableHead>
                             <TableHead className='px-4'>Track Code</TableHead>
+                            <TableHead className='px-4'>Order Date</TableHead>
                             <TableHead className='px-4'>Agent Name</TableHead>
-                            <TableHead className='px-4'>Date</TableHead>
+                            <TableHead className='px-4'>Agent Percent</TableHead>
                             <TableHead className='px-4'>Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -98,9 +100,11 @@ export function InsuranceOrderTable(
                                 </TableCell>
                                 <TableCell className='px-4'>{order.user.name}</TableCell>
                                 <TableCell className='px-4'>{order.contact.email}</TableCell>
+                                <TableCell className='px-4'>{order.plan.price}</TableCell>
                                 <TableCell className='px-4'>{order.trackcode}</TableCell>
-                                <TableCell className='px-4'><a href={`/${pathurl}/agents/${order.agent?.url}`} className='text-blue-400'>{order.agent?.name}</a></TableCell>
                                 <TableCell className='px-4'>{convertDate(order.created_at)}</TableCell>
+                                <TableCell className='px-4'><a href={`/${pathurl}/agents/${order.agent?.url}`} className='text-blue-400'>{order.agent?.name}</a></TableCell>
+                                <TableCell className='px-4'>%{order.agent?.percent}</TableCell>
                                 <TableCell className="px-4 rounded-sm">
                                     <Button variant="outline" onClick={() => {
                                         setSelectedOrder(order);

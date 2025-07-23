@@ -402,6 +402,7 @@ export interface OrderDetails {
     id: number,
     name: string,
     url: string,
+    percent?: number
   },
 }
 
