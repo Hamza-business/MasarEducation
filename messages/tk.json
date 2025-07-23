@@ -3,6 +3,8 @@
     "title": "Salam Dünýä"
   },
   "services": {
+      "MasarServices": "Masar Services",
+      "Startyourjourney": "Start your journey in Turkey with our Services!",
       "helthTitle": "Apply for Health Insurance",
       "residenceTitle": "Apply for Residence Permit",
       "universityApplyTitle": "Apply to University",
@@ -15,5 +17,34 @@
       "residenceBtn": "Start your life in Turkey!",
       "universityApplyBtn": "Start your academic Journey!",
       "CertificateAccreditationBtn": "Apply Now!"
+  },
+  "feautures": {
+    "masarService": "Masar Feautures",
+    "diff": "What Makes Us Different?",
+    "allin": "All-in-One Platform",
+    "univirst": "From university admission to health insurance and residency — everything you need in one place.",
+    "digi": "Fully Digital & Easy to Use",
+    "smsysmt": "Our smart system lets you submit requests and track updates online.",
+    "eightYer": "8+ Years of Proven Experience",
+    "Trusted": "Trusted by thousands of students and residents across Turkey.",
+    "Dedicated": "Dedicated Support",
+    "ourteam": "Our team is always ready to help — fast responses, real people, real solutions.",
+    "Reliable": "Reliable Network",
+    "wework": "We work directly with top Turkish universities, government offices, and embassies.",
+    "commission": "Commission Program",
+    "weempower": "We empower individuals and agencies to earn through our affiliate program with custom tools and tracking."
+  },
+  "about": {
+    "abouto": "About Masar",
+    "masaristrusted": "Masar is a trusted educational and consultancy company with over",
+    "yearsof": "+8 years of experience",
+    "wehelp": "We help international students and residents in Turkey by offering a",
+    "smartdigital": "smart digital platform",
+    "thatmakes": "that makes it easy to access essential services — all in one place.",
+    "OurVision": "🎯Our Vision",
+    "Tobecomethe": "To become the go-to digital platform for every international student or resident in Turkey who needs fast, reliable, and professional support.",
+    "ourMission": "🚀Our Mission",
+    "Tosimplify": "To simplify life for foreigners in Turkey by automating key services and providing expert assistance 24/7 — with full transparency, safety, and care.",
+    "GetinTouch": "Get in Touch"
   }
 }

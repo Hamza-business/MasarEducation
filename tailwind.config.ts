@@ -9,7 +9,11 @@ const config: Config = {
   ],
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        arabic: ['var(--font-arabic)'],
+      },
+    },
   },
   plugins: [], 
 }
