@@ -22,13 +22,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <body className={`${inter.className} bg-[#fcfcfc]`} key={dir}>
-        {children}
+        <NextIntlClientProvider locale={locale}>
+            {children}
+            <Toaster />
+        </NextIntlClientProvider>
         {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Providers>
-            <NextIntlClientProvider locale={locale}>
-              {children}
-              <Toaster />
-            </NextIntlClientProvider>
+            {children}
           </Providers>
         </ThemeProvider> */}
       </body>

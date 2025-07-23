@@ -5,21 +5,11 @@ import { Separator } from '@/components/ui/separator';
 import { GiPlatform } from 'react-icons/gi';
 import AppShell from '../app-shell';
 import Footer from '@/components/static/footer';
-
-const floatWave = (delay = 0, offset = 10) => ({
-  animate: {
-    y: [0, -offset, 0, offset, 0],
-    transition: {
-      duration: 4,
-      repeat: Infinity,
-      delay,
-      ease: "easeInOut",
-    },
-  },
-});
+import {useTranslations} from 'next-intl';
 
 
 export default function AboutPage() {
+    const t = useTranslations("about");
   return (
     <AppShell>
         <section className="max-w-4xl mx-auto px-4 py-16 space-y-10 mb-20">
@@ -57,11 +47,11 @@ export default function AboutPage() {
                 transition={{ duration: 0.6 }}
                 className="text-center"
             >
-                <h1 className="text-4xl font-bold mb-4 text-[#1e547c]">About Masar</h1>
+                <h1 className="text-4xl font-bold mb-4 text-[#1e547c]">{t("abouto")}</h1>
                 <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                Masar is a trusted educational and consultancy company with over <strong className='text-[#e85f5e]'>8 years of experience</strong>.
-                We help international students and residents in Turkey by offering a <strong className='text-[#e85f5e]'>smart digital platform </strong>
-                that makes it easy to access essential services — all in one place.
+                {t("masaristrusted")} <strong className='text-[#e85f5e]'>{t("yearsof")}</strong>.
+                {t("wehelp")}<strong className='text-[#e85f5e]'>{t("smartdigital")} </strong>
+                {t("thatmakes")}
                 </p>
             </motion.div>
 
@@ -74,11 +64,8 @@ export default function AboutPage() {
                 viewport={{ once: true }}
                 className="space-y-4"
             >
-                <h2 className="text-2xl font-semibold text-[#103c5c]">🎯Our Vision</h2>
-                <p className="text-muted-foreground text-base">
-                To become the go-to digital platform for every international student or resident in Turkey
-                who needs fast, reliable, and professional support.
-                </p>
+                <h2 className="text-2xl font-semibold text-[#103c5c]">{t("OurVision")}</h2>
+                <p className="text-muted-foreground text-base">{t("Tobecomethe")}</p>
             </motion.div>
 
             <motion.div
@@ -88,16 +75,13 @@ export default function AboutPage() {
                 viewport={{ once: true }}
                 className="space-y-4"
             >
-                <h2 className="text-2xl font-semibold text-[#103c5c]">🚀Our Mission</h2>
-                <p className="text-muted-foreground text-base">
-                To simplify life for foreigners in Turkey by automating key services and providing expert assistance
-                24/7 — with full transparency, safety, and care.
-                </p>
+                <h2 className="text-2xl font-semibold text-[#103c5c]">{t("ourMission")}</h2>
+                <p className="text-muted-foreground text-base">{t("Tosimplify")}</p>
             </motion.div>
             <motion.a
                 href="https://wa.me/+905434948414"
                 className="btn bg-gradient-to-r from-[#e85f5e] to-[#103c5c] text-white px-6 py-3 rounded-sm mx-auto block w-fit"
-                >Get in Touch
+                >{t("GetinTouch")}
             </motion.a>
         </section>
         <Footer/>

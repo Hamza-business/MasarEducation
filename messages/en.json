@@ -3,6 +3,8 @@
     "title": "Hello world!"
   },
   "services": {
+      "MasarServices": "Masar Services",
+      "Startyourjourney": "Start your journey in Turkey with our Services!",
       "helthTitle": "Apply for Health Insurance",
       "residenceTitle": "Apply for Residence Permit",
       "universityApplyTitle": "Apply to University",
@@ -31,5 +33,18 @@
     "wework": "We work directly with top Turkish universities, government offices, and embassies.",
     "commission": "Commission Program",
     "weempower": "We empower individuals and agencies to earn through our affiliate program with custom tools and tracking."
+  },
+  "about": {
+    "abouto": "About Masar",
+    "masaristrusted": "Masar is a trusted educational and consultancy company with over",
+    "yearsof": "+8 years of experience",
+    "wehelp": "We help international students and residents in Turkey by offering a",
+    "smartdigital": "smart digital platform",
+    "thatmakes": "that makes it easy to access essential services — all in one place.",
+    "OurVision": "🎯Our Vision",
+    "Tobecomethe": "To become the go-to digital platform for every international student or resident in Turkey who needs fast, reliable, and professional support.",
+    "ourMission": "🚀Our Mission",
+    "Tosimplify": "To simplify life for foreigners in Turkey by automating key services and providing expert assistance 24/7 — with full transparency, safety, and care.",
+    "GetinTouch": "Get in Touch"
   }
 }
