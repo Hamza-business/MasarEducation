@@ -22,6 +22,9 @@ export default function InsuranceOrders() {
     const trackCode = typeof params?.code === 'string' && params.code ? params.code : "0";
     const [orderDetails, setOrderDetails] = useState<InsuranceOrderWithPersonInfo>();
     const [orderid, setOrderid] = useState<number>();
+    const [orderTrackCode, setOrderTrackCode] = useState<string>("");
+    const [orderUserName, setOrderUserName] = useState<string>("");
+    const [orderUserEmail, setOrderUserEmail] = useState<string>("");
     const [passport, setPassport] = useState<PassportFile | null>(null);
     const [receipt, setReceipt] = useState<ReceiptFile | null>(null);
     const [insuranceFiles, setInsuranceFiles] = useState<InsuranceFile[]>([]);
@@ -32,6 +35,9 @@ export default function InsuranceOrders() {
         fetchInsuranceOrdertByTrackCode(trackCode).then(res => {
             setOrderDetails(res);
             setOrderid(res.order_id);
+            setOrderTrackCode(res.track_code);
+            setOrderUserName(res.person_name);
+            setOrderUserEmail(res.email);
         });
     }, [trackCode != "0"]);
 
@@ -59,7 +65,7 @@ export default function InsuranceOrders() {
             </div>
 
             {orderid && (
-                <OrderStatusForm orderId={orderid}/>
+                <OrderStatusForm orderId={orderid} orderTrackCode={orderTrackCode} orderUserName={orderUserName} orderUserEmail={orderUserEmail}/>
             )}
 
             <FileSection passport={passport} receipt={receipt} insuranceFiles={insuranceFiles} numOfCols={numOfCols}/>

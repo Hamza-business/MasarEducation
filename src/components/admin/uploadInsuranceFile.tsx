@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { updateInsuranceOrderStatus, uploadInsuranceFile } from '@/lib/insuranceOrder';
+import { orderApprovedEmail, orderRejectedEmail } from '@/lib/emails';
 
 const statusOptions = ["Pending", "Under review", "Rejected", "Completed"] as const;
 
@@ -12,10 +13,13 @@ type Status = (typeof statusOptions)[number];
 
 interface Props {
   orderId: number;
+  orderUserEmail: string;
+  orderUserName: string;
+  orderTrackCode: string;
   onStatusUpdated?: () => void;
 }
 
-export default function OrderStatusForm({ orderId, onStatusUpdated }: Props) {
+export default function OrderStatusForm({ orderId, onStatusUpdated, orderTrackCode, orderUserEmail, orderUserName  }: Props) {
   const [status, setStatus] = useState("Pending");
   const [rejectionReason, setRejectionReason] = useState("");
   const [files, setFiles] = useState<File[]>([]);
@@ -27,11 +31,13 @@ export default function OrderStatusForm({ orderId, onStatusUpdated }: Props) {
     try {
       if (status === "Rejected") {
         await updateInsuranceOrderStatus(orderId, "rejected", rejectionReason);
+        await orderRejectedEmail(orderUserEmail, orderUserName, orderTrackCode, rejectionReason);
       } else if (status === "Completed") {
         for (const file of files) {
           await uploadInsuranceFile(orderId, file);
         }
         await updateInsuranceOrderStatus(orderId, "completed");
+        await orderApprovedEmail(orderUserEmail, orderUserName, orderTrackCode)
       } else if (status === "Pending")  {
         await updateInsuranceOrderStatus(orderId, "pending");
       } else if (status === "Under review")  {
