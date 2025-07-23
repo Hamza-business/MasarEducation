@@ -1,26 +1,21 @@
 // src/app/layout.tsx
 import '../globals.css'
-import { Inter } from 'next/font/google'
-import { ThemeProvider } from '@/components/theme-provider'
-import { Providers } from '../../components/providers'
 import {NextIntlClientProvider} from 'next-intl';
 import { cookies } from 'next/headers';
 import { Toaster } from "@/components/ui/sonner"; 
 import { Cairo, Ubuntu } from 'next/font/google';
 
-export const cairo = Cairo({
+const cairo = Cairo({
   subsets: ['arabic'],
   weight: ["200", "300", "400", "500", "600", "700", "800", "900", "1000"],
   variable: '--font-arabic',
 });
 
-export const ubuntu = Ubuntu({
+const ubuntu = Ubuntu({
   subsets: ['cyrillic'],
   weight: ["300", "400", "500", "700"],
   variable: '--font-arabic',
 });
-
-
 
 export const metadata = {
   title: 'Masar',
@@ -40,11 +35,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             {children}
             <Toaster />
         </NextIntlClientProvider>
-        {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Providers>
-            {children}
-          </Providers>
-        </ThemeProvider> */}
       </body>
     </html>
   )
