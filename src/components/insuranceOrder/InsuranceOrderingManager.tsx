@@ -121,7 +121,7 @@ export default function InsuranceOrderingPage() {
 
   return (
       <Container>
-          <div className="max-w-3xl mx-auto py-0 space-y-6 pt-10 pb-10">
+          <div className="max-w-3xl mx-auto py-0 space-y-6 pt-4 pb-4 mt-8 mb-16">
               <div className="w-full">
                 {loaded && parentid != 1 && (
                   <img
