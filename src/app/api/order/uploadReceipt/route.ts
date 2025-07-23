@@ -19,9 +19,10 @@ export async function POST(req: NextRequest) {
     //   return new NextResponse("Invalid receipt file format", { status: 400 });
     // }
 
-    const result = await prisma.insurance_files.create({
+    console.log(body);
+
+    const result = await prisma.receipts.create({
       data: {
-        order: body.id, 
         name: body.name,
         mimetype: body.mimetype.toLowerCase() as MimeType,
         data: body.data,
@@ -35,3 +36,30 @@ export async function POST(req: NextRequest) {
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
+
+// export async function POST(req: NextRequest) {
+//   try {
+//     const body = await req.json();
+
+//     // if (!isValidReceiptFile(body)) {
+//     //   return new NextResponse("Invalid receipt file format", { status: 400 });
+//     // }
+
+//     console.log(body);
+
+//     const result = await prisma.insurance_files.create({
+//       data: {
+//         order: body.id, 
+//         name: body.name,
+//         mimetype: body.mimetype.toLowerCase() as MimeType,
+//         data: body.data,
+//       },
+//       select: { id: true },
+//     });
+
+//     return NextResponse.json({ id: result.id });
+//   } catch (error) {
+//     console.error("Error uploading receipt:", error);
+//     return new NextResponse("Internal Server Error", { status: 500 });
+//   }
+// }

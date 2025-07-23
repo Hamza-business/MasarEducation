@@ -18,6 +18,19 @@ export function FileSection({
   return (
       <>
           <div className={`grid md:grid-cols-${numOfCols} gap-6 transition-all`}>
+            {insuranceFiles && insuranceFiles.length > 0 && (
+                insuranceFiles.map((e, i) => (
+                  <Card className="rounded-sm gap-2 py-6" key={i}>
+                    <CardHeader className="px-5">
+                      <CardTitle>Insurance File</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4 px-5">
+                      <FilePreview file={e} />
+                    </CardContent>
+                  </Card>
+                ))
+              )}
+              
               {/* Passport File */}
               {passport && (
                   <Card className='rounded-sm gap-2 py-6'>
@@ -39,19 +52,6 @@ export function FileSection({
                           <FilePreview file={receipt} />
                       </CardContent>
                   </Card>
-              )}
-
-              {insuranceFiles && insuranceFiles.length > 0 && (
-                insuranceFiles.map((e, i) => (
-                  <Card className="rounded-sm gap-2 py-6" key={i}>
-                    <CardHeader className="px-5">
-                      <CardTitle>Insurance File</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4 px-5">
-                      <FilePreview file={e} />
-                    </CardContent>
-                  </Card>
-                ))
               )}
           </div>
       </>
