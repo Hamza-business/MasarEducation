@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { updateInsuranceOrderStatus, uploadInsuranceFile } from '@/lib/insuranceOrder';
-import { orderApprovedEmail } from '@/lib/emails';
+import { orderApprovedEmail, orderRejectedEmail } from '@/lib/emails';
 
 const statusOptions = ["Pending", "Under review", "Rejected", "Completed"] as const;
 
@@ -31,6 +31,7 @@ export default function OrderStatusForm({ orderId, onStatusUpdated, orderTrackCo
     try {
       if (status === "Rejected") {
         await updateInsuranceOrderStatus(orderId, "rejected", rejectionReason);
+        await orderRejectedEmail(orderUserEmail, orderUserName, orderTrackCode, rejectionReason);
       } else if (status === "Completed") {
         for (const file of files) {
           await uploadInsuranceFile(orderId, file);
