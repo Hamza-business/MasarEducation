@@ -10,6 +10,9 @@ export default function Home() {
   return (
     <AppShell>
       <HeroHome/>
+      <div style={{width: "70%", minWidth: "270px"}} className="mx-auto">
+        <Separator />
+      </div>
       <Workflows/>
       <div style={{width: "70%", minWidth: "270px"}} className="mx-auto">
         <Separator />
