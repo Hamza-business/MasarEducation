@@ -4,6 +4,7 @@ import {NextIntlClientProvider} from 'next-intl';
 import { cookies } from 'next/headers';
 import { Toaster } from "@/components/ui/sonner"; 
 import { Cairo, Ubuntu } from 'next/font/google';
+import FloatingWhatsApp from '@/components/landing/FloatingWhatsApp';
 
 const cairo = Cairo({
   subsets: ['arabic'],
@@ -30,10 +31,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
-      <body className={`${font.className} bg-[#fcfcfc]`} key={dir}>
+      <body className={`${font.className} bg-[#f7f7fa]`} key={dir}>
         <NextIntlClientProvider locale={locale}>
             {children}
             <Toaster />
+            <FloatingWhatsApp />
         </NextIntlClientProvider>
       </body>
     </html>
