@@ -77,6 +77,12 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
   --font-arabic: 'Cairo', sans-serif;
+
+  /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(210 70% 15%), hsl(210 60% 25%));
+    --gradient-accent: linear-gradient(135deg, hsl(12 85% 65%), hsl(12 75% 55%));
+    --gradient-subtle: linear-gradient(180deg, hsl(240 15% 98%), hsl(240 10% 95%));
+
 }
 
 .dark {

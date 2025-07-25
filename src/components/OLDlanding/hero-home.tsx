@@ -10,10 +10,10 @@ export default function HeroHome() {
               Masar
           </h1>
           <div className="flex flex-col items-center px-2 pb-4">
-              <h2 className="text-center animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_left,#cf4444,#cf4444,#103c5c,#103c5c,#e85f5e)] bg-clip-text text-transparent font-nacelle text-3xl md:text-5xl font-semibold pb-1">
-                  Your Trusted Gateway<br/>to Study and Live in Turkey
+              <h2 className="text-center animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_left,#cf4444,#cf4444,#103c5c,#103c5c,#e85f5e)] bg-clip-text text-transparent font-nacelle text-sm md:text-4xl font-medium md:font-semibold pb-1">
+                  Your Trusted Gateway to Study and Live in Turkey
               </h2>
-              <span className="text-5xl my-0">🇹🇷</span>
+              <span className="text-3xl md:text-5xl my-0">🇹🇷</span>
           </div>
       </>
     // <section className="relative mt-[-65px] overflow-x-hidden">
