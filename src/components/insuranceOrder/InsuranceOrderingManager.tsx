@@ -83,9 +83,9 @@ export default function InsuranceOrderingPage() {
             if(res.active)
               setParentid(res.id);
             else
-              window.location.href = "/services/insurance/order";
+              window.location.href = "/insurance";
         }).catch((err)=>{
-            window.location.href = "/services/insurance/order";
+            window.location.href = "/insurance";
         })
     }, []);
 
@@ -122,7 +122,7 @@ export default function InsuranceOrderingPage() {
   return (
       <Container>
           <div className="max-w-3xl mx-auto py-0 space-y-6 pt-4 pb-4 mt-8 mb-16">
-              <div className="w-full">
+              {/* <div className="w-full">
                 {loaded && parentid != 1 && (
                   <img
                     src={`data:${agentImage?.mimetype};base64,${agentImage?.data}`}
@@ -140,9 +140,9 @@ export default function InsuranceOrderingPage() {
                 {!loaded && (
                   <Skeleton className='w-full h-40'/>
                 )}
-              </div>
+              </div> */}
               <div className="text-center font-semibold text-xl mb-3 flex justify-between items-center">
-                <span className='flex justify-center gap-1 items-center text-blue-500'>
+                <span className='flex justify-center gap-1 items-center text-[#e85f5e]'>
                   {step === 1 && (
                     <>
                       <TbInfoSquareRounded/> Personal Infomration
@@ -180,7 +180,7 @@ export default function InsuranceOrderingPage() {
                   )}
                   {step === 8 && (<>🏁 Order Placed</>)}
                 </span>
-                <p className="text-center font-semibold text-sm mb-1 text-blue-400">
+                <p className="text-center font-semibold text-sm mb-1 text-[#e85f5e]">
                   { step<=TOTAL_STEPS &&(
                     <>
                       Step {step} / {TOTAL_STEPS}
@@ -195,7 +195,7 @@ export default function InsuranceOrderingPage() {
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-800 h-2 rounded overflow-hidden mt-2">
                 <div
-                  className="bg-blue-500 h-full transition-all duration-300"
+                  className="bg-[#e85f5e] h-full transition-all duration-300"
                   style={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
                 />
               </div>

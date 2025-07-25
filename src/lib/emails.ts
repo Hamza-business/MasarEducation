@@ -31,7 +31,7 @@ export async function sendOrderRecievedEmail(email:string, name:string, trackcod
 
                       <div style="text-align: center; margin: 20px 0;">
                         <a
-                          href="https://masartr.com/services/insurance/track?code=${trackcode}"
+                          href="https://masartr.com/insurance/track?code=${trackcode}"
                           style="background-color: #00d590; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;"
                         >
                           Check My Application Status
@@ -93,7 +93,7 @@ export async function orderApprovedEmail(email:string, name:string, trackcode:st
 
                             <div style="text-align: center; margin: 20px 0;">
                                 <a
-                                href="https://masartr.com/services/insurance/track?code=${trackcode}"
+                                href="https://masartr.com/insurance/track?code=${trackcode}"
                                 style="background-color: #00d590; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;"
                                 >
                                 Check My Application Status
@@ -159,7 +159,7 @@ export async function orderRejectedEmail(email:string, name:string, trackcode:st
 
                             <div style="text-align: center; margin: 20px 0;">
                                 <a
-                                href="https://masartr.com/services/insurance/track?code=${trackcode}"
+                                href="https://masartr.com/insurance/track?code=${trackcode}"
                                 style="background-color: #ff0056; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;"
                                 >
                                 Check My Application Status
