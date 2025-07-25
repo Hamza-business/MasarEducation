@@ -1,6 +1,7 @@
 import { FaDownload } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 type ReportFile = {
   id: number;
@@ -51,9 +52,9 @@ export default function InsuranceFiles({orderId}:{orderId:number}) {
                     No insurance file(s) available.
                     <br />
                     Please contact our{" "}
-                    <a href="/support" className="underline font-medium">
+                    <Link href="/support" className="underline font-medium">
                         Support Team
-                    </a>{" "}
+                    </Link>{" "}
                     for any help.
                 </div>
             )}

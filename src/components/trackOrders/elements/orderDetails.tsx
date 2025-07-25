@@ -80,7 +80,7 @@ export default function OrderDetails({orderdetails}:{orderdetails:InsuranceOrder
                         <div className="bg-red-50 dark:bg-zinc-900 dark:text-red-200 p-4 rounded-sm text-sm text-gray-800 border border-red-300 dark:border-red-600">
                             {orderdetails?.msg}
                             <br />
-                            Please contact our <a href="/support" className="underline font-medium">Support Team</a> for help.
+                            Please contact our <Link href="/support" className="underline font-medium">Support Team</Link> for help.
                         </div>
                     </div>
                 </>
