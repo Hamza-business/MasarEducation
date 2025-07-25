@@ -58,18 +58,64 @@ const Landing = () => {
       isPrimary: false
     }
   ];
+    const services2 = [
+    {
+      icon: Heart,
+      title: "Health Insurance",
+      onClick: () => router.push("/services/insurance"),
+      isPrimary: true
+    },
+    {
+      icon: FileCheck,
+      title: "Certificate Equivalency",
+      onClick: () => handleWhatsAppRedirect("certificate"),
+      isPrimary: false
+    },
+    {
+      icon: MapPin,
+      title: "Residence Permit",
+      onClick: () => handleWhatsAppRedirect("residence"),
+      isPrimary: false
+    },
+    {
+      icon: GraduationCap,
+      title: "Apply to University",
+      onClick: () => handleWhatsAppRedirect("university"),
+      isPrimary: false
+    }
+  ];
 
   return (
     <AppShell>
         <div className="min-h-screen bg-gradient-subtle">
             <div className="container mx-auto px-4 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-6xl mx-auto sm:hidden">
                     {services.map((service, index) => (
                         <div
                           key={index}
                           className={`
                             ${index === 0 || index === services.length - 1 
-                              ? 'col-span-2' // full width for first and last
+                              ? 'sm:col-span-2 col-span-1' // full width for first and last
+                              : 'col-span-1'              // default half-width for 2nd & 3rd
+                            }
+                          `}
+                        >
+                            <ServiceCard
+                              icon={service.icon}
+                              title={service.title}
+                              onClick={service.onClick}
+                              isPrimary={service.isPrimary}
+                            />
+                        </div>
+                    ))}
+                </div>
+                <div className="grid-cols-1 md:grid-cols-2 gap-5 max-w-6xl mx-auto hidden sm:grid">
+                    {services2.map((service, index) => (
+                        <div
+                          key={index}
+                          className={`
+                            ${index === 0 || index === services.length - 1 
+                              ? 'sm:col-span-2 col-span-1' // full width for first and last
                               : 'col-span-1'              // default half-width for 2nd & 3rd
                             }
                           `}

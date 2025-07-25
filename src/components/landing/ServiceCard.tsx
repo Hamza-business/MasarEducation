@@ -11,14 +11,14 @@ interface ServiceCardProps {
 
 const ServiceCard = ({ icon: Icon, title, onClick, isPrimary = false }: ServiceCardProps) => {
   return (
-    <Card className={`group p-8 transition-all duration-300 hover:scale-[1.02] border relative overflow-hidden ${
+    <Card className={`group p-8 transition-all duration-300 hover:scale-[1.02] border relative overflow-hidden rounded-sm ${
       isPrimary 
         ? 'bg-[#103c5c] text-white border-[#e85f5e]' 
         : 'bg-white border-[#dedede] hover:border-[#e85f5e]'
     }`}>
       <Button
         onClick={onClick}
-        className="w-full h-auto p-6 relative bg-[#ffffff] hover:bg-[#f6f6f9] border-[#aaaaaa]" 
+        className="w-full h-auto p-6 relative bg-[#ffffff] hover:bg-[#f6f6f9] border-[#aaaaaa] rounded-sm" 
       >
         <div className="flex flex-col items-center space-y-4">
           <div className={`p-4 rounded-full transition-colors ${
