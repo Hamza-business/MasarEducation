@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PassportFile, ReceiptFile, PersonInfo, InsuranceApplication, Country, BankInfo, PlanWithPrice, InsuranceOrder, agentImageType } from '@/types/all';
 import PersonalInfoStep from './steps/PersonalInfoStep';
 import LivinginformationStep from './steps/LivingInformationStep';
@@ -19,7 +19,6 @@ import { toastMissingErorr } from '../notifications/toast';
 import { Container } from '@/app/(site)/container';
 import { useParams } from 'next/navigation';
 import { fetchAgentByCode, getAgentImageById } from '@/lib/agent';
-import { Skeleton } from '../ui/skeleton';
 
 // Constants
 const TOTAL_STEPS = 7;
