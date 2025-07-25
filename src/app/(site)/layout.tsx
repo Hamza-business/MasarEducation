@@ -4,7 +4,7 @@ import {NextIntlClientProvider} from 'next-intl';
 import { cookies } from 'next/headers';
 import { Toaster } from "@/components/ui/sonner"; 
 import { Cairo, Ubuntu } from 'next/font/google';
-import FloatingWhatsApp from '@/components/landing/FloatingWhatsApp';
+import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 
 const cairo = Cairo({
   subsets: ['arabic'],

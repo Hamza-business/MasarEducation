@@ -2,14 +2,14 @@
 import { GraduationCap, FileCheck, MapPin, Heart } from "lucide-react";
 import ServiceCard from "@/components/landing/ServiceCard";
 // import { useNavigate } from "react-router-dom";
-import { useRouter } from 'next/navigation';
 import AppShell from "./app-shell";
 import Footer from "@/components/static/footer";
+import { usePathname, useRouter } from 'next/navigation';
 
 const Landing = () => {
-  const router = useRouter();
+  const pth = usePathname();
 
-  const handleWhatsAppRedirect = (service: string) => {
+  function handleWhatsAppRedirect (service: string): string{
     let message = "";
     let phoneNumber = "+1234567890"; // Replace with actual WhatsApp number
     
@@ -28,33 +28,32 @@ const Landing = () => {
         break;
     }
     
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
   };
 
   const services = [
     {
       icon: Heart,
       title: "Health Insurance",
-      onClick: () => router.push("/services/insurance"),
-      isPrimary: false
+      link: `${pth == "/" ? "/insurance"  : `/${pth}/insurance`}`,
+      isPrimary: true
     },
     {
       icon: GraduationCap,
       title: "Apply to University",
-      onClick: () => handleWhatsAppRedirect("university"),
+      link: handleWhatsAppRedirect("university"),
       isPrimary: false
     },
     {
       icon: FileCheck,
       title: "Certificate Equivalency",
-      onClick: () => handleWhatsAppRedirect("certificate"),
+      link: handleWhatsAppRedirect("certificate"),
       isPrimary: false
     },
     {
       icon: MapPin,
       title: "Residence Permit",
-      onClick: () => handleWhatsAppRedirect("residence"),
+      link: handleWhatsAppRedirect("residence"),
       isPrimary: false
     }
   ];
@@ -62,25 +61,25 @@ const Landing = () => {
     {
       icon: Heart,
       title: "Health Insurance",
-      onClick: () => router.push("/services/insurance"),
-      isPrimary: false
+      link: `${pth == "/" ? "/insurance"  : `${pth}/insurance`}`,
+      isPrimary: true
     },
     {
       icon: FileCheck,
       title: "Certificate Equivalency",
-      onClick: () => handleWhatsAppRedirect("certificate"),
+      link: handleWhatsAppRedirect("certificate"),
       isPrimary: false
     },
     {
       icon: MapPin,
       title: "Residence Permit",
-      onClick: () => handleWhatsAppRedirect("residence"),
+      link: handleWhatsAppRedirect("residence"),
       isPrimary: false
     },
     {
       icon: GraduationCap,
       title: "Apply to University",
-      onClick: () => handleWhatsAppRedirect("university"),
+      link: handleWhatsAppRedirect("university"),
       isPrimary: false
     }
   ];
@@ -103,7 +102,7 @@ const Landing = () => {
                             <ServiceCard
                               icon={service.icon}
                               title={service.title}
-                              onClick={service.onClick}
+                              link={service.link}
                               isPrimary={service.isPrimary}
                             />
                         </div>
@@ -123,7 +122,7 @@ const Landing = () => {
                             <ServiceCard
                               icon={service.icon}
                               title={service.title}
-                              onClick={service.onClick}
+                              link={service.link}
                               isPrimary={service.isPrimary}
                             />
                         </div>
