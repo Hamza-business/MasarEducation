@@ -39,7 +39,7 @@ export default function AgentLoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted">
+    <div className="flex items-center justify-center" style={{height: "calc(100vh - 50px)"}}>
       <Card className="w-full max-w-sm shadow-lg">
         <CardContent className="space-y-4 py-6">
           <h1 className="text-xl font-semibold text-center">Agent Manager Login</h1>
