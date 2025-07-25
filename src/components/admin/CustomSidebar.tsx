@@ -100,7 +100,7 @@ export default function CustomSidebar({ rtl }: { rtl?: boolean }) {
                     </SidebarGroupContent>
                 </SidebarGroup>
                 <SidebarGroup>
-                    <SidebarGroupLabel>Agents</SidebarGroupLabel>
+                    <SidebarGroupLabel>{pathurl == "admin" ? "Agents" : "subAgents"}</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {agentsItems.map((item, i) => (
