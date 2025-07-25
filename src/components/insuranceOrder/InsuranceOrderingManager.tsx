@@ -83,9 +83,9 @@ export default function InsuranceOrderingPage() {
             if(res.active)
               setParentid(res.id);
             else
-              window.location.href = "/services/insurance/order";
+              window.location.href = "/insurance";
         }).catch((err)=>{
-            window.location.href = "/services/insurance/order";
+            window.location.href = "/insurance";
         })
     }, []);
 

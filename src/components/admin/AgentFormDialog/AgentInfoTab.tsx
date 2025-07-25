@@ -43,11 +43,11 @@ export default function AgentInfoTab({
             onChange={(e) => setAgentInfo({ ...agentInfo, url: e.target.value.toLowerCase().replaceAll(" ", "-").replaceAll(".", "-").replaceAll("#", "-").replaceAll("$", "-").replaceAll("@", "-") })}
             placeholder="custom-slug"
           />
-          <span className="bg-muted px-3 py-2 rounded-sm text-sm rounded-tl-none rounded-bl-none">/services/insurance/order</span>
+          <span className="bg-muted px-3 py-2 rounded-sm text-sm rounded-tl-none rounded-bl-none">/insurance</span>
         </div>
         <p className="text-xs mt-1 text-muted-foreground">Agent Referral Link Will be: 
           {agentInfo.url && (
-            <a href={`/${agentInfo.url}/services/insurance/order`} className="text-blue-400"> https://masartr.com/{agentInfo.url}/services/insurance/order</a>
+            <a href={`/${agentInfo.url}/insurance`} className="text-blue-400"> https://masartr.com/{agentInfo.url}/insurance</a>
           )}
         </p>
       </div>

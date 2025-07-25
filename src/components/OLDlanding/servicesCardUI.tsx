@@ -17,7 +17,7 @@ export default function ServicesCardUI() {
         {[...Array(4)].map((_, i) => (
             <a
             key={i}
-            href={i === 0 ? "/services/insurance" : 
+            href={i === 0 ? "/insurance" : 
                 i === 1 ? `https://wa.me/+905434948414?text=${msgs[i]}` :
                 i === 2 ? `https://wa.me/+905074332296?text=${msgs[i]}` :
             `https://wa.me/+905076378139?text=${msgs[i]}`}
