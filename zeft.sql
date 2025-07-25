@@ -144,10 +144,6 @@ CREATE TABLE "insurances"."insurance_order" (
 
 
 
-
-
-
-
 CREATE TABLE "public"."bank" (
   "id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   "name" text NOT NULL,
@@ -156,3 +152,63 @@ CREATE TABLE "public"."bank" (
   "diban" text NOT NULL,
   "eiban" text NOT NULL
 )
+
+
+
+
+
+
+
+
+CREATE SCHEMA "agents"
+
+CREATE TABLE "agents"."users" (
+  "id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  "email" text NOT NULL UNIQUE,
+  "password" text NOT NULL,
+  "name" text NOT NULL,
+  "created_at" TIMESTAMP DEFAULT NOW()
+)
+CREATE TABLE "public"."admins" (
+  "id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  "userid" integer NOT NULL UNIQUE,
+  CONSTRAINT "userAdmin" FOREIGN KEY ("userid") REFERENCES "agents"."users" ("id")
+)
+CREATE TABLE "files"."agent_images" (
+  "id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  "name" text NOT NULL,
+  "mimetype" text NOT NULL,
+  "data" text NOT NULL
+)
+CREATE TABLE "agents"."agent_info" (
+  "id" SERIAL PRIMARY KEY,
+  "parent_agent" INTEGER DEFAULT NULL,
+  "userid" INTEGER NOT NULL,
+  "agent_image" INTEGER NOT NULL,
+  "percent" REAL NOT NULL,
+  "name" TEXT NOT NULL,
+  "lvl" INTEGER NOT NULL DEFAULT 2,
+  "url" TEXT NOT NULL UNIQUE,
+  "created_at" TIMESTAMP DEFAULT NOW(),
+  "active" boolean DEFAULT true,
+
+  CONSTRAINT "parent_agent_fk"
+    FOREIGN KEY ("parent_agent") REFERENCES "agents"."agent_info" ("id")
+    ON DELETE SET NULL,
+
+  CONSTRAINT "imagelink"
+    FOREIGN KEY ("agent_image") REFERENCES "files"."agent_images" ("id")
+    ON DELETE SET NULL,
+
+  CONSTRAINT "userlink"
+    FOREIGN KEY ("userid") REFERENCES "agents"."users" ("id")
+    ON DELETE CASCADE
+);
+
+CREATE TABLE "agents"."insurance_order_agent" (
+  "id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  "agent" integer NOT NULL,
+  "order" integer NOT NULL,
+  CONSTRAINT "agentid" FOREIGN KEY ("agent") REFERENCES "agents"."agent_info" ("id"),
+  CONSTRAINT "orderid" FOREIGN KEY ("order") REFERENCES "insurances"."insurance_order" ("id")
+);
