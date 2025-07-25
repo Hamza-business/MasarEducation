@@ -63,7 +63,7 @@ const Landing = () => {
       icon: Heart,
       title: "Health Insurance",
       onClick: () => router.push("/services/insurance"),
-      isPrimary: true
+      isPrimary: false
     },
     {
       icon: FileCheck,
