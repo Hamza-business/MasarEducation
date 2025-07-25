@@ -234,7 +234,7 @@ export default function CreateAgentFormDialog({
             <Dialog open={open} onOpenChange={(v) => !v && handleCancel()}>
                 <DialogContent className="!max-w-2xl !w-full overflow-auto" style={{ maxHeight: "calc(100% - 40px)" }}>
                     <DialogHeader>
-                        <DialogTitle>Create Agent</DialogTitle>
+                        <DialogTitle>Create {parentLVL==1 ? "Agent" : "subAgent"}</DialogTitle>
                     </DialogHeader>
 
                     <TabNavigation currentTab={currentTab} onChange={setCurrentTab} />
@@ -289,7 +289,7 @@ export default function CreateAgentFormDialog({
                 onEscapeKeyDown={(e) => e.preventDefault()}
             >
                 <DialogHeader className="mb-0">
-                    <DialogTitle className="m-auto text-xl">Creating New Agent</DialogTitle>
+                    <DialogTitle className="m-auto text-xl">Creating New {parentLVL==1 ? "Agent" : "subAgent"}</DialogTitle>
                 </DialogHeader>
 
                 <p className="text-muted-foreground text-lg my-1">
