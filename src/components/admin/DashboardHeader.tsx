@@ -20,6 +20,9 @@ export function DashboardHeader() {
       pathname.splice(2,1);
   }
 
+  if(pathname.length < 3)
+        return(<></>)
+
   return (
     <div className="flex items-center justify-start px-4 py-3 border-b bg-white dark:bg-black">
         <SidebarTrigger />

@@ -24,6 +24,8 @@ export default function CustomSidebar({ rtl }: { rtl?: boolean }) {
     } else if (pathname[1] == "agent"){
         pathurl = `${pathname[1]}/${pathname[2]}`
     }
+    if(pathname.length < 3)
+        return(<></>)
     return (
         <Sidebar>
             <SidebarContent>

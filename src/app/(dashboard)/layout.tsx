@@ -19,7 +19,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const cookieStore = cookies();
   const locale = (await cookieStore).get('locale')?.value || 'en';
   const dir = ['ar'].includes(locale) ? 'rtl' : 'ltr';
-  const defaultOpen = (await cookieStore).get("sidebar_state")?.value === "true"
+  const defaultOpen = (await cookieStore).get("sidebar_state")?.value === "true";
 
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>

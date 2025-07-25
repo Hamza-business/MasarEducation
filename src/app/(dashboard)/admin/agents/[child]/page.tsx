@@ -49,11 +49,11 @@ export default function AgentsManagement() {
                 <>
                     <div className="flex justify-between items-center mb-6">
                         <div className=''>
-                            <h1 className='text-2xl font-bold'>Agents</h1>
-                            <p className='text-muted-foreground text-sm mt-0.5'>Manage <span className='font-semibold text-zinc-600 dark:text-gray-300'>{agentName}&#39;</span>s Agents</p>
+                            <h1 className='text-2xl font-bold'>{parentLVL==1 ? "Agents" : "subAgents"}</h1>
+                            <p className='text-muted-foreground text-sm mt-0.5'>Manage <span className='font-semibold text-zinc-600 dark:text-gray-300'>{agentName}&#39;</span>s {parentLVL==1 ? "Agents" : "subAgents"}</p>
                         </div>
                         { parentLVL < 3 && (
-                            <Button onClick={()=>{setOpenDialog(true)}}><CgAddR /> Create New Agent</Button>
+                            <Button onClick={()=>{setOpenDialog(true)}}><CgAddR /> Create New {parentLVL==1 ? "Agent" : "subAgent"}</Button>
                         )}
                     </div>
 

@@ -11,12 +11,12 @@ export async function GET(request: Request) {
 
   try {
     const result = await sql.query(`
-      WITH RECURSIVE subagents AS (
+      WITH RECURSIVE subAgents AS (
         SELECT id FROM agents.agent_info WHERE id = $1
         UNION
         SELECT ai.id
         FROM agents.agent_info ai
-        INNER JOIN subagents sa ON ai.parent_agent = sa.id
+        INNER JOIN subAgents sa ON ai.parent_agent = sa.id
       )
       SELECT 
         io.id,
@@ -53,7 +53,7 @@ export async function GET(request: Request) {
       JOIN locations.neighbourhoods n ON ia.neighbourhood = n.id
       JOIN agents.insurance_order_agent ioa ON io.id = ioa.order
       JOIN agents.agent_info ai ON ioa.agent = ai.id
-      WHERE ioa.agent IN (SELECT id FROM subagents)
+      WHERE ioa.agent IN (SELECT id FROM subAgents)
       ORDER BY io.created_at DESC;
     `, [agentId]);
 

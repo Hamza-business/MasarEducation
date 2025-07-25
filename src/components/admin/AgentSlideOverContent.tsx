@@ -127,7 +127,7 @@ export default function AgentSlideOverContent(
                     </ConfirmActionDialog>
                 )}
                 <a href={`/${pathurl}/agents/${selectedAgent.url}`} className="cursor-pointer">
-                    <Button className="cursor-pointer"><MdOutlineRemoveRedEye /> Orders & Subagents <IoMdArrowDropright /></Button>
+                    <Button className="cursor-pointer"><MdOutlineRemoveRedEye /> Orders & subAgents <IoMdArrowDropright /></Button>
                 </a>
             </div>
 
