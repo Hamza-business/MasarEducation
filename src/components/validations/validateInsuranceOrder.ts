@@ -47,15 +47,15 @@ export function validateInsuranceApplication(
 ): string[] {
   const errors: string[] = [];
 
-  if (!application.region) {
+  if (application.region == "") {
     errors.push("Region is required.");
   }
 
-  if (!application.district) {
+  if (application.district == "") {
     errors.push("District is required.");
   }
 
-  if (!application.neighbourhood) {
+  if (application.neighbourhood == "") {
     errors.push("Neighbourhood is required.");
   }
 

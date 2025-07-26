@@ -11,69 +11,75 @@ import PlanSelector from "../elements/planSelector";
 import { GrFormNext } from "react-icons/gr";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { toastDistrictFetchFailed, toastNeighborhoodFetchFailed, toastRegionFetchFailed } from "@/components/notifications/toast";
+import { getDistricts, getNeighbourhoods, getRegions } from "@/lib/locations";
 
 type Props = {
   application: InsuranceApplication;
-  regions: { id: number; name: string }[];
-  setRegions: (regions:{ id: number; name: string }[])=> void;
+  regions: string[];
+  setRegions: (regions: string[])=> void;
   setApplication: (app: InsuranceApplication) => void;
   onNext: (validate?: () => string[]) => void;
   onBack: () => void;
 };
 
 export default function LivinginformationStep({application, regions, setRegions, setApplication, onBack, onNext }: Props) {
-  const [districts, setDistricts] = useState<{ id: number; name: string }[]>([]);
-  const [neighbourhoods, setNeighbourhoods] = useState<{ id: number; name: string }[]>([]);
+  const [districts, setDistricts] = useState<string[]>([]);
+  const [neighbourhoods, setNeighbourhoods] = useState<string[]>([]);
 
   useEffect(() => {
-      if(regions.length==0){
-          fetch("/api/locations/regions")
-          .then((res) => res.json())
-          .then(setRegions)
-          .catch((error)=>{
-            toastRegionFetchFailed();
-          });
-      }
-  }, [])
+    getRegions(setRegions);
+    // fetch("https://turkiyeapi.dev/api/v1/provinces")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //       const namesOnly = data.data.map((province: { name: string }) => province.name);
+    //       setRegions(namesOnly);
+    //   })
+    //   .catch((error)=>{
+    //       toastRegionFetchFailed();
+    //   });
+  }, []);
 
   // Load districts on region change, reset downstream
   useEffect(() => {
     if (!application.region) return setDistricts([]);
 
-    fetch(`/api/locations/districts?region=${application.region}`)
-      .then((res) => res.json())
-      .then((list) => {
-        setDistricts(list);
-      })
-      .catch((error)=>{
-        toastDistrictFetchFailed();
-      });
+    getDistricts(application.region, setDistricts)
+    // fetch(`https://turkiyeapi.dev/api/v1/districts?province=${application.region}`)
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //       const namesOnly = data.data.map((province: { name: string }) => province.name);
+    //       setDistricts(namesOnly);
+    //   })
+    //   .catch((error)=>{
+    //     toastDistrictFetchFailed();
+    // });
   }, [application.region]);
 
   // Load neighbourhoods on district change
   useEffect(() => {
     if (!application.district) return setNeighbourhoods([]);
 
-    fetch(`/api/locations/neighbourhoods?district=${application.district}`)
-      .then((res) => res.json())
-      .then((list) => {
-        setNeighbourhoods(list);
-      })
-      .catch((error)=>{
-        toastNeighborhoodFetchFailed();
-      });
+    getNeighbourhoods(application.district, setNeighbourhoods);
+    // fetch(`/api/locations/neighbourhoods?district=${application.district}`)
+    //   .then((res) => res.json())
+    //   .then((list) => {
+    //     setNeighbourhoods(list);
+    //   })
+    //   .catch((error)=>{
+    //     toastNeighborhoodFetchFailed();
+    //   });
   }, [application.district]);
 
-  const handleRegionChange = (id: number) => {
-    setApplication({ ...application, region: id, district: null, neighbourhood: null });
+  const handleRegionChange = (val: string) => {
+    setApplication({ ...application, region: val, district: "", neighbourhood: "" });
   };
 
-  const handleDistrictChange = (id: number) => {
-    setApplication({ ...application, district: id, neighbourhood: null });
+  const handleDistrictChange = (val: string) => {
+    setApplication({ ...application, district: val, neighbourhood: "" });
   };
 
-  const handleNeighbourhoodChange = (id: number) => {
-    setApplication({ ...application, neighbourhood: id });
+  const handleNeighbourhoodChange = (val: string) => {
+    setApplication({ ...application, neighbourhood: val });
   };
 
   return (
@@ -84,15 +90,15 @@ export default function LivinginformationStep({application, regions, setRegions,
             <Label className="mb-2">Region *</Label>
             <Select
               value={application.region?.toString() ?? ""}
-              onValueChange={(val) => handleRegionChange(Number(val))}
+              onValueChange={(val) => handleRegionChange(val)}
             >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select region" />
               </SelectTrigger>
               <SelectContent>
-                {regions.map((r) => (
-                  <SelectItem key={r.id} value={r.id.toString()}>
-                    {r.name}
+                {regions.map((r, inx) => (
+                  <SelectItem key={inx} value={r}>
+                    {r}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -103,16 +109,16 @@ export default function LivinginformationStep({application, regions, setRegions,
               <Label className="mb-2">District *</Label>
               <Select
                   value={application.district?.toString() ?? ""}
-                  onValueChange={(val) => handleDistrictChange(Number(val))}
+                  onValueChange={(val) => handleDistrictChange(val)}
                   disabled={!application.region}
               >
                   <SelectTrigger className="w-full">
                       <SelectValue placeholder={application.region ? "Select district" : "Select region first"} />
                   </SelectTrigger>
                   <SelectContent>
-                      {districts.map((d) => (
-                      <SelectItem key={d.id} value={d.id.toString()}>
-                          {d.name}
+                      {districts.map((d, inx) => (
+                      <SelectItem key={inx} value={d}>
+                          {d}
                       </SelectItem>
                       ))}
                   </SelectContent>
@@ -124,16 +130,16 @@ export default function LivinginformationStep({application, regions, setRegions,
               <Label className="mb-2">Neighbourhood *</Label>
               <Select
                   value={application.neighbourhood?.toString() ?? ""}
-                  onValueChange={(val) => handleNeighbourhoodChange(Number(val))}
+                  onValueChange={(val) => handleNeighbourhoodChange(val)}
                   disabled={!application.district}
               >
                   <SelectTrigger className="w-full">
                       <SelectValue placeholder={application.district ? "Select neighbourhood" : "Select district first"} />
                   </SelectTrigger>
                   <SelectContent>
-                      {neighbourhoods.map((n) => (
-                      <SelectItem key={n.id} value={n.id.toString()}>
-                          {n.name}
+                      {neighbourhoods.map((n, inx) => (
+                      <SelectItem key={inx} value={n}>
+                          {n}
                       </SelectItem>
                       ))}
                   </SelectContent>

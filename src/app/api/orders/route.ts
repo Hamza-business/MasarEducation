@@ -36,9 +36,9 @@ export async function GET(request: Request) {
         ia.street,
         ia.building,
         ia.appartment,
-        r.name AS region_name,
-        d.name AS district_name,
-        n.name AS neighbourhood_name,
+        ia.region AS region_name,
+        ia.district AS district_name,
+        ia.neighbourhood AS neighbourhood_name,
 
         ai.name AS agent_name,
         ai.url AS agent_url,
@@ -48,9 +48,6 @@ export async function GET(request: Request) {
       FROM insurances.insurance_order io
       JOIN insurances.personinfo pi ON io.personinfo = pi.id
       JOIN insurances.insurance_application ia ON io.insurance_application = ia.id
-      JOIN locations.regions r ON ia.region = r.id
-      JOIN locations.districts d ON ia.district = d.id
-      JOIN locations.neighbourhoods n ON ia.neighbourhood = n.id
       JOIN agents.insurance_order_agent ioa ON io.id = ioa.order
       JOIN agents.agent_info ai ON ioa.agent = ai.id
       WHERE ioa.agent IN (SELECT id FROM subAgents)

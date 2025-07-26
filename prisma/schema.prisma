@@ -9,15 +9,6 @@ datasource db {
   schemas  = ["agents", "files", "insurances", "locations", "public"]
 }
 
-model insurance_reports {
-  id       Int    @id @default(autoincrement())
-  name     String
-  mimetype String
-  data     String
-
-  @@schema("files")
-}
-
 model passports {
   id         Int          @id @default(autoincrement())
   name       String
@@ -64,36 +55,33 @@ model locations_countries {
 }
 
 model districts {
-  id                                                 Int                     @id @default(autoincrement())
+  id                                                 Int              @id @default(autoincrement())
   region                                             Int
   name                                               String
-  hidden                                             Boolean?                @default(false)
-  insurance_application                              insurance_application[]
-  regions                                            regions                 @relation(fields: [region], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "region")
-  neighbourhoods_neighbourhoods_districtsTodistricts neighbourhoods[]        @relation("neighbourhoods_districtsTodistricts")
+  hidden                                             Boolean?         @default(false)
+  regions                                            regions          @relation(fields: [region], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "region")
+  neighbourhoods_neighbourhoods_districtsTodistricts neighbourhoods[] @relation("neighbourhoods_districtsTodistricts")
 
   @@schema("locations")
 }
 
 model neighbourhoods {
-  id                                            Int                     @id @default(autoincrement())
+  id                                            Int       @id @default(autoincrement())
   districts                                     Int
   name                                          String
-  hidden                                        Boolean?                @default(false)
-  insurance_application                         insurance_application[]
-  districts_neighbourhoods_districtsTodistricts districts               @relation("neighbourhoods_districtsTodistricts", fields: [districts], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "districts")
+  hidden                                        Boolean?  @default(false)
+  districts_neighbourhoods_districtsTodistricts districts @relation("neighbourhoods_districtsTodistricts", fields: [districts], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "districts")
 
   @@schema("locations")
 }
 
 model regions {
-  id                    Int                     @id @default(autoincrement())
-  country               Int
-  name                  String
-  hidden                Boolean?                @default(false)
-  insurance_application insurance_application[]
-  districts             districts[]
-  countries             locations_countries     @relation(fields: [country], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "country")
+  id        Int                 @id @default(autoincrement())
+  country   Int
+  name      String
+  hidden    Boolean?            @default(false)
+  districts districts[]
+  countries locations_countries @relation(fields: [country], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "country")
 
   @@schema("locations")
 }
@@ -111,17 +99,14 @@ model insurance_files {
 
 model insurance_application {
   id                                                                           Int               @id @default(autoincrement())
-  region                                                                       Int
-  district                                                                     Int
-  neighbourhood                                                                Int
+  region                                                                       String
+  district                                                                     String
+  neighbourhood                                                                String
   street                                                                       String
   building                                                                     String
   appartment                                                                   String
   plan                                                                         String
   price                                                                        Int
-  districts                                                                    districts         @relation(fields: [district], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "district")
-  neighbourhoods                                                               neighbourhoods    @relation(fields: [neighbourhood], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "neighbourhood")
-  regions                                                                      regions           @relation(fields: [region], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "region")
   insurance_order_insurance_order_insurance_applicationToinsurance_application insurance_order[] @relation("insurance_order_insurance_applicationToinsurance_application")
 
   @@schema("insurances")

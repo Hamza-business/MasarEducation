@@ -105,19 +105,30 @@ CREATE TABLE "insurances"."personinfo" (
   CONSTRAINT "passport" FOREIGN KEY ("passport") REFERENCES "files"."passports" ("id")
 );
 
+-- CREATE TABLE "insurances"."insurance_application" (
+--   "id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+--   "region" integer NOT NULL,
+--   "district" integer NOT NULL,
+--   "neighbourhood" integer NOT NULL,
+--   "street" text NOT NULL,
+--   "building" text NOT NULL,
+--   "appartment" text NOT NULL,
+--   "plan" text NOT NULL,
+--   "price" integer NOT NULL,
+--   CONSTRAINT "region" FOREIGN KEY ("region") REFERENCES "locations"."regions" ("id"),
+--   CONSTRAINT "district" FOREIGN KEY ("district") REFERENCES "locations"."districts" ("id"),
+--   CONSTRAINT "neighbourhood" FOREIGN KEY ("neighbourhood") REFERENCES "locations"."neighbourhoods" ("id")
+-- );
 CREATE TABLE "insurances"."insurance_application" (
   "id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  "region" integer NOT NULL,
-  "district" integer NOT NULL,
-  "neighbourhood" integer NOT NULL,
+  "region" TEXT NOT NULL,
+  "district" TEXT NOT NULL,
+  "neighbourhood" TEXT NOT NULL,
   "street" text NOT NULL,
   "building" text NOT NULL,
   "appartment" text NOT NULL,
   "plan" text NOT NULL,
   "price" integer NOT NULL,
-  CONSTRAINT "region" FOREIGN KEY ("region") REFERENCES "locations"."regions" ("id"),
-  CONSTRAINT "district" FOREIGN KEY ("district") REFERENCES "locations"."districts" ("id"),
-  CONSTRAINT "neighbourhood" FOREIGN KEY ("neighbourhood") REFERENCES "locations"."neighbourhoods" ("id")
 );
 
 CREATE TABLE "insurances"."insurance_order" (

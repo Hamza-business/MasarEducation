@@ -55,9 +55,9 @@ export default function PreviewSubmitStep({
     personInfo.email &&
     personInfo.name &&
     passportFile &&
-    application.region &&
-    application.district &&
-    application.neighbourhood &&
+    application.region != "" &&
+    application.district != "" &&
+    application.neighbourhood != "" &&
     application.street &&
     application.building &&
     application.appartment &&
