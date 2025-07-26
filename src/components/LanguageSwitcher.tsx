@@ -30,7 +30,7 @@ export default function LanguageSwitcher({type}:{type:string}) {
           <select
             value={selected}
             onChange={(e) => handleChange(e.target.value)}
-            className="rounded-md border p-2 dark:bg-zinc-900"
+            className="rounded-md border px-0 sm:px-2 py-2 h-full dark:bg-zinc-900 text-sm"
           >
             {locales.map(({ code, label }) => (
               <option key={code} value={code}>
