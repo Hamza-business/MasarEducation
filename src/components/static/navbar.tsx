@@ -54,14 +54,14 @@ export default function Header() {
                       <img
                         src={`data:${agentImage?.mimetype};base64,${agentImage?.data}`}
                         alt="Banner"
-                        className="w-40 object-cover rounded-sm max-h-9"
+                        className="w-40 object-cover max-h-9"
                       />
                     )}
                     {parentid == 1 && (
                       <img
                         src="/logotext.png"
                         alt="Banner"
-                        className="object-cover rounded-sm w-40"
+                        className="object-cover w-40"
                       />
                     )}
                     {!loaded && (
