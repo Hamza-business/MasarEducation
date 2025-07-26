@@ -5,9 +5,9 @@ import { InsuranceApplication } from "@/types/all";
 function isValidApplication(app: any): app is InsuranceApplication {
   return (
     typeof app === "object" &&
-    typeof app.region === "number" &&
-    typeof app.district === "number" &&
-    typeof app.neighbourhood === "number" &&
+    typeof app.region === "string" &&
+    typeof app.district === "string" &&
+    typeof app.neighbourhood === "string" &&
     typeof app.street === "string" &&
     typeof app.building === "string" &&
     typeof app.appartment === "string" &&
@@ -25,9 +25,9 @@ export async function POST(req: NextRequest) {
 
     const result = await prisma.insurance_application.create({
       data: {
-        region: body.region || 0,
-        district: body.district || 0,
-        neighbourhood: body.neighbourhood || 0,
+        region: body.region || "",
+        district: body.district || "",
+        neighbourhood: body.neighbourhood || "",
         street: body.street,
         building: body.building,
         appartment: body.appartment,

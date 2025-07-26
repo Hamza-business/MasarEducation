@@ -332,9 +332,9 @@ export type PersonInfo = {
 }
 
 export type InsuranceApplication = {
-  region: number | null; // ID of Region, taken from select box
-  district: number | null; // ID of district, taken from select box
-  neighbourhood: number | null; // ID of neighbourhood, taken from select box
+  region: string; // ID of Region, taken from select box
+  district: string; // ID of district, taken from select box
+  neighbourhood: string; // ID of neighbourhood, taken from select box
   street: string; // Taken from user input
   building: string; // Taken from user input
   appartment: string; // Taken from user input

@@ -5,6 +5,8 @@ import { cookies } from 'next/headers';
 import { Toaster } from "@/components/ui/sonner"; 
 import { Cairo, Ubuntu } from 'next/font/google';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import { Providers } from '@/components/providers';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const cairo = Cairo({
   subsets: ['arabic'],
@@ -32,11 +34,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <body className={`${font.className} bg-[#f7f7fa]`} key={dir}>
-        <NextIntlClientProvider locale={locale}>
-            {children}
-            <Toaster />
-            <FloatingWhatsApp />
-        </NextIntlClientProvider>
+        <ThemeProvider attribute="class" defaultTheme="light" forcedTheme='light'>
+            <Providers>
+                <NextIntlClientProvider locale={locale}>
+                    {children}
+                    <Toaster />
+                    <FloatingWhatsApp />
+                </NextIntlClientProvider>
+            </Providers>
+        </ThemeProvider>
       </body>
     </html>
   )

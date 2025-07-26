@@ -9,7 +9,7 @@ import { generateUniqueTrackCode, storeApplicationToDB, storeInsuranceOrderToDB,
 import { IoChevronBackOutline } from "react-icons/io5";
 import { LuSend } from "react-icons/lu";
 import { somethingWentWrong, toastMissingErorr } from "@/components/notifications/toast";
-import { sendOrderRecievedEmail } from "@/lib/emails";
+import { orderReceivedEmail, sendOrderRecievedEmail } from "@/lib/emails";
 
 
 type Props = {
@@ -55,9 +55,9 @@ export default function PreviewSubmitStep({
     personInfo.email &&
     personInfo.name &&
     passportFile &&
-    application.region &&
-    application.district &&
-    application.neighbourhood &&
+    application.region != "" &&
+    application.district != "" &&
+    application.neighbourhood != "" &&
     application.street &&
     application.building &&
     application.appartment &&
@@ -119,6 +119,7 @@ export default function PreviewSubmitStep({
         setIsSubmitting(false);
         setStep(step+1);
         sendOrderRecievedEmail(personInfo.email, personInfo.name, trackCode);
+        orderReceivedEmail("support@masartr.com", trackCode);
     } catch (err) {
       setIsSubmittingDialogOpen(false)
       setError("Something went wrong. Please try again.");

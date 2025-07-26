@@ -19,6 +19,7 @@ import { toastMissingErorr } from '../notifications/toast';
 import { Container } from '@/app/(site)/container';
 import { useParams } from 'next/navigation';
 import { fetchAgentByCode, getAgentImageById } from '@/lib/agent';
+import { getRegions } from '@/lib/locations';
 
 // Constants
 const TOTAL_STEPS = 7;
@@ -43,9 +44,9 @@ export default function InsuranceOrderingPage() {
     phone: ""
   });
   const [application, setApplication] = useState<InsuranceApplication>({
-    region: null,
-    district: null,
-    neighbourhood: null,
+    region: "",
+    district: "",
+    neighbourhood: "",
     street: "",
     building: "",
     appartment: "",
@@ -56,7 +57,7 @@ export default function InsuranceOrderingPage() {
   const [receiptFile, setReceiptFile] = useState<ReceiptFile | null>(null);
   const [trackCode, setTrackCode] = useState<string | null>(null);
   const [bankInfo, setBankInfo] = useState<BankInfo | null>(null);
-  const [regions, setRegions] = useState<{ id: number; name: string }[]>([]);
+  const [regions, setRegions] = useState<string[]>([]);
   const [availablePlans, setAvailablePlans] = useState<PlanWithPrice[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [parentid, setParentid] = useState<number>(0);
@@ -70,10 +71,7 @@ export default function InsuranceOrderingPage() {
   }, []);
 
   useEffect(() => {
-    fetch("/api/locations/regions")
-      .then((res) => res.json())
-      .then(setRegions)
-      .catch(err => {});
+      getRegions(setRegions);
   }, []);
 
     useEffect(() => {
@@ -217,10 +215,7 @@ export default function InsuranceOrderingPage() {
                   setPassportFile={setPassportFile}
                   fn={async ()=>{
                       if(regions.length==0){
-                          fetch("/api/locations/regions")
-                          .then((res) => res.json())
-                          .then(setRegions)
-                          .catch((error)=>{});
+                          getRegions(setRegions);
                       }
                   }}
                   onBack={goBack}

@@ -5,9 +5,9 @@ import { Button } from './ui/button';
 import { Languages } from 'lucide-react';
 
 const locales = [
-  { code: 'en', label: 'English' },
-  { code: 'ar', label: 'العربية' },
-  { code: 'tk', label: 'Türkmençe' }
+  { code: 'en', label: 'en' },
+  { code: 'ar', label: 'ع' },
+  { code: 'tk', label: 'TR' }
 ];
 
 export default function LanguageSwitcher({type}:{type:string}) {
