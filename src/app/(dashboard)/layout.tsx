@@ -17,16 +17,16 @@ export const metadata = {
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = cookies();
-  const locale = (await cookieStore).get('locale')?.value || 'en';
-  const dir = ['ar'].includes(locale) ? 'rtl' : 'ltr';
+  // const locale = (await cookieStore).get('locale')?.value || 'en';
+  // const dir = ['ar'].includes(locale) ? 'rtl' : 'ltr';
   const defaultOpen = (await cookieStore).get("sidebar_state")?.value === "true";
 
   return (
-    <html lang={locale} dir={dir} suppressHydrationWarning>
-      <body className={inter.className} key={dir}>
+    <html lang={"en"} dir={"ltr"} suppressHydrationWarning>
+      <body className={inter.className} key={"ltr"}>
           <ThemeProvider attribute="class" defaultTheme="system">
             <Providers>
-              <NextIntlClientProvider locale={locale}>
+              <NextIntlClientProvider locale={"en"}>
                   <AppLoad defaultOpen={defaultOpen}>
                       {children}
                   </AppLoad>

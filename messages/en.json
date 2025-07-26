@@ -1,6 +1,6 @@
 {
   "HomePage": {
-    "title": "Hello world!"
+    "title": "Home page"
   },
   "services": {
       "MasarServices": "Masar Services",
@@ -9,12 +9,12 @@
       "residenceTitle": "Apply for Residence Permit",
       "universityApplyTitle": "Apply to University",
       "CertificateAccreditationTitle": "Apply for Certificate Accreditation",
-      "helthDesc": "Secure your official student health insurance quickly and safely.",
-      "residenceDesc": "Let us handle your student residence permit application with ease.",
-      "universityApplyDesc": "Get support with your admission to top universities in Türkiye.",
-      "CertificateAccreditationDesc": "Accredit your certificates for use in Türkiye’s education system.",
-      "helthBtn": "Get Your Insurance Now!",
-      "residenceBtn": "Start your life in Turkey!",
+      "helthDesc": "Fast, safe, and simple — get covered with your official student insurance today.",
+      "residenceDesc": "Your residence permit, handled from start to finish — quickly and stress-free.",
+      "universityApplyDesc": "Your dream university in Türkiye is just a few steps away, Guaranteed university admission through us.",
+      "CertificateAccreditationDesc": "Make your education count — accredit your documents for all over the world.",
+      "helthBtn": "Get Your health Insurance Now!",
+      "residenceBtn": "Get your residence permit!",
       "universityApplyBtn": "Start your academic Journey!",
       "CertificateAccreditationBtn": "Apply Now!"
   },
