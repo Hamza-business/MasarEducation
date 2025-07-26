@@ -85,7 +85,7 @@ export default function TrackCodeInput({ onSubmit }: Props) {
 
   return (
       <div className="grid gap-4 border-gray-200 bg-white dark:bg-zinc-900 rounded-sm p-4 shadow-sm border dark:border-zinc-800 transition-colors">
-        <h2 className="text-2xl font-semibold mb-2 text-center">Track Your Insurance Order</h2>
+        <h2 className="text-2xl font-semibold mb-2 text-center text-[#103c5c]">Track Your Insurance Order</h2>
 
         <div className="flex justify-center gap-2 mb-4">
           {digits.map((digit, idx) => (
@@ -109,7 +109,7 @@ export default function TrackCodeInput({ onSubmit }: Props) {
         </div>
 
         <Button
-          className="w-full flex items-center justify-center gap-2 rounded-sm py-5 text-base"
+          className="w-full flex items-center justify-center gap-2 rounded-sm py-5 text-base bg-[#103c5c] text-white"
           disabled={!isComplete || disabled}
           onClick={() => onSubmit(code)}
         >
