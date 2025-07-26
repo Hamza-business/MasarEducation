@@ -7,6 +7,7 @@ import { useParams } from 'next/navigation';
 import { fetchAgentByCode, getAgentImageById } from "@/lib/agent";
 import { agentImageType } from "@/types/all";
 import { Skeleton } from "../ui/skeleton";
+import { Button } from "../ui/button";
 
 
 
@@ -45,34 +46,42 @@ export default function Header() {
   }, [parentid]);
 
   return (
-      <header className="p-4 border-b bg-transparent backdrop-blur-sm z-10">
-        <Container className="flex justify-between items-center">
-          {params && (
-              <Link href={`${params.parent ? `/${params.parent}` : "/"}`}>
-                  <div className="w-full">
-                    {loaded && parentid != 1 && (
-                      <img
-                        src={`data:${agentImage?.mimetype};base64,${agentImage?.data}`}
-                        alt="Banner"
-                        className="w-40 object-cover max-h-9"
-                      />
-                    )}
-                    {parentid == 1 && (
-                      <img
-                        src="/logotext.png"
-                        alt="Banner"
-                        className="object-cover w-40"
-                      />
-                    )}
-                    {!loaded && (
-                      <Skeleton className='w-40 h-9'/>
-                    )}
-                  </div>
-              
-              </Link>
-          )}
-          <LanguageSwitcher type={"list"}/>
-        </Container>
+      <header className="px-4 py-2 border-b bg-transparent backdrop-blur-sm z-10">
+          <Container className="flex justify-between items-center">
+              <div className="flex items-center">
+                  {params && (
+                      <Link href={`${params.parent ? `/${params.parent}` : "/"}`}>
+                          <div className="w-full">
+                              {loaded && parentid != 1 && (
+                                  <img
+                                    src={`data:${agentImage?.mimetype};base64,${agentImage?.data}`}
+                                    alt="Banner"
+                                    className="w-40 object-cover max-h-9"
+                                  />
+                              )}
+                              {parentid == 1 && (
+                                  <img
+                                    src="/logotext.png"
+                                    alt="Banner"
+                                    className="object-cover w-40"
+                                  />
+                              )}
+                              {!loaded && <Skeleton className="w-40 h-9" />}
+                          </div>
+                      </Link>
+                  )}
+              </div>
+
+              <div className="flex items-center gap-4">
+                  <LanguageSwitcher type={"list"} />
+                  <Link href={"/insurance/track"}>
+                      <Button className="rounded-sm bg-transparent border-2 border-[#103c5c] text-[#103c5c] hover:bg-[#103c5c] hover:text-[#efefef] py-4">
+                        Track Application
+                      </Button>
+                  </Link>
+              </div>
+          </Container>
+
       </header>
   );
 }
