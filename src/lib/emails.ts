@@ -17,13 +17,13 @@ export async function sendOrderRecievedEmail(email:string, name:string, trackcod
                   </head>
                   <body style="font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px; color: #333;">
                     <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                      <h2 style="color: #00d590;">Dear ${name},</h2>
+                      <h2 style="color: #103c5c;">Dear ${name},</h2>
                       <p>
-                        Thank you for submitting your health insurance application to <strong>Masar Education</strong>.
+                        Thank you for submitting your health insurance application to <strong style="color: #e85f5e">Masar Education</strong>.
                         We have successfully received your request, and our team is currently reviewing your documents.
                       </p>
 
-                      <p><strong>Tracking Code:</strong> <span style="font-size: 16px; color: #374252;">${trackcode}</span></p>
+                      <p><strong style="color: #e85f5e">Tracking Code:</strong> <span style="font-size: 16px; color: #374252;">${trackcode}</span></p>
 
                       <p>
                         You can check the current status of your application at any time by entering your tracking code on our website:
@@ -32,7 +32,7 @@ export async function sendOrderRecievedEmail(email:string, name:string, trackcod
                       <div style="text-align: center; margin: 20px 0;">
                         <a
                           href="https://masartr.com/insurance/track?code=${trackcode}"
-                          style="background-color: #00d590; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;"
+                          style="background: linear-gradient(to right, #e85f5e, #103c5c); color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;"
                         >
                           Check My Application Status
                         </a>
@@ -83,18 +83,18 @@ export async function orderApprovedEmail(email:string, name:string, trackcode:st
                     </head>
                     <body style="font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px; color: #333;">
                         <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                            <h2 style="color: #00d590;">Dear ${name},</h2>
+                            <h2 style="color: #103c5c;">Dear ${name},</h2>
 
-                            <p>We are pleased to inform you that your health insurance application has been <strong>approved</strong>.</p>
+                            <p>We are pleased to inform you that your health insurance application has been <strong style="color: #103c5c">approved</strong>.</p>
 
-                            <p><strong>Tracking Code:</strong> <span style="font-size: 16px; color: #374252;">${trackcode}</span></p>
+                            <p><strong style="color: #e85f5e">Tracking Code:</strong> <span style="font-size: 16px; color: #374252;">${trackcode}</span></p>
 
                             <p>You can access and download your insurance policy at any time by entering your tracking code on our website:</p>
 
                             <div style="text-align: center; margin: 20px 0;">
                                 <a
                                 href="https://masartr.com/insurance/track?code=${trackcode}"
-                                style="background-color: #00d590; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;"
+                                style="background: linear-gradient(to right, #e85f5e, #103c5c); color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;"
                                 >
                                 Check My Application Status
                                 </a>
@@ -116,7 +116,7 @@ export async function orderApprovedEmail(email:string, name:string, trackcode:st
             console.log('✅ Email sent!', data.result);
         } else {
             console.error('❌ Email send failed:', data.error);
-            sendOrderRecievedEmail(email, name, trackcode);
+            orderApprovedEmail(email, name, trackcode);
         }
     } catch (error) {
         console.error('❌ Error calling API:', error);
@@ -184,7 +184,68 @@ export async function orderRejectedEmail(email:string, name:string, trackcode:st
             console.log('✅ Email sent!', data.result);
         } else {
             console.error('❌ Email send failed:', data.error);
-            sendOrderRecievedEmail(email, name, trackcode);
+            orderRejectedEmail(email, name, trackcode, rejectionReason);
+        }
+    } catch (error) {
+        console.error('❌ Error calling API:', error);
+    }
+};
+
+
+export async function orderReceivedEmail(email:string, trackcode:string){
+    try {
+        const res = await fetch("/api/sendmail", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                to: email,
+                subject: 'Your Health Insurance Application Has Been Received',
+                html: `
+                <!DOCTYPE html>
+                <html>
+                  <head>
+                    <meta charset="UTF-8" />
+                    <title>New Order Received</title>
+                  </head>
+                  <body style="font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px; color: #333;">
+                    <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                      <h2 style="color: #103c5c;">Dear Admin,</h2>
+                      <p>
+                        New Order Was received to <strong style="color: #e85f5e">Masar Education</strong>.
+                      </p>
+
+                      <p><strong style="color: #e85f5e">Tracking Code:</strong> <span style="font-size: 16px; color: #374252;">${trackcode}</span></p>
+
+                      <p>
+                        You can check the current status of the order and manage it at any time By clicking this button:
+                      </p>
+
+                      <div style="text-align: center; margin: 20px 0;">
+                        <a
+                          href="https://masartr.com/admin/orders/insurance/${trackcode}"
+                          style="background: linear-gradient(to right, #e85f5e, #103c5c); color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;"
+                        >
+                          Manage Order
+                        </a>
+                      </div>
+
+                      <p style="margin-top: 30px;">Best regards, <br />From yourself To yourself</p>
+                    </div>
+                  </body>
+                </html>         
+                `,
+            }),
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            console.log('✅ Email sent!', data.result);
+        } else {
+            console.error('❌ Email send failed:', data.error);
+            orderReceivedEmail(email, trackcode);
         }
     } catch (error) {
         console.error('❌ Error calling API:', error);
