@@ -52,7 +52,7 @@ export default function InsuranceFiles({orderId}:{orderId:number}) {
                     No insurance file(s) available.
                     <br />
                     Please contact our{" "}
-                    <Link href="/support" className="underline font-medium">
+                    <Link href="mailto:support@masartr.com" className="underline font-medium">
                         Support Team
                     </Link>{" "}
                     for any help.
