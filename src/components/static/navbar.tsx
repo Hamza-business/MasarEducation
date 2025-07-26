@@ -46,7 +46,7 @@ export default function Header() {
   }, [parentid]);
 
   return (
-      <header className="px-4 py-2 border-b bg-transparent backdrop-blur-sm z-10">
+      <header className="px-0 md:px-4 py-3 border-b bg-transparent backdrop-blur-sm z-10">
           <Container className="flex justify-between items-center">
               <div className="flex items-center">
                   {params && (
@@ -56,27 +56,27 @@ export default function Header() {
                                   <img
                                     src={`data:${agentImage?.mimetype};base64,${agentImage?.data}`}
                                     alt="Banner"
-                                    className="w-40 object-cover max-h-9"
+                                    className="w-35 object-cover max-h-9"
                                   />
                               )}
                               {parentid == 1 && (
                                   <img
                                     src="/logotext.png"
                                     alt="Banner"
-                                    className="object-cover w-40"
+                                    className="object-cover w-35"
                                   />
                               )}
-                              {!loaded && <Skeleton className="w-40 h-9" />}
+                              {!loaded && <Skeleton className="w-35 h-9" />}
                           </div>
                       </Link>
                   )}
               </div>
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-1 md:gap-3">
                   <LanguageSwitcher type={"list"} />
                   <Link href={"/insurance/track"}>
-                      <Button className="rounded-sm bg-transparent border-2 border-[#103c5c] text-[#103c5c] hover:bg-[#103c5c] hover:text-[#efefef] py-4">
-                        Track Application
+                      <Button className="rounded-sm bg-transparent border-2 border-[#103c5c] text-[#103c5c] hover:bg-[#103c5c] hover:text-[#efefef] py-4 px-1 text-xs sm:text-sm md:px-4">
+                        Track Order
                       </Button>
                   </Link>
               </div>
