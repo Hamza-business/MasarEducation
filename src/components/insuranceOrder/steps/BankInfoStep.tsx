@@ -2,9 +2,11 @@ import { somethingWentWrong } from "@/components/notifications/toast";
 import { Button } from "@/components/ui/button";
 import { BankInfo } from "@/types/all";
 import { InsuranceApplication } from "@/types/all";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { FaRegCopy } from "react-icons/fa";
 import { GrFormNext } from "react-icons/gr";
 import { IoChevronBackOutline } from "react-icons/io5";
+import { toast } from "sonner";
 
 type Props = {
   bankInfo: BankInfo | null;
@@ -19,12 +21,49 @@ function formatIban(iban: string): string {
 }
 
 export default function BankInfoStep({ bankInfo, setBankInfo, application, onNext, onBack }: Props) {
+  const [copied, setCopied] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+
+  const handleCopy = async () => {
+        try {
+            const data = `
+Name
+${bankInfo?.name}
+
+Bank
+${bankInfo?.bank}
+
+IBAN
+
+Turkish Lira
+${bankInfo?.tiban}
+
+Dollars
+${bankInfo?.diban}
+
+Euros
+${bankInfo?.eiban}
+
+`.trim();
+            await navigator.clipboard.writeText(data).then(()=>{
+                setCopied(true);
+                toast.success("Copied to clipboard!");
+            });
+        } catch (err) {
+            toast.error("Failed to copy.");
+        }
+  };
+
 
   useEffect(() => {
     fetch("/api/bank-info")
     .then(res => res.json())
-    .then(data => setBankInfo(data))
+    .then(data => {
+      setBankInfo(data)
+      setDisabled(false);
+    })
     .catch((error)=>{
+      setDisabled(true);
       somethingWentWrong("Failed to load Bank info, Please try again.");
     });
   }, [])
@@ -65,6 +104,7 @@ export default function BankInfoStep({ bankInfo, setBankInfo, application, onNex
                     <p>{formatIban(bankInfo.eiban)}</p>
                 </div>
             </div>
+            <Button variant={"outline"} onClick={!disabled ? handleCopy : ()=>{}} disabled={disabled}><FaRegCopy /> Copy Bank Info</Button>
         </div>
         <div className="flex justify-between">
             <Button variant="outline" onClick={onBack} className="text-base w-30 h-10"><IoChevronBackOutline />Back</Button>

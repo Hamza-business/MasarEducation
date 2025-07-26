@@ -90,7 +90,7 @@ export default function PlanSelector({ personInfo, availablePlans, application, 
           <div className="bg-yellow-50 dark:bg-neutral-800 dark:text-gray-200 p-4 rounded-md text-sm text-gray-800 border border-yellow-300 dark:border-yellow-600">
             😔 We are sorry, but there are no available packages for your age group right now.
             <br />
-            Please contact our <Link href="/support" className="underline font-medium">Support Team</Link> for help.
+            Please contact our <Link href="mailto:support@masartr.com" className="underline font-medium">Support Team</Link> for help.
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">

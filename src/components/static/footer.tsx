@@ -40,17 +40,17 @@ export default function Footer({ border = false }: { border?: boolean }) {
           <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
             <h3 className="text-sm font-medium">Services</h3>
             <ul className="space-y-2 text-sm">
-              <li>
+              {/* <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
                   href="/services"
                 >Services
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
-                  href="/services/insurance"
+                  href="/insurance"
                 >Order Insurance
                 </Link>
               </li>
@@ -69,7 +69,7 @@ export default function Footer({ border = false }: { border?: boolean }) {
                   About us
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
                   href="#features"
@@ -84,7 +84,7 @@ export default function Footer({ border = false }: { border?: boolean }) {
                 >
                   Terms of service
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 
