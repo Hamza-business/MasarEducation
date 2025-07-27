@@ -20,11 +20,13 @@ import { Container } from '@/app/(site)/container';
 import { useParams } from 'next/navigation';
 import { fetchAgentByCode, getAgentImageById } from '@/lib/agent';
 import { getRegions } from '@/lib/locations';
+import {useTranslations} from 'next-intl';
 
 // Constants
 const TOTAL_STEPS = 7;
 
 export default function InsuranceOrderingPage() {
+  const t = useTranslations("insmngr");
   const [step, setStep] = useState<number>(1);
   const params = useParams();
 
@@ -142,50 +144,50 @@ export default function InsuranceOrderingPage() {
                 <span className='flex justify-center gap-1 items-center text-[#e85f5e]'>
                   {step === 1 && (
                     <>
-                      <TbInfoSquareRounded/> Personal Infomration
+                      <TbInfoSquareRounded/> {t("pers")}
                     </>
                   )}
                   {step === 2 && (
                     <>
-                      <GiPassport /> Passport Upload
+                      <GiPassport /> {t("pssup")}
                     </>
                   )}
                   {step === 3 && (
                     <>
-                      <AiTwotoneHome /> Living Information
+                      <AiTwotoneHome /> {t("lv")}
                     </>
                   )}
                   {step === 4 && (
                     <>
-                      <TbPackages /> Package
+                      <TbPackages /> {t("pkg")}
                     </>
                   )}
                   {step === 5 && (
                     <>
-                      <CiBank /> IBAN Details
+                      <CiBank /> {t("iban")}
                     </>
                   )}
                   {step === 6 && (
                     <>
-                      <TbReceipt2 /> Receipt Upload
+                      <TbReceipt2 /> {t("rec")}
                     </>
                   )}
                   {step === 7 && (
                     <>
-                      <FaFire /> Final Step
+                      <FaFire /> {t("fs")}
                     </>
                   )}
-                  {step === 8 && (<>🏁 Order Placed</>)}
+                  {step === 8 && (<>{t("op")}</>)}
                 </span>
                 <p className="text-center font-semibold text-sm mb-1 text-[#e85f5e]">
                   { step<=TOTAL_STEPS &&(
                     <>
-                      Step {step} / {TOTAL_STEPS}
+                      {t("Step")} {step} / {TOTAL_STEPS}
                     </>
                   )}
                   { step>TOTAL_STEPS &&(
                     <>
-                      Finsih 🏁
+                      {t("fnish")}
                     </>
                   )}
                 </p>

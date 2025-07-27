@@ -2,11 +2,12 @@
 
 import { ReactNode, useEffect, useState } from 'react';
 import { InsuranceOrderDetails } from '@/types/all';
-import { toastMissingErorr } from '../notifications/toast';
 import TrackCodeInput from '../custom/TrackCodeInput';
 import OrderDetails from './elements/orderDetails'
+import {useTranslations} from 'next-intl';
 
 export default function InsuranceTrackingPage() {
+  const t = useTranslations("trackpage");
   const [order, setOrder] = useState<InsuranceOrderDetails | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,14 +20,14 @@ export default function InsuranceTrackingPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error || "Order not found");
+        setError(data.error || t("ordnt"));
         return;
       }
 
       setOrder(data);
     } catch (err) {
       console.error(err);
-      setError("Something went wrong. Please try again later.");
+      setError(t("smt"));
     }
   }
 

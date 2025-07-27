@@ -5,9 +5,11 @@ import ServiceCard from "@/components/landing/ServiceCard";
 import AppShell from "./app-shell";
 import Footer from "@/components/static/footer";
 import { usePathname, useRouter } from 'next/navigation';
+import {useTranslations} from 'next-intl';
 
 const Landing = () => {
   const pth = usePathname();
+  const t = useTranslations("services2");
 
   function handleWhatsAppRedirect (service: string): string{
     let message = "";
@@ -34,25 +36,25 @@ const Landing = () => {
   const services = [
     {
       icon: Heart,
-      title: "Health Insurance",
+      title: "healthInsurance",
       link: `${pth == "/" ? "/insurance"  : `/${pth}/insurance`}`,
       isPrimary: true
     },
     {
       icon: GraduationCap,
-      title: "Apply to University",
+      title: "ApplyUni",
       link: handleWhatsAppRedirect("university"),
       isPrimary: false
     },
     {
       icon: FileCheck,
-      title: "Certificate Equivalency",
+      title: "CertiEquiv",
       link: handleWhatsAppRedirect("certificate"),
       isPrimary: false
     },
     {
       icon: MapPin,
-      title: "Residence Permit",
+      title: "ResidPerm",
       link: handleWhatsAppRedirect("residence"),
       isPrimary: false
     }
@@ -60,25 +62,25 @@ const Landing = () => {
     const services2 = [
     {
       icon: Heart,
-      title: "Health Insurance",
+      title: "healthInsurance",
       link: `${pth == "/" ? "/insurance"  : `${pth}/insurance`}`,
       isPrimary: true
     },
     {
       icon: FileCheck,
-      title: "Certificate Equivalency",
+      title: "CertiEquiv",
       link: handleWhatsAppRedirect("certificate"),
       isPrimary: false
     },
     {
       icon: MapPin,
-      title: "Residence Permit",
+      title: "ResidPerm",
       link: handleWhatsAppRedirect("residence"),
       isPrimary: false
     },
     {
       icon: GraduationCap,
-      title: "Apply to University",
+      title: "ApplyUni",
       link: handleWhatsAppRedirect("university"),
       isPrimary: false
     }
@@ -133,7 +135,7 @@ const Landing = () => {
                 {/* Additional Info */}
                 <div className="text-center mt-16">
                     <p className="text-masar-navy/60 mb-6">
-                      Need immediate assistance? Use our floating WhatsApp button or track your application status.
+                      {t("ndhelp")}
                     </p>
                 </div>
             </div>

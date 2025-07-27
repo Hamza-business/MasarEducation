@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { planFetchFailed } from "@/components/notifications/toast";
 import Link from "next/link";
+import {useTranslations} from 'next-intl';
 
 
 function calculateAge(dob: Date): number {
@@ -29,6 +30,7 @@ type Props = {
 };
 
 export default function PlanSelector({ personInfo, availablePlans, application, setApplication, setAvailablePlans }: Props) {
+  const t = useTranslations("pln");
   const handleSelect = (plan: PlanWithPrice) => {
     setApplication({
       ...application,
@@ -78,7 +80,7 @@ export default function PlanSelector({ personInfo, availablePlans, application, 
 
   return (
     <div className="space-y-4">
-        <h2 className="text-lg font-semibold">Our Packages</h2>
+        <h2 className="text-lg font-semibold">{t("orpkgs")}</h2>
 
         {loading ? (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -88,9 +90,9 @@ export default function PlanSelector({ personInfo, availablePlans, application, 
           </div>
         ) : availablePlans.length === 0 ? (
           <div className="bg-yellow-50 dark:bg-neutral-800 dark:text-gray-200 p-4 rounded-md text-sm text-gray-800 border border-yellow-300 dark:border-yellow-600">
-            😔 We are sorry, but there are no available packages for your age group right now.
+            {t("sorry")}
             <br />
-            Please contact our <Link href="mailto:support@masartr.com" className="underline font-medium">Support Team</Link> for help.
+            {t("contc")} <Link href="mailto:support@masartr.com" className="underline font-medium">{t("supteam")}</Link> {t("fh")}
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">

@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { UploadIcon } from "lucide-react"; // or any icon you prefer
 import { Label } from "@/components/ui/label";
 import { PassportFile } from "@/types/all";
+import {useTranslations} from 'next-intl';
 
 type Props = {
   passportFile: PassportFile | null;
@@ -9,6 +10,7 @@ type Props = {
 };
 
 export default function FileUploadBox({ passportFile, handleFileChange }: Props) {
+  const t = useTranslations("passportup");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const triggerFileInput = () => {
@@ -17,7 +19,7 @@ export default function FileUploadBox({ passportFile, handleFileChange }: Props)
 
   return (
     <div>
-      <Label htmlFor="passport" className="mb-2">Passport File *</Label>
+      <Label htmlFor="passport" className="mb-2">{t("PassportFile")} *</Label>
 
       <div
         onClick={triggerFileInput}
@@ -27,7 +29,7 @@ export default function FileUploadBox({ passportFile, handleFileChange }: Props)
         {passportFile ? (
           <span className="text-blue-500 font-medium">{passportFile.name}</span>
         ) : (
-          <span>Tap here to upload your Passport</span>
+          <span>{t("tp")}</span>
         )}
       </div>
 
@@ -41,7 +43,7 @@ export default function FileUploadBox({ passportFile, handleFileChange }: Props)
       />
 
       <p className="text-xs text-muted-foreground mt-1">
-        Accepted formats: PDF, PNG, JPG. File is validated using its signature.
+        {t("sig")}
       </p>
     </div>
   );

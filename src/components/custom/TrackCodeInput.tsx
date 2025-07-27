@@ -4,14 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { FaSearch } from "react-icons/fa";
 import { LuPackageSearch } from "react-icons/lu";
+import {useTranslations} from 'next-intl';
 
 type Props = {
   onSubmit: (code: string) => void;
 };
 
 export default function TrackCodeInput({ onSubmit }: Props) {
+  const t = useTranslations("trackpage");
   const [digits, setDigits] = useState(Array(6).fill(""));
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
   const searchParams = useSearchParams();
@@ -85,7 +86,7 @@ export default function TrackCodeInput({ onSubmit }: Props) {
 
   return (
       <div className="grid gap-4 border-gray-200 bg-white dark:bg-zinc-900 rounded-sm p-4 shadow-sm border dark:border-zinc-800 transition-colors">
-        <h2 className="text-2xl font-semibold mb-2 text-center text-[#103c5c]">Track Your Insurance Order</h2>
+        <h2 className="text-2xl font-semibold mb-2 text-center text-[#103c5c]">{t("trckyororder")}</h2>
 
         <div className="flex justify-center gap-2 mb-4">
           {digits.map((digit, idx) => (
@@ -113,7 +114,7 @@ export default function TrackCodeInput({ onSubmit }: Props) {
           disabled={!isComplete || disabled}
           onClick={() => onSubmit(code)}
         >
-          <LuPackageSearch /> Track Order
+          <LuPackageSearch /> {t("btn")}
         </Button>
       </div>
   );

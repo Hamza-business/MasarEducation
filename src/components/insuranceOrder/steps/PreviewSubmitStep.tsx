@@ -10,7 +10,7 @@ import { IoChevronBackOutline } from "react-icons/io5";
 import { LuSend } from "react-icons/lu";
 import { somethingWentWrong, toastMissingErorr } from "@/components/notifications/toast";
 import { orderReceivedEmail, sendOrderRecievedEmail } from "@/lib/emails";
-
+import {useTranslations} from 'next-intl';
 
 type Props = {
   personInfo: PersonInfo;
@@ -42,6 +42,7 @@ export default function PreviewSubmitStep({
   setTrackCode,
   onBack
 }: Props) {
+  const t = useTranslations("prevSub");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStep, setSubmitStep] = useState<string | null>(null);
@@ -67,13 +68,13 @@ export default function PreviewSubmitStep({
 
   const handleSubmit = async () => {
     if (!isValid) {
-      toastMissingErorr("Please complete all required steps before submitting.");
+      toastMissingErorr(t("errcomp"));
       return;
     }
 
     setError(null);
     setIsSubmitting(true);
-    setSubmitStep("Generating Track Code");
+    setSubmitStep(t("gen"));
 
     try {
         setIsSubmittingDialogOpen(true)
@@ -82,7 +83,7 @@ export default function PreviewSubmitStep({
 
         let passportId = personInfo.passport
         if(!passportId){
-          setSubmitStep("Uploading Passport");
+          setSubmitStep(t("upps"));
           passportId = await uploadPassportToDB(passportFile);
         }
         setPersonInfo({ ...personInfo, passport: passportId });
@@ -90,11 +91,11 @@ export default function PreviewSubmitStep({
 
         let receiptId = insuranceOrder.receipt;
         if(!receiptId){
-          setSubmitStep("Uploading Receipt");
+          setSubmitStep(t("uprec"));
           receiptId = await uploadReceiptToDB(receiptFile);
         }
 
-        setSubmitStep("Storing Data");
+        setSubmitStep(t("storD"));
         let personInfoId = insuranceOrder.personInfo;
         if(!personInfoId){
           personInfoId = await storePersonInfoToDB({ ...personInfo, passport: passportId });
@@ -122,22 +123,22 @@ export default function PreviewSubmitStep({
         orderReceivedEmail("support@masartr.com", trackCode);
     } catch (err) {
       setIsSubmittingDialogOpen(false)
-      setError("Something went wrong. Please try again.");
-      somethingWentWrong("Something went wrong. Please try again.");
+      setError(t("err"));
+      somethingWentWrong(t("err"));
       setIsSubmitting(false);
     }
   };
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold">Submission Preview</h2>
+      <h2 className="text-xl font-semibold">{t("subpre")}</h2>
 
       <ul className="space-y-2">
         {[
-          { label: "Personal Info", valid: personInfo.nat && personInfo.dob },
-          { label: "Passport Uploaded", valid: passportFile },
-          { label: "Insurance Application", valid: application.plan },
-          { label: "Receipt Uploaded", valid: receiptFile },
+          { label: t("psin"), valid: personInfo.nat && personInfo.dob },
+          { label: t("psupload"), valid: passportFile },
+          { label: t("insapplic"), valid: application.plan },
+          { label: t("recpupload"), valid: receiptFile },
         ].map((step) => (
           <li key={step.label} className="flex items-center gap-2">
             {step.valid ? (
@@ -154,8 +155,8 @@ export default function PreviewSubmitStep({
         disabled={!isValid || isSubmitting}
         onClick={handleSubmit}
         className="w-full text-base h-11 mb-4"
-      > Submit Application<LuSend /> </Button>
-      <Button variant="outline" onClick={onBack} className="text-base w-full h-11"><IoChevronBackOutline />Back</Button>
+      > {t("sub")}<LuSend /> </Button>
+      <Button variant="outline" onClick={onBack} className="text-base w-full h-11"><IoChevronBackOutline />{t("Back")}</Button>
 
         <Dialog
             open={isSubmittingDialogOpen}
@@ -166,7 +167,7 @@ export default function PreviewSubmitStep({
                 onEscapeKeyDown={(e) => e.preventDefault()}
             >
                 <DialogHeader className="mb-0">
-                    <DialogTitle className="m-auto text-xl">Submitting Your Insurance Order</DialogTitle>
+                    <DialogTitle className="m-auto text-xl">{t("subinsur")}</DialogTitle>
                 </DialogHeader>
 
                 <p className="text-muted-foreground text-lg my-1">
