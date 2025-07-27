@@ -24,7 +24,7 @@ export function validateAgentCreation(
   if (agentUser.name === "") {
     errors.push("User must have name.");
   }
-  if (!isEmail(`${agentUser.email}@masare.edu`) || agentUser.email.length === 0) {
+  if (!isEmail(`${agentUser.email}@masartr.com`) || agentUser.email.length === 0) {
     errors.push("Invalid Email.");
   }
   if (agentUser.password === "") {

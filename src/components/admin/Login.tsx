@@ -10,26 +10,28 @@ export default function Login(
 ) {
       return (
     <div className="flex items-center justify-center" style={{height: "calc(100vh - 50px)"}}>
-      <Card className="w-full max-w-sm shadow-lg">
-        <CardContent className="space-y-4 py-6">
+      <Card className="w-full max-w-lg shadow-lg rounded-sm">
+        <CardContent className="space-y-4 py-1">
           <h1 className="text-xl font-semibold text-center">{type} Manager Login</h1>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Label>Email</Label>
-              <Input
-                type=""
-                placeholder="manager@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+            <div className="mb-5">
+                <Label className="mb-2">Email</Label>
+                <div className="flex items-center">
+                      <Input
+                        className="flex-1 rounded-sm rounded-tr-none rounded-br-none"
+                        placeholder="e.g., siham"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                      <span className="bg-muted px-1 sm:px-3 py-2 text-xs sm:text-sm rounded-sm rounded-tl-none rounded-bl-none">{type == "agent" ? ".agent" : ""}@masartr.com</span>
+                </div>
             </div>
 
-            <div>
-              <Label>Password</Label>
+            <div className="mb-5">
+              <Label className="mb-2">Password</Label>
               <Input
                 type="password"
-                placeholder="Your password"
+                placeholder="Agent password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -40,7 +42,7 @@ export default function Login(
               <div className="text-red-500 text-sm">{error}</div>
             )}
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full rounded-sm">
               Login
             </Button>
           </form>
