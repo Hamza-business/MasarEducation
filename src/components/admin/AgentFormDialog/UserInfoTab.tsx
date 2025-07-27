@@ -44,11 +44,11 @@ export default function UserInfoTab({
                               setUserInfo({ ...agentUser, email: e.target.value.toLowerCase() })
                             }
                           />
-                          <span className="bg-muted px-3 py-2 text-sm rounded-sm rounded-tl-none rounded-bl-none">.agent@masare.edu</span>
+                          <span className="bg-muted px-3 py-2 text-sm rounded-sm rounded-tl-none rounded-bl-none">.agent@masartr.com</span>
                     </div>
                     <p className="text-xs mt-1 text-muted-foreground">Email Will be: 
                         {agentUser.email && (
-                            <span className="text-blue-400"> {agentUser.email}.agent@masare.edu</span>
+                            <span className="text-blue-400"> {agentUser.email}.agent@masartr.com</span>
                         )}
                     </p>
                 </div>

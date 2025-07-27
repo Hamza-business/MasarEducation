@@ -45,7 +45,7 @@ Agent Info
   Agent Name: ${agentInfo?.agent_name}
 
 Agent Owner Login Info
-  Email: ${agentUser?.email}.agent@masare.edu
+  Email: ${agentUser?.email}.agent@masartr.com
   Password: ${agentUser?.password}
   Name: ${agentUser?.name}
 `.trim();
@@ -98,7 +98,7 @@ Agent Owner Login Info
                                 <CardTitle>Agent Owner Login Info</CardTitle>
                               </CardHeader>
                               <CardContent className="grid grid-cols-2 gap-y-3 gap-x-2 text-sm px-0">
-                                <Field label="Email" value={`${agentUser?.email}.agent@masare.edu`} />
+                                <Field label="Email" value={`${agentUser?.email}.agent@masartr.com`} />
                                 <Field label="Password" value={agentUser?.password} />
                                 <Field label="Name" value={agentUser?.name} />
                               </CardContent>

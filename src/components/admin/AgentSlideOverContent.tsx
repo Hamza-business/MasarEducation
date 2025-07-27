@@ -175,7 +175,7 @@ export default function AgentSlideOverContent(
                         <TbUserShield className='w-6 h-6' /> Owner Information
                     </h3>
                     <div className="grid grid-cols-1 gap-y-3 gap-x-0 text-sm px-2">
-                        <LineField label="Email" value={`${selectedAgent?.user?.email}.agent@masare.edu`} />
+                        <LineField label="Email" value={`${selectedAgent?.user?.email}.agent@masartr.com`} />
                         <LineField label="Password" value={selectedAgent?.user?.password} />
                         <LineField label="Name" value={selectedAgent?.user?.name} />
                     </div>
