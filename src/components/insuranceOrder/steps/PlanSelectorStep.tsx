@@ -7,8 +7,7 @@ import { validateInsuranceApplication, validatePackage } from "@/components/vali
 import PlanSelector from "../elements/planSelector";
 import { GrFormNext } from "react-icons/gr";
 import { IoChevronBackOutline } from "react-icons/io5";
-import { planFetchFailed } from "@/components/notifications/toast";
-
+import {useTranslations} from 'next-intl';
 
 type Props = {
   application: InsuranceApplication;
@@ -22,7 +21,8 @@ type Props = {
 };
 
 export default function PlanSelectorStep({ application, setApplication, availablePlans, setAvailablePlans, personInfo, onBack, onNext, fn }: Props) {
-
+  const t = useTranslations("pln");
+  
     useEffect(() => {
       fn();
     }, [])
@@ -40,8 +40,8 @@ export default function PlanSelectorStep({ application, setApplication, availabl
 
       {/* Navigation */}
       <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="text-base w-30 h-10"><IoChevronBackOutline />Back</Button>
-        <Button onClick={()=>{onNext(() => validatePackage(application))}} className="text-base w-30 h-10">Next<GrFormNext /></Button>
+        <Button variant="outline" onClick={onBack} className="text-base w-30 h-10"><IoChevronBackOutline />{t("Back")}</Button>
+        <Button onClick={()=>{onNext(() => validatePackage(application))}} className="text-base w-30 h-10">{t("Next")}<GrFormNext /></Button>
       </div>
     </div>
   );

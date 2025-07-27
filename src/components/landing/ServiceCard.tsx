@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { LucideIcon } from "lucide-react";
+import {useTranslations} from 'next-intl';
 
 interface ServiceCardProps {
   icon: LucideIcon;
@@ -10,6 +11,7 @@ interface ServiceCardProps {
 }
 
 const ServiceCard = ({ icon: Icon, title, link, isPrimary = false}: ServiceCardProps) => {
+  const t = useTranslations("services2");
   return (
     <a href={link}>
     <Card className={`group p-8 transition-all duration-300 hover:scale-[1.02] border relative overflow-hidden rounded-sm bg-white border-[#dedede] hover:border-[#e85f5e]`}>
@@ -25,7 +27,7 @@ const ServiceCard = ({ icon: Icon, title, link, isPrimary = false}: ServiceCardP
           }`}>
             <Icon className={`h-16 w-16 'text-[#e85f5e]`} />
           </div>
-          <h3 className={`text-2xl font-bold transition-colors text-[#103c5c] group-hover:text-[#e85f5e]`}>{title}</h3>
+          <h3 className={`text-2xl font-bold transition-colors text-[#103c5c] group-hover:text-[#e85f5e]`}>{t(title)}</h3>
         </div>
       </Button>
     </Card>

@@ -8,11 +8,12 @@ import { fetchAgentByCode, getAgentImageById } from "@/lib/agent";
 import { agentImageType } from "@/types/all";
 import { Skeleton } from "../ui/skeleton";
 import { Button } from "../ui/button";
-
+import {useTranslations} from 'next-intl';
 
 
 
 export default function Header() {
+    const t = useTranslations("nv");
   const params = useParams();
   const [parentid, setParentid] = useState<number>(0);
   const [loaded, setLoaded] = useState(false);
@@ -76,7 +77,7 @@ export default function Header() {
                   <LanguageSwitcher type={"list"} />
                   <Link href={"/insurance/track"}>
                       <Button className="rounded-sm bg-transparent border-2 border-[#103c5c] text-[#103c5c] hover:bg-[#103c5c] hover:text-[#efefef] py-4 px-1 text-xs sm:text-sm md:px-4">
-                        Track Order
+                        {t("track")}
                       </Button>
                   </Link>
               </div>

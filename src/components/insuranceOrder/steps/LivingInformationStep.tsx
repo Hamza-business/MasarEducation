@@ -12,6 +12,7 @@ import { GrFormNext } from "react-icons/gr";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { toastDistrictFetchFailed, toastNeighborhoodFetchFailed, toastRegionFetchFailed } from "@/components/notifications/toast";
 import { getDistricts, getNeighbourhoods, getRegions } from "@/lib/locations";
+import {useTranslations} from 'next-intl';
 
 type Props = {
   application: InsuranceApplication;
@@ -23,6 +24,7 @@ type Props = {
 };
 
 export default function LivinginformationStep({application, regions, setRegions, setApplication, onBack, onNext }: Props) {
+  const t = useTranslations("livinginfo");
   const [districts, setDistricts] = useState<string[]>([]);
   const [neighbourhoods, setNeighbourhoods] = useState<string[]>([]);
 
@@ -87,7 +89,7 @@ export default function LivinginformationStep({application, regions, setRegions,
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Region */}
           <div>
-            <Label className="mb-2">Region *</Label>
+            <Label className="mb-2">{t("Region")} *</Label>
             <Select
               value={application.region?.toString() ?? ""}
               onValueChange={(val) => handleRegionChange(val)}
@@ -106,7 +108,7 @@ export default function LivinginformationStep({application, regions, setRegions,
           </div>
           {/* District */}
           <div>
-              <Label className="mb-2">District *</Label>
+              <Label className="mb-2">{t("District")} *</Label>
               <Select
                   value={application.district?.toString() ?? ""}
                   onValueChange={(val) => handleDistrictChange(val)}
@@ -127,7 +129,7 @@ export default function LivinginformationStep({application, regions, setRegions,
 
           {/* Neighbourhood */}
           <div>
-              <Label className="mb-2">Neighbourhood *</Label>
+              <Label className="mb-2">{t("Neighbourhood")} *</Label>
               <Select
                   value={application.neighbourhood?.toString() ?? ""}
                   onValueChange={(val) => handleNeighbourhoodChange(val)}
@@ -149,7 +151,7 @@ export default function LivinginformationStep({application, regions, setRegions,
 
       {/* Address Fields */}
       <div>
-        <Label className="mb-2">Street *</Label>
+        <Label className="mb-2">{t("Street")} *</Label>
         <Input
           value={application.street}
           onChange={(e) => setApplication({ ...application, street: e.target.value })}
@@ -158,14 +160,14 @@ export default function LivinginformationStep({application, regions, setRegions,
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-            <Label className="mb-2">Building No. *</Label>
+            <Label className="mb-2">{t("Building")} *</Label>
             <Input
             value={application.building}
             onChange={(e) => setApplication({ ...application, building: e.target.value })}
             />
         </div>
         <div>
-            <Label className="mb-2">Apartment No. *</Label>
+            <Label className="mb-2">{t("Apartment")} *</Label>
             <Input
             value={application.appartment}
             onChange={(e) => setApplication({ ...application, appartment: e.target.value })}
@@ -175,8 +177,8 @@ export default function LivinginformationStep({application, regions, setRegions,
       
       {/* Navigation */}
       <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="text-base w-30 h-10"><IoChevronBackOutline />Back</Button>
-        <Button onClick={()=>{onNext(() => validateInsuranceApplication(application))}} className="text-base w-30 h-10">Next<GrFormNext /></Button>
+        <Button variant="outline" onClick={onBack} className="text-base w-30 h-10"><IoChevronBackOutline />{t("Back")}</Button>
+        <Button onClick={()=>{onNext(() => validateInsuranceApplication(application))}} className="text-base w-30 h-10">{t("Next")}<GrFormNext /></Button>
       </div>
     </div>
   );

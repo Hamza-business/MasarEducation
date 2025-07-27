@@ -12,6 +12,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { format, isFuture } from "date-fns";
+import {useTranslations} from 'next-intl';
 
 
 type Props = {
@@ -20,13 +21,14 @@ type Props = {
 };
 
 export function DateOfBirthPicker({ value, onChange }: Props) {
+  const t = useTranslations("perinfo");
   const [open, setOpen] = React.useState(false)
   const [date, setDate] = React.useState<Date | undefined>(undefined)
 
   return (
     <div className="flex flex-col gap-3">
       <Label htmlFor="date" className="px-1 mb-0">
-        Date of birth *
+        {t("dob")} *
       </Label>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>

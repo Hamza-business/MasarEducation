@@ -7,6 +7,7 @@ import ReceiptFileUploadBox from "../elements/receiptUpload";
 import { GrFormNext } from "react-icons/gr";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { validateReceipt } from "@/components/validations/validateInsuranceOrder";
+import {useTranslations} from 'next-intl';
 
 type Props = {
   receiptFile: ReceiptFile | null;
@@ -21,6 +22,7 @@ export default function ReceiptUploadStep({
   onBack,
   onNext,
 }: Props) {
+  const t = useTranslations("recipUpl");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +50,7 @@ export default function ReceiptUploadStep({
     );
 
     if (!isValid) {
-      altoastValidationErorrert("Invalid file type. Only PDF, PNG, JPG files are allowed.");
+      altoastValidationErorrert(t("inv"));
       return;
     }
 
@@ -68,7 +70,7 @@ export default function ReceiptUploadStep({
   return (
     <div className="space-y-6">
         <div className="bg-blue-50 dark:bg-zinc-900 dark:text-gray-200 p-4 rounded-md text-sm text-gray-800">
-          To finalize your insurance, kindly upload a clear photo or scan of your insurance receipt using the button below. Your uploaded receipt will help us ensure a quick and easy process for activating your insurance coverage.
+          {t("tofin")}
         </div>
         <ReceiptFileUploadBox
             receiptFile={receiptFile}
@@ -77,8 +79,8 @@ export default function ReceiptUploadStep({
 
         {/* Navigation */}
         <div className="flex justify-between">
-            <Button variant="outline" onClick={onBack} className="text-base w-30 h-10"><IoChevronBackOutline />Back</Button>
-            <Button onClick={()=>{onNext(() => validateReceipt(receiptFile))}} className="text-base w-30 h-10">Next<GrFormNext /></Button>
+            <Button variant="outline" onClick={onBack} className="text-base w-30 h-10"><IoChevronBackOutline />{t("Back")}</Button>
+            <Button onClick={()=>{onNext(() => validateReceipt(receiptFile))}} className="text-base w-30 h-10">{t("Next")}<GrFormNext /></Button>
         </div>
     </div>
   );

@@ -308,6 +308,13 @@ export type InsuranceFile = {
   data: string; // Taken from the uploaded file after converting to Base64
 }
 
+// export type File = {
+//   id?:number;
+//   name: string; // Taken from the uploaded file name
+//   mimetype: string; // Taken from the uploaded file type
+//   data: string; // Taken from the uploaded file after converting to Base64
+// }
+
 export type PassportFile = {
   id?:number;
   name: string; // Taken from the uploaded file name

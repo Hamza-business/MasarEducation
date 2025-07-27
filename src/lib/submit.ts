@@ -1,4 +1,5 @@
 import { InsuranceApplication, PassportFile, PersonInfo, ReceiptFile, InsuranceOrder } from "@/types/all";
+import { compressFile, getFileSize } from "./fileHandling";
 
 export async function generateUniqueTrackCode():Promise<string>{
     const res = await fetch("/api/order/generateUniqueTrackCode");
@@ -8,10 +9,16 @@ export async function generateUniqueTrackCode():Promise<string>{
 }
 
 export async function uploadPassportToDB(file: PassportFile): Promise<number> {
+    // getFileSize(file);
+
+    const compressed = await compressFile(file);
+
+    // getFileSize(compressed);
+    
     const res = await fetch("/api/order/uploadPassport", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(file),
+        body: JSON.stringify(compressed),
     });
     const data = await res.json();
     const id = data.id;
@@ -19,10 +26,16 @@ export async function uploadPassportToDB(file: PassportFile): Promise<number> {
 }
 
 export async function uploadReceiptToDB(file: ReceiptFile): Promise<number> {
+    // getFileSize(file);
+
+    const compressed = await compressFile(file);
+
+    // getFileSize(compressed);
+
     const res = await fetch("/api/order/uploadReceipt", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(file),
+        body: JSON.stringify(compressed),
     });
     const data = await res.json();
     const id = data.id;

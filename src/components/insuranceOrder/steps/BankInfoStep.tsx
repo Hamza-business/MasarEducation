@@ -7,6 +7,7 @@ import { FaRegCopy } from "react-icons/fa";
 import { GrFormNext } from "react-icons/gr";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { toast } from "sonner";
+import {useTranslations} from 'next-intl';
 
 type Props = {
   bankInfo: BankInfo | null;
@@ -21,6 +22,7 @@ function formatIban(iban: string): string {
 }
 
 export default function BankInfoStep({ bankInfo, setBankInfo, application, onNext, onBack }: Props) {
+  const t = useTranslations("bninfo");
   const [copied, setCopied] = useState(false);
   const [disabled, setDisabled] = useState(true);
 
@@ -68,16 +70,16 @@ ${bankInfo?.eiban}
     });
   }, [])
 
-  if (!bankInfo) return <p>Loading bank information...</p>;
+  if (!bankInfo) return <p>{t("load")}</p>;
 
   return (
     <div className="space-y-6">
       <div className="bg-blue-50 dark:bg-zinc-900 dark:text-gray-200 p-4 rounded-md text-sm text-gray-800">
-        Complete your insurance by transferring the selected amount{" "}
+        {t("comp")}{" "}
         <span className="font-semibold text-black text-base">
           {application.price} TL
         </span>{" "}
-        to the provided IBAN details below.
+        {t("to")}
       </div>
 
         <div className="space-y-2">
@@ -104,11 +106,11 @@ ${bankInfo?.eiban}
                     <p>{formatIban(bankInfo.eiban)}</p>
                 </div>
             </div>
-            <Button variant={"outline"} onClick={!disabled ? handleCopy : ()=>{}} disabled={disabled}><FaRegCopy /> Copy Bank Info</Button>
+            <Button variant={"outline"} onClick={!disabled ? handleCopy : ()=>{}} disabled={disabled}><FaRegCopy /> {t("copy")}</Button>
         </div>
         <div className="flex justify-between">
-            <Button variant="outline" onClick={onBack} className="text-base w-30 h-10"><IoChevronBackOutline />Back</Button>
-            <Button onClick={()=>{onNext()}} className="text-base w-30 h-10">Next<GrFormNext /></Button>
+            <Button variant="outline" onClick={onBack} className="text-base w-30 h-10"><IoChevronBackOutline />{t("Back")}</Button>
+            <Button onClick={()=>{onNext()}} className="text-base w-30 h-10">{t("Next")}<GrFormNext /></Button>
         </div>
     </div>
   );

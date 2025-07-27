@@ -46,5 +46,111 @@
     "ourMission": "🚀Our Mission",
     "Tosimplify": "To simplify life for foreigners in Turkey by automating key services and providing expert assistance 24/7 — with full transparency, safety, and care.",
     "GetinTouch": "Get in Touch"
+  },
+  "services2": {
+    "healthInsurance": "Health Insurance",
+    "ApplyUni": "Apply to University",
+    "CertiEquiv": "Certificate Equivalency",
+    "ResidPerm": "Residence Permit",
+    "ndhelp": "Need immediate assistance? Use our floating WhatsApp button or track your application status."
+  },
+  "nv": {
+    "track": "Track Order"
+  },
+  "bninfo": {
+    "load": "Loading bank information...",
+    "comp": "Complete your insurance by transferring the selected amount",
+    "to": "to the provided IBAN details below.",
+    "Next": "Next",
+    "Back": "Back",
+    "copy": "Copy Bank Info"
+  },
+  "livinginfo": {
+    "Region": "Region",
+    "District": "District",
+    "Neighbourhood": "Neighbourhood",
+    "Street": "Street",
+    "Building": "Building No.",
+    "Apartment": "Apartment No.",
+    "Next": "Next",
+    "Back": "Back"
+  },
+  "passportup": {
+    "PassportFile": "Passport File",
+    "tp": "Tap here to upload your Passport",
+    "sig": "Accepted formats: PDF, PNG, JPG. File is validated using its signature.",
+    "inv": "Invalid file type. Only PDF, PNG, JPG files are allowed.",
+    "Next": "Next",
+    "Back": "Back"
+  },
+  "perinfo": {
+    "fn": "Full Name",
+    "efn": "Enter your full name",
+    "email": "Email Address",
+    "eemail": "Enter your email",
+    "phn": "Phone Number",
+    "ephn": "Enter your phone number",
+    "nat": "Nationality",
+    "dob": "Date of birth",
+    "Next": "Next"
+  },
+  "pln": {
+    "orpkgs": "Our Packages",
+    "sorry": "😔 We are sorry, but there are no available packages for your age group right now.",
+    "contc": "Please contact our",
+    "supteam": "Support Team",
+    "fh": "for help.",
+    "Next": "Next",
+    "Back": "Back"
+  },
+  "prevSub": {
+    "errcomp": "Please complete all required steps before submitting.",
+    "gen": "Generating Track Code",
+    "upps": "Uploading Passport",
+    "uprec": "Uploading Receipt",
+    "storD": "Storing Data",
+    "err": "Something went wrong. Please try again.",
+    "subpre": "Submission Preview",
+    "sub": "Submit Application",
+    "subinsur": "Submitting Your Insurance Order",
+    "psin": "Personal Info",
+    "psupload": "Passport Uploaded",
+    "insapplic": "Insurance Application",
+    "recpupload": "Receipt Uploaded",
+    "Back": "Back"
+  },
+  "recipUpl": {
+    "inv": "Invalid file type. Only PDF, PNG, JPG files are allowed.",
+    "tofin": "To finalize your insurance, kindly upload a clear photo or scan of your insurance receipt using the button below. Your uploaded receipt will help us ensure a quick and easy process for activating your insurance coverage.",
+    "payrecip": "Payment Receipt",
+    "tp": "Tap here to upload your Receipt",
+    "acc": "Accepted formats: PDF, PNG, JPG. File is validated using its signature.",
+    "Next": "Next",
+    "Back": "Back"
+  },
+  "track": {
+    "succsub": "🎉 Your Insurance Order Has Been Submitted!",
+    "thiso": "This is your tracking code:",
+    "copied": "Copied to clipboard!",
+    "keep": "Please keep it safe – you’ll need it to check your insurance status or claim it.",
+    "trcl": "Track Your Order"
+  },
+  "insmngr": {
+    "pers": "Personal Infomration",
+    "pssup": "Passport Upload",
+    "lv": "Living Information",
+    "pkg": "Package",
+    "iban": "IBAN Details",
+    "rec": "Receipt Upload",
+    "fs": "Final Step",
+    "op": "🏁 Order Placed",
+    "Step": "Step",
+    "fnish": "Finsih 🏁"
+  },
+  "trackpage": {
+    "ordnt":  "Order not found",
+    "smt": "Something went wrong. Please try again later.",
+    "trckyororder": "Track Your Insurance Order",
+    "btn": "Track Order"
   }
 }

@@ -14,8 +14,8 @@ import {
 } from "@/components/ui/select";
 import { DateOfBirthPicker } from "@/components/custom/dob";
 import { validatePersonalInfo } from "@/components/validations/validateInsuranceOrder";
-import FileUploadBox from "../elements/passportUpload";
 import { Input } from "@/components/ui/input";
+import {useTranslations} from 'next-intl';
 
 function calculateAge(dob: Date): number {
   const now = new Date();
@@ -49,6 +49,7 @@ export default function PersonalInfoStep({
   setApplication,
   onNext,
 }: Props) {
+  const t = useTranslations("perinfo");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -73,29 +74,29 @@ export default function PersonalInfoStep({
   return (
     <div className="space-y-6">
       <div>
-          <Label className="mb-2">Full Name *</Label>
+          <Label className="mb-2">{t("fn")} *</Label>
           <Input
             value={personInfo.name || ""}
             onChange={(e) =>
               setPersonInfo({ ...personInfo, name: e.target.value })
             }
-            placeholder="Enter your full name"
+            placeholder={t("efn")}
           />
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <Label className="mb-2">Email Address *</Label>
+          <Label className="mb-2">{t("email")} *</Label>
           <Input
             type="email"
             value={personInfo.email || ""}
             onChange={(e) =>
               setPersonInfo({ ...personInfo, email: e.target.value })
             }
-            placeholder="Enter your email"
+            placeholder={t("eemail")}
           />
         </div>
         <div>
-          <Label className="mb-2">Phone Number *</Label>
+          <Label className="mb-2">{t("phn")} *</Label>
           <Input
             type="tel"
             inputMode="numeric"
@@ -103,12 +104,12 @@ export default function PersonalInfoStep({
             onChange={(e) =>
               setPersonInfo({ ...personInfo, phone: e.target.value })
             }
-            placeholder="Enter your phone number"
+            placeholder={t("ephn")}
           />
         </div>
       </div>
       <div>
-        <Label className="mb-2">Nationality *</Label>
+        <Label className="mb-2">{t("nat")} *</Label>
         <Select value={personInfo.nat} onValueChange={(val) => setPersonInfo({ ...personInfo, nat: val as Country })}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select country" />
@@ -135,7 +136,7 @@ export default function PersonalInfoStep({
       </div>
 
       <div className="flex justify-end">
-        <Button onClick={()=>{onNext(() => validatePersonalInfo(personInfo))}} className="text-base w-30 h-10">Next<GrFormNext /></Button>
+        <Button onClick={()=>{onNext(() => validatePersonalInfo(personInfo))}} className="text-base w-30 h-10">{t("Next")}<GrFormNext /></Button>
       </div>
     </div>
   );

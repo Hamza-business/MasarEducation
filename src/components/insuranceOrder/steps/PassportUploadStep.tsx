@@ -8,6 +8,7 @@ import { validatePassport } from "@/components/validations/validateInsuranceOrde
 import FileUploadBox from "../elements/passportUpload";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { toastValidationErorr } from "@/components/notifications/toast";
+import {useTranslations} from 'next-intl';
 
 type Props = {
     passportFile: PassportFile | null;
@@ -24,6 +25,7 @@ export default function PassportUploadStep({
     onNext,
     onBack
 }: Props) {
+    const t = useTranslations("passportup");
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
@@ -52,7 +54,7 @@ export default function PassportUploadStep({
         );
 
         if (!isValid) {
-          toastValidationErorr("Invalid file type. Only PDF, PNG, JPG files are allowed.");
+          toastValidationErorr(t("inv"));
           return;
         }
 
@@ -78,8 +80,8 @@ export default function PassportUploadStep({
       
 
       <div className="flex justify-between">
-          <Button variant="outline" onClick={onBack} className="text-base w-30 h-10"><IoChevronBackOutline />Back</Button>
-          <Button onClick={()=>{onNext(() => validatePassport(passportFile))}} className="text-base w-30 h-10">Next<GrFormNext /></Button>
+          <Button variant="outline" onClick={onBack} className="text-base w-30 h-10"><IoChevronBackOutline />{t("Back")}</Button>
+          <Button onClick={()=>{onNext(() => validatePassport(passportFile))}} className="text-base w-30 h-10">{t("Next")}<GrFormNext /></Button>
       </div>
     </div>
   );
