@@ -19,7 +19,7 @@ export default function Login(
                 <div className="flex items-center">
                       <Input
                         className="flex-1 rounded-sm rounded-tr-none rounded-br-none"
-                        placeholder="e.g., siham"
+                        placeholder="e.g., apple"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
