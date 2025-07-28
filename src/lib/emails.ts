@@ -149,7 +149,7 @@ export async function orderRejectedEmail(email:string, name:string, trackcode:st
                                 We regret to inform you that your health insurance application has been <strong>rejected</strong> for the following reason:
                             </p>
 
-                            <p style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 6px; border-left: 4px solid #ff0056;">
+                            <p style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 6px; border-left: 4px solid #FF002B;">
                                 ${rejectionReason}
                             </p>
 
