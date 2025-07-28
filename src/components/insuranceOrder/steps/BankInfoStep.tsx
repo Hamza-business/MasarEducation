@@ -8,6 +8,7 @@ import { GrFormNext } from "react-icons/gr";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { toast } from "sonner";
 import {useTranslations} from 'next-intl';
+import { LuCopy } from "react-icons/lu";
 
 type Props = {
   bankInfo: BankInfo | null;
@@ -26,9 +27,30 @@ export default function BankInfoStep({ bankInfo, setBankInfo, application, onNex
   const [copied, setCopied] = useState(false);
   const [disabled, setDisabled] = useState(true);
 
-  const handleCopy = async () => {
-        try {
-            const data = `
+  const name = `
+Name
+${bankInfo?.name}
+`
+
+  const bank = `
+Bank
+${bankInfo?.bank}
+`
+
+  const turkeyLira = `
+Turkish Lira IBAN
+${bankInfo?.tiban}  
+`
+  const dollars = `
+Dollars IBAN
+${bankInfo?.diban}
+`
+  const euros = `
+Euros IBAN
+${bankInfo?.eiban}
+`
+
+  const copyall = `
 Name
 ${bankInfo?.name}
 
@@ -45,8 +67,11 @@ ${bankInfo?.diban}
 
 Euros
 ${bankInfo?.eiban}
+`
 
-`.trim();
+  const handleCopy = async (msg:string) => {
+        try {
+            const data = msg.trim();
             await navigator.clipboard.writeText(data).then(()=>{
                 setCopied(true);
                 toast.success("Copied to clipboard!");
@@ -84,29 +109,44 @@ ${bankInfo?.eiban}
 
         <div className="space-y-2">
             <div>
-                <h3 className="text-base font-semibold">Name</h3>
+                <div className="flex items-center justify-between">
+                    <h3 className="text-base font-semibold">Name</h3>
+                    <Button variant={"ghost"} onClick={!disabled ? ()=>{handleCopy(name)} : ()=>{}} disabled={disabled}><LuCopy /></Button>
+                </div>
                 <p>{bankInfo.name}</p>
             </div>
             <div className="mt-4">
-                <h3 className="text-base font-semibold">Bank</h3>
+                <div className="flex items-center justify-between">
+                    <h3 className="text-base font-semibold">Bank</h3>
+                    <Button variant={"ghost"} onClick={!disabled ? ()=>{handleCopy(bank)} : ()=>{}} disabled={disabled}><LuCopy /></Button>
+                </div>
                 <p>{bankInfo.bank}</p>
             </div>
             <div className="mt-4">
                 <h3 className="text-base font-semibold">IBAN</h3>
                 <div className="mt-2">
-                    <h3 className="text-sm font-semibold text-gray-500">Turkish Lira</h3>
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-sm font-semibold text-gray-500">Turkish Lira</h3>
+                        <Button variant={"ghost"} onClick={!disabled ? ()=>{handleCopy(turkeyLira)} : ()=>{}} disabled={disabled}><LuCopy /></Button>
+                    </div>
                     <p>{formatIban(bankInfo.tiban)}</p>
                 </div>
                 <div className="mt-2">
-                    <h3 className="text-sm font-semibold text-gray-500">Dollars</h3>
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-sm font-semibold text-gray-500">Dollars</h3>
+                        <Button variant={"ghost"} onClick={!disabled ? ()=>{handleCopy(dollars)} : ()=>{}} disabled={disabled}><LuCopy /></Button>
+                    </div>
                     <p>{formatIban(bankInfo.diban)}</p>
                 </div>
                 <div className="mt-2">
-                    <h3 className="text-sm font-semibold text-gray-500">Euros</h3>
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-sm font-semibold text-gray-500">Euros</h3>
+                        <Button variant={"ghost"} onClick={!disabled ? ()=>{handleCopy(euros)} : ()=>{}} disabled={disabled}><LuCopy /></Button>
+                    </div>
                     <p>{formatIban(bankInfo.eiban)}</p>
                 </div>
             </div>
-            <Button variant={"outline"} onClick={!disabled ? handleCopy : ()=>{}} disabled={disabled}><FaRegCopy /> {t("copy")}</Button>
+            <Button variant={"outline"} onClick={!disabled ? ()=>{handleCopy(copyall)} : ()=>{}} disabled={disabled}><FaRegCopy /> {t("copy")}</Button>
         </div>
         <div className="flex justify-between">
             <Button variant="outline" onClick={onBack} className="text-base w-30 h-10"><IoChevronBackOutline />{t("Back")}</Button>
