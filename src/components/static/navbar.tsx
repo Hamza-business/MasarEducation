@@ -73,10 +73,10 @@ export default function Header() {
                   )}
               </div>
 
-              <div className="flex items-center gap-1 md:gap-3">
+              <div className="flex items-center gap-2 sm:gap-4">
                   <LanguageSwitcher type={"list"} />
                   <Link href={"/insurance/track"}>
-                      <Button className="rounded-sm bg-transparent border-2 border-[#103c5c] text-[#103c5c] hover:bg-[#103c5c] hover:text-[#efefef] py-4 px-2 text-sm sm:text-sm md:px-4">
+                      <Button className="rounded-sm bg-transparent border-2 border-[#103c5c] text-[#103c5c] hover:bg-[#103c5c] hover:text-[#efefef] py-4 px-2 text-sm sm:text-sm md:px-5">
                         {t("track")}
                       </Button>
                   </Link>
