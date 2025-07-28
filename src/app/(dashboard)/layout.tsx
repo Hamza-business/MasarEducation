@@ -24,7 +24,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   return (
     <html lang={"en"} dir={"ltr"} suppressHydrationWarning>
       <body className={inter.className} key={"ltr"}>
-          <ThemeProvider attribute="class" defaultTheme="system">
+          <ThemeProvider attribute="class" defaultTheme="light" forcedTheme='light'>
             <Providers>
               <NextIntlClientProvider locale={"en"}>
                   <AppLoad defaultOpen={defaultOpen}>
