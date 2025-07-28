@@ -46,6 +46,112 @@
     "ourMission": "🚀Misyonumuz",
     "Tosimplify": "Türkiye’deki yabancıların hayatını kolaylaştırmak: temel hizmetleri dijitalleştirerek, 7/24 uzman desteği ile güvenli, şeffaf ve özenli bir şekilde sunmak.",
     "GetinTouch": "Bizimle İletişime Geç"
+  },
+  "services2": {
+    "healthInsurance": "Sağlık Sigortası Başvuru",
+    "ApplyUni": "Üniversiteye Başvuru",
+    "CertiEquiv": "Üniversite diploması doğrulaması",
+    "ResidPerm": "Oturum İzni Başvuru",
+    "ndhelp": "Acil yardımı ihtiyacınız varmı? Yüzen WhatsApp düğmesini kullanın veya başvuru durumunuzu takip edin."
+  },
+  "nv": {
+    "track": "Siparişi Takip Et"
+  },
+  "bninfo": {
+    "load": "Banka bilgileri yükleniyor...",
+    "comp": "Belirtilen tutarı aşağıdaki IBAN bilgilerine aktararak sigortanızı tamamlayın",
+    "to": "aşağıda sağlanan IBAN bilgilerine.",
+    "Next": "İleri",
+    "Back": "Geri",
+    "copy": "Banka Bilgilerini Kopyala"
+  },
+  "livinginfo": {
+    "Region": "Bölge",
+    "District": "İlçe",
+    "Neighbourhood": "Mahalle",
+    "Street": "Sokak",
+    "Building": "Bina No.",
+    "Apartment": "Daire No.",
+    "Next": "İleri",
+    "Back": "Geri"
+  },
+  "passportup": {
+    "PassportFile": "Pasaport Dosyası",
+    "tp": "Pasaportunuzu yüklemek için buraya dokunun",
+    "sig": "Kabul edilen formatlar: PDF, PNG, JPG. Dosya dijital imza ile doğrulanır.",
+    "inv": "Geçersiz dosya türü. Sadece PDF, PNG, JPG dosyalarına izin verilir.",
+    "Next": "İleri",
+    "Back": "Geri"
+  },
+  "perinfo": {
+    "fn": "Adınız-soyadınız",
+    "efn": "Adınız-soyadınız girin",
+    "email": "E-posta Adresi",
+    "eemail": "E-posta adresinizi girin",
+    "phn": "Telefon Numarası",
+    "ephn": "Telefon numaranızı girin",
+    "nat": "Ülke",
+    "dob": "Doğum Tarihi",
+    "Next": "İleri"
+  },
+  "pln": {
+    "orpkgs": "Paketlerimiz",
+    "sorry": "😔 Üzgünüz, şu anda yaş grubunuz için uygun bir paket bulunmamaktadır.",
+    "contc": "Lütfen bizimle iletişime geçin",
+    "supteam": "Destek Ekibi",
+    "fh": "yardım için.",
+    "Next": "İleri",
+    "Back": "Geri"
+  },
+  "prevSub": {
+    "errcomp": "Lütfen başvurmadan önce gerekli tüm adımları tamamlayın.",
+    "gen": "Takip Kodu Oluşturuluyor",
+    "upps": "Pasaport Yükleniyor",
+    "uprec": "Makbuz Yükleniyor",
+    "storD": "Veriler Kaydediliyor",
+    "err": "Bir şeyler ters gitti. Lütfen Bir daha tekrar deneyin.",
+    "subpre": "Gönderim Önizlemesi",
+    "sub": "Başvuruyu Gönder",
+    "subinsur": "Sigorta Talebiniz Gönderiliyor",
+    "psin": "Kişisel Bilgiler",
+    "psupload": "Pasaport Yüklendi",
+    "insapplic": "Sigorta Başvurusu",
+    "recpupload": "Makbuz Yüklendi",
+    "Back": "Geri"
+  },
+  "recipUpl": {
+    "inv": "Geçersiz dosya türü. Sadece PDF, PNG, JPG dosyalarına izin verilir.",
+    "tofin": "Sigortanızı tamamlamak için aşağıdaki düğmeyi kullanarak ödeme makbuzunuzun net bir fotoğrafını veya taramasını yükleyin. Yüklediğiniz makbuz, sigorta işleminizin hızlı ve kolay şekilde aktifleşmesini sağlar.",
+    "payrecip": "Ödeme Makbuzu",
+    "tp": "Makbuzu yüklemek için buraya dokunun",
+    "acc": "Kabul edilen formatlar: PDF, PNG, JPG. Dosya dijital imza ile doğrulanır.",
+    "Next": "İleri",
+    "Back": "Geri"
+  },
+  "track": {
+    "succsub": "🎉 Sigorta Başvurunuz Başarıyla Gönderildi!",
+    "thiso": "Takip Kodunuz:",
+    "copied": "Panoya kopyalandı!",
+    "keep": "Lütfen kodu kaybetmeyin– sigorta durumunuzu kontrol etmek veya talepte bulunmak için gerekli olacaktır.",
+    "trcl": "Siparişinizi Takip Edin"
+  },
+  "insmngr": {
+    "pers": "Kişisel Bilgiler",
+    "pssup": "Pasaport Yükleme",
+    "lv": "İkamet Bilgileri",
+    "pkg": "Paket",
+    "iban": "IBAN Bilgileri",
+    "rec": "Makbuz Yükleme",
+    "fs": "Son Adım",
+    "op": "🏁 Sipariş Verildi",
+    "Step": "Adım",
+    "fnish": "Bitti 🏁"
+  },
+  "trackpage": {
+    "ordnt":  "Sipariş bulunamadı",
+    "smt": "Bir hata oluştu. Lütfen bir daha tekrar deneyin.",
+    "trckyororder": "Sigorta Siparişinizi Takip Edin",
+    "btn": "Siparişi Takip Et"
   }
 }
 

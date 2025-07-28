@@ -27,7 +27,7 @@ const TOTAL_STEPS = 7;
 
 export default function InsuranceOrderingPage() {
   const t = useTranslations("insmngr");
-  const [step, setStep] = useState<number>(5);
+  const [step, setStep] = useState<number>(1);
   const params = useParams();
 
   // Shared state across steps
