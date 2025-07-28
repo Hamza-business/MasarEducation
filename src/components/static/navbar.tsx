@@ -48,7 +48,7 @@ export default function Header() {
 
   return (
       <header className="px-0 md:px-4 py-3 border-b bg-transparent backdrop-blur-sm z-10">
-          <Container className="flex justify-between items-center px-1 sm:px-4">
+          <Container className="flex justify-between items-center px-3 sm:px-4">
               <div className="flex items-center px-2">
                   {params && (
                       <Link href={`${params.parent ? `/${params.parent}` : "/"}`}>
@@ -73,7 +73,7 @@ export default function Header() {
                   )}
               </div>
 
-              <div className="flex items-center gap-2 sm:gap-4">
+              <div className="flex items-center gap-2.5 sm:gap-4">
                   <LanguageSwitcher type={"list"} />
                   <Link href={"/insurance/track"}>
                       <Button className="rounded-sm bg-transparent border-2 border-[#103c5c] text-[#103c5c] hover:bg-[#103c5c] hover:text-[#efefef] py-4 px-2 text-sm sm:text-sm md:px-5">
