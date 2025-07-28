@@ -23,6 +23,9 @@ const ubuntu = Ubuntu({
 export const metadata = {
   title: 'Masar',
   description: 'Welcome!',
+  icons: {
+    icon: '/masaricon.ico',
+  },
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
