@@ -143,7 +143,7 @@ export async function orderRejectedEmail(email:string, name:string, trackcode:st
                     </head>
                     <body style="font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px; color: #333;">
                         <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                            <h2 style="color: #ff0056;">Dear ${name},</h2>
+                            <h2 style="color: #FF001E;">Dear ${name},</h2>
 
                             <p>
                                 We regret to inform you that your health insurance application has been <strong>rejected</strong> for the following reason:
@@ -160,7 +160,7 @@ export async function orderRejectedEmail(email:string, name:string, trackcode:st
                             <div style="text-align: center; margin: 20px 0;">
                                 <a
                                 href="https://masartr.com/insurance/track?code=${trackcode}"
-                                style="background-color: #ff0056; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;"
+                                style="background-color: #FF001E; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;"
                                 >
                                 Check My Application Status
                                 </a>
