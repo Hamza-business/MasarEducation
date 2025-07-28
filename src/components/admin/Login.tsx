@@ -20,10 +20,10 @@ export default function Login(
                       <Input
                         className="flex-1 rounded-sm rounded-tr-none rounded-br-none"
                         placeholder="e.g., apple"
-                        value={email}
+                        value={email.replace(".agent", "").replace("@masartr.com", "")}
                         onChange={(e) => setEmail(e.target.value)}
                       />
-                      <span className="bg-muted px-1 sm:px-3 py-2 text-xs sm:text-sm rounded-sm rounded-tl-none rounded-bl-none">{type == "agent" ? ".agent" : ""}@masartr.com</span>
+                      <span className="bg-muted px-1 sm:px-3 py-2 text-xs sm:text-sm rounded-sm rounded-tl-none rounded-bl-none">{type == "Agent" ? ".agent" : ""}@masartr.com</span>
                 </div>
             </div>
 
