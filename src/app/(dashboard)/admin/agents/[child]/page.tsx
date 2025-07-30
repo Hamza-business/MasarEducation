@@ -1,6 +1,6 @@
 import AgentsManagement from "../page";
 
-export default function AgentsManagementN() {
+export default function Page() {
     return (
         <>
             <AgentsManagement/>

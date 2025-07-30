@@ -11,11 +11,14 @@ import CreateAgentFormDialog from '@/components/admin/CreateAgentFormDialog';
 import AgentSlideOverContent from '@/components/admin/AgentSlideOverContent';
 import { useParams } from 'next/navigation';
 import InsuranceOrders from '../orders/insurance/page';
+import { exportToExcel, fetchAgentData } from '@/lib/exportData';
+import { PiMicrosoftExcelLogo } from 'react-icons/pi';
 
 
 export default function AgentsManagement() {
     const params = useParams();
     const parent = typeof params?.child === 'string' && params.child ? params.child : typeof params?.parent === 'string' && params.parent ? params.parent : '1';
+    const [loading, setLoading] = useState(false);
 
     const [parentid, setParentid] = useState<number>(0);
     const [parentLVL, setParentLVL] = useState<number>(3);
@@ -43,6 +46,19 @@ export default function AgentsManagement() {
         }
     }, [parentid]);
 
+
+    const handleExport = async () => {
+        try {
+            setLoading(true);
+            const data = await fetchAgentData(parentid);
+            exportToExcel(data, `agents_export_${agentName}`);
+        } catch (err) {
+            console.error('Export failed:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div>
             {parentLVL < 3 && (
@@ -56,6 +72,15 @@ export default function AgentsManagement() {
                             <Button onClick={()=>{setOpenDialog(true)}}><CgAddR /> Create New {parentLVL==1 ? "Agent" : "subAgent"}</Button>
                         )}
                     </div>
+
+                    <Button
+                        onClick={handleExport}
+                        disabled={loading}
+                        className="bg-[#1f9d61] hover:bg-[#1f9d61] text-white flex items-center gap-2 mb-2"
+                    >
+                        <PiMicrosoftExcelLogo className="text-white text-lg" />
+                        {loading ? 'Fetching...' : 'Export subAgents'}
+                    </Button>
 
                     <div className='mb-10'>
                         <AgentsTable agents={agents} filtered={filtered} setFiltered={setFiltered} setOpen={setOpen} setSelectedAgent={setSelectedAgent}/>
