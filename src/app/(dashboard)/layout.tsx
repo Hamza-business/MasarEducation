@@ -13,7 +13,11 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: 'Masar',
   description: 'Welcome!',
+  icons: {
+    icon: '/masaricon.ico',
+  },
 }
+
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = cookies();
