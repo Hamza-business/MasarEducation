@@ -10,9 +10,9 @@ import { fetchAgentByCode, fetchAgentsByParent } from '@/lib/agent';
 import CreateAgentFormDialog from '@/components/admin/CreateAgentFormDialog';
 import AgentSlideOverContent from '@/components/admin/AgentSlideOverContent';
 import { useParams } from 'next/navigation';
-import InsuranceOrders from '../orders/insurance/page';
 import { exportToExcel, fetchAgentData } from '@/lib/exportData';
 import { PiMicrosoftExcelLogo } from 'react-icons/pi';
+import AgentManagementInsuranceOrderTable from '@/components/AgentManagementInsuranceOrderTable';
 
 export default function AgentsManagement() {
     const params = useParams();
@@ -93,7 +93,7 @@ export default function AgentsManagement() {
             </SlideOver>
 
             
-            <InsuranceOrders/>
+            <AgentManagementInsuranceOrderTable/>
 
             { parentLVL < 3 && (
                 <CreateAgentFormDialog

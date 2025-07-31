@@ -20,6 +20,16 @@ export async function fetchAgentOrders(parentId: number): Promise<any[]> {
     return await res.json();
 }
 
+export async function fetchAgentOrdersByParent(parentId: number): Promise<any[]> {
+    const res = await fetch(`/api/export/orderByParent?parent=${parentId}`);
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch agent data');
+    }
+
+    return await res.json();
+}
+
 export function exportToExcel(data: any[], filename: string) {
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
