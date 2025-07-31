@@ -7,11 +7,11 @@ import { InsuranceOrderTable } from '@/components/admin/InsuranceOrdersTable';
 import OrderSlideOverContent from '@/components/admin/OrderSlideOverContent';
 import { useParams } from 'next/navigation';
 import { fetchAgentByCode } from '@/lib/agent';
-import { exportToExcel, fetchAgentOrdersByParent } from '@/lib/exportData';
+import { exportToExcel, fetchAgentOrders } from '@/lib/exportData';
 import { Button } from '@/components/ui/button';
 import { PiMicrosoftExcelLogo } from 'react-icons/pi';
 
-export default function InsuranceOrders() {
+export default function AgentManagementInsuranceOrderTable() {
     const params = useParams();
     const parent = typeof params?.child === 'string' && params.child ? params.child : typeof params?.parent === 'string' && params.parent ? params.parent : '1';
     const [loading, setLoading] = useState(false);
@@ -25,7 +25,7 @@ export default function InsuranceOrders() {
     const [filtered, setFiltered] = useState<OrderDetails[]>([]);
     
     async function fetchOrders(): Promise<OrderDetails[]> {
-        const res = await fetch(`/api/admin/orders?agentId=${parentid}`);
+        const res = await fetch(`/api/orders?agentId=${parentid}`);
         const data = await res.json();
         return data;
     }
@@ -50,7 +50,7 @@ export default function InsuranceOrders() {
     const handleExport = async () => {
         try {
             setLoading(true);
-            const data = await fetchAgentOrdersByParent(parentid);
+            const data = await fetchAgentOrders(parentid);
             exportToExcel(data, `agents_orders_${agentName}`);
         } catch (err) {
             console.error('Export failed:', err);
