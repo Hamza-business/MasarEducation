@@ -47,7 +47,6 @@ export function DateOfBirthPicker({ value, onChange }: Props) {
             selected={date || undefined}
             captionLayout="dropdown"
             startMonth={new Date(1940,0)}
-            endMonth={new Date(new Date().getFullYear(), new Date().getMonth())}
             required={true}
             onSelect={(d) => {
               if (d && !isFuture(d)) {
