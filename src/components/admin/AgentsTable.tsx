@@ -84,7 +84,7 @@ export function AgentsTable(
                             <TableHead className='px-4'>Agent Name</TableHead>
                             <TableHead className='px-4'>Agent Owner</TableHead>
                             <TableHead className='px-4'>URL</TableHead>
-                            <TableHead className='px-4'>Percent</TableHead>
+                            <TableHead className='px-4'>Percent / Amount</TableHead>
                             <TableHead className='px-4'>Creation Date</TableHead>
                             <TableHead className='px-4'>Actions</TableHead>
                         </TableRow>
@@ -100,7 +100,7 @@ export function AgentsTable(
                                 <TableCell className='px-4'>{agent.agent_name}</TableCell>
                                 <TableCell className='px-4'>{agent.user.email}</TableCell>
                                 <TableCell className='px-4'>{agent.url}</TableCell>
-                                <TableCell className='px-4'>{agent.percent}%</TableCell>
+                                <TableCell className='px-4'>{agent.percent} ₺</TableCell>
                                 <TableCell className='px-4'>{convertDate(agent.created_at)}</TableCell>
                                 <TableCell className="px-4 rounded-sm">
                                     <Button variant="outline" onClick={() => {

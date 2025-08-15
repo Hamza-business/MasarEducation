@@ -85,7 +85,7 @@ export function InsuranceOrderTableAgent(
                             <TableHead className='px-4'>Track Code</TableHead>
                             <TableHead className='px-4'>Date</TableHead>
                             <TableHead className='px-4'>Agent Name</TableHead>
-                            <TableHead className='px-4'>Agent Percent</TableHead>
+                            <TableHead className='px-4'>Agent Amount</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -101,7 +101,7 @@ export function InsuranceOrderTableAgent(
                                 <TableCell className='px-4 py-3'>{order.trackcode}</TableCell>
                                 <TableCell className='px-4 py-3'>{convertDate(order.created_at)}</TableCell>
                                 <TableCell className='px-4 py-3'><a href={`/${pathurl}/agents/${order.agent?.url}`} className='text-blue-400'>{order.agent?.name}</a></TableCell>
-                                <TableCell className='px-4'>%{order.agent?.percent}</TableCell>
+                                <TableCell className='px-4'>₺ {order.agent?.percent}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
