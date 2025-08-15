@@ -88,7 +88,7 @@ Agent Owner Login Info
                                 <Field label="Dashboard Portal" value={"https://masartr.com/agent"} />
                                 <div className="grid grid-cols-2 gap-4 text-sm px-0">
                                   <Field label="Agent Name" value={agentInfo?.agent_name} />
-                                  <Field label="Percent" value={agentInfo?.percent + "%"} />
+                                  <Field label="Percent / Amount" value={agentInfo?.percent + "₺"} />
                                 </div>
                               </CardContent>
                             </Card>

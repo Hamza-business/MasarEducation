@@ -53,11 +53,11 @@ export default function AgentInfoTab({
       </div>
 
       <div className="mb-5">
-        <Label className="mb-2">Percent</Label>
+        <Label className="mb-2">Percent / Amount</Label>
         <Input
           type="number"
           min={0}
-          max={100}
+          // max={100}
           value={agentInfo.percent}
           onChange={(e) => setAgentInfo({ ...agentInfo, percent: Number(e.target.value) })}
         />

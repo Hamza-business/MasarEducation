@@ -15,9 +15,9 @@ export function validateAgentCreation(
   if (agentInfo.percent < 0) {
     errors.push("Percent must be 0% or more.");
   }
-  if (agentInfo.percent > 100) {
-    errors.push("Percent must not be more than 100%");
-  }
+  // if (agentInfo.percent > 100) {
+  //   errors.push("Percent must not be more than 100%");
+  // }
   if (!isValidUrlSlug.test(agentInfo.url || "") || agentInfo.url.length == 0) {
     errors.push("Invalid URL slug: contains special characters. you can contain only: a-z, A-Z, 0-9, -, _");
   }
