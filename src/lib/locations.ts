@@ -1,34 +1,41 @@
+// DEPRECATED: These functions have been replaced by SWR hooks
+// Use the hooks from @/hooks/useTurkeyLocations instead:
+// - useProvinces()
+// - useDistricts(province)
+// - useNeighborhoods(district)
+
+// Legacy functions kept for backward compatibility but should not be used in new code
 export async function getRegions(setRegions:(regions: string[])=> void){
-    fetch("https://turkiyeapi.dev/api/v1/provinces")
+    console.warn('getRegions is deprecated. Use useProvinces() hook instead.');
+    fetch("/api/turkey-api/provinces")
     .then((res) => res.json())
     .then((data) => {
-    const namesOnly = data.data.map((province: { name: string }) => province.name);
-        console.log(namesOnly);
-        setRegions(namesOnly);
+        console.log(data);
+        setRegions(data);
     })
     .catch(err => {
         console.error("Failed to fetch provinces:", err);
     });
 }
 export async function getDistricts(region:string, setDistricts:(districts: string[])=> void){
-    fetch(`https://turkiyeapi.dev/api/v1/districts?province=${region}`)
+    console.warn('getDistricts is deprecated. Use useDistricts(province) hook instead.');
+    fetch(`/api/turkey-api/districts?province=${encodeURIComponent(region)}`)
     .then((res) => res.json())
     .then((data) => {
-    const namesOnly = data.data.map((districts: { name: string }) => districts.name);
-        console.log(namesOnly);
-        setDistricts(namesOnly);
+        console.log(data);
+        setDistricts(data);
     })
     .catch(err => {
         console.error("Failed to fetch districts:", err);
     });
 }
 export async function getNeighbourhoods(district:string, setNeighbourhoods:(neighbourhoods: string[])=> void){
-    fetch(`https://turkiyeapi.dev/api/v1/neighborhoods?district=${district}`)
+    console.warn('getNeighbourhoods is deprecated. Use useNeighborhoods(district) hook instead.');
+    fetch(`/api/turkey-api/neighborhoods?district=${encodeURIComponent(district)}`)
     .then((res) => res.json())
     .then((data) => {
-    const namesOnly = data.data.map((neighbourhoods: { name: string }) => neighbourhoods.name);
-        console.log(namesOnly);
-        setNeighbourhoods(namesOnly);
+        console.log(data);
+        setNeighbourhoods(data);
     })
     .catch(err => {
         console.error("Failed to fetch neighbourhoods:", err);
