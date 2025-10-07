@@ -65,9 +65,9 @@ export default function PersonalInfoStep({
     if (plans) {
       setAvailablePlans(plans);
       // Reset selected plan when new plans are loaded
-      setApplication({...application, plan: "", price: null});
+      setApplication(prev => ({...prev, plan: "", price: null}));
     }
-  }, [plans, setAvailablePlans, setApplication, application]);
+  }, [plans, setAvailablePlans, setApplication]);
 
   // Handle errors - only show toast after all retries failed
   useEffect(() => {

@@ -40,7 +40,7 @@ export function useProvinces() {
     isLoading,
     error,
     mutate,
-    isRetrying: error && isLoading
+    isRetrying: error && isLoading && !data
   };
 }
 
@@ -69,7 +69,7 @@ export function useDistricts(province: string | null) {
     isLoading,
     error,
     mutate,
-    isRetrying: error && isLoading
+    isRetrying: error && isLoading && !data
   };
 }
 
@@ -98,6 +98,6 @@ export function useNeighborhoods(district: string | null) {
     isLoading,
     error,
     mutate,
-    isRetrying: error && isLoading
+    isRetrying: error && isLoading && !data
   };
 }

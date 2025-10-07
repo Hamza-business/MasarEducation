@@ -40,7 +40,7 @@ export function useInsurancePlans(age: number | null) {
     isLoading,
     error,
     mutate,
-    isRetrying: error && isLoading
+    isRetrying: error && isLoading && !data && !data
   };
 }
 
@@ -75,7 +75,7 @@ export function useBankInfo() {
     isLoading,
     error,
     mutate,
-    isRetrying: error && isLoading
+    isRetrying: error && isLoading && !data
   };
 }
 
@@ -110,7 +110,7 @@ export function useLocationsBankInfo() {
     isLoading,
     error,
     mutate,
-    isRetrying: error && isLoading
+    isRetrying: error && isLoading && !data
   };
 }
 
@@ -139,7 +139,7 @@ export function useOrderTracking(trackCode: string | null) {
     isLoading,
     error,
     mutate,
-    isRetrying: error && isLoading
+    isRetrying: error && isLoading && !data
   };
 }
 
@@ -171,7 +171,7 @@ export function useInsuranceReports(orderId: number | null) {
     isLoading,
     error,
     mutate,
-    isRetrying: error && isLoading
+    isRetrying: error && isLoading && !data
   };
 }
 
@@ -200,6 +200,6 @@ export function useAgentOrders(agentId: number | null) {
     isLoading,
     error,
     mutate,
-    isRetrying: error && isLoading
+    isRetrying: error && isLoading && !data
   };
 }
