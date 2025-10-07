@@ -8,6 +8,7 @@ import OrderSlideOverContent from '@/components/admin/OrderSlideOverContent';
 import { useParams } from 'next/navigation';
 import { fetchAgentByCode } from '@/lib/agent';
 import { exportToExcel, fetchAgentOrders } from '@/lib/exportData';
+import { useAgentOrders } from '@/hooks/useSiteAPIs';
 import { Button } from '@/components/ui/button';
 import { PiMicrosoftExcelLogo } from 'react-icons/pi';
 
@@ -20,15 +21,11 @@ export default function AgentManagementInsuranceOrderTable() {
     const [parentLVL, setParentLVL] = useState<number>(3);
     const [agentName, setAgentName] = useState<string>("");
     const [open, setOpen] = useState(false);
-    const [orders, setOrders] = useState<OrderDetails[]>([]);
     const [selectedOrder, setSelectedOrder] = useState<OrderDetails | null>(null);
     const [filtered, setFiltered] = useState<OrderDetails[]>([]);
     
-    async function fetchOrders(): Promise<OrderDetails[]> {
-        const res = await fetch(`/api/orders?agentId=${parentid}`);
-        const data = await res.json();
-        return data;
-    }
+    // Use SWR hook for agent orders
+    const { orders, isLoading: ordersLoading, error: ordersError, isRetrying: ordersRetrying } = useAgentOrders(parentid);
 
     useEffect(() => {
         fetchAgentByCode(parent).then(res => {
@@ -38,14 +35,12 @@ export default function AgentManagementInsuranceOrderTable() {
         });
     }, []);
 
+    // Update filtered orders when orders change
     useEffect(() => {
-        if (parentid !== 0) {
-            fetchOrders().then(data => {
-                setOrders(data);
-                setFiltered(data);
-            });
+        if (orders) {
+            setFiltered(orders);
         }
-    }, [parentid]);
+    }, [orders]);
 
     const handleExport = async () => {
         try {
@@ -75,7 +70,7 @@ export default function AgentManagementInsuranceOrderTable() {
                 {loading ? 'Fetching...' : 'Export Orders'}
             </Button>
 
-            <InsuranceOrderTable orders={orders} filtered={filtered} setFiltered={setFiltered} setOpen={setOpen} setSelectedOrder={setSelectedOrder}/>
+            <InsuranceOrderTable orders={orders || []} filtered={filtered} setFiltered={setFiltered} setOpen={setOpen} setSelectedOrder={setSelectedOrder}/>
 
             <SlideOver open={open} onClose={() => setOpen(false)} title={`Order #${selectedOrder?.trackcode}`}>
                 <OrderSlideOverContent selectedOrder={selectedOrder}/>

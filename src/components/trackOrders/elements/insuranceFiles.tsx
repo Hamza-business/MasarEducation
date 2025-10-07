@@ -1,6 +1,7 @@
 import { FaDownload } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useInsuranceReports } from "@/hooks/useSiteAPIs";
 import Link from "next/link";
 
 type ReportFile = {
@@ -9,37 +10,20 @@ type ReportFile = {
 };
 
 export default function InsuranceFiles({orderId}:{orderId:number}) {
-
-    const [isLoading, setIsLoading] = useState(true);
-    const [files, setFiles] = useState<ReportFile[]>([]);
-    useEffect(() => {
-        const fetchReports = async () => {
-            setIsLoading(true);
-            try {
-                const res = await fetch(`/api/order/reports/insurance?orderId=${orderId}`);
-                const data = await res.json();
-                setFiles(data);
-            } catch (err) {
-                console.error("Failed to fetch report files");
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchReports();
-    }, [orderId]);
+    // Use SWR hook for insurance reports
+    const { reports, isLoading, error, isRetrying } = useInsuranceReports(orderId);
 
     return (
         <>
-            {isLoading ? (
+            {(isLoading || isRetrying) ? (
                 <div className="flex flex-col sm:flex-row gap-3">
                     {[1, 2].map((n) => (
                         <div key={n} className="h-10 w-40 rounded-md bg-muted animate-pulse"/>
                     ))}
                 </div>
-            ) : files.length > 0 ? (
+            ) : reports && reports.length > 0 ? (
                 <div className="flex flex-col sm:flex-row gap-x-3 gap-y-0">
-                    {files.map((file, i) => (
+                    {reports.map((file, i) => (
                         <Button key={file.id} className="text-sm px-4 py-4 mt-2">
                             <a href={`/api/order/reports/insurance/${file.id}`} download={file.name} className="flex justify-between items-center gap-2 w-full">
                                 Insurance {i+1} <FaDownload />

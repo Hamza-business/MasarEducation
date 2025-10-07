@@ -15,6 +15,8 @@ import {
 import { DateOfBirthPicker } from "@/components/custom/dob";
 import { validatePersonalInfo } from "@/components/validations/validateInsuranceOrder";
 import { Input } from "@/components/ui/input";
+import { useInsurancePlans } from "@/hooks/useSiteAPIs";
+import { planFetchFailed } from "@/components/notifications/toast";
 import {useTranslations} from 'next-intl';
 
 function calculateAge(dob: Date): number {
@@ -52,24 +54,28 @@ export default function PersonalInfoStep({
   const t = useTranslations("perinfo");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  // Calculate age from DOB
+  const age = personInfo.dob ? calculateAge(personInfo.dob) : null;
+  
+  // Use SWR hook for insurance plans
+  const { plans, isLoading, error, isRetrying } = useInsurancePlans(age);
+
+  // Update available plans when SWR data changes
   useEffect(() => {
-    const fetchPlans = async () => {
-        setApplication({...application, plan: "", price: null})
-        if (!personInfo.dob) return;
+    if (plans) {
+      setAvailablePlans(plans);
+      // Reset selected plan when new plans are loaded
+      setApplication(prev => ({...prev, plan: "", price: null}));
+    }
+  }, [plans, setAvailablePlans, setApplication]);
 
-        const age = calculateAge(personInfo.dob); // Implement this function
-        const res = await fetch(`/api/insurances/plans-with-prices?age=${age}`);
-
-        if (!res.ok) {
-          return;
-        }
-
-        const data: PlanWithPrice[] = await res.json();
-        setAvailablePlans(data);
-    };
-
-    fetchPlans();
-  }, [personInfo.dob]); // Refetch plans when DOB changes
+  // Handle errors - only show toast after all retries failed
+  useEffect(() => {
+    if (error && !isRetrying && age !== null) {
+      console.error('Failed to fetch insurance plans after all retries:', error);
+      planFetchFailed();
+    }
+  }, [error, isRetrying, age]);
 
   return (
     <div className="space-y-6">

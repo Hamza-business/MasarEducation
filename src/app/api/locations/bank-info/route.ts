@@ -1,4 +1,4 @@
-// /api/bank-info/route.ts
+// /api/locations/bank-info/route.ts
 import { NextResponse } from 'next/server';
 // import { prisma } from '@/lib/prisma';
 
@@ -20,7 +20,7 @@ export async function GET() {
 
     return NextResponse.json(mockBankData);
   } catch (error) {
-    console.error('GET /bank-info error:', error);
+    console.error('GET /locations/bank-info error:', error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }
