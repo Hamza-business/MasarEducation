@@ -60,12 +60,16 @@ export default function PersonalInfoStep({
   // Use SWR hook for insurance plans
   const { plans, isLoading, error, isRetrying } = useInsurancePlans(age);
 
+  // Use ref to avoid infinite loop
+  const applicationRef = useRef(application);
+  applicationRef.current = application;
+
   // Update available plans when SWR data changes
   useEffect(() => {
     if (plans) {
       setAvailablePlans(plans);
       // Reset selected plan when new plans are loaded
-      setApplication(prev => ({...prev, plan: "", price: null}));
+      setApplication({...applicationRef.current, plan: "", price: null});
     }
   }, [plans, setAvailablePlans, setApplication]);
 

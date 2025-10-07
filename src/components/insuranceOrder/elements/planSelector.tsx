@@ -1,7 +1,7 @@
 import { PersonInfo, PlanWithPrice } from "@/types/all";
 import { InsuranceApplication } from "@/types/all";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { planFetchFailed } from "@/components/notifications/toast";
 import { useInsurancePlans } from "@/hooks/useSiteAPIs";
 import Link from "next/link";
@@ -39,9 +39,13 @@ export default function PlanSelector({ personInfo, availablePlans, application, 
   // Use SWR hook for insurance plans
   const { plans, isLoading, error, isRetrying } = useInsurancePlans(age);
 
+  // Use ref to avoid infinite loop
+  const applicationRef = useRef(application);
+  applicationRef.current = application;
+
   const handleSelect = (plan: PlanWithPrice) => {
     setApplication({
-      ...application,
+      ...applicationRef.current,
       plan: plan.name,
       price: plan.price ?? 0,
     });
@@ -52,7 +56,7 @@ export default function PlanSelector({ personInfo, availablePlans, application, 
     if (plans) {
       setAvailablePlans(plans);
       // Reset selected plan when new plans are loaded
-      setApplication(prev => ({...prev, plan: "", price: null}));
+      setApplication({...applicationRef.current, plan: "", price: null});
     }
   }, [plans, setAvailablePlans, setApplication]);
 

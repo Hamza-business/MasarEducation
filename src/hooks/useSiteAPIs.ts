@@ -47,6 +47,7 @@ export function useInsurancePlans(age: number | null) {
 // Hook for fetching bank information
 export function useBankInfo() {
   const { data, error, isLoading, mutate } = useSWR<{
+    id: number;
     name: string;
     bank: string;
     tiban: string;
@@ -82,6 +83,7 @@ export function useBankInfo() {
 // Hook for fetching bank information from locations endpoint
 export function useLocationsBankInfo() {
   const { data, error, isLoading, mutate } = useSWR<{
+    id: number;
     name: string;
     bank: string;
     tiban: string;
