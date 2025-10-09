@@ -1,58 +1,44 @@
-// components/layout/DashboardHeader.tsx
+// components/admin/AgentsTable.tsx
 "use client";
 
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
-import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
-import {AgentInfo} from '@/types/all';
+import { AgentInfo } from '@/types/all';
 import { GoOrganization } from "react-icons/go";
 import { convertDate } from '@/lib/global';
+import { useTableFilter } from '@/hooks/useTableFilter';
 
-export function AgentsTable(
-{
-    agents, filtered, setFiltered, setOpen, setSelectedAgent
-}:{
-    agents: AgentInfo[], filtered: AgentInfo[], setFiltered:(result:AgentInfo[])=>void, setOpen:(val:boolean)=>void, setSelectedAgent:(order:AgentInfo)=>void
+export function AgentsTable({
+    agents,
+    setOpen,
+    setSelectedAgent
+}: {
+    agents: AgentInfo[];
+    setOpen: (val: boolean) => void;
+    setSelectedAgent: (order: AgentInfo) => void;
 }) {
-    const [search, setSearch] = useState('');
-    const [statusFilter, setStatusFilter] = useState('');
-    
-
-    // Pagination
-    const itemsPerPage = 8;
-    const [page, setPage] = useState(1);
-    
-    const paginated = filtered.slice((page - 1) * itemsPerPage, page * itemsPerPage);
-
-    useEffect(() => {
-        const result = agents.filter(agent => {
-            // Normalize values to lowercase for case-insensitive comparison
-            const searchLower = search.toLowerCase();
-
-            // Match by name, url, email, user name or id
-            const matchesSearch = 
-                agent.agent_name?.toLowerCase().includes(searchLower) ||
-                agent.url?.toLowerCase().includes(searchLower) ||
-                // agent.user.email?.toLowerCase().includes(searchLower) ||
-                agent.user.name?.toLowerCase().includes(searchLower) // ||
-                // agent.id?.toString().includes(searchLower)
-            ;
-
-            // Match status filter (active/inactive/empty)
-            const matchesStatus =
-                statusFilter === '' ||
-                (statusFilter === 'active' && agent.active === true) ||
-                (statusFilter === 'inactive' && agent.active === false);
-
-            return matchesSearch && matchesStatus;
-        });
-
-        setFiltered(result);
-        setPage(1); // reset to first page when filter changes
-    }, [search, statusFilter, agents]);
+    const {
+        search,
+        setSearch,
+        statusFilter,
+        setStatusFilter,
+        paginated,
+        page,
+        setPage,
+        itemsPerPage,
+        setItemsPerPage,
+        filtered,
+    } = useTableFilter({
+        data: agents,
+        searchFields: ['agent_name', 'url', 'user.name'],
+        statusOptions: {
+            active: (agent: AgentInfo) => agent.active === true,
+            inactive: (agent: AgentInfo) => agent.active === false,
+        },
+    });
 
     return (
         <>
@@ -117,10 +103,10 @@ export function AgentsTable(
             <div className="flex justify-between text-sm text-muted-foreground">
                 <span>{`Showing ${paginated.length} of ${filtered.length} Agents`}</span>
                 <div className="space-x-2 inline-flex">
-                    <Button variant="outline" size="sm" onClick={() => setPage(p => p - 1)} disabled={page === 1}>
+                    <Button variant="outline" size="sm" onClick={() => setPage(page - 1)} disabled={page === 1}>
                         <IoIosArrowBack /> Previous
                     </Button>
-                    <Button variant="outline" size="sm" onClick={() => setPage(p => p + 1)} disabled={page * itemsPerPage >= filtered.length}>
+                    <Button variant="outline" size="sm" onClick={() => setPage(page + 1)} disabled={page * itemsPerPage >= filtered.length}>
                         Next <IoIosArrowForward />
                     </Button>
                 </div>

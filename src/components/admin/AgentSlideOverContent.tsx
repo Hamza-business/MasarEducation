@@ -45,21 +45,41 @@ export default function AgentSlideOverContent(
     useEffect(() => {
         setLoaded(false);
         setActivests(selectedAgent.active);
-        (async ()=>{
-            if(selectedAgent.image.data){
+        
+        const loadImage = async () => {
+            if (selectedAgent.image.data) {
                 setLoaded(true);
-                return
+                return;
             }
-            const data = await getAgentImageById(selectedAgent.id);
-            if(data){
-                selectedAgent.image.data = data?.data;
-                selectedAgent.image.mimetype = data?.mimetype;
-                selectedAgent.image.name = data?.name;
-                setAgents([...agents]);
-                setLoaded(true);
+            
+            try {
+                const data = await getAgentImageById(selectedAgent.id);
+                if (data) {
+                    // Create a new agent object instead of mutating the existing one
+                    const updatedAgent = {
+                        ...selectedAgent,
+                        image: {
+                            data: data.data,
+                            mimetype: data.mimetype,
+                            name: data.name,
+                        }
+                    };
+                    
+                    // Update the agents array with the new agent
+                    const updatedAgents = agents.map(agent => 
+                        agent.id === selectedAgent.id ? updatedAgent : agent
+                    );
+                    setAgents(updatedAgents);
+                    setLoaded(true);
+                }
+            } catch (error) {
+                console.error('Error loading agent image:', error);
+                setLoaded(true); // Set loaded to true even on error to prevent infinite loading
             }
-        })()
-    }, [selectedAgent]);
+        };
+
+        loadImage();
+    }, [selectedAgent.id]); // Only depend on selectedAgent.id to prevent infinite loops
 
 
     return(

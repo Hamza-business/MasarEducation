@@ -1,49 +1,38 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SlideOver from '@/components/admin/SlideOver';
-import {AgentInfo} from '@/types/all';
+import { AgentInfo } from '@/types/all';
 import { AgentsTable } from '@/components/admin/AgentsTable';
-import { Button } from '@/components/ui/button';
-import { CgAddR } from 'react-icons/cg';
-import { fetchAgentByCode, fetchAgentsByParent } from '@/lib/agent';
 import CreateAgentFormDialog from '@/components/admin/CreateAgentFormDialog';
 import AgentSlideOverContent from '@/components/admin/AgentSlideOverContent';
 import { useParams } from 'next/navigation';
 import { exportToExcel, fetchAgentData } from '@/lib/exportData';
-import { PiMicrosoftExcelLogo } from 'react-icons/pi';
-import AgentManagementInsuranceOrderTable from '@/components/AgentManagementInsuranceOrderTable';
+import { useAgentData } from '@/hooks/useAgentData';
+import { AgentManagementSection } from '@/components/admin/AgentManagementSection';
+import { InsuranceOrdersSection } from '@/components/admin/InsuranceOrdersSection';
+import { useAgentOrders } from '@/hooks/useSiteAPIs';
 
 export default function AgentsManagement() {
     const params = useParams();
     const parent = typeof params?.child === 'string' && params.child ? params.child : typeof params?.parent === 'string' && params.parent ? params.parent : '1';
     const [loading, setLoading] = useState(false);
-
-    const [parentid, setParentid] = useState<number>(0);
-    const [parentLVL, setParentLVL] = useState<number>(3);
-    const [agentName, setAgentName] = useState<string>("");
     const [open, setOpen] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
-    const [agents, setAgents] = useState<AgentInfo[]>([]);
     const [selectedAgent, setSelectedAgent] = useState<AgentInfo | null>(null);
-    const [filtered, setFiltered] = useState<AgentInfo[]>([]);
 
-    useEffect(() => {
-        fetchAgentByCode(parent).then(res => {
-            setParentid(res.id);
-            setParentLVL(res.lvl);
-            setAgentName(res.agent_name);
-        });
-    }, []);
+    const {
+        parentid,
+        parentLVL,
+        agentName,
+        agents,
+        updateAgent,
+        isLoading,
+        error,
+    } = useAgentData({ parentCode: parent });
 
-    useEffect(() => {
-        if (parentid !== 0) {
-            fetchAgentsByParent(parentid.toString()).then(data => {
-                setAgents(data);
-                setFiltered(data);
-            });
-        }
-    }, [parentid]);
+    // Use SWR hook for agent orders
+    const { orders, isLoading: ordersLoading, error: ordersError } = useAgentOrders(parentid);
 
     const handleExport = async () => {
         try {
@@ -59,46 +48,57 @@ export default function AgentsManagement() {
 
     return (
         <div>
-            {parentLVL < 3 && (
-                <>
-                    <div className="flex justify-between items-center mb-6">
-                        <div className=''>
-                            <h1 className='text-2xl font-bold'>{parentLVL==1 ? "Agents" : "subAgents"}</h1>
-                            <p className='text-muted-foreground text-sm mt-0.5'>Manage <span className='font-semibold text-zinc-600 dark:text-gray-300'>{agentName}&#39;</span>s {parentLVL==1 ? "Agents" : "subAgents"}</p>
-                        </div>
-                        { parentLVL < 3 && (
-                            <Button onClick={()=>{setOpenDialog(true)}}><CgAddR /> Create New {parentLVL==1 ? "Agent" : "subAgent"}</Button>
-                        )}
-                    </div>
-
-                    <Button
-                        onClick={handleExport}
-                        disabled={loading}
-                        className="bg-[#1f9d61] hover:bg-[#1f9d61] text-white flex items-center gap-2 mb-2"
-                    >
-                        <PiMicrosoftExcelLogo className="text-white text-lg" />
-                        {loading ? 'Fetching...' : 'Export subAgents'}
-                    </Button>
-
-                    <div className='mb-10'>
-                        <AgentsTable agents={agents} filtered={filtered} setFiltered={setFiltered} setOpen={setOpen} setSelectedAgent={setSelectedAgent}/>
-                    </div>
-                </>
-            )}
+            <AgentManagementSection
+                parentLVL={parentLVL}
+                agentName={agentName}
+                parentid={parentid}
+                agents={agents}
+                isLoading={loading}
+                onExport={handleExport}
+                onOpenDialog={() => setOpenDialog(true)}
+            >
+                <AgentsTable agents={agents} setOpen={setOpen} setSelectedAgent={setSelectedAgent}/>
+            </AgentManagementSection>
 
             <SlideOver open={open} onClose={() => setOpen(false)} title={`Agent: ${selectedAgent?.agent_name}`}>
                 {selectedAgent && (
-                    <AgentSlideOverContent selectedAgent={selectedAgent} setSelectedAgent={setSelectedAgent} agents={agents} setAgents={setAgents}/>
+                    <AgentSlideOverContent 
+                        selectedAgent={selectedAgent} 
+                        setSelectedAgent={setSelectedAgent} 
+                        agents={agents} 
+                        setAgents={(newAgents) => {
+                            // Update agents using the hook's updateAgent function
+                            newAgents.forEach(agent => {
+                                const existingAgent = agents.find(a => a.id === agent.id);
+                                if (existingAgent && existingAgent !== agent) {
+                                    updateAgent(agent.id, agent);
+                                }
+                            });
+                        }}
+                    />
                 )}
             </SlideOver>
 
-            
-            <AgentManagementInsuranceOrderTable/>
+            <InsuranceOrdersSection
+                agentName={agentName}
+                parentid={parentid}
+                orders={orders}
+                isLoading={ordersLoading}
+                error={ordersError}
+            />
 
             { parentLVL < 3 && (
                 <CreateAgentFormDialog
                     agents={agents}
-                    setAgents={setAgents}
+                    setAgents={(newAgents) => {
+                        // Update agents using the hook's updateAgent function
+                        newAgents.forEach(agent => {
+                            const existingAgent = agents.find(a => a.id === agent.id);
+                            if (existingAgent && existingAgent !== agent) {
+                                updateAgent(agent.id, agent);
+                            }
+                        });
+                    }}
                     open={openDialog}
                     parentid={parentid}
                     parentLVL={parentLVL}
