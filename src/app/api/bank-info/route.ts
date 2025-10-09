@@ -4,11 +4,8 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET() {
   try {
-    // Uncomment when database is available:
     const bank = await prisma.bank.findFirst();
     return NextResponse.json(bank);
-
-    return NextResponse.json(mockBankData);
   } catch (error) {
     console.error('GET /bank-info error:', error);
     return new NextResponse('Internal Server Error', { status: 500 });
