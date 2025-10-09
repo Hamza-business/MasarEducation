@@ -59,6 +59,7 @@ export default function AgentSlideOverContent(
                     const updatedAgent = {
                         ...selectedAgent,
                         image: {
+                            id: data.id,
                             data: data.data,
                             mimetype: data.mimetype,
                             name: data.name,

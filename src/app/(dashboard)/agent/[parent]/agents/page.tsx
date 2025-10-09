@@ -27,7 +27,6 @@ export default function AgentsManagement() {
     const [openDialog, setOpenDialog] = useState(false);
     const [agents, setAgents] = useState<AgentInfo[]>([]);
     const [selectedAgent, setSelectedAgent] = useState<AgentInfo | null>(null);
-    const [filtered, setFiltered] = useState<AgentInfo[]>([]);
 
     useEffect(() => {
         fetchAgentByCode(parent).then(res => {
@@ -41,7 +40,6 @@ export default function AgentsManagement() {
         if (parentid !== 0) {
             fetchAgentsByParent(parentid.toString()).then(data => {
                 setAgents(data);
-                setFiltered(data);
             });
         }
     }, [parentid]);
@@ -83,7 +81,7 @@ export default function AgentsManagement() {
                     </Button>
 
                     <div className='mb-10'>
-                        <AgentsTable agents={agents} filtered={filtered} setFiltered={setFiltered} setOpen={setOpen} setSelectedAgent={setSelectedAgent}/>
+                        <AgentsTable agents={agents} setOpen={setOpen} setSelectedAgent={setSelectedAgent}/>
                     </div>
                 </>
             )}
