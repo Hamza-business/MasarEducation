@@ -33,7 +33,7 @@ export function AgentsTable({
         filtered,
     } = useTableFilter({
         data: agents,
-        searchFields: ['agent_name', 'url', 'user.name'],
+        searchFields: ['agent_name', 'url'],
         statusOptions: {
             active: (agent: AgentInfo) => agent.active === true,
             inactive: (agent: AgentInfo) => agent.active === false,
