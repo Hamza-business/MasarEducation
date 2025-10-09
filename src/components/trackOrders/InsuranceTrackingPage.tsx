@@ -4,38 +4,50 @@ import { ReactNode, useEffect, useState } from 'react';
 import { InsuranceOrderDetails } from '@/types/all';
 import TrackCodeInput from '../custom/TrackCodeInput';
 import OrderDetails from './elements/orderDetails'
+import { useOrderTracking } from '@/hooks/useSiteAPIs';
 import {useTranslations} from 'next-intl';
 
 export default function InsuranceTrackingPage() {
   const t = useTranslations("trackpage");
-  const [order, setOrder] = useState<InsuranceOrderDetails | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [trackCode, setTrackCode] = useState<string | null>(null);
+  
+  // Use SWR hook for order tracking
+  const { order, isLoading, error, isRetrying, mutate } = useOrderTracking(trackCode);
 
-  async function fetchOrder(trackCode: string) {
-    setError(null);
-    setOrder(null);
-    
-    try {
-      const res = await fetch(`/api/track-order?code=${trackCode}`);
-      const data = await res.json();
+  // Handle errors and show appropriate messages
+  const errorMessage = error && !isRetrying ? 
+    (error.status === 404 ? t("ordnt") : t("smt")) : 
+    null;
 
-      if (!res.ok) {
-        setError(data.error || t("ordnt"));
-        return;
-      }
-
-      setOrder(data);
-    } catch (err) {
-      console.error(err);
-      setError(t("smt"));
-    }
+  async function fetchOrder(code: string) {
+    setTrackCode(code);
   }
 
   return (
     <main className="flex-1 flex items-center justify-center px-4 py-0">
         <div className="grid gap-6 max-w-2xl">
           <TrackCodeInput onSubmit={fetchOrder} />
-          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+          
+          {/* Show loading state */}
+          {isLoading && trackCode && (
+            <div className="text-center py-4">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
+              <p className="text-sm text-gray-600 mt-2">Loading order details...</p>
+            </div>
+          )}
+          
+          {/* Show retry state */}
+          {isRetrying && (
+            <div className="text-center py-4">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500 mx-auto"></div>
+              <p className="text-sm text-gray-600 mt-2">Retrying...</p>
+            </div>
+          )}
+          
+          {/* Show error message */}
+          {errorMessage && <p className="text-red-500 text-sm mt-2">{errorMessage}</p>}
+          
+          {/* Show order details */}
           {order && <OrderDetails orderdetails={order} />}
         </div>
     </main>

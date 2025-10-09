@@ -1,8 +1,9 @@
 import { PersonInfo, PlanWithPrice } from "@/types/all";
 import { InsuranceApplication } from "@/types/all";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { planFetchFailed } from "@/components/notifications/toast";
+import { useInsurancePlans } from "@/hooks/useSiteAPIs";
 import Link from "next/link";
 import {useTranslations} from 'next-intl';
 
@@ -31,43 +32,44 @@ type Props = {
 
 export default function PlanSelector({ personInfo, availablePlans, application, setApplication, setAvailablePlans }: Props) {
   const t = useTranslations("pln");
+  
+  // Calculate age from DOB
+  const age = personInfo.dob ? calculateAge(personInfo.dob) : null;
+  
+  // Use SWR hook for insurance plans
+  const { plans, isLoading, error, isRetrying } = useInsurancePlans(age);
+
+  // Use ref to avoid infinite loop
+  const applicationRef = useRef(application);
+  applicationRef.current = application;
+
   const handleSelect = (plan: PlanWithPrice) => {
     setApplication({
-      ...application,
+      ...applicationRef.current,
       plan: plan.name,
       price: plan.price ?? 0,
     });
   };
 
-  const [loading, setLoading] = useState(true);
+  // Update available plans when SWR data changes
   useEffect(() => {
-    const fetchPlans = async () => {
-        setApplication({...application, plan: "", price: null})
-        setLoading(true);
-        if (!personInfo.dob) return;
-        try {
-            const age = calculateAge(personInfo.dob); // Implement this function
-            const res = await fetch(`/api/insurances/plans-with-prices?age=${age}`);
-
-            if (!res.ok) {
-              planFetchFailed();
-              return;
-            }
-            const data: PlanWithPrice[] = await res.json();
-            setAvailablePlans(data);
-            setLoading(false);
-        } catch (err) {
-            planFetchFailed();
-            setLoading(true);
-        }
-    };
-
-    if(availablePlans.length==0){
-      fetchPlans();
-    } else{
-      setLoading(false);
+    if (plans) {
+      setAvailablePlans(plans);
+      // Reset selected plan when new plans are loaded
+      setApplication({...applicationRef.current, plan: "", price: null});
     }
-  }, [personInfo.dob]); // Refetch plans when DOB changes
+  }, [plans, setAvailablePlans, setApplication]);
+
+  // Handle errors - only show toast after all retries failed
+  useEffect(() => {
+    if (error && !isRetrying && age !== null) {
+      console.error('Failed to fetch insurance plans after all retries:', error);
+      planFetchFailed();
+    }
+  }, [error, isRetrying, age]);
+
+  // Use SWR loading state or local state if plans are already available
+  const loading = isLoading || isRetrying;
 
 
   const SkeletonCard = () => (
@@ -88,7 +90,7 @@ export default function PlanSelector({ personInfo, availablePlans, application, 
               <SkeletonCard key={idx} />
             ))}
           </div>
-        ) : availablePlans.length === 0 ? (
+        ) : availablePlans.length === 0 && age !== null ? (
           <div className="bg-yellow-50 dark:bg-neutral-800 dark:text-gray-200 p-4 rounded-md text-sm text-gray-800 border border-yellow-300 dark:border-yellow-600">
             {t("sorry")}
             <br />

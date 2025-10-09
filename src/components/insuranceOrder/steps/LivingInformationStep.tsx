@@ -11,7 +11,7 @@ import PlanSelector from "../elements/planSelector";
 import { GrFormNext } from "react-icons/gr";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { toastDistrictFetchFailed, toastNeighborhoodFetchFailed, toastRegionFetchFailed } from "@/components/notifications/toast";
-import { getDistricts, getNeighbourhoods, getRegions } from "@/lib/locations";
+import { useProvinces, useDistricts, useNeighborhoods } from "@/hooks/useTurkeyLocations";
 import {useTranslations} from 'next-intl';
 
 type Props = {
@@ -25,52 +25,40 @@ type Props = {
 
 export default function LivinginformationStep({application, regions, setRegions, setApplication, onBack, onNext }: Props) {
   const t = useTranslations("livinginfo");
-  const [districts, setDistricts] = useState<string[]>([]);
-  const [neighbourhoods, setNeighbourhoods] = useState<string[]>([]);
+  
+  // Use SWR hooks for data fetching with automatic retry
+  const { provinces, isLoading: provincesLoading, error: provincesError, isRetrying: provincesRetrying, mutate: mutateProvinces } = useProvinces();
+  const { districts, isLoading: districtsLoading, error: districtsError, isRetrying: districtsRetrying, mutate: mutateDistricts } = useDistricts(application.region || null);
+  const { neighborhoods, isLoading: neighborhoodsLoading, error: neighborhoodsError, isRetrying: neighborhoodsRetrying, mutate: mutateNeighborhoods } = useNeighborhoods(application.district || null);
+
+  // Handle errors and show appropriate toasts - only after all retries have failed
+  useEffect(() => {
+    if (provincesError && !provincesRetrying) {
+      console.error('Failed to fetch provinces after all retries:', provincesError);
+      toastRegionFetchFailed();
+    }
+  }, [provincesError, provincesRetrying]);
 
   useEffect(() => {
-    getRegions(setRegions);
-    // fetch("https://turkiyeapi.dev/api/v1/provinces")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //       const namesOnly = data.data.map((province: { name: string }) => province.name);
-    //       setRegions(namesOnly);
-    //   })
-    //   .catch((error)=>{
-    //       toastRegionFetchFailed();
-    //   });
-  }, []);
+    if (districtsError && !districtsRetrying) {
+      console.error('Failed to fetch districts after all retries:', districtsError);
+      toastDistrictFetchFailed();
+    }
+  }, [districtsError, districtsRetrying]);
 
-  // Load districts on region change, reset downstream
   useEffect(() => {
-    if (!application.region) return setDistricts([]);
+    if (neighborhoodsError && !neighborhoodsRetrying) {
+      console.error('Failed to fetch neighborhoods after all retries:', neighborhoodsError);
+      toastNeighborhoodFetchFailed();
+    }
+  }, [neighborhoodsError, neighborhoodsRetrying]);
 
-    getDistricts(application.region, setDistricts)
-    // fetch(`https://turkiyeapi.dev/api/v1/districts?province=${application.region}`)
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //       const namesOnly = data.data.map((province: { name: string }) => province.name);
-    //       setDistricts(namesOnly);
-    //   })
-    //   .catch((error)=>{
-    //     toastDistrictFetchFailed();
-    // });
-  }, [application.region]);
-
-  // Load neighbourhoods on district change
+  // Update regions in parent component when provinces are loaded
   useEffect(() => {
-    if (!application.district) return setNeighbourhoods([]);
-
-    getNeighbourhoods(application.district, setNeighbourhoods);
-    // fetch(`/api/locations/neighbourhoods?district=${application.district}`)
-    //   .then((res) => res.json())
-    //   .then((list) => {
-    //     setNeighbourhoods(list);
-    //   })
-    //   .catch((error)=>{
-    //     toastNeighborhoodFetchFailed();
-    //   });
-  }, [application.district]);
+    if (provinces && provinces.length > 0) {
+      setRegions(provinces);
+    }
+  }, [provinces, setRegions]);
 
   const handleRegionChange = (val: string) => {
     setApplication({ ...application, region: val, district: "", neighbourhood: "" });
@@ -95,7 +83,11 @@ export default function LivinginformationStep({application, regions, setRegions,
               onValueChange={(val) => handleRegionChange(val)}
             >
               <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select region" />
+                <SelectValue placeholder={
+                  provincesLoading ? "Loading provinces..." : 
+                  provincesRetrying ? "Retrying..." :
+                  "Select region"
+                } />
               </SelectTrigger>
               <SelectContent>
                 {regions.map((r, inx) => (
@@ -115,14 +107,18 @@ export default function LivinginformationStep({application, regions, setRegions,
                   disabled={!application.region}
               >
                   <SelectTrigger className="w-full">
-                      <SelectValue placeholder={application.region ? "Select district" : "Select region first"} />
+                      <SelectValue placeholder={
+                        districtsLoading ? "Loading districts..." : 
+                        districtsRetrying ? "Retrying..." :
+                        application.region ? "Select district" : "Select region first"
+                      } />
                   </SelectTrigger>
                   <SelectContent>
-                      {districts.map((d, inx) => (
+                      {districts?.map((d, inx) => (
                       <SelectItem key={inx} value={d}>
                           {d}
                       </SelectItem>
-                      ))}
+                      )) || []}
                   </SelectContent>
               </Select>
           </div>
@@ -136,14 +132,18 @@ export default function LivinginformationStep({application, regions, setRegions,
                   disabled={!application.district}
               >
                   <SelectTrigger className="w-full">
-                      <SelectValue placeholder={application.district ? "Select neighbourhood" : "Select district first"} />
+                      <SelectValue placeholder={
+                        neighborhoodsLoading ? "Loading neighborhoods..." : 
+                        neighborhoodsRetrying ? "Retrying..." :
+                        application.district ? "Select neighbourhood" : "Select district first"
+                      } />
                   </SelectTrigger>
                   <SelectContent>
-                      {neighbourhoods.map((n, inx) => (
+                      {neighborhoods?.map((n, inx) => (
                       <SelectItem key={inx} value={n}>
                           {n}
                       </SelectItem>
-                      ))}
+                      )) || []}
                   </SelectContent>
               </Select>
           </div>

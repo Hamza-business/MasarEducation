@@ -1,28 +1,28 @@
-// components/layout/DashboardHeader.tsx
+// components/admin/InsuranceOrdersTable.tsx
 "use client";
 
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
-import { orderStatus } from '@prisma/client';
 import { MdOutlineViewInAr } from 'react-icons/md';
-import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
-import {OrderDetails, oredrStatus} from '@/types/all';
+import { OrderDetails, oredrStatus } from '@/types/all';
 import { statusMap } from '@/constants/global';
 import { cn } from '@/lib/utils';
 import { convertDate } from '@/lib/global';
 import { usePathname } from 'next/navigation';
+import { useTableFilter } from '@/hooks/useTableFilter';
 
-export function InsuranceOrderTable(
-{
-    orders, filtered, setFiltered, setOpen, setSelectedOrder
-}:{
-    orders: OrderDetails[], filtered: OrderDetails[], setFiltered:(result:OrderDetails[])=>void, setOpen:(val:boolean)=>void, setSelectedOrder:(order:OrderDetails)=>void
+export function InsuranceOrderTable({
+    orders,
+    setOpen,
+    setSelectedOrder
+}: {
+    orders: OrderDetails[];
+    setOpen: (val: boolean) => void;
+    setSelectedOrder: (order: OrderDetails) => void;
 }) {
-    const [search, setSearch] = useState('');
-    const [statusFilter, setStatusFilter] = useState('');
     const pathname = usePathname().split('/');
     let pathurl = "";
     if(pathname[1] == "admin"){
@@ -30,25 +30,41 @@ export function InsuranceOrderTable(
     } else if (pathname[1] == "agent"){
         pathurl = `${pathname[1]}/${pathname[2]}`
     }
-    
 
-    // Pagination
-    const itemsPerPage = 10;
-    const [page, setPage] = useState(1);
-    
-    const paginated = filtered.slice((page - 1) * itemsPerPage, page * itemsPerPage);
+    const {
+        search,
+        setSearch,
+        statusFilter,
+        setStatusFilter,
+        paginated,
+        page,
+        setPage,
+        itemsPerPage,
+        setItemsPerPage,
+        filtered,
+    } = useTableFilter({
+        data: orders,
+        searchFields: ['trackcode'],
+        statusOptions: Object.keys(statusMap).reduce((acc, status) => {
+            acc[status] = (order: OrderDetails) => order.status === status;
+            return acc;
+        }, {} as Record<string, (order: OrderDetails) => boolean>),
+    });
 
-    useEffect(() => {
-        const result = orders.filter(order => {
-            const matchesSearch = [order.user.name, order.contact.email, order.trackcode, order.agent?.name].some(val =>
-                val?.toLowerCase().includes(search.toLowerCase())
-            );
-            const matchesStatus = statusFilter === '' || order.status === statusFilter;
-            return matchesSearch && matchesStatus;
-        });
-        setFiltered(result);
-        setPage(1); // reset page when filtered
-    }, [search, statusFilter, orders]);
+    // Custom search logic for nested fields
+    const filteredOrders = orders.filter(order => {
+        const searchLower = search.toLowerCase();
+        const matchesSearch = search === '' || 
+            order.user.name?.toLowerCase().includes(searchLower) ||
+            order.contact.email?.toLowerCase().includes(searchLower) ||
+            order.trackcode?.toLowerCase().includes(searchLower) ||
+            order.agent?.name?.toLowerCase().includes(searchLower);
+        
+        const matchesStatus = statusFilter === '' || order.status === statusFilter;
+        return matchesSearch && matchesStatus;
+    });
+
+    const paginatedOrders = filteredOrders.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
     return (
         <>
@@ -91,7 +107,7 @@ export function InsuranceOrderTable(
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {paginated.map(order => (
+                        {paginatedOrders.map(order => (
                             <TableRow key={order.id}>
                                 <TableCell className='px-4'>
                                     <span className={cn('text-sm px-2 py-1 rounded', statusMap[order.status as oredrStatus].color)}>
@@ -118,12 +134,12 @@ export function InsuranceOrderTable(
             </div>
 
             <div className="flex justify-between text-sm text-muted-foreground">
-                <span>{`Showing ${paginated.length} of ${filtered.length} orders`}</span>
+                <span>{`Showing ${paginatedOrders.length} of ${filteredOrders.length} orders`}</span>
                 <div className="space-x-2 inline-flex">
-                    <Button variant="outline" size="sm" onClick={() => setPage(p => p - 1)} disabled={page === 1}>
+                    <Button variant="outline" size="sm" onClick={() => setPage(page - 1)} disabled={page === 1}>
                         <IoIosArrowBack /> Previous
                     </Button>
-                    <Button variant="outline" size="sm" onClick={() => setPage(p => p + 1)} disabled={page * itemsPerPage >= filtered.length}>
+                    <Button variant="outline" size="sm" onClick={() => setPage(page + 1)} disabled={page * itemsPerPage >= filteredOrders.length}>
                         Next <IoIosArrowForward />
                     </Button>
                 </div>

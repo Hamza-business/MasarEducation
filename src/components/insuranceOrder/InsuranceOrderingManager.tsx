@@ -18,6 +18,7 @@ import PlanSelectorStep from './steps/PlanSelectorStep';
 import { toastMissingErorr } from '../notifications/toast';
 import { Container } from '@/app/(site)/container';
 import { useParams } from 'next/navigation';
+import { useLocationsBankInfo } from "@/hooks/useSiteAPIs";
 import { fetchAgentByCode, getAgentImageById } from '@/lib/agent';
 import { getRegions } from '@/lib/locations';
 import {useTranslations} from 'next-intl';
@@ -65,12 +66,15 @@ export default function InsuranceOrderingPage() {
   const [parentid, setParentid] = useState<number>(0);
   const [agentImage, setAgentImage] = useState<agentImageType>();
   
+  // Use SWR hook for locations bank info
+  const { bankInfo: swrBankInfo, isLoading: bankInfoLoading, error: bankInfoError, isRetrying: bankInfoRetrying } = useLocationsBankInfo();
+
+  // Update bank info when SWR data changes
   useEffect(() => {
-    fetch("/api/locations/bank-info")
-      .then(res => res.json())
-      .then(data => setBankInfo(data))
-      .catch(err => {});
-  }, []);
+    if (swrBankInfo) {
+      setBankInfo(swrBankInfo);
+    }
+  }, [swrBankInfo, setBankInfo]);
 
   useEffect(() => {
       getRegions(setRegions);
@@ -246,12 +250,8 @@ export default function InsuranceOrderingPage() {
                   onBack={goBack}
                   onNext={goNext}
                   fn={async ()=>{
-                      if(!bankInfo){
-                          fetch("/api/locations/bank-info")
-                          .then(res => res.json())
-                          .then(data => setBankInfo(data))
-                          .catch((error)=>{});
-                      }
+                      // Bank info is now handled by SWR hook automatically
+                      // No need to manually fetch it here
                   }}
                 />
               )}
