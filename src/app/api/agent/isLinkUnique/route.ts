@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     }
 
     const result = await sql.query(
-      `SELECT 1 FROM agents.agent_info WHERE url = $1 LIMIT 1`,
+      `SELECT 1 FROM agents.agent_info WHERE LOWER(url) = LOWER($1) LIMIT 1`,
       [url]
     );
 

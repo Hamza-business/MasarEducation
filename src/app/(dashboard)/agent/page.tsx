@@ -22,7 +22,7 @@ export default function AgentLoginPage() {
       const res = await fetch('/api/agent/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.toLowerCase(), password }),
+        body: JSON.stringify({ email, password }),
         credentials: 'include',
       });
 

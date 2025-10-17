@@ -13,8 +13,13 @@ export async function POST(req: Request) {
     }
 
     // 1. Get user from agents.users
-    const user = await prisma.users.findUnique({
-      where: { email },
+    const user = await prisma.users.findFirst({
+      where: {
+        email: {
+          equals: email,
+          mode: 'insensitive',
+        },
+      },
     });
 
     if (!user) {
