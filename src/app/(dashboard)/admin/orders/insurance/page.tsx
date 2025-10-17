@@ -22,7 +22,6 @@ export default function InsuranceOrders() {
     const [open, setOpen] = useState(false);
     const [orders, setOrders] = useState<OrderDetails[]>([]);
     const [selectedOrder, setSelectedOrder] = useState<OrderDetails | null>(null);
-    const [filtered, setFiltered] = useState<OrderDetails[]>([]);
     
     async function fetchOrders(): Promise<OrderDetails[]> {
         const res = await fetch(`/api/admin/orders?agentId=${parentid}`);
@@ -42,7 +41,6 @@ export default function InsuranceOrders() {
         if (parentid !== 0) {
             fetchOrders().then(data => {
                 setOrders(data);
-                setFiltered(data);
             });
         }
     }, [parentid]);
@@ -75,7 +73,7 @@ export default function InsuranceOrders() {
                 {loading ? 'Fetching...' : 'Export Orders'}
             </Button>
 
-            <InsuranceOrderTable orders={orders} filtered={filtered} setFiltered={setFiltered} setOpen={setOpen} setSelectedOrder={setSelectedOrder}/>
+            <InsuranceOrderTable orders={orders} setOpen={setOpen} setSelectedOrder={setSelectedOrder}/>
 
             <SlideOver open={open} onClose={() => setOpen(false)} title={`Order #${selectedOrder?.trackcode}`}>
                 <OrderSlideOverContent selectedOrder={selectedOrder}/>

@@ -123,6 +123,7 @@ export function useAgentData({ parentCode }: UseAgentDataProps): UseAgentDataRet
       if (imageData) {
         updateAgent(agentId, {
           image: {
+            id: imageData.id,
             data: imageData.data,
             mimetype: imageData.mimetype,
             name: imageData.name,
